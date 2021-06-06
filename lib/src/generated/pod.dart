@@ -15,7 +15,6 @@ class Pod {
       : this(
           apiVersion: json['apiVersion'],
           kind: json['kind'],
-          // TODO: Do for all
         );
 
   static List<Pod> listFromJson(Iterable<Map<String, dynamic>> list) {

@@ -1,12 +1,18 @@
 import 'dart:convert';
+import 'package:kubernetes/kubernetes.dart';
+
 import 'generated.dart';
 import 'package:http/http.dart' as http;
 
 class KubernetesClient {
-  KubernetesClient(String baseUrl)
-      : _baseUrl = (baseUrl + (baseUrl.endsWith("/") ? "" : "/")),
+  KubernetesClient(this.configuration)
+      : _baseUrl = (configuration.clusters.first.clusterEndpoint.server +
+            (configuration.clusters.first.clusterEndpoint.server.endsWith("/")
+                ? ""
+                : "/")),
         _httpClient = http.Client();
 
+  final K8SConfiguration configuration;
   final String _baseUrl;
   final http.Client _httpClient;
 

@@ -1,8 +1,8 @@
 name: kubernetes
 description: Kubernetes client for Dart/Flutter.
 version: 0.0.1
-homepage: https://github.com/xclud/flutter_kubernetes
-repository: https://github.com/xclud/flutter_kubernetes
+homepage: https://github.com/xclud/dart_kubernetes
+repository: https://github.com/xclud/dart_kubernetes
 
 environment:
   sdk: ">=2.12.0 <3.0.0"

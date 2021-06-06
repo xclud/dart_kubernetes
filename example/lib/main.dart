@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:yaml/yaml.dart';
 import 'package:kubernetes/kubernetes.dart';
+import 'package:example/config.dart';
 
 void main() {
   runApp(const MyApp());
@@ -60,7 +64,12 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
 
-      final kubernetes = KubernetesClient('mydomain.com');
+      final yaml = loadYaml(config);
+      final jsonText = jsonEncode(yaml);
+      final json = jsonDecode(jsonText);
+      final k8sconfig = K8SConfiguration.fromJson(json);
+
+      final kubernetes = KubernetesClient(k8sconfig);
       kubernetes.listNamespacedPodWithHttpMessages('default');
     });
   }
