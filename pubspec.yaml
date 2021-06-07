@@ -1,6 +1,6 @@
 name: kubernetes
-description: Kubernetes client for Dart/Flutter.
-version: 0.0.1
+description: Kubernetes client for Dart/Flutter compatible with Kubernetes version 1.21.x.
+version: 0.0.2
 homepage: https://github.com/xclud/dart_kubernetes
 repository: https://github.com/xclud/dart_kubernetes
 
