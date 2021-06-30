@@ -3,6 +3,7 @@ import 'probe.dart';
 import 'life_cycle.dart';
 import 'env_var.dart';
 import 'other.dart';
+import 'volume_mount.dart';
 
 class Container {
   Container({
@@ -46,7 +47,10 @@ class Container {
           imagePullPolicy: json['imagePullPolicy'],
           //lifecycle: json['lifecycle'],
           //livenessProbe: json['livenessProbe'],
-          //ports: json['ports'],
+          ports: json['ports'] != null
+              ? ContainerPort.listFromJson(
+                  (json['ports'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
           //readinessProbe: json['readinessProbe'],
           //resources: json['resources'],
           //securityContext: json['securityContext'],
@@ -57,7 +61,10 @@ class Container {
           terminationMessagePolicy: json['terminationMessagePolicy'],
           tty: json['tty'],
           //volumeDevices: json['volumeDevices'],
-          //volumeMounts: json['volumeMounts'],
+          volumeMounts: json['volumeMounts'] != null
+              ? VolumeMount.listFromJson((json['volumeMounts'] as Iterable)
+                  .cast<Map<String, dynamic>>())
+              : null,
           workingDir: json['workingDir'],
         );
 

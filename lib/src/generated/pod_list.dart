@@ -2,7 +2,7 @@ import 'pod.dart';
 import 'list_meta.dart';
 
 class PodList {
-  PodList({
+  const PodList({
     this.items,
     this.apiVersion,
     this.kind,

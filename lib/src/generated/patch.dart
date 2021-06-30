@@ -1,9 +1,7 @@
 import 'package:kubernetes/src/generated/patch_type.dart';
 
 class Patch {
-  //
+  const Patch({required this.type});
 
-  PatchType type;
-
-  Patch({required this.type});
+  final PatchType type;
 }

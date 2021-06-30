@@ -1,5 +1,5 @@
 class PodCondition {
-  PodCondition({
+  const PodCondition({
     required this.status,
     required this.type,
     this.lastProbeTime,

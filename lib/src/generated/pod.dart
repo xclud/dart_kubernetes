@@ -3,7 +3,7 @@ import 'pod_spec.dart';
 import 'pod_status.dart';
 
 class Pod {
-  Pod({
+  const Pod({
     this.apiVersion,
     this.kind,
     this.metadata,

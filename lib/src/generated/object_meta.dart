@@ -1,7 +1,7 @@
 import 'other.dart';
 
 class ObjectMeta {
-  ObjectMeta({
+  const ObjectMeta({
     this.annotations,
     this.clusterName,
     this.creationTimestamp,

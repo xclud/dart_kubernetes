@@ -1,5 +1,5 @@
 class ListMeta {
-  ListMeta({
+  const ListMeta({
     this.continueProperty,
     this.remainingItemCount,
     this.resourceVersion,

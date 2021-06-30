@@ -18,19 +18,11 @@ class TopologySpreadConstraint {
   //
 }
 
-class Volume {
-  //
-}
-
 class EnvFromSource {
   //
 }
 
 class VolumeDevice {
-  //
-}
-
-class VolumeMount {
   //
 }
 

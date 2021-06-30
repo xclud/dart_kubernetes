@@ -21,9 +21,13 @@ class ContainerStatus {
           ready: json['ready'],
           restartCount: json['restartCount'],
           containerID: json['containerID'],
-          //lastState: json['lastState'],
+          lastState: json['lastState'] != null
+              ? ContainerState.fromJson(json['lastState'])
+              : null,
           started: json['started'],
-          //state: json['state'],
+          state: json['state'] != null
+              ? ContainerState.fromJson(json['state'])
+              : null,
         );
 
   static List<ContainerStatus> listFromJson(

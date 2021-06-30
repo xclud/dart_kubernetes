@@ -5,9 +5,10 @@ import 'pod_dns_config.dart';
 import 'host_alias.dart';
 import 'local_object_reference.dart';
 import 'other.dart';
+import 'volume.dart';
 
 class PodSpec {
-  PodSpec({
+  const PodSpec({
     this.containers,
     this.activeDeadlineSeconds,
     this.affinity,

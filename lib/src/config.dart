@@ -124,30 +124,30 @@ class NamedExtension {
 class ClusterEndpoint {
   ClusterEndpoint({
     required this.server,
-    this.CertificateAuthorityData,
+    this.certificateAuthorityData,
   });
 
   ClusterEndpoint.fromJson(Map<String, dynamic> json)
       : this(
           server: json['server'],
-          CertificateAuthorityData: json['certificate-authority-data'],
+          certificateAuthorityData: json['certificate-authority-data'],
         );
 
   /// Gets or sets the path to a cert file for the certificate authority.
-  String? CertificateAuthority;
+  String? certificateAuthority;
 
   /// Gets or sets =PEM-encoded certificate authority certificates. Overrides <see cref="CertificateAuthority"/>.
-  final String? CertificateAuthorityData;
+  final String? certificateAuthorityData;
 
   /// Gets or sets the address of the kubernetes cluster (https://hostname:port).
   final String server;
 
   /// Gets or sets a value indicating whether to skip the validity check for the server's certificate.
   /// This will make your HTTPS connections insecure.
-  bool? SkipTlsVerify;
+  bool? skipTlsVerify;
 
   /// Gets or sets additional information. This is useful for extenders so that reads and writes don't clobber unknown fields.
-  Iterable<NamedExtension>? Extensions;
+  Iterable<NamedExtension>? extensions;
 }
 
 /// Relates nicknames to cluster information.
@@ -177,10 +177,10 @@ class Cluster {
 /// Contains information that describes identity information.  This is use to tell the kubernetes cluster who you are.
 class AuthProvider {
   /// Gets or sets the nickname for this auth provider.
-  String? Name;
+  String? name;
 
   /// Gets or sets the configuration for this auth provider
-  Map<String, String>? Config;
+  Map<String, String>? config;
 }
 
 /// Contains information that describes identity information. This is use to tell the kubernetes cluster who you are.
@@ -264,21 +264,21 @@ class User {
 }
 
 class ExternalExecution {
-  String? ApiVersion;
+  String? apiVersion;
 
   /// The command to execute. Required.
-  String? Command;
+  String? command;
 
   /// Environment variables to set when executing the plugin. Optional.
-  List<Map<String, String>>? EnvironmentVariables;
+  List<Map<String, String>>? environmentVariables;
 
   /// Arguments to pass when executing the plugin. Optional.
-  List<String>? Arguments;
+  List<String>? arguments;
 
   /// Text shown to the user when the executable doesn't seem to be present. Optional.
-  String? InstallHint;
+  String? installHint;
 
   /// Whether or not to provide cluster information to this exec plugin as a part of
   /// the KUBERNETES_EXEC_INFO environment variable. Optional.
-  bool? ProvideClusterInfo;
+  bool? provideClusterInfo;
 }

@@ -1,5 +1,5 @@
 class HostAlias {
-  HostAlias({this.hostnames, this.ip});
+  const HostAlias({this.hostnames, this.ip});
 
   final List<String>? hostnames;
   final String? ip;

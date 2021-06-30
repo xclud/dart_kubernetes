@@ -3,7 +3,7 @@ import 'pod_condition.dart';
 import 'container_status.dart';
 
 class PodStatus {
-  PodStatus({
+  const PodStatus({
     this.conditions,
     this.containerStatuses,
     this.ephemeralContainerStatuses,
