@@ -13,12 +13,38 @@ class ObjectMeta {
     this.labels,
     this.managedFields,
     this.name,
-    this.namespaceProperty,
+    this.namespace,
     this.ownerReferences,
     this.resourceVersion,
     this.selfLink,
     this.uid,
   });
+
+  ObjectMeta.fromJson(Map<String, dynamic> json)
+      : this(
+          //annotations: json['annotations'],
+          clusterName: json['clusterName'],
+          creationTimestamp: json['creationTimestamp'] != null
+              ? DateTime.tryParse(json['creationTimestamp'])
+              : null,
+          deletionGracePeriodSeconds: json['deletionGracePeriodSeconds'],
+          deletionTimestamp: json['deletionTimestamp'] != null
+              ? DateTime.tryParse(json['deletionTimestamp'])
+              : null,
+          finalizers: json['finalizers'] != null
+              ? List<String>.from(json['finalizers'])
+              : null,
+          generateName: json['generateName'],
+          generation: json['generation'],
+          //labels: json['labels'],
+          //managedFields: json['managedFields'],
+          name: json['name'],
+          namespace: json['namespace'],
+          //ownerReferences: json['ownerReferences'],
+          resourceVersion: json['resourceVersion'],
+          selfLink: json['selfLink'],
+          uid: json['uid'],
+        );
 
   final Map<String, String>? annotations;
   final String? clusterName;
@@ -31,7 +57,7 @@ class ObjectMeta {
   final Map<String, String>? labels;
   final List<ManagedFieldsEntry>? managedFields;
   final String? name;
-  final String? namespaceProperty;
+  final String? namespace;
   final List<OwnerReference>? ownerReferences;
   final String? resourceVersion;
   final String? selfLink;

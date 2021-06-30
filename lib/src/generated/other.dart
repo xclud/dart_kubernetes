@@ -22,10 +22,6 @@ class Volume {
   //
 }
 
-class ContainerStatus {
-  //
-}
-
 class EnvFromSource {
   //
 }

@@ -1,6 +1,6 @@
 import 'pod_ip.dart';
 import 'pod_condition.dart';
-import 'other.dart';
+import 'container_status.dart';
 
 class PodStatus {
   PodStatus({
@@ -21,18 +21,35 @@ class PodStatus {
 
   PodStatus.fromJson(Map<String, dynamic> json)
       : this(
-          conditions: json['conditions'],
-          containerStatuses: json['containerStatuses'],
-          ephemeralContainerStatuses: json['ephemeralContainerStatuses'],
+          conditions: json['conditions'] != null
+              ? PodCondition.listFromJson(
+                  (json['conditions'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
+          containerStatuses: json['containerStatuses'] != null
+              ? ContainerStatus.listFromJson(
+                  (json['containerStatuses'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : null,
+          ephemeralContainerStatuses: json['ephemeralContainerStatuses'] != null
+              ? ContainerStatus.listFromJson(
+                  (json['ephemeralContainerStatuses'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : null,
           hostIP: json['hostIP'],
-          initContainerStatuses: json['initContainerStatuses'],
+          initContainerStatuses: json['initContainerStatuses'] != null
+              ? ContainerStatus.listFromJson(
+                  (json['initContainerStatuses'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : null,
           message: json['message'],
           nominatedNodeName: json['nominatedNodeName'],
           phase: json['phase'],
           podIP: json['podIP'],
           qosClass: json['qosClass'],
           reason: json['reason'],
-          startTime: json['startTime'],
+          startTime: json['startTime'] != null
+              ? DateTime.tryParse(json['startTime'])
+              : null,
         );
 
   final List<PodCondition>? conditions;

@@ -6,7 +6,13 @@ class ListMeta {
     this.selfLink,
   });
 
-  ListMeta.fromJson(Map<String, dynamic> json) : this();
+  ListMeta.fromJson(Map<String, dynamic> json)
+      : this(
+          continueProperty: json['continue'],
+          remainingItemCount: json['remainingItemCount'],
+          resourceVersion: json['resourceVersion'],
+          selfLink: json['selfLink'],
+        );
 
   final String? continueProperty;
   final int? remainingItemCount;
