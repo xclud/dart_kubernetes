@@ -3,10 +3,11 @@ import 'probe.dart';
 import 'life_cycle.dart';
 import 'env_var.dart';
 import 'other.dart';
+import 'volume_device.dart';
 import 'volume_mount.dart';
 
 class Container {
-  Container({
+  const Container({
     this.name,
     this.args,
     this.command,
@@ -60,7 +61,10 @@ class Container {
           terminationMessagePath: json['terminationMessagePath'],
           terminationMessagePolicy: json['terminationMessagePolicy'],
           tty: json['tty'],
-          //volumeDevices: json['volumeDevices'],
+          volumeDevices: json['volumeDevices'] != null
+              ? VolumeDevice.listFromJson((json['volumeDevices'] as Iterable)
+                  .cast<Map<String, dynamic>>())
+              : null,
           volumeMounts: json['volumeMounts'] != null
               ? VolumeMount.listFromJson((json['volumeMounts'] as Iterable)
                   .cast<Map<String, dynamic>>())

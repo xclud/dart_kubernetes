@@ -1,4 +1,5 @@
 import 'configmap_volume_source.dart';
+import 'secret_volume_source.dart';
 
 class Volume {
   const Volume({
@@ -39,6 +40,9 @@ class Volume {
           name: json['name'],
           configMap: json['configMap'] != null
               ? ConfigMapVolumeSource.fromJson(json['configMap'])
+              : null,
+          secret: json['secret'] != null
+              ? SecretVolumeSource.fromJson(json['secret'])
               : null,
         );
 
@@ -128,8 +132,6 @@ class QuobyteVolumeSource {}
 class RBDVolumeSource {}
 
 class ScaleIOVolumeSource {}
-
-class SecretVolumeSource {}
 
 class StorageOSVolumeSource {}
 

@@ -22,10 +22,6 @@ class EnvFromSource {
   //
 }
 
-class VolumeDevice {
-  //
-}
-
 class ResourceRequirements {
   //
 }
