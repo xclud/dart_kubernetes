@@ -34,6 +34,18 @@ class Volume {
     this.vsphereVolume,
   });
 
+  Volume.fromJson(Map<String, dynamic> json)
+      : this(
+          name: json['name'],
+          configMap: json['configMap'] != null
+              ? ConfigMapVolumeSource.fromJson(json['configMap'])
+              : null,
+        );
+
+  static List<Volume> listFromJson(Iterable<Map<String, dynamic>> list) {
+    return list.map((e) => Volume.fromJson(e)).toList();
+  }
+
   final String name;
 
   final AWSElasticBlockStoreVolumeSource? awsElasticBlockStore;

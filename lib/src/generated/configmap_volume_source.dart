@@ -8,6 +8,15 @@ class ConfigMapVolumeSource {
     this.optional,
   });
 
+  ConfigMapVolumeSource.fromJson(Map<String, dynamic> json)
+      : this(
+          defaultMode: json['defaultMode'],
+          items: KeyToPath.listFromJson(
+              (json['items'] as Iterable).cast<Map<String, dynamic>>()),
+          name: json['name'],
+          optional: json['optional'],
+        );
+
   final int? defaultMode;
   final List<KeyToPath>? items;
   final String? name;

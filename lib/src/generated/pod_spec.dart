@@ -88,7 +88,10 @@ class PodSpec {
           terminationGracePeriodSeconds: json['terminationGracePeriodSeconds'],
           //tolerations: json['tolerations'],
           //topologySpreadConstraints: json['topologySpreadConstraints'],
-          //volumes: json['volumes'],
+          volumes: json['volumes'] != null
+              ? Volume.listFromJson(
+                  (json['volumes'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
         );
 
   final List<Container>? containers;
