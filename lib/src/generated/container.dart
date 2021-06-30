@@ -1,6 +1,7 @@
 import 'container_port.dart';
 import 'probe.dart';
 import 'life_cycle.dart';
+import 'env_var.dart';
 import 'other.dart';
 
 class Container {
@@ -28,6 +29,41 @@ class Container {
     this.volumeMounts,
     this.workingDir,
   });
+
+  Container.fromJson(Map<String, dynamic> json)
+      : this(
+          name: json['name'],
+          args: json['args'] != null ? List<String>.from(json['args']) : null,
+          command: json['command'] != null
+              ? List<String>.from(json['command'])
+              : null,
+          env: json['env'] != null
+              ? EnvVar.listFromJson(
+                  (json['env'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
+          //envFrom: json['envFrom'],
+          image: json['image'],
+          imagePullPolicy: json['imagePullPolicy'],
+          //lifecycle: json['lifecycle'],
+          //livenessProbe: json['livenessProbe'],
+          //ports: json['ports'],
+          //readinessProbe: json['readinessProbe'],
+          //resources: json['resources'],
+          //securityContext: json['securityContext'],
+          //startupProbe: json['startupProbe'],
+          stdin: json['stdin'],
+          stdinOnce: json['stdinOnce'],
+          terminationMessagePath: json['terminationMessagePath'],
+          terminationMessagePolicy: json['terminationMessagePolicy'],
+          tty: json['tty'],
+          //volumeDevices: json['volumeDevices'],
+          //volumeMounts: json['volumeMounts'],
+          workingDir: json['workingDir'],
+        );
+
+  static List<Container> listFromJson(Iterable<Map<String, dynamic>> list) {
+    return list.map((e) => Container.fromJson(e)).toList();
+  }
 
   final String? name;
   final List<String>? args;

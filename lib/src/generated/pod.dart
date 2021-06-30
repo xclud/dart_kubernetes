@@ -15,6 +15,8 @@ class Pod {
       : this(
           apiVersion: json['apiVersion'],
           kind: json['kind'],
+          spec: PodSpec.fromJson(json['spec']),
+          status: PodStatus.fromJson(json['status']),
         );
 
   static List<Pod> listFromJson(Iterable<Map<String, dynamic>> list) {

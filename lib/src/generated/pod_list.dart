@@ -14,7 +14,7 @@ class PodList {
           items: json['items'] == null
               ? null
               : Pod.listFromJson(
-                  json['items'] as Iterable<Map<String, dynamic>>),
+                  (json['items'] as Iterable).cast<Map<String, dynamic>>()),
           apiVersion: json['apiVersion'],
           kind: json['apiVersion'],
           metadata: json['metadata'] == null

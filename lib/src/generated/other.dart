@@ -22,15 +22,7 @@ class Volume {
   //
 }
 
-class PodCondition {
-  //
-}
-
 class ContainerStatus {
-  //
-}
-
-class EnvVar {
   //
 }
 

@@ -1,8 +1,9 @@
 import 'pod_ip.dart';
+import 'pod_condition.dart';
 import 'other.dart';
 
 class PodStatus {
-  PodStatus(
+  PodStatus({
     this.conditions,
     this.containerStatuses,
     this.ephemeralContainerStatuses,
@@ -16,7 +17,23 @@ class PodStatus {
     this.qosClass,
     this.reason,
     this.startTime,
-  );
+  });
+
+  PodStatus.fromJson(Map<String, dynamic> json)
+      : this(
+          conditions: json['conditions'],
+          containerStatuses: json['containerStatuses'],
+          ephemeralContainerStatuses: json['ephemeralContainerStatuses'],
+          hostIP: json['hostIP'],
+          initContainerStatuses: json['initContainerStatuses'],
+          message: json['message'],
+          nominatedNodeName: json['nominatedNodeName'],
+          phase: json['phase'],
+          podIP: json['podIP'],
+          qosClass: json['qosClass'],
+          reason: json['reason'],
+          startTime: json['startTime'],
+        );
 
   final List<PodCondition>? conditions;
   final List<ContainerStatus>? containerStatuses;
