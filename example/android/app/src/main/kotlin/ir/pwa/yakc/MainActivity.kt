@@ -1,4 +1,4 @@
-package com.example.example
+package ir.pwa.yakc
 
 import io.flutter.embedding.android.FlutterActivity
 

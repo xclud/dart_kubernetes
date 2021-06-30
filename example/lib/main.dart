@@ -1,5 +1,5 @@
-import 'package:example/helpers/skip_tls_verify.dart';
-import 'package:example/pages/signin_page.dart';
+import 'package:yakc/helpers/skip_tls_verify.dart';
+import 'package:yakc/pages/cluster_list_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -22,7 +22,7 @@ class KubernetesApp extends StatelessWidget {
           border: OutlineInputBorder(),
         ),
       ),
-      home: const SignInPage(),
+      home: const ClusterListPage(),
     );
   }
 }

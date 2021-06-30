@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.example">
+    package="ir.pwa.yakc">
+   <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="example"
+        android:label="Kubernetes"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
