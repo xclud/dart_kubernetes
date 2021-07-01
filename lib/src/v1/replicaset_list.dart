@@ -1,19 +1,19 @@
-import 'pod.dart';
+import 'replicaset.dart';
 import 'list_meta.dart';
 
-class PodList {
-  const PodList({
+class ReplicaSetList {
+  const ReplicaSetList({
     required this.items,
     this.apiVersion,
     this.kind,
     this.metadata,
   });
 
-  PodList.fromJson(Map<String, dynamic> json)
+  ReplicaSetList.fromJson(Map<String, dynamic> json)
       : this(
           items: json['items'] == null
               ? []
-              : Pod.listFromJson(
+              : ReplicaSet.listFromJson(
                   (json['items'] as Iterable).cast<Map<String, dynamic>>()),
           apiVersion: json['apiVersion'],
           kind: json['apiVersion'],
@@ -22,7 +22,7 @@ class PodList {
               : ListMeta.fromJson(json['metadata'] as Map<String, dynamic>),
         );
 
-  final List<Pod> items;
+  final List<ReplicaSet> items;
   final String? apiVersion;
   final String? kind;
   final ListMeta? metadata;

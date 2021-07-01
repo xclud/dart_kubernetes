@@ -1,7 +1,10 @@
 import 'object_meta.dart';
 import 'pod_spec.dart';
 import 'pod_status.dart';
+import 'container.dart';
 
+/// Pod is a collection of [Container]s that can run on a host. This resource
+/// is created by clients and scheduled onto hosts.
 class Pod {
   const Pod({
     this.apiVersion,

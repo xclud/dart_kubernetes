@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:kubernetes/kubernetes.dart';
+import 'package:kubernetes/src/v1/deployment_list.dart';
 
 import 'v1.dart';
 import 'package:http/http.dart' as http;
@@ -26,6 +27,20 @@ class KubernetesClient {
     final map = await _getJson('api/v1/namespaces/$namespace/pods');
 
     return PodList.fromJson(map);
+  }
+
+  Future<DeploymentList> listNamespacedDeploymentWithHttpMessages(
+      String namespace) async {
+    final map = await _getJson('api/v1/namespaces/$namespace/deployments');
+
+    return DeploymentList.fromJson(map);
+  }
+
+  Future<ReplicaSetList> listNamespacedReplicaSetWithHttpMessages(
+      String namespace) async {
+    final map = await _getJson('api/v1/namespaces/$namespace/replicasets');
+
+    return ReplicaSetList.fromJson(map);
   }
 
   Future<NamespaceList> listNamespaces() async {
