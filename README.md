@@ -1,4 +1,6 @@
 # kubernetes
+[![pub package](https://img.shields.io/pub/v/kubernetes.svg)](https://pub.dartlang.org/packages/kubernetes)
+
 Kubernetes client for Dart/Flutter.
 
 # Warning
