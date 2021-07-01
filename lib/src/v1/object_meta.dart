@@ -12,8 +12,8 @@ class ObjectMeta {
     this.generation,
     this.labels,
     this.managedFields,
-    this.name,
-    this.namespace,
+    required this.name,
+    required this.namespace,
     this.ownerReferences,
     this.resourceVersion,
     this.selfLink,
@@ -56,8 +56,8 @@ class ObjectMeta {
   final int? generation;
   final Map<String, String>? labels;
   final List<ManagedFieldsEntry>? managedFields;
-  final String? name;
-  final String? namespace;
+  final String name;
+  final String namespace;
   final List<OwnerReference>? ownerReferences;
   final String? resourceVersion;
   final String? selfLink;
