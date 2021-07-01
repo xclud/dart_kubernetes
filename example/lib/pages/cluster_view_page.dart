@@ -48,20 +48,21 @@ class _ClusterViewPageState extends State<ClusterViewPage> {
                 builder: (context, snapshot) {
                   if (snapshot.data == null) {
                     return const Center(
-                      child: Text("Loading..."),
+                      child: Text('Loading...'),
                     );
                   }
 
                   final namespaces = snapshot.data!.items
                       .map(
                         (e) => DropdownMenuItem(
-                          child: Text(e.metadata?.name ?? '<no name>'),
-                          value: e.metadata?.name ?? '<no name>',
+                          child: Text(e.metadata.name),
+                          value: e.metadata.name,
                         ),
                       )
                       .toList();
 
                   return DropdownButtonFormField<String>(
+                    decoration: const InputDecoration(labelText: 'Namespaces'),
                     value: _namespace,
                     onChanged: (value) {
                       value ??= 'default';
@@ -73,6 +74,7 @@ class _ClusterViewPageState extends State<ClusterViewPage> {
                       const DropdownMenuItem(
                         child: Text('all-namespaces'),
                         value: '_all',
+                        enabled: false,
                       ),
                       ...namespaces,
                     ],
@@ -104,8 +106,7 @@ class _ClusterViewPageState extends State<ClusterViewPage> {
                               ),
                             );
                           },
-                          title: Text(
-                              '${e.metadata?.namespace}.${e.metadata?.name}'),
+                          title: Text(e.metadata.name),
                           subtitle: Text(e.spec?.nodeName ?? ''),
                         ),
                       )

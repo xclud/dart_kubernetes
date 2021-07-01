@@ -4,7 +4,7 @@ class Affinity {
     this.podAffinity,
     this.podAntiAffinity,
   });
-  
+
   final NodeAffinity? nodeAffinity;
   final PodAffinity? podAffinity;
   final PodAntiAffinity? podAntiAffinity;
