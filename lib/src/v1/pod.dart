@@ -6,7 +6,7 @@ class Pod {
   const Pod({
     this.apiVersion,
     this.kind,
-    this.metadata,
+    required this.metadata,
     this.spec,
     this.status,
   });
@@ -15,9 +15,7 @@ class Pod {
       : this(
           apiVersion: json['apiVersion'],
           kind: json['kind'],
-          metadata: json['metadata'] != null
-              ? ObjectMeta.fromJson(json['metadata'])
-              : null,
+          metadata: ObjectMeta.fromJson(json['metadata']),
           spec: json['spec'] != null ? PodSpec.fromJson(json['spec']) : null,
           status: json['status'] != null
               ? PodStatus.fromJson(json['status'])
@@ -30,7 +28,7 @@ class Pod {
 
   final String? apiVersion;
   final String? kind;
-  final ObjectMeta? metadata;
+  final ObjectMeta metadata;
   final PodSpec? spec;
   final PodStatus? status;
 }

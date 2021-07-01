@@ -6,7 +6,7 @@ class Namespace {
   const Namespace({
     this.apiVersion,
     this.kind,
-    this.metadata,
+    required this.metadata,
     this.spec,
     this.status,
   });
@@ -15,9 +15,7 @@ class Namespace {
       : this(
           apiVersion: json['apiVersion'],
           kind: json['kind'],
-          metadata: json['metadata'] != null
-              ? ObjectMeta.fromJson(json['metadata'])
-              : null,
+          metadata: ObjectMeta.fromJson(json['metadata']),
           spec: json['spec'] != null
               ? NamespaceSpec.fromJson(json['spec'])
               : null,
@@ -32,7 +30,7 @@ class Namespace {
 
   final String? apiVersion;
   final String? kind;
-  final ObjectMeta? metadata;
+  final ObjectMeta metadata;
   final NamespaceSpec? spec;
   final NamespaceStatus? status;
 }
