@@ -43,16 +43,19 @@ class _ClusterListPageState extends State<ClusterListPage> {
 
           return ListView(
             children: snapshot.data!
-                .map((e) => ListTile(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => ClusterViewPage(cluster: e),
-                          ),
-                        );
-                      },
-                      title: Text(e.name),
-                    ))
+                .map(
+                  (e) => ListTile(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => ClusterViewPage(cluster: e),
+                        ),
+                      );
+                    },
+                    title: Text(e.name),
+                    subtitle: Text(e.server),
+                  ),
+                )
                 .toList(),
           );
         },

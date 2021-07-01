@@ -4,9 +4,6 @@ import 'package:kubernetes/kubernetes.dart';
 import 'generated.dart';
 import 'package:http/http.dart' as http;
 
-import 'generated/patch.dart';
-import 'generated/patch_type.dart';
-
 class KubernetesClient {
   KubernetesClient(String server, this.jwt)
       : _baseUrl = (server + (server.endsWith('/') ? '' : '/')),
@@ -29,6 +26,12 @@ class KubernetesClient {
     final map = await _getJson('api/v1/namespaces/$namespace/pods');
 
     return PodList.fromJson(map);
+  }
+
+  Future<NamespaceList> listNamespaces() async {
+    final map = await _getJson('api/v1/namespaces');
+
+    return NamespaceList.fromJson(map);
   }
 
   String _getFullUrl(String url) {

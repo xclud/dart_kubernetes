@@ -20,10 +20,15 @@ class ClusterViewPage extends StatefulWidget {
 class _ClusterViewPageState extends State<ClusterViewPage> {
   String _namespace = 'default';
 
-  Future<PodList> _getPodsFuture() async {
+  Future<PodList> _getPods() async {
     final pods =
         await widget.kubernetes.listNamespacedPodWithHttpMessages(_namespace);
     return pods;
+  }
+
+  Future<NamespaceList> _getNamespaces() async {
+    final namespaces = await widget.kubernetes.listNamespaces();
+    return namespaces;
   }
 
   @override
@@ -38,32 +43,52 @@ class _ClusterViewPageState extends State<ClusterViewPage> {
           Form(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: DropdownButtonFormField<String>(
-                  value: _namespace,
-                  onChanged: (value) {
-                    value ??= 'default';
-                    _namespace = value;
+              child: FutureBuilder<NamespaceList>(
+                future: _getNamespaces(),
+                builder: (context, snapshot) {
+                  if (snapshot.data == null) {
+                    return const Center(
+                      child: Text("Loading..."),
+                    );
+                  }
 
-                    setState(() {});
-                  },
-                  items: const [
-                    DropdownMenuItem(
-                      child: Text('default'),
-                      value: 'default',
-                    ),
-                    DropdownMenuItem(
-                      child: Text('all-namespaces'),
-                      value: '_all',
-                    ),
-                  ]),
+                  final namespaces = snapshot.data!.items
+                      .map(
+                        (e) => DropdownMenuItem(
+                          child: Text(e.metadata?.name ?? '<no name>'),
+                          value: e.metadata?.name ?? '<no name>',
+                        ),
+                      )
+                      .toList();
+
+                  return DropdownButtonFormField<String>(
+                    value: _namespace,
+                    onChanged: (value) {
+                      value ??= 'default';
+                      _namespace = value;
+
+                      setState(() {});
+                    },
+                    items: [
+                      const DropdownMenuItem(
+                        child: Text('all-namespaces'),
+                        value: '_all',
+                      ),
+                      ...namespaces,
+                    ],
+                  );
+                },
+              ),
             ),
           ),
           Expanded(
             child: FutureBuilder<PodList>(
-              future: _getPodsFuture(),
+              future: _getPods(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
-                  return const Center(child: Text('Loading...'));
+                  return const Center(
+                    child: Text('Loading...'),
+                  );
                 }
 
                 var pods = snapshot.data!.items!;
