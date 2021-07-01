@@ -1,3 +1,7 @@
+## 0.0.3
+
+* First working version and example UI implementation.
+
 ## 0.0.2
 
 * `KubernetesClient` and `K8SConfiguration` classes.
