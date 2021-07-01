@@ -2,4 +2,4 @@ library kubernetes;
 
 export 'src/client.dart';
 export 'src/config.dart';
-export 'src/generated.dart';
+export 'src/v1.dart';

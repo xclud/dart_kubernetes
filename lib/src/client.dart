@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:kubernetes/kubernetes.dart';
 
-import 'generated.dart';
+import 'v1.dart';
 import 'package:http/http.dart' as http;
 
 class KubernetesClient {
