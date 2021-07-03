@@ -1,16 +1,44 @@
 import 'dart:convert';
 import 'package:kubernetes/kubernetes.dart';
-import 'package:kubernetes/apimachinery_pkg_apis_meta_v1.dart'
-    as apimachinery_pkg_apis_meta_v1;
-import 'package:kubernetes/api_core_v1.dart' as api_core_v1;
-import 'package:kubernetes/api_batch_v1.dart' as api_batch_v1;
-import 'package:kubernetes/api_node_v1beta1.dart' as api_node_v1beta1;
-import 'package:kubernetes/api_apps_v1.dart' as api_apps_v1;
-import 'package:kubernetes/api_policy_v1.dart' as api_policy_v1;
-import 'package:kubernetes/api_autoscaling_v1.dart' as api_autoscaling_v1;
-import 'package:kubernetes/api_admissionregistration_v1.dart'
-    as api_admissionregistration_v1;
-import 'package:kubernetes/api_authentication_v1.dart' as api_authentication_v1;
+
+import '../api_admissionregistration_v1.dart' as api_admissionregistration_v1;
+import '../api_apiserverinternal_v1alpha1.dart'
+    as api_apiserverinternal_v1alpha1;
+import '../api_apps_v1.dart' as api_apps_v1;
+import '../api_authentication_v1.dart' as api_authentication_v1;
+import '../api_authorization_v1.dart' as api_authorization_v1;
+import '../api_autoscaling_v1.dart' as api_autoscaling_v1;
+import '../api_autoscaling_v2beta1.dart' as api_autoscaling_v2beta1;
+import '../api_autoscaling_v2beta2.dart' as api_autoscaling_v2beta2;
+import '../api_batch_v1.dart' as api_batch_v1;
+import '../api_batch_v1beta1.dart' as api_batch_v1beta1;
+import '../api_certificates_v1.dart' as api_certificates_v1;
+import '../api_coordination_v1.dart' as api_coordination_v1;
+import '../api_core_v1.dart' as api_core_v1;
+import '../api_discovery_v1.dart' as api_discovery_v1;
+import '../api_discovery_v1beta1.dart' as api_discovery_v1beta1;
+import '../api_events_v1.dart' as api_events_v1;
+import '../api_events_v1beta1.dart' as api_events_v1beta1;
+import '../api_flowcontrol_v1beta1.dart' as api_flowcontrol_v1beta1;
+import '../api_networking_v1.dart' as api_networking_v1;
+import '../api_node_v1.dart' as api_node_v1;
+import '../api_node_v1alpha1.dart' as api_node_v1alpha1;
+import '../api_node_v1beta1.dart' as api_node_v1beta1;
+import '../api_policy_v1.dart' as api_policy_v1;
+import '../api_policy_v1beta1.dart' as api_policy_v1beta1;
+import '../api_rbac_v1.dart' as api_rbac_v1;
+import '../api_rbac_v1alpha1.dart' as api_rbac_v1alpha1;
+import '../api_scheduling_v1.dart' as api_scheduling_v1;
+import '../api_scheduling_v1alpha1.dart' as api_scheduling_v1alpha1;
+import '../api_storage_v1.dart' as api_storage_v1;
+import '../api_storage_v1alpha1.dart' as api_storage_v1alpha1;
+import '../api_storage_v1beta1.dart' as api_storage_v1beta1;
+import '../apimachinery_pkg_version.dart' as apimachinery_pkg_version;
+import '../apiextensions__apiserver_pkg_apis_apiextensions_v1.dart'
+    as apiextensions__apiserver_pkg_apis_apiextensions_v1;
+import '../apimachinery_pkg_apis_meta_v1.dart' as apimachinery_pkg_apis_meta_v1;
+import '../kube__aggregator_pkg_apis_apiregistration_v1.dart'
+    as kube__aggregator_pkg_apis_apiregistration_v1;
 
 import 'package:http/http.dart' as http;
 
