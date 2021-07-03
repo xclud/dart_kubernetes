@@ -55,8 +55,8 @@ class _ClusterViewPageState extends State<ClusterViewPage> {
                   final namespaces = snapshot.data!.items
                       .map(
                         (e) => DropdownMenuItem(
-                          child: Text(e.metadata.name),
-                          value: e.metadata.name,
+                          child: Text(e.metadata?.name ?? ''),
+                          value: e.metadata?.name,
                         ),
                       )
                       .toList();
@@ -93,7 +93,7 @@ class _ClusterViewPageState extends State<ClusterViewPage> {
                   );
                 }
 
-                var pods = snapshot.data!.items!;
+                var pods = snapshot.data!.items;
                 return ListView(
                   children: pods
                       .map(
@@ -106,7 +106,7 @@ class _ClusterViewPageState extends State<ClusterViewPage> {
                               ),
                             );
                           },
-                          title: Text(e.metadata.name),
+                          title: Text(e.metadata?.name ?? ''),
                           subtitle: Text(e.spec?.nodeName ?? ''),
                         ),
                       )

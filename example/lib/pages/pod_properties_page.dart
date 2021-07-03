@@ -19,7 +19,7 @@ class _PodPropertiesPageState extends State<PodPropertiesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pod ${widget.pod.metadata.name}'),
+        title: Text('Pod ${widget.pod.metadata?.name}'),
       ),
       body: ListView(
         padding: const EdgeInsets.all(4.0),
@@ -27,7 +27,7 @@ class _PodPropertiesPageState extends State<PodPropertiesPage> {
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: Card(
-              child: Text('Pod Name: ${widget.pod.metadata.name}'),
+              child: Text('Pod Name: ${widget.pod.metadata?.name}'),
             ),
           ),
         ],

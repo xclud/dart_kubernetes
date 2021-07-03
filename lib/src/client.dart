@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:kubernetes/kubernetes.dart';
-import 'package:kubernetes/src/v1/deployment_list.dart';
 
 import 'v1.dart';
 import 'package:http/http.dart' as http;
@@ -54,25 +53,25 @@ class KubernetesClient {
   }
 }
 
-String getHeader(Object body) {
-  if (body is Patch) {
-    return getPatchHeader(body);
-  }
+// String getHeader(Object body) {
+//   if (body is Patch) {
+//     return getPatchHeader(body);
+//   }
 
-  return 'application/json; charset=utf-8';
-}
+//   return 'application/json; charset=utf-8';
+// }
 
-String getPatchHeader(Patch body) {
-  switch (body.type) {
-    case PatchType.jsonPatch:
-      return 'application/json-patch+json; charset=utf-8';
-    case PatchType.mergePatch:
-      return 'application/merge-patch+json; charset=utf-8';
-    case PatchType.strategicMergePatch:
-      return 'application/strategic-merge-patch+json; charset=utf-8';
-    case PatchType.applyPatch:
-      return 'application/apply-patch+yaml; charset=utf-8';
-    default:
-      throw Exception(body.type);
-  }
-}
+// String getPatchHeader(Patch body) {
+//   switch (body.type) {
+//     case PatchType.jsonPatch:
+//       return 'application/json-patch+json; charset=utf-8';
+//     case PatchType.mergePatch:
+//       return 'application/merge-patch+json; charset=utf-8';
+//     case PatchType.strategicMergePatch:
+//       return 'application/strategic-merge-patch+json; charset=utf-8';
+//     case PatchType.applyPatch:
+//       return 'application/apply-patch+yaml; charset=utf-8';
+//     default:
+//       throw Exception(body.type);
+//   }
+// }
