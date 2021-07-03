@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:kubernetes/kubernetes.dart';
 
 import '../api_admissionregistration_v1.dart' as api_admissionregistration_v1;
 import '../api_apiserverinternal_v1alpha1.dart'
@@ -150,32 +149,6 @@ class KubernetesClient {
 
     final resp = await _httpClient.head(Uri.parse(fullurl), headers: headers);
     return resp.body;
-  }
-
-  Future<PodList> listNamespacedPodWithHttpMessages(String namespace) async {
-    final map = await _getJsonMap('api/v1/namespaces/$namespace/pods');
-
-    return PodList.fromJson(map);
-  }
-
-  Future<DeploymentList> listNamespacedDeploymentWithHttpMessages(
-      String namespace) async {
-    final map = await _getJsonMap('api/v1/namespaces/$namespace/deployments');
-
-    return DeploymentList.fromJson(map);
-  }
-
-  Future<ReplicaSetList> listNamespacedReplicaSetWithHttpMessages(
-      String namespace) async {
-    final map = await _getJsonMap('api/v1/namespaces/$namespace/replicasets');
-
-    return ReplicaSetList.fromJson(map);
-  }
-
-  Future<NamespaceList> listNamespaces() async {
-    final map = await _getJsonMap('api/v1/namespaces');
-
-    return NamespaceList.fromJson(map);
   }
 
   String _getFullUrl(String url) {

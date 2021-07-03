@@ -22,12 +22,12 @@ class _ClusterViewPageState extends State<ClusterViewPage> {
 
   Future<PodList> _getPods() async {
     final pods =
-        await widget.kubernetes.listNamespacedPodWithHttpMessages(_namespace);
+        await widget.kubernetes.listCoreV1NamespacedPod(namespace: _namespace);
     return pods;
   }
 
   Future<NamespaceList> _getNamespaces() async {
-    final namespaces = await widget.kubernetes.listNamespaces();
+    final namespaces = await widget.kubernetes.listCoreV1Namespace();
     return namespaces;
   }
 
