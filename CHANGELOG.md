@@ -1,3 +1,7 @@
+## 0.0.4
+
+* Implements all model definitions.
+
 ## 0.0.3
 
 * First working version and example UI implementation.
