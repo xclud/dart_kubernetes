@@ -1472,14 +1472,14 @@ class KubernetesClient {
   ///
   /// [namespace] object name and auth scope, such as for teams and projects
   ///
-  /// [path] Path is the URL path to use for the current proxy request to pod.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to pod.
   Future<String> connectCoreV1GetNamespacedPodProxy({
     required String name,
     required String namespace,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _getJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy?path=$path');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy?path=$pathQuery');
     return result;
   }
 
@@ -1489,14 +1489,14 @@ class KubernetesClient {
   ///
   /// [namespace] object name and auth scope, such as for teams and projects
   ///
-  /// [path] Path is the URL path to use for the current proxy request to pod.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to pod.
   Future<String> connectCoreV1DeleteNamespacedPodProxy({
     required String name,
     required String namespace,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _deleteJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy?path=$path');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy?path=$pathQuery');
     return result;
   }
 
@@ -1506,14 +1506,14 @@ class KubernetesClient {
   ///
   /// [namespace] object name and auth scope, such as for teams and projects
   ///
-  /// [path] Path is the URL path to use for the current proxy request to pod.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to pod.
   Future<String> connectCoreV1PostNamespacedPodProxy({
     required String name,
     required String namespace,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _postJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy?path=$path');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy?path=$pathQuery');
     return result;
   }
 
@@ -1523,14 +1523,14 @@ class KubernetesClient {
   ///
   /// [namespace] object name and auth scope, such as for teams and projects
   ///
-  /// [path] Path is the URL path to use for the current proxy request to pod.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to pod.
   Future<String> connectCoreV1PutNamespacedPodProxy({
     required String name,
     required String namespace,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _putJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy?path=$path');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy?path=$pathQuery');
     return result;
   }
 
@@ -1540,14 +1540,14 @@ class KubernetesClient {
   ///
   /// [namespace] object name and auth scope, such as for teams and projects
   ///
-  /// [path] Path is the URL path to use for the current proxy request to pod.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to pod.
   Future<String> connectCoreV1PatchNamespacedPodProxy({
     required String name,
     required String namespace,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _patchJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy?path=$path');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy?path=$pathQuery');
     return result;
   }
 
@@ -1557,14 +1557,14 @@ class KubernetesClient {
   ///
   /// [namespace] object name and auth scope, such as for teams and projects
   ///
-  /// [path] Path is the URL path to use for the current proxy request to pod.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to pod.
   Future<String> connectCoreV1HeadNamespacedPodProxy({
     required String name,
     required String namespace,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _headJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy?path=$path');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy?path=$pathQuery');
     return result;
   }
 
@@ -1574,14 +1574,14 @@ class KubernetesClient {
   ///
   /// [namespace] object name and auth scope, such as for teams and projects
   ///
-  /// [path] Path is the URL path to use for the current proxy request to pod.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to pod.
   Future<String> connectCoreV1OptionsNamespacedPodProxy({
     required String name,
     required String namespace,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _optionsJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy?path=$path');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy?path=$pathQuery');
     return result;
   }
 
@@ -1593,15 +1593,15 @@ class KubernetesClient {
   ///
   /// [path] path to the resource
   ///
-  /// [path] Path is the URL path to use for the current proxy request to pod.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to pod.
   Future<String> connectCoreV1GetNamespacedPodProxyWithPath({
     required String name,
     required String namespace,
     required String path,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _getJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path?path=$path');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path?path=$pathQuery');
     return result;
   }
 
@@ -1613,15 +1613,15 @@ class KubernetesClient {
   ///
   /// [path] path to the resource
   ///
-  /// [path] Path is the URL path to use for the current proxy request to pod.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to pod.
   Future<String> connectCoreV1DeleteNamespacedPodProxyWithPath({
     required String name,
     required String namespace,
     required String path,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _deleteJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path?path=$path');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path?path=$pathQuery');
     return result;
   }
 
@@ -1633,15 +1633,15 @@ class KubernetesClient {
   ///
   /// [path] path to the resource
   ///
-  /// [path] Path is the URL path to use for the current proxy request to pod.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to pod.
   Future<String> connectCoreV1PostNamespacedPodProxyWithPath({
     required String name,
     required String namespace,
     required String path,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _postJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path?path=$path');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path?path=$pathQuery');
     return result;
   }
 
@@ -1653,15 +1653,15 @@ class KubernetesClient {
   ///
   /// [path] path to the resource
   ///
-  /// [path] Path is the URL path to use for the current proxy request to pod.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to pod.
   Future<String> connectCoreV1PutNamespacedPodProxyWithPath({
     required String name,
     required String namespace,
     required String path,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _putJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path?path=$path');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path?path=$pathQuery');
     return result;
   }
 
@@ -1673,15 +1673,15 @@ class KubernetesClient {
   ///
   /// [path] path to the resource
   ///
-  /// [path] Path is the URL path to use for the current proxy request to pod.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to pod.
   Future<String> connectCoreV1PatchNamespacedPodProxyWithPath({
     required String name,
     required String namespace,
     required String path,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _patchJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path?path=$path');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path?path=$pathQuery');
     return result;
   }
 
@@ -1693,15 +1693,15 @@ class KubernetesClient {
   ///
   /// [path] path to the resource
   ///
-  /// [path] Path is the URL path to use for the current proxy request to pod.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to pod.
   Future<String> connectCoreV1HeadNamespacedPodProxyWithPath({
     required String name,
     required String namespace,
     required String path,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _headJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path?path=$path');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path?path=$pathQuery');
     return result;
   }
 
@@ -1713,15 +1713,15 @@ class KubernetesClient {
   ///
   /// [path] path to the resource
   ///
-  /// [path] Path is the URL path to use for the current proxy request to pod.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to pod.
   Future<String> connectCoreV1OptionsNamespacedPodProxyWithPath({
     required String name,
     required String namespace,
     required String path,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _optionsJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path?path=$path');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path?path=$pathQuery');
     return result;
   }
 
@@ -2622,14 +2622,14 @@ class KubernetesClient {
   ///
   /// [namespace] object name and auth scope, such as for teams and projects
   ///
-  /// [path] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
+  /// [pathQuery] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
   Future<String> connectCoreV1GetNamespacedServiceProxy({
     required String name,
     required String namespace,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _getJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy?path=$path');
+        '/api/v1/namespaces/$namespace/services/$name/proxy?path=$pathQuery');
     return result;
   }
 
@@ -2639,14 +2639,14 @@ class KubernetesClient {
   ///
   /// [namespace] object name and auth scope, such as for teams and projects
   ///
-  /// [path] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
+  /// [pathQuery] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
   Future<String> connectCoreV1DeleteNamespacedServiceProxy({
     required String name,
     required String namespace,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _deleteJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy?path=$path');
+        '/api/v1/namespaces/$namespace/services/$name/proxy?path=$pathQuery');
     return result;
   }
 
@@ -2656,14 +2656,14 @@ class KubernetesClient {
   ///
   /// [namespace] object name and auth scope, such as for teams and projects
   ///
-  /// [path] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
+  /// [pathQuery] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
   Future<String> connectCoreV1PostNamespacedServiceProxy({
     required String name,
     required String namespace,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _postJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy?path=$path');
+        '/api/v1/namespaces/$namespace/services/$name/proxy?path=$pathQuery');
     return result;
   }
 
@@ -2673,14 +2673,14 @@ class KubernetesClient {
   ///
   /// [namespace] object name and auth scope, such as for teams and projects
   ///
-  /// [path] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
+  /// [pathQuery] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
   Future<String> connectCoreV1PutNamespacedServiceProxy({
     required String name,
     required String namespace,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _putJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy?path=$path');
+        '/api/v1/namespaces/$namespace/services/$name/proxy?path=$pathQuery');
     return result;
   }
 
@@ -2690,14 +2690,14 @@ class KubernetesClient {
   ///
   /// [namespace] object name and auth scope, such as for teams and projects
   ///
-  /// [path] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
+  /// [pathQuery] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
   Future<String> connectCoreV1PatchNamespacedServiceProxy({
     required String name,
     required String namespace,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _patchJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy?path=$path');
+        '/api/v1/namespaces/$namespace/services/$name/proxy?path=$pathQuery');
     return result;
   }
 
@@ -2707,14 +2707,14 @@ class KubernetesClient {
   ///
   /// [namespace] object name and auth scope, such as for teams and projects
   ///
-  /// [path] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
+  /// [pathQuery] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
   Future<String> connectCoreV1HeadNamespacedServiceProxy({
     required String name,
     required String namespace,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _headJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy?path=$path');
+        '/api/v1/namespaces/$namespace/services/$name/proxy?path=$pathQuery');
     return result;
   }
 
@@ -2724,14 +2724,14 @@ class KubernetesClient {
   ///
   /// [namespace] object name and auth scope, such as for teams and projects
   ///
-  /// [path] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
+  /// [pathQuery] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
   Future<String> connectCoreV1OptionsNamespacedServiceProxy({
     required String name,
     required String namespace,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _optionsJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy?path=$path');
+        '/api/v1/namespaces/$namespace/services/$name/proxy?path=$pathQuery');
     return result;
   }
 
@@ -2743,15 +2743,15 @@ class KubernetesClient {
   ///
   /// [path] path to the resource
   ///
-  /// [path] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
+  /// [pathQuery] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
   Future<String> connectCoreV1GetNamespacedServiceProxyWithPath({
     required String name,
     required String namespace,
     required String path,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _getJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy/$path?path=$path');
+        '/api/v1/namespaces/$namespace/services/$name/proxy/$path?path=$pathQuery');
     return result;
   }
 
@@ -2763,15 +2763,15 @@ class KubernetesClient {
   ///
   /// [path] path to the resource
   ///
-  /// [path] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
+  /// [pathQuery] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
   Future<String> connectCoreV1DeleteNamespacedServiceProxyWithPath({
     required String name,
     required String namespace,
     required String path,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _deleteJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy/$path?path=$path');
+        '/api/v1/namespaces/$namespace/services/$name/proxy/$path?path=$pathQuery');
     return result;
   }
 
@@ -2783,15 +2783,15 @@ class KubernetesClient {
   ///
   /// [path] path to the resource
   ///
-  /// [path] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
+  /// [pathQuery] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
   Future<String> connectCoreV1PostNamespacedServiceProxyWithPath({
     required String name,
     required String namespace,
     required String path,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _postJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy/$path?path=$path');
+        '/api/v1/namespaces/$namespace/services/$name/proxy/$path?path=$pathQuery');
     return result;
   }
 
@@ -2803,15 +2803,15 @@ class KubernetesClient {
   ///
   /// [path] path to the resource
   ///
-  /// [path] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
+  /// [pathQuery] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
   Future<String> connectCoreV1PutNamespacedServiceProxyWithPath({
     required String name,
     required String namespace,
     required String path,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _putJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy/$path?path=$path');
+        '/api/v1/namespaces/$namespace/services/$name/proxy/$path?path=$pathQuery');
     return result;
   }
 
@@ -2823,15 +2823,15 @@ class KubernetesClient {
   ///
   /// [path] path to the resource
   ///
-  /// [path] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
+  /// [pathQuery] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
   Future<String> connectCoreV1PatchNamespacedServiceProxyWithPath({
     required String name,
     required String namespace,
     required String path,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _patchJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy/$path?path=$path');
+        '/api/v1/namespaces/$namespace/services/$name/proxy/$path?path=$pathQuery');
     return result;
   }
 
@@ -2843,15 +2843,15 @@ class KubernetesClient {
   ///
   /// [path] path to the resource
   ///
-  /// [path] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
+  /// [pathQuery] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
   Future<String> connectCoreV1HeadNamespacedServiceProxyWithPath({
     required String name,
     required String namespace,
     required String path,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _headJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy/$path?path=$path');
+        '/api/v1/namespaces/$namespace/services/$name/proxy/$path?path=$pathQuery');
     return result;
   }
 
@@ -2863,15 +2863,15 @@ class KubernetesClient {
   ///
   /// [path] path to the resource
   ///
-  /// [path] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
+  /// [pathQuery] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
   Future<String> connectCoreV1OptionsNamespacedServiceProxyWithPath({
     required String name,
     required String namespace,
     required String path,
-    String? path,
+    String? pathQuery,
   }) async {
     final result = await _optionsJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy/$path?path=$path');
+        '/api/v1/namespaces/$namespace/services/$name/proxy/$path?path=$pathQuery');
     return result;
   }
 
@@ -3128,12 +3128,13 @@ class KubernetesClient {
   ///
   /// [name] name of the NodeProxyOptions
   ///
-  /// [path] Path is the URL path to use for the current proxy request to node.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to node.
   Future<String> connectCoreV1GetNodeProxy({
     required String name,
-    String? path,
+    String? pathQuery,
   }) async {
-    final result = await _getJsonString('/api/v1/nodes/$name/proxy?path=$path');
+    final result =
+        await _getJsonString('/api/v1/nodes/$name/proxy?path=$pathQuery');
     return result;
   }
 
@@ -3141,13 +3142,13 @@ class KubernetesClient {
   ///
   /// [name] name of the NodeProxyOptions
   ///
-  /// [path] Path is the URL path to use for the current proxy request to node.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to node.
   Future<String> connectCoreV1DeleteNodeProxy({
     required String name,
-    String? path,
+    String? pathQuery,
   }) async {
     final result =
-        await _deleteJsonString('/api/v1/nodes/$name/proxy?path=$path');
+        await _deleteJsonString('/api/v1/nodes/$name/proxy?path=$pathQuery');
     return result;
   }
 
@@ -3155,13 +3156,13 @@ class KubernetesClient {
   ///
   /// [name] name of the NodeProxyOptions
   ///
-  /// [path] Path is the URL path to use for the current proxy request to node.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to node.
   Future<String> connectCoreV1PostNodeProxy({
     required String name,
-    String? path,
+    String? pathQuery,
   }) async {
     final result =
-        await _postJsonString('/api/v1/nodes/$name/proxy?path=$path');
+        await _postJsonString('/api/v1/nodes/$name/proxy?path=$pathQuery');
     return result;
   }
 
@@ -3169,12 +3170,13 @@ class KubernetesClient {
   ///
   /// [name] name of the NodeProxyOptions
   ///
-  /// [path] Path is the URL path to use for the current proxy request to node.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to node.
   Future<String> connectCoreV1PutNodeProxy({
     required String name,
-    String? path,
+    String? pathQuery,
   }) async {
-    final result = await _putJsonString('/api/v1/nodes/$name/proxy?path=$path');
+    final result =
+        await _putJsonString('/api/v1/nodes/$name/proxy?path=$pathQuery');
     return result;
   }
 
@@ -3182,13 +3184,13 @@ class KubernetesClient {
   ///
   /// [name] name of the NodeProxyOptions
   ///
-  /// [path] Path is the URL path to use for the current proxy request to node.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to node.
   Future<String> connectCoreV1PatchNodeProxy({
     required String name,
-    String? path,
+    String? pathQuery,
   }) async {
     final result =
-        await _patchJsonString('/api/v1/nodes/$name/proxy?path=$path');
+        await _patchJsonString('/api/v1/nodes/$name/proxy?path=$pathQuery');
     return result;
   }
 
@@ -3196,13 +3198,13 @@ class KubernetesClient {
   ///
   /// [name] name of the NodeProxyOptions
   ///
-  /// [path] Path is the URL path to use for the current proxy request to node.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to node.
   Future<String> connectCoreV1HeadNodeProxy({
     required String name,
-    String? path,
+    String? pathQuery,
   }) async {
     final result =
-        await _headJsonString('/api/v1/nodes/$name/proxy?path=$path');
+        await _headJsonString('/api/v1/nodes/$name/proxy?path=$pathQuery');
     return result;
   }
 
@@ -3210,13 +3212,13 @@ class KubernetesClient {
   ///
   /// [name] name of the NodeProxyOptions
   ///
-  /// [path] Path is the URL path to use for the current proxy request to node.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to node.
   Future<String> connectCoreV1OptionsNodeProxy({
     required String name,
-    String? path,
+    String? pathQuery,
   }) async {
     final result =
-        await _optionsJsonString('/api/v1/nodes/$name/proxy?path=$path');
+        await _optionsJsonString('/api/v1/nodes/$name/proxy?path=$pathQuery');
     return result;
   }
 
@@ -3226,14 +3228,14 @@ class KubernetesClient {
   ///
   /// [path] path to the resource
   ///
-  /// [path] Path is the URL path to use for the current proxy request to node.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to node.
   Future<String> connectCoreV1GetNodeProxyWithPath({
     required String name,
     required String path,
-    String? path,
+    String? pathQuery,
   }) async {
     final result =
-        await _getJsonString('/api/v1/nodes/$name/proxy/$path?path=$path');
+        await _getJsonString('/api/v1/nodes/$name/proxy/$path?path=$pathQuery');
     return result;
   }
 
@@ -3243,14 +3245,14 @@ class KubernetesClient {
   ///
   /// [path] path to the resource
   ///
-  /// [path] Path is the URL path to use for the current proxy request to node.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to node.
   Future<String> connectCoreV1DeleteNodeProxyWithPath({
     required String name,
     required String path,
-    String? path,
+    String? pathQuery,
   }) async {
-    final result =
-        await _deleteJsonString('/api/v1/nodes/$name/proxy/$path?path=$path');
+    final result = await _deleteJsonString(
+        '/api/v1/nodes/$name/proxy/$path?path=$pathQuery');
     return result;
   }
 
@@ -3260,14 +3262,14 @@ class KubernetesClient {
   ///
   /// [path] path to the resource
   ///
-  /// [path] Path is the URL path to use for the current proxy request to node.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to node.
   Future<String> connectCoreV1PostNodeProxyWithPath({
     required String name,
     required String path,
-    String? path,
+    String? pathQuery,
   }) async {
-    final result =
-        await _postJsonString('/api/v1/nodes/$name/proxy/$path?path=$path');
+    final result = await _postJsonString(
+        '/api/v1/nodes/$name/proxy/$path?path=$pathQuery');
     return result;
   }
 
@@ -3277,14 +3279,14 @@ class KubernetesClient {
   ///
   /// [path] path to the resource
   ///
-  /// [path] Path is the URL path to use for the current proxy request to node.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to node.
   Future<String> connectCoreV1PutNodeProxyWithPath({
     required String name,
     required String path,
-    String? path,
+    String? pathQuery,
   }) async {
     final result =
-        await _putJsonString('/api/v1/nodes/$name/proxy/$path?path=$path');
+        await _putJsonString('/api/v1/nodes/$name/proxy/$path?path=$pathQuery');
     return result;
   }
 
@@ -3294,14 +3296,14 @@ class KubernetesClient {
   ///
   /// [path] path to the resource
   ///
-  /// [path] Path is the URL path to use for the current proxy request to node.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to node.
   Future<String> connectCoreV1PatchNodeProxyWithPath({
     required String name,
     required String path,
-    String? path,
+    String? pathQuery,
   }) async {
-    final result =
-        await _patchJsonString('/api/v1/nodes/$name/proxy/$path?path=$path');
+    final result = await _patchJsonString(
+        '/api/v1/nodes/$name/proxy/$path?path=$pathQuery');
     return result;
   }
 
@@ -3311,14 +3313,14 @@ class KubernetesClient {
   ///
   /// [path] path to the resource
   ///
-  /// [path] Path is the URL path to use for the current proxy request to node.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to node.
   Future<String> connectCoreV1HeadNodeProxyWithPath({
     required String name,
     required String path,
-    String? path,
+    String? pathQuery,
   }) async {
-    final result =
-        await _headJsonString('/api/v1/nodes/$name/proxy/$path?path=$path');
+    final result = await _headJsonString(
+        '/api/v1/nodes/$name/proxy/$path?path=$pathQuery');
     return result;
   }
 
@@ -3328,14 +3330,14 @@ class KubernetesClient {
   ///
   /// [path] path to the resource
   ///
-  /// [path] Path is the URL path to use for the current proxy request to node.
+  /// [pathQuery] Path is the URL path to use for the current proxy request to node.
   Future<String> connectCoreV1OptionsNodeProxyWithPath({
     required String name,
     required String path,
-    String? path,
+    String? pathQuery,
   }) async {
-    final result =
-        await _optionsJsonString('/api/v1/nodes/$name/proxy/$path?path=$path');
+    final result = await _optionsJsonString(
+        '/api/v1/nodes/$name/proxy/$path?path=$pathQuery');
     return result;
   }
 
