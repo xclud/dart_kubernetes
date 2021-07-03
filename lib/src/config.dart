@@ -1,3 +1,4 @@
+/// Kubernetes Configuration.
 class K8SConfiguration {
   K8SConfiguration({
     this.preferences,
@@ -10,6 +11,7 @@ class K8SConfiguration {
     this.extensions = const [],
   });
 
+  /// Create a K8SConfiguration from JSON data.
   K8SConfiguration.fromJson(Map<String, dynamic> json)
       : this(
           apiVersion: json['apiVersion'],
@@ -237,7 +239,6 @@ class UserCredentials {
 }
 
 /// Relates nicknames to auth information.
-
 class User {
   User({
     required this.name,
@@ -263,6 +264,7 @@ class User {
   final String name;
 }
 
+/// External Execution
 class ExternalExecution {
   String? apiVersion;
 
