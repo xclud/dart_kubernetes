@@ -139,8 +139,11 @@ class KubernetesClient {
     final fullurl = _getFullUrl(url);
     final headers = <String, String>{'Authorization': 'Bearer $jwt'};
 
-    final resp = await _httpClient.get(Uri.parse(fullurl), headers: headers);
-    return resp.body;
+    final request = http.Request('options', Uri.parse(fullurl));
+    request.headers.addAll(headers);
+
+    final resp = await _httpClient.send(request);
+    return resp.stream.bytesToString();
   }
 
   Future<String> _headJsonString(String url) async {
