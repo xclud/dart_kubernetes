@@ -55,7 +55,8 @@ class KubernetesClient {
     final headers = <String, String>{'Authorization': 'Bearer $jwt'};
 
     final resp = await _httpClient.get(Uri.parse(fullurl), headers: headers);
-    final map = json.decode(resp.body) as Map<String, dynamic>;
+    final body = utf8.decode(resp.bodyBytes);
+    final map = json.decode(body) as Map<String, dynamic>;
     return map;
   }
 
@@ -159,6 +160,10 @@ class KubernetesClient {
   }
 
   String _getFullUrl(String url) {
+    if (url.startsWith('/')) {
+      url = url.substring(1);
+    }
+
     return '$_baseUrl$url';
   }
 
