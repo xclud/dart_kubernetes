@@ -63,7 +63,7 @@ class _ClusterViewPageState extends State<ClusterViewPage> {
 
                   return DropdownButtonFormField<String>(
                     decoration: const InputDecoration(labelText: 'Namespaces'),
-                    //value: _namespace,
+                    value: _namespace,
                     onChanged: (value) {
                       value ??= 'default';
                       _namespace = value;
