@@ -154,6 +154,10 @@ class KubernetesClient {
     return resp.body;
   }
 
+  String _joinQueryStrings(Map<String, Object> q) {
+    return q.entries.map((e) => '${e.key}=${e.value}').join('&');
+  }
+
   String _getFullUrl(String url) {
     return '$_baseUrl$url';
   }
@@ -210,8 +214,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/componentstatuses?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/componentstatuses$query');
     return api_core_v1.ComponentStatusList.fromJson(result);
   }
 
@@ -224,8 +262,15 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result =
-        await _getJsonMap('/api/v1/componentstatuses/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/componentstatuses/$name$query');
     return api_core_v1.ComponentStatus.fromJson(result);
   }
 
@@ -262,8 +307,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/configmaps?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/configmaps$query');
     return api_core_v1.ConfigMapList.fromJson(result);
   }
 
@@ -300,8 +379,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/endpoints?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/endpoints$query');
     return api_core_v1.EndpointsList.fromJson(result);
   }
 
@@ -338,8 +451,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/events?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/events$query');
     return api_core_v1.EventList.fromJson(result);
   }
 
@@ -376,8 +523,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/limitranges?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/limitranges$query');
     return api_core_v1.LimitRangeList.fromJson(result);
   }
 
@@ -387,7 +568,15 @@ class KubernetesClient {
   Future<api_core_v1.NamespaceList> listCoreV1Namespace({
     bool? pretty,
   }) async {
-    final result = await _getJsonMap('/api/v1/namespaces?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/namespaces$query');
     return api_core_v1.NamespaceList.fromJson(result);
   }
 
@@ -397,7 +586,15 @@ class KubernetesClient {
   Future<api_core_v1.Namespace> createCoreV1Namespace({
     bool? pretty,
   }) async {
-    final result = await _postJsonMap('/api/v1/namespaces?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _postJsonMap('/api/v1/namespaces$query');
     return api_core_v1.Namespace.fromJson(result);
   }
 
@@ -416,8 +613,22 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _postJsonMap(
-        '/api/v1/namespaces/$namespace/bindings?dryRun=$dryRun&fieldManager=$fieldManager&pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (dryRun != null) {
+      queryStrings['dryRun'] = dryRun;
+    }
+    if (fieldManager != null) {
+      queryStrings['fieldManager'] = fieldManager;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _postJsonMap('/api/v1/namespaces/$namespace/bindings$query');
     return api_core_v1.Binding.fromJson(result);
   }
 
@@ -430,8 +641,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/configmaps?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/api/v1/namespaces/$namespace/configmaps$query');
     return api_core_v1.ConfigMapList.fromJson(result);
   }
 
@@ -445,8 +664,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _deleteJsonMap(
-        '/api/v1/namespaces/$namespace/configmaps?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _deleteJsonMap('/api/v1/namespaces/$namespace/configmaps$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -459,8 +686,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _postJsonMap(
-        '/api/v1/namespaces/$namespace/configmaps?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _postJsonMap('/api/v1/namespaces/$namespace/configmaps$query');
     return api_core_v1.ConfigMap.fromJson(result);
   }
 
@@ -476,8 +711,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/configmaps/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/configmaps/$name$query');
     return api_core_v1.ConfigMap.fromJson(result);
   }
 
@@ -493,8 +736,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/api/v1/namespaces/$namespace/configmaps/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/configmaps/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -510,8 +761,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/configmaps/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/configmaps/$name$query');
     return api_core_v1.ConfigMap.fromJson(result);
   }
 
@@ -527,8 +786,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/configmaps/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/configmaps/$name$query');
     return api_core_v1.ConfigMap.fromJson(result);
   }
 
@@ -541,8 +808,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/endpoints?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/api/v1/namespaces/$namespace/endpoints$query');
     return api_core_v1.EndpointsList.fromJson(result);
   }
 
@@ -556,8 +831,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _deleteJsonMap(
-        '/api/v1/namespaces/$namespace/endpoints?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _deleteJsonMap('/api/v1/namespaces/$namespace/endpoints$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -570,8 +853,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _postJsonMap(
-        '/api/v1/namespaces/$namespace/endpoints?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _postJsonMap('/api/v1/namespaces/$namespace/endpoints$query');
     return api_core_v1.Endpoints.fromJson(result);
   }
 
@@ -587,8 +878,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/endpoints/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/endpoints/$name$query');
     return api_core_v1.Endpoints.fromJson(result);
   }
 
@@ -604,8 +903,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/api/v1/namespaces/$namespace/endpoints/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/endpoints/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -621,8 +928,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/endpoints/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/endpoints/$name$query');
     return api_core_v1.Endpoints.fromJson(result);
   }
 
@@ -638,8 +953,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/endpoints/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/endpoints/$name$query');
     return api_core_v1.Endpoints.fromJson(result);
   }
 
@@ -652,8 +975,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/events?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/api/v1/namespaces/$namespace/events$query');
     return api_core_v1.EventList.fromJson(result);
   }
 
@@ -667,8 +998,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _deleteJsonMap(
-        '/api/v1/namespaces/$namespace/events?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _deleteJsonMap('/api/v1/namespaces/$namespace/events$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -681,8 +1020,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _postJsonMap(
-        '/api/v1/namespaces/$namespace/events?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _postJsonMap('/api/v1/namespaces/$namespace/events$query');
     return api_core_v1.Event.fromJson(result);
   }
 
@@ -698,8 +1045,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/events/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/api/v1/namespaces/$namespace/events/$name$query');
     return api_core_v1.Event.fromJson(result);
   }
 
@@ -715,8 +1070,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/api/v1/namespaces/$namespace/events/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/events/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -732,8 +1095,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/events/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _putJsonMap('/api/v1/namespaces/$namespace/events/$name$query');
     return api_core_v1.Event.fromJson(result);
   }
 
@@ -749,8 +1120,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/events/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _patchJsonMap('/api/v1/namespaces/$namespace/events/$name$query');
     return api_core_v1.Event.fromJson(result);
   }
 
@@ -763,8 +1142,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/limitranges?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/api/v1/namespaces/$namespace/limitranges$query');
     return api_core_v1.LimitRangeList.fromJson(result);
   }
 
@@ -778,8 +1165,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _deleteJsonMap(
-        '/api/v1/namespaces/$namespace/limitranges?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _deleteJsonMap('/api/v1/namespaces/$namespace/limitranges$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -792,8 +1187,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _postJsonMap(
-        '/api/v1/namespaces/$namespace/limitranges?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _postJsonMap('/api/v1/namespaces/$namespace/limitranges$query');
     return api_core_v1.LimitRange.fromJson(result);
   }
 
@@ -809,8 +1212,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/limitranges/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/limitranges/$name$query');
     return api_core_v1.LimitRange.fromJson(result);
   }
 
@@ -827,8 +1238,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/api/v1/namespaces/$namespace/limitranges/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/limitranges/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -844,8 +1263,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/limitranges/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/limitranges/$name$query');
     return api_core_v1.LimitRange.fromJson(result);
   }
 
@@ -861,8 +1288,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/limitranges/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/limitranges/$name$query');
     return api_core_v1.LimitRange.fromJson(result);
   }
 
@@ -876,8 +1311,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/persistentvolumeclaims?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/persistentvolumeclaims$query');
     return api_core_v1.PersistentVolumeClaimList.fromJson(result);
   }
 
@@ -891,8 +1334,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/api/v1/namespaces/$namespace/persistentvolumeclaims?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/persistentvolumeclaims$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -906,8 +1357,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/api/v1/namespaces/$namespace/persistentvolumeclaims?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/persistentvolumeclaims$query');
     return api_core_v1.PersistentVolumeClaim.fromJson(result);
   }
 
@@ -924,8 +1383,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/persistentvolumeclaims/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/persistentvolumeclaims/$name$query');
     return api_core_v1.PersistentVolumeClaim.fromJson(result);
   }
 
@@ -942,8 +1409,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/api/v1/namespaces/$namespace/persistentvolumeclaims/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/persistentvolumeclaims/$name$query');
     return api_core_v1.PersistentVolumeClaim.fromJson(result);
   }
 
@@ -960,8 +1435,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/persistentvolumeclaims/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/persistentvolumeclaims/$name$query');
     return api_core_v1.PersistentVolumeClaim.fromJson(result);
   }
 
@@ -978,8 +1461,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/persistentvolumeclaims/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/persistentvolumeclaims/$name$query');
     return api_core_v1.PersistentVolumeClaim.fromJson(result);
   }
 
@@ -996,8 +1487,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/persistentvolumeclaims/$name/status?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/persistentvolumeclaims/$name/status$query');
     return api_core_v1.PersistentVolumeClaim.fromJson(result);
   }
 
@@ -1014,8 +1513,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/persistentvolumeclaims/$name/status?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/persistentvolumeclaims/$name/status$query');
     return api_core_v1.PersistentVolumeClaim.fromJson(result);
   }
 
@@ -1032,8 +1539,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/persistentvolumeclaims/$name/status?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/persistentvolumeclaims/$name/status$query');
     return api_core_v1.PersistentVolumeClaim.fromJson(result);
   }
 
@@ -1046,8 +1561,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result =
-        await _getJsonMap('/api/v1/namespaces/$namespace/pods?pretty=$pretty');
+        await _getJsonMap('/api/v1/namespaces/$namespace/pods$query');
     return api_core_v1.PodList.fromJson(result);
   }
 
@@ -1061,8 +1584,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _deleteJsonMap(
-        '/api/v1/namespaces/$namespace/pods?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _deleteJsonMap('/api/v1/namespaces/$namespace/pods$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -1075,8 +1606,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result =
-        await _postJsonMap('/api/v1/namespaces/$namespace/pods?pretty=$pretty');
+        await _postJsonMap('/api/v1/namespaces/$namespace/pods$query');
     return api_core_v1.Pod.fromJson(result);
   }
 
@@ -1092,8 +1631,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/pods/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/api/v1/namespaces/$namespace/pods/$name$query');
     return api_core_v1.Pod.fromJson(result);
   }
 
@@ -1109,8 +1656,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _deleteJsonMap(
-        '/api/v1/namespaces/$namespace/pods/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _deleteJsonMap('/api/v1/namespaces/$namespace/pods/$name$query');
     return api_core_v1.Pod.fromJson(result);
   }
 
@@ -1126,8 +1681,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/pods/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _putJsonMap('/api/v1/namespaces/$namespace/pods/$name$query');
     return api_core_v1.Pod.fromJson(result);
   }
 
@@ -1143,8 +1706,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/pods/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _patchJsonMap('/api/v1/namespaces/$namespace/pods/$name$query');
     return api_core_v1.Pod.fromJson(result);
   }
 
@@ -1172,8 +1743,28 @@ class KubernetesClient {
     bool? stdout,
     bool? tty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (container != null) {
+      queryStrings['container'] = container;
+    }
+    if (stderr != null) {
+      queryStrings['stderr'] = stderr;
+    }
+    if (stdin != null) {
+      queryStrings['stdin'] = stdin;
+    }
+    if (stdout != null) {
+      queryStrings['stdout'] = stdout;
+    }
+    if (tty != null) {
+      queryStrings['tty'] = tty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/attach?container=$container&stderr=$stderr&stdin=$stdin&stdout=$stdout&tty=$tty');
+        '/api/v1/namespaces/$namespace/pods/$name/attach$query');
     return result;
   }
 
@@ -1201,8 +1792,28 @@ class KubernetesClient {
     bool? stdout,
     bool? tty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (container != null) {
+      queryStrings['container'] = container;
+    }
+    if (stderr != null) {
+      queryStrings['stderr'] = stderr;
+    }
+    if (stdin != null) {
+      queryStrings['stdin'] = stdin;
+    }
+    if (stdout != null) {
+      queryStrings['stdout'] = stdout;
+    }
+    if (tty != null) {
+      queryStrings['tty'] = tty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/attach?container=$container&stderr=$stderr&stdin=$stdin&stdout=$stdout&tty=$tty');
+        '/api/v1/namespaces/$namespace/pods/$name/attach$query');
     return result;
   }
 
@@ -1224,8 +1835,22 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (dryRun != null) {
+      queryStrings['dryRun'] = dryRun;
+    }
+    if (fieldManager != null) {
+      queryStrings['fieldManager'] = fieldManager;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/api/v1/namespaces/$namespace/pods/$name/binding?dryRun=$dryRun&fieldManager=$fieldManager&pretty=$pretty');
+        '/api/v1/namespaces/$namespace/pods/$name/binding$query');
     return api_core_v1.Binding.fromJson(result);
   }
 
@@ -1241,8 +1866,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/pods/$name/ephemeralcontainers?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/pods/$name/ephemeralcontainers$query');
     return api_core_v1.Pod.fromJson(result);
   }
 
@@ -1258,8 +1891,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/pods/$name/ephemeralcontainers?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/pods/$name/ephemeralcontainers$query');
     return api_core_v1.Pod.fromJson(result);
   }
 
@@ -1275,8 +1916,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/pods/$name/ephemeralcontainers?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/pods/$name/ephemeralcontainers$query');
     return api_core_v1.Pod.fromJson(result);
   }
 
@@ -1298,8 +1947,22 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (dryRun != null) {
+      queryStrings['dryRun'] = dryRun;
+    }
+    if (fieldManager != null) {
+      queryStrings['fieldManager'] = fieldManager;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/api/v1/namespaces/$namespace/pods/$name/eviction?dryRun=$dryRun&fieldManager=$fieldManager&pretty=$pretty');
+        '/api/v1/namespaces/$namespace/pods/$name/eviction$query');
     return api_policy_v1.Eviction.fromJson(result);
   }
 
@@ -1330,8 +1993,31 @@ class KubernetesClient {
     bool? stdout,
     bool? tty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (command != null) {
+      queryStrings['command'] = command;
+    }
+    if (container != null) {
+      queryStrings['container'] = container;
+    }
+    if (stderr != null) {
+      queryStrings['stderr'] = stderr;
+    }
+    if (stdin != null) {
+      queryStrings['stdin'] = stdin;
+    }
+    if (stdout != null) {
+      queryStrings['stdout'] = stdout;
+    }
+    if (tty != null) {
+      queryStrings['tty'] = tty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/exec?command=$command&container=$container&stderr=$stderr&stdin=$stdin&stdout=$stdout&tty=$tty');
+        '/api/v1/namespaces/$namespace/pods/$name/exec$query');
     return result;
   }
 
@@ -1362,8 +2048,31 @@ class KubernetesClient {
     bool? stdout,
     bool? tty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (command != null) {
+      queryStrings['command'] = command;
+    }
+    if (container != null) {
+      queryStrings['container'] = container;
+    }
+    if (stderr != null) {
+      queryStrings['stderr'] = stderr;
+    }
+    if (stdin != null) {
+      queryStrings['stdin'] = stdin;
+    }
+    if (stdout != null) {
+      queryStrings['stdout'] = stdout;
+    }
+    if (tty != null) {
+      queryStrings['tty'] = tty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/exec?command=$command&container=$container&stderr=$stderr&stdin=$stdin&stdout=$stdout&tty=$tty');
+        '/api/v1/namespaces/$namespace/pods/$name/exec$query');
     return result;
   }
 
@@ -1403,8 +2112,41 @@ class KubernetesClient {
     int? tailLines,
     bool? timestamps,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (container != null) {
+      queryStrings['container'] = container;
+    }
+    if (follow != null) {
+      queryStrings['follow'] = follow;
+    }
+    if (insecureSkipTLSVerifyBackend != null) {
+      queryStrings['insecureSkipTLSVerifyBackend'] =
+          insecureSkipTLSVerifyBackend;
+    }
+    if (limitBytes != null) {
+      queryStrings['limitBytes'] = limitBytes;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (previous != null) {
+      queryStrings['previous'] = previous;
+    }
+    if (sinceSeconds != null) {
+      queryStrings['sinceSeconds'] = sinceSeconds;
+    }
+    if (tailLines != null) {
+      queryStrings['tailLines'] = tailLines;
+    }
+    if (timestamps != null) {
+      queryStrings['timestamps'] = timestamps;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/log?container=$container&follow=$follow&insecureSkipTLSVerifyBackend=$insecureSkipTLSVerifyBackend&limitBytes=$limitBytes&pretty=$pretty&previous=$previous&sinceSeconds=$sinceSeconds&tailLines=$tailLines&timestamps=$timestamps');
+        '/api/v1/namespaces/$namespace/pods/$name/log$query');
     return result;
   }
 
@@ -1420,8 +2162,16 @@ class KubernetesClient {
     required String namespace,
     int? ports,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (ports != null) {
+      queryStrings['ports'] = ports;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/portforward?ports=$ports');
+        '/api/v1/namespaces/$namespace/pods/$name/portforward$query');
     return result;
   }
 
@@ -1437,8 +2187,16 @@ class KubernetesClient {
     required String namespace,
     int? ports,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (ports != null) {
+      queryStrings['ports'] = ports;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/portforward?ports=$ports');
+        '/api/v1/namespaces/$namespace/pods/$name/portforward$query');
     return result;
   }
 
@@ -1454,8 +2212,16 @@ class KubernetesClient {
     required String namespace,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy$query');
     return result;
   }
 
@@ -1471,8 +2237,16 @@ class KubernetesClient {
     required String namespace,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy$query');
     return result;
   }
 
@@ -1488,8 +2262,16 @@ class KubernetesClient {
     required String namespace,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy$query');
     return result;
   }
 
@@ -1505,8 +2287,16 @@ class KubernetesClient {
     required String namespace,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy$query');
     return result;
   }
 
@@ -1522,8 +2312,16 @@ class KubernetesClient {
     required String namespace,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy$query');
     return result;
   }
 
@@ -1539,8 +2337,16 @@ class KubernetesClient {
     required String namespace,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _headJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy$query');
     return result;
   }
 
@@ -1556,8 +2362,16 @@ class KubernetesClient {
     required String namespace,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _optionsJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy$query');
     return result;
   }
 
@@ -1576,8 +2390,16 @@ class KubernetesClient {
     required String path,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path$query');
     return result;
   }
 
@@ -1596,8 +2418,16 @@ class KubernetesClient {
     required String path,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path$query');
     return result;
   }
 
@@ -1616,8 +2446,16 @@ class KubernetesClient {
     required String path,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path$query');
     return result;
   }
 
@@ -1636,8 +2474,16 @@ class KubernetesClient {
     required String path,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path$query');
     return result;
   }
 
@@ -1656,8 +2502,16 @@ class KubernetesClient {
     required String path,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path$query');
     return result;
   }
 
@@ -1676,8 +2530,16 @@ class KubernetesClient {
     required String path,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _headJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path$query');
     return result;
   }
 
@@ -1696,8 +2558,16 @@ class KubernetesClient {
     required String path,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _optionsJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path$query');
     return result;
   }
 
@@ -1713,8 +2583,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/pods/$name/status?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/pods/$name/status$query');
     return api_core_v1.Pod.fromJson(result);
   }
 
@@ -1730,8 +2608,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/pods/$name/status?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/pods/$name/status$query');
     return api_core_v1.Pod.fromJson(result);
   }
 
@@ -1747,8 +2633,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/pods/$name/status?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/pods/$name/status$query');
     return api_core_v1.Pod.fromJson(result);
   }
 
@@ -1761,8 +2655,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/podtemplates?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/api/v1/namespaces/$namespace/podtemplates$query');
     return api_core_v1.PodTemplateList.fromJson(result);
   }
 
@@ -1776,8 +2678,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/api/v1/namespaces/$namespace/podtemplates?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/podtemplates$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -1790,8 +2700,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _postJsonMap(
-        '/api/v1/namespaces/$namespace/podtemplates?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _postJsonMap('/api/v1/namespaces/$namespace/podtemplates$query');
     return api_core_v1.PodTemplate.fromJson(result);
   }
 
@@ -1807,8 +2725,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/podtemplates/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/podtemplates/$name$query');
     return api_core_v1.PodTemplate.fromJson(result);
   }
 
@@ -1824,8 +2750,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/api/v1/namespaces/$namespace/podtemplates/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/podtemplates/$name$query');
     return api_core_v1.PodTemplate.fromJson(result);
   }
 
@@ -1841,8 +2775,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/podtemplates/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/podtemplates/$name$query');
     return api_core_v1.PodTemplate.fromJson(result);
   }
 
@@ -1858,8 +2800,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/podtemplates/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/podtemplates/$name$query');
     return api_core_v1.PodTemplate.fromJson(result);
   }
 
@@ -1873,8 +2823,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/replicationcontrollers?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/replicationcontrollers$query');
     return api_core_v1.ReplicationControllerList.fromJson(result);
   }
 
@@ -1888,8 +2846,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/api/v1/namespaces/$namespace/replicationcontrollers?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/replicationcontrollers$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -1903,8 +2869,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/api/v1/namespaces/$namespace/replicationcontrollers?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/replicationcontrollers$query');
     return api_core_v1.ReplicationController.fromJson(result);
   }
 
@@ -1921,8 +2895,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/replicationcontrollers/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/replicationcontrollers/$name$query');
     return api_core_v1.ReplicationController.fromJson(result);
   }
 
@@ -1939,8 +2921,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/api/v1/namespaces/$namespace/replicationcontrollers/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/replicationcontrollers/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -1957,8 +2947,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/replicationcontrollers/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/replicationcontrollers/$name$query');
     return api_core_v1.ReplicationController.fromJson(result);
   }
 
@@ -1975,8 +2973,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/replicationcontrollers/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/replicationcontrollers/$name$query');
     return api_core_v1.ReplicationController.fromJson(result);
   }
 
@@ -1993,8 +2999,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/replicationcontrollers/$name/scale?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/replicationcontrollers/$name/scale$query');
     return api_autoscaling_v1.Scale.fromJson(result);
   }
 
@@ -2011,8 +3025,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/replicationcontrollers/$name/scale?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/replicationcontrollers/$name/scale$query');
     return api_autoscaling_v1.Scale.fromJson(result);
   }
 
@@ -2029,8 +3051,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/replicationcontrollers/$name/scale?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/replicationcontrollers/$name/scale$query');
     return api_autoscaling_v1.Scale.fromJson(result);
   }
 
@@ -2047,8 +3077,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/replicationcontrollers/$name/status?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/replicationcontrollers/$name/status$query');
     return api_core_v1.ReplicationController.fromJson(result);
   }
 
@@ -2065,8 +3103,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/replicationcontrollers/$name/status?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/replicationcontrollers/$name/status$query');
     return api_core_v1.ReplicationController.fromJson(result);
   }
 
@@ -2083,8 +3129,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/replicationcontrollers/$name/status?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/replicationcontrollers/$name/status$query');
     return api_core_v1.ReplicationController.fromJson(result);
   }
 
@@ -2097,8 +3151,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/resourcequotas?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/api/v1/namespaces/$namespace/resourcequotas$query');
     return api_core_v1.ResourceQuotaList.fromJson(result);
   }
 
@@ -2112,8 +3174,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/api/v1/namespaces/$namespace/resourcequotas?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/resourcequotas$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -2126,8 +3196,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/api/v1/namespaces/$namespace/resourcequotas?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/resourcequotas$query');
     return api_core_v1.ResourceQuota.fromJson(result);
   }
 
@@ -2143,8 +3221,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/resourcequotas/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/resourcequotas/$name$query');
     return api_core_v1.ResourceQuota.fromJson(result);
   }
 
@@ -2160,8 +3246,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/api/v1/namespaces/$namespace/resourcequotas/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/resourcequotas/$name$query');
     return api_core_v1.ResourceQuota.fromJson(result);
   }
 
@@ -2177,8 +3271,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/resourcequotas/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/resourcequotas/$name$query');
     return api_core_v1.ResourceQuota.fromJson(result);
   }
 
@@ -2194,8 +3296,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/resourcequotas/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/resourcequotas/$name$query');
     return api_core_v1.ResourceQuota.fromJson(result);
   }
 
@@ -2211,8 +3321,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/resourcequotas/$name/status?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/resourcequotas/$name/status$query');
     return api_core_v1.ResourceQuota.fromJson(result);
   }
 
@@ -2228,8 +3346,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/resourcequotas/$name/status?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/resourcequotas/$name/status$query');
     return api_core_v1.ResourceQuota.fromJson(result);
   }
 
@@ -2245,8 +3371,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/resourcequotas/$name/status?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/resourcequotas/$name/status$query');
     return api_core_v1.ResourceQuota.fromJson(result);
   }
 
@@ -2259,8 +3393,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/secrets?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/api/v1/namespaces/$namespace/secrets$query');
     return api_core_v1.SecretList.fromJson(result);
   }
 
@@ -2274,8 +3416,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _deleteJsonMap(
-        '/api/v1/namespaces/$namespace/secrets?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _deleteJsonMap('/api/v1/namespaces/$namespace/secrets$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -2288,8 +3438,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _postJsonMap(
-        '/api/v1/namespaces/$namespace/secrets?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _postJsonMap('/api/v1/namespaces/$namespace/secrets$query');
     return api_core_v1.Secret.fromJson(result);
   }
 
@@ -2305,8 +3463,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/secrets/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/api/v1/namespaces/$namespace/secrets/$name$query');
     return api_core_v1.Secret.fromJson(result);
   }
 
@@ -2322,8 +3488,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/api/v1/namespaces/$namespace/secrets/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/secrets/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -2339,8 +3513,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/secrets/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _putJsonMap('/api/v1/namespaces/$namespace/secrets/$name$query');
     return api_core_v1.Secret.fromJson(result);
   }
 
@@ -2356,8 +3538,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/secrets/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/secrets/$name$query');
     return api_core_v1.Secret.fromJson(result);
   }
 
@@ -2370,8 +3560,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/serviceaccounts?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/serviceaccounts$query');
     return api_core_v1.ServiceAccountList.fromJson(result);
   }
 
@@ -2385,8 +3583,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/api/v1/namespaces/$namespace/serviceaccounts?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/serviceaccounts$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -2399,8 +3605,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/api/v1/namespaces/$namespace/serviceaccounts?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/serviceaccounts$query');
     return api_core_v1.ServiceAccount.fromJson(result);
   }
 
@@ -2416,8 +3630,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/serviceaccounts/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/serviceaccounts/$name$query');
     return api_core_v1.ServiceAccount.fromJson(result);
   }
 
@@ -2433,8 +3655,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/api/v1/namespaces/$namespace/serviceaccounts/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/serviceaccounts/$name$query');
     return api_core_v1.ServiceAccount.fromJson(result);
   }
 
@@ -2450,8 +3680,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/serviceaccounts/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/serviceaccounts/$name$query');
     return api_core_v1.ServiceAccount.fromJson(result);
   }
 
@@ -2467,8 +3705,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/serviceaccounts/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/serviceaccounts/$name$query');
     return api_core_v1.ServiceAccount.fromJson(result);
   }
 
@@ -2491,8 +3737,22 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (dryRun != null) {
+      queryStrings['dryRun'] = dryRun;
+    }
+    if (fieldManager != null) {
+      queryStrings['fieldManager'] = fieldManager;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/api/v1/namespaces/$namespace/serviceaccounts/$name/token?dryRun=$dryRun&fieldManager=$fieldManager&pretty=$pretty');
+        '/api/v1/namespaces/$namespace/serviceaccounts/$name/token$query');
     return api_authentication_v1.TokenRequest.fromJson(result);
   }
 
@@ -2505,8 +3765,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/services?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/api/v1/namespaces/$namespace/services$query');
     return api_core_v1.ServiceList.fromJson(result);
   }
 
@@ -2519,8 +3787,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _postJsonMap(
-        '/api/v1/namespaces/$namespace/services?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _postJsonMap('/api/v1/namespaces/$namespace/services$query');
     return api_core_v1.Service.fromJson(result);
   }
 
@@ -2536,8 +3812,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/services/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/api/v1/namespaces/$namespace/services/$name$query');
     return api_core_v1.Service.fromJson(result);
   }
 
@@ -2553,8 +3837,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/api/v1/namespaces/$namespace/services/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/services/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -2570,8 +3862,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/services/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _putJsonMap('/api/v1/namespaces/$namespace/services/$name$query');
     return api_core_v1.Service.fromJson(result);
   }
 
@@ -2587,8 +3887,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/services/$name?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/services/$name$query');
     return api_core_v1.Service.fromJson(result);
   }
 
@@ -2604,8 +3912,16 @@ class KubernetesClient {
     required String namespace,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/services/$name/proxy$query');
     return result;
   }
 
@@ -2621,8 +3937,16 @@ class KubernetesClient {
     required String namespace,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/services/$name/proxy$query');
     return result;
   }
 
@@ -2638,8 +3962,16 @@ class KubernetesClient {
     required String namespace,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/services/$name/proxy$query');
     return result;
   }
 
@@ -2655,8 +3987,16 @@ class KubernetesClient {
     required String namespace,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/services/$name/proxy$query');
     return result;
   }
 
@@ -2672,8 +4012,16 @@ class KubernetesClient {
     required String namespace,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/services/$name/proxy$query');
     return result;
   }
 
@@ -2689,8 +4037,16 @@ class KubernetesClient {
     required String namespace,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _headJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/services/$name/proxy$query');
     return result;
   }
 
@@ -2706,8 +4062,16 @@ class KubernetesClient {
     required String namespace,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _optionsJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/services/$name/proxy$query');
     return result;
   }
 
@@ -2726,8 +4090,16 @@ class KubernetesClient {
     required String path,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy/$path?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/services/$name/proxy/$path$query');
     return result;
   }
 
@@ -2746,8 +4118,16 @@ class KubernetesClient {
     required String path,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy/$path?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/services/$name/proxy/$path$query');
     return result;
   }
 
@@ -2766,8 +4146,16 @@ class KubernetesClient {
     required String path,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy/$path?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/services/$name/proxy/$path$query');
     return result;
   }
 
@@ -2786,8 +4174,16 @@ class KubernetesClient {
     required String path,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy/$path?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/services/$name/proxy/$path$query');
     return result;
   }
 
@@ -2806,8 +4202,16 @@ class KubernetesClient {
     required String path,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy/$path?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/services/$name/proxy/$path$query');
     return result;
   }
 
@@ -2826,8 +4230,16 @@ class KubernetesClient {
     required String path,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _headJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy/$path?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/services/$name/proxy/$path$query');
     return result;
   }
 
@@ -2846,8 +4258,16 @@ class KubernetesClient {
     required String path,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _optionsJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy/$path?path=$pathQuery');
+        '/api/v1/namespaces/$namespace/services/$name/proxy/$path$query');
     return result;
   }
 
@@ -2863,8 +4283,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/namespaces/$namespace/services/$name/status?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/services/$name/status$query');
     return api_core_v1.Service.fromJson(result);
   }
 
@@ -2880,8 +4308,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/services/$name/status?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/services/$name/status$query');
     return api_core_v1.Service.fromJson(result);
   }
 
@@ -2897,8 +4333,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/services/$name/status?pretty=$pretty');
+        '/api/v1/namespaces/$namespace/services/$name/status$query');
     return api_core_v1.Service.fromJson(result);
   }
 
@@ -2911,7 +4355,15 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result = await _getJsonMap('/api/v1/namespaces/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/namespaces/$name$query');
     return api_core_v1.Namespace.fromJson(result);
   }
 
@@ -2924,8 +4376,15 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result =
-        await _deleteJsonMap('/api/v1/namespaces/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _deleteJsonMap('/api/v1/namespaces/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -2938,7 +4397,15 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result = await _putJsonMap('/api/v1/namespaces/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _putJsonMap('/api/v1/namespaces/$name$query');
     return api_core_v1.Namespace.fromJson(result);
   }
 
@@ -2951,8 +4418,15 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result =
-        await _patchJsonMap('/api/v1/namespaces/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _patchJsonMap('/api/v1/namespaces/$name$query');
     return api_core_v1.Namespace.fromJson(result);
   }
 
@@ -2971,8 +4445,21 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result = await _putJsonMap(
-        '/api/v1/namespaces/$name/finalize?dryRun=$dryRun&fieldManager=$fieldManager&pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (dryRun != null) {
+      queryStrings['dryRun'] = dryRun;
+    }
+    if (fieldManager != null) {
+      queryStrings['fieldManager'] = fieldManager;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _putJsonMap('/api/v1/namespaces/$name/finalize$query');
     return api_core_v1.Namespace.fromJson(result);
   }
 
@@ -2985,8 +4472,15 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result =
-        await _getJsonMap('/api/v1/namespaces/$name/status?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/namespaces/$name/status$query');
     return api_core_v1.Namespace.fromJson(result);
   }
 
@@ -2999,8 +4493,15 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result =
-        await _putJsonMap('/api/v1/namespaces/$name/status?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _putJsonMap('/api/v1/namespaces/$name/status$query');
     return api_core_v1.Namespace.fromJson(result);
   }
 
@@ -3013,8 +4514,15 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result =
-        await _patchJsonMap('/api/v1/namespaces/$name/status?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _patchJsonMap('/api/v1/namespaces/$name/status$query');
     return api_core_v1.Namespace.fromJson(result);
   }
 
@@ -3024,7 +4532,15 @@ class KubernetesClient {
   Future<api_core_v1.NodeList> listCoreV1Node({
     bool? pretty,
   }) async {
-    final result = await _getJsonMap('/api/v1/nodes?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/nodes$query');
     return api_core_v1.NodeList.fromJson(result);
   }
 
@@ -3034,7 +4550,15 @@ class KubernetesClient {
   Future<apimachinery_pkg_apis_meta_v1.Status> deleteCoreV1CollectionNode({
     bool? pretty,
   }) async {
-    final result = await _deleteJsonMap('/api/v1/nodes?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _deleteJsonMap('/api/v1/nodes$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -3044,7 +4568,15 @@ class KubernetesClient {
   Future<api_core_v1.Node> createCoreV1Node({
     bool? pretty,
   }) async {
-    final result = await _postJsonMap('/api/v1/nodes?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _postJsonMap('/api/v1/nodes$query');
     return api_core_v1.Node.fromJson(result);
   }
 
@@ -3057,7 +4589,15 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result = await _getJsonMap('/api/v1/nodes/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/nodes/$name$query');
     return api_core_v1.Node.fromJson(result);
   }
 
@@ -3070,7 +4610,15 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result = await _deleteJsonMap('/api/v1/nodes/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _deleteJsonMap('/api/v1/nodes/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -3083,7 +4631,15 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result = await _putJsonMap('/api/v1/nodes/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _putJsonMap('/api/v1/nodes/$name$query');
     return api_core_v1.Node.fromJson(result);
   }
 
@@ -3096,7 +4652,15 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result = await _patchJsonMap('/api/v1/nodes/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _patchJsonMap('/api/v1/nodes/$name$query');
     return api_core_v1.Node.fromJson(result);
   }
 
@@ -3109,8 +4673,15 @@ class KubernetesClient {
     required String name,
     String? pathQuery,
   }) async {
-    final result =
-        await _getJsonString('/api/v1/nodes/$name/proxy?path=$pathQuery');
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonString('/api/v1/nodes/$name/proxy$query');
     return result;
   }
 
@@ -3123,8 +4694,15 @@ class KubernetesClient {
     required String name,
     String? pathQuery,
   }) async {
-    final result =
-        await _deleteJsonString('/api/v1/nodes/$name/proxy?path=$pathQuery');
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _deleteJsonString('/api/v1/nodes/$name/proxy$query');
     return result;
   }
 
@@ -3137,8 +4715,15 @@ class KubernetesClient {
     required String name,
     String? pathQuery,
   }) async {
-    final result =
-        await _postJsonString('/api/v1/nodes/$name/proxy?path=$pathQuery');
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _postJsonString('/api/v1/nodes/$name/proxy$query');
     return result;
   }
 
@@ -3151,8 +4736,15 @@ class KubernetesClient {
     required String name,
     String? pathQuery,
   }) async {
-    final result =
-        await _putJsonString('/api/v1/nodes/$name/proxy?path=$pathQuery');
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _putJsonString('/api/v1/nodes/$name/proxy$query');
     return result;
   }
 
@@ -3165,8 +4757,15 @@ class KubernetesClient {
     required String name,
     String? pathQuery,
   }) async {
-    final result =
-        await _patchJsonString('/api/v1/nodes/$name/proxy?path=$pathQuery');
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _patchJsonString('/api/v1/nodes/$name/proxy$query');
     return result;
   }
 
@@ -3179,8 +4778,15 @@ class KubernetesClient {
     required String name,
     String? pathQuery,
   }) async {
-    final result =
-        await _headJsonString('/api/v1/nodes/$name/proxy?path=$pathQuery');
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _headJsonString('/api/v1/nodes/$name/proxy$query');
     return result;
   }
 
@@ -3193,8 +4799,15 @@ class KubernetesClient {
     required String name,
     String? pathQuery,
   }) async {
-    final result =
-        await _optionsJsonString('/api/v1/nodes/$name/proxy?path=$pathQuery');
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _optionsJsonString('/api/v1/nodes/$name/proxy$query');
     return result;
   }
 
@@ -3210,8 +4823,16 @@ class KubernetesClient {
     required String path,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result =
-        await _getJsonString('/api/v1/nodes/$name/proxy/$path?path=$pathQuery');
+        await _getJsonString('/api/v1/nodes/$name/proxy/$path$query');
     return result;
   }
 
@@ -3227,8 +4848,16 @@ class KubernetesClient {
     required String path,
     String? pathQuery,
   }) async {
-    final result = await _deleteJsonString(
-        '/api/v1/nodes/$name/proxy/$path?path=$pathQuery');
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _deleteJsonString('/api/v1/nodes/$name/proxy/$path$query');
     return result;
   }
 
@@ -3244,8 +4873,16 @@ class KubernetesClient {
     required String path,
     String? pathQuery,
   }) async {
-    final result = await _postJsonString(
-        '/api/v1/nodes/$name/proxy/$path?path=$pathQuery');
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _postJsonString('/api/v1/nodes/$name/proxy/$path$query');
     return result;
   }
 
@@ -3261,8 +4898,16 @@ class KubernetesClient {
     required String path,
     String? pathQuery,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result =
-        await _putJsonString('/api/v1/nodes/$name/proxy/$path?path=$pathQuery');
+        await _putJsonString('/api/v1/nodes/$name/proxy/$path$query');
     return result;
   }
 
@@ -3278,8 +4923,16 @@ class KubernetesClient {
     required String path,
     String? pathQuery,
   }) async {
-    final result = await _patchJsonString(
-        '/api/v1/nodes/$name/proxy/$path?path=$pathQuery');
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _patchJsonString('/api/v1/nodes/$name/proxy/$path$query');
     return result;
   }
 
@@ -3295,8 +4948,16 @@ class KubernetesClient {
     required String path,
     String? pathQuery,
   }) async {
-    final result = await _headJsonString(
-        '/api/v1/nodes/$name/proxy/$path?path=$pathQuery');
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _headJsonString('/api/v1/nodes/$name/proxy/$path$query');
     return result;
   }
 
@@ -3312,8 +4973,16 @@ class KubernetesClient {
     required String path,
     String? pathQuery,
   }) async {
-    final result = await _optionsJsonString(
-        '/api/v1/nodes/$name/proxy/$path?path=$pathQuery');
+    final queryStrings = <String, Object>{};
+    if (pathQuery != null) {
+      queryStrings['path'] = pathQuery;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _optionsJsonString('/api/v1/nodes/$name/proxy/$path$query');
     return result;
   }
 
@@ -3326,8 +4995,15 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result =
-        await _getJsonMap('/api/v1/nodes/$name/status?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/nodes/$name/status$query');
     return api_core_v1.Node.fromJson(result);
   }
 
@@ -3340,8 +5016,15 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result =
-        await _putJsonMap('/api/v1/nodes/$name/status?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _putJsonMap('/api/v1/nodes/$name/status$query');
     return api_core_v1.Node.fromJson(result);
   }
 
@@ -3354,8 +5037,15 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result =
-        await _patchJsonMap('/api/v1/nodes/$name/status?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _patchJsonMap('/api/v1/nodes/$name/status$query');
     return api_core_v1.Node.fromJson(result);
   }
 
@@ -3393,8 +5083,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/persistentvolumeclaims?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/persistentvolumeclaims$query');
     return api_core_v1.PersistentVolumeClaimList.fromJson(result);
   }
 
@@ -3404,8 +5128,15 @@ class KubernetesClient {
   Future<api_core_v1.PersistentVolumeList> listCoreV1PersistentVolume({
     bool? pretty,
   }) async {
-    final result =
-        await _getJsonMap('/api/v1/persistentvolumes?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/persistentvolumes$query');
     return api_core_v1.PersistentVolumeList.fromJson(result);
   }
 
@@ -3416,8 +5147,15 @@ class KubernetesClient {
       deleteCoreV1CollectionPersistentVolume({
     bool? pretty,
   }) async {
-    final result =
-        await _deleteJsonMap('/api/v1/persistentvolumes?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _deleteJsonMap('/api/v1/persistentvolumes$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -3427,8 +5165,15 @@ class KubernetesClient {
   Future<api_core_v1.PersistentVolume> createCoreV1PersistentVolume({
     bool? pretty,
   }) async {
-    final result =
-        await _postJsonMap('/api/v1/persistentvolumes?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _postJsonMap('/api/v1/persistentvolumes$query');
     return api_core_v1.PersistentVolume.fromJson(result);
   }
 
@@ -3441,8 +5186,15 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result =
-        await _getJsonMap('/api/v1/persistentvolumes/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/persistentvolumes/$name$query');
     return api_core_v1.PersistentVolume.fromJson(result);
   }
 
@@ -3455,8 +5207,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result =
-        await _deleteJsonMap('/api/v1/persistentvolumes/$name?pretty=$pretty');
+        await _deleteJsonMap('/api/v1/persistentvolumes/$name$query');
     return api_core_v1.PersistentVolume.fromJson(result);
   }
 
@@ -3469,8 +5229,15 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result =
-        await _putJsonMap('/api/v1/persistentvolumes/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _putJsonMap('/api/v1/persistentvolumes/$name$query');
     return api_core_v1.PersistentVolume.fromJson(result);
   }
 
@@ -3483,8 +5250,15 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result =
-        await _patchJsonMap('/api/v1/persistentvolumes/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _patchJsonMap('/api/v1/persistentvolumes/$name$query');
     return api_core_v1.PersistentVolume.fromJson(result);
   }
 
@@ -3497,8 +5271,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/persistentvolumes/$name/status?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/api/v1/persistentvolumes/$name/status$query');
     return api_core_v1.PersistentVolume.fromJson(result);
   }
 
@@ -3511,8 +5293,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result = await _putJsonMap(
-        '/api/v1/persistentvolumes/$name/status?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _putJsonMap('/api/v1/persistentvolumes/$name/status$query');
     return api_core_v1.PersistentVolume.fromJson(result);
   }
 
@@ -3525,8 +5315,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result = await _patchJsonMap(
-        '/api/v1/persistentvolumes/$name/status?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _patchJsonMap('/api/v1/persistentvolumes/$name/status$query');
     return api_core_v1.PersistentVolume.fromJson(result);
   }
 
@@ -3563,8 +5361,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/pods?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/pods$query');
     return api_core_v1.PodList.fromJson(result);
   }
 
@@ -3601,8 +5433,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/podtemplates?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/podtemplates$query');
     return api_core_v1.PodTemplateList.fromJson(result);
   }
 
@@ -3640,8 +5506,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/replicationcontrollers?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/replicationcontrollers$query');
     return api_core_v1.ReplicationControllerList.fromJson(result);
   }
 
@@ -3679,8 +5579,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/resourcequotas?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/resourcequotas$query');
     return api_core_v1.ResourceQuotaList.fromJson(result);
   }
 
@@ -3717,8 +5651,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/secrets?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/secrets$query');
     return api_core_v1.SecretList.fromJson(result);
   }
 
@@ -3756,8 +5724,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/serviceaccounts?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/serviceaccounts$query');
     return api_core_v1.ServiceAccountList.fromJson(result);
   }
 
@@ -3794,8 +5796,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/services?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/services$query');
     return api_core_v1.ServiceList.fromJson(result);
   }
 
@@ -3833,8 +5869,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/watch/configmaps?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/watch/configmaps$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -3872,8 +5942,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/watch/endpoints?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/watch/endpoints$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -3911,8 +6015,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/watch/events?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/watch/events$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -3950,8 +6088,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/watch/limitranges?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/watch/limitranges$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -3988,8 +6160,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/watch/namespaces?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/watch/namespaces$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -4030,8 +6236,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/watch/namespaces/$namespace/configmaps?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/api/v1/watch/namespaces/$namespace/configmaps$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -4075,8 +6316,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/watch/namespaces/$namespace/configmaps/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/api/v1/watch/namespaces/$namespace/configmaps/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -4117,8 +6393,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/watch/namespaces/$namespace/endpoints?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/api/v1/watch/namespaces/$namespace/endpoints$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -4162,8 +6473,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/watch/namespaces/$namespace/endpoints/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/api/v1/watch/namespaces/$namespace/endpoints/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -4204,8 +6550,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/watch/namespaces/$namespace/events?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/api/v1/watch/namespaces/$namespace/events$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -4248,8 +6629,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/watch/namespaces/$namespace/events/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/api/v1/watch/namespaces/$namespace/events/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -4290,8 +6706,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/watch/namespaces/$namespace/limitranges?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/api/v1/watch/namespaces/$namespace/limitranges$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -4335,8 +6786,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/watch/namespaces/$namespace/limitranges/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/api/v1/watch/namespaces/$namespace/limitranges/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -4377,8 +6863,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/watch/namespaces/$namespace/persistentvolumeclaims?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/api/v1/watch/namespaces/$namespace/persistentvolumeclaims$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -4422,8 +6943,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/watch/namespaces/$namespace/persistentvolumeclaims/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/api/v1/watch/namespaces/$namespace/persistentvolumeclaims/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -4464,8 +7020,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/watch/namespaces/$namespace/pods?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/api/v1/watch/namespaces/$namespace/pods$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -4508,8 +7099,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/watch/namespaces/$namespace/pods/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/api/v1/watch/namespaces/$namespace/pods/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -4550,8 +7176,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/watch/namespaces/$namespace/podtemplates?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/api/v1/watch/namespaces/$namespace/podtemplates$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -4595,8 +7256,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/watch/namespaces/$namespace/podtemplates/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/api/v1/watch/namespaces/$namespace/podtemplates/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -4637,8 +7333,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/watch/namespaces/$namespace/replicationcontrollers?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/api/v1/watch/namespaces/$namespace/replicationcontrollers$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -4682,8 +7413,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/watch/namespaces/$namespace/replicationcontrollers/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/api/v1/watch/namespaces/$namespace/replicationcontrollers/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -4724,8 +7490,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/watch/namespaces/$namespace/resourcequotas?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/api/v1/watch/namespaces/$namespace/resourcequotas$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -4769,8 +7570,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/watch/namespaces/$namespace/resourcequotas/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/api/v1/watch/namespaces/$namespace/resourcequotas/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -4811,8 +7647,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/watch/namespaces/$namespace/secrets?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/api/v1/watch/namespaces/$namespace/secrets$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -4855,8 +7726,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/watch/namespaces/$namespace/secrets/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/api/v1/watch/namespaces/$namespace/secrets/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -4897,8 +7803,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/watch/namespaces/$namespace/serviceaccounts?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/api/v1/watch/namespaces/$namespace/serviceaccounts$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -4942,8 +7883,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/watch/namespaces/$namespace/serviceaccounts/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/api/v1/watch/namespaces/$namespace/serviceaccounts/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -4984,8 +7960,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/watch/namespaces/$namespace/services?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/api/v1/watch/namespaces/$namespace/services$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -5029,8 +8040,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/api/v1/watch/namespaces/$namespace/services/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/api/v1/watch/namespaces/$namespace/services/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -5070,8 +8116,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/watch/namespaces/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/watch/namespaces/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -5108,8 +8188,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/watch/nodes?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/watch/nodes$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -5149,8 +8263,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/watch/nodes/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/watch/nodes/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -5188,8 +8336,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/watch/persistentvolumeclaims?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/api/v1/watch/persistentvolumeclaims$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -5227,8 +8410,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/watch/persistentvolumes?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/watch/persistentvolumes$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -5268,8 +8485,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/watch/persistentvolumes/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/api/v1/watch/persistentvolumes/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -5307,8 +8559,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/watch/pods?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/watch/pods$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -5346,8 +8632,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/watch/podtemplates?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/watch/podtemplates$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -5385,8 +8705,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/watch/replicationcontrollers?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/api/v1/watch/replicationcontrollers$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -5424,8 +8779,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/watch/resourcequotas?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/watch/resourcequotas$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -5463,8 +8852,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/watch/secrets?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/watch/secrets$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -5502,8 +8925,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/watch/serviceaccounts?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/watch/serviceaccounts$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -5541,8 +8998,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/api/v1/watch/services?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/api/v1/watch/services$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -5573,8 +9064,16 @@ class KubernetesClient {
       listAdmissionregistrationV1MutatingWebhookConfiguration({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations?pretty=$pretty');
+        '/apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations$query');
     return api_admissionregistration_v1.MutatingWebhookConfigurationList
         .fromJson(result);
   }
@@ -5586,8 +9085,16 @@ class KubernetesClient {
       deleteAdmissionregistrationV1CollectionMutatingWebhookConfiguration({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations?pretty=$pretty');
+        '/apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -5598,8 +9105,16 @@ class KubernetesClient {
       createAdmissionregistrationV1MutatingWebhookConfiguration({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations?pretty=$pretty');
+        '/apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations$query');
     return api_admissionregistration_v1.MutatingWebhookConfiguration.fromJson(
         result);
   }
@@ -5614,8 +9129,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/$name?pretty=$pretty');
+        '/apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/$name$query');
     return api_admissionregistration_v1.MutatingWebhookConfiguration.fromJson(
         result);
   }
@@ -5630,8 +9153,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/$name?pretty=$pretty');
+        '/apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -5645,8 +9176,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/$name?pretty=$pretty');
+        '/apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/$name$query');
     return api_admissionregistration_v1.MutatingWebhookConfiguration.fromJson(
         result);
   }
@@ -5661,8 +9200,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/$name?pretty=$pretty');
+        '/apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/$name$query');
     return api_admissionregistration_v1.MutatingWebhookConfiguration.fromJson(
         result);
   }
@@ -5674,8 +9221,16 @@ class KubernetesClient {
       listAdmissionregistrationV1ValidatingWebhookConfiguration({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations?pretty=$pretty');
+        '/apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations$query');
     return api_admissionregistration_v1.ValidatingWebhookConfigurationList
         .fromJson(result);
   }
@@ -5687,8 +9242,16 @@ class KubernetesClient {
       deleteAdmissionregistrationV1CollectionValidatingWebhookConfiguration({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations?pretty=$pretty');
+        '/apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -5699,8 +9262,16 @@ class KubernetesClient {
       createAdmissionregistrationV1ValidatingWebhookConfiguration({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations?pretty=$pretty');
+        '/apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations$query');
     return api_admissionregistration_v1.ValidatingWebhookConfiguration.fromJson(
         result);
   }
@@ -5715,8 +9286,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/$name?pretty=$pretty');
+        '/apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/$name$query');
     return api_admissionregistration_v1.ValidatingWebhookConfiguration.fromJson(
         result);
   }
@@ -5731,8 +9310,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/$name?pretty=$pretty');
+        '/apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -5746,8 +9333,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/$name?pretty=$pretty');
+        '/apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/$name$query');
     return api_admissionregistration_v1.ValidatingWebhookConfiguration.fromJson(
         result);
   }
@@ -5762,8 +9357,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/$name?pretty=$pretty');
+        '/apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/$name$query');
     return api_admissionregistration_v1.ValidatingWebhookConfiguration.fromJson(
         result);
   }
@@ -5802,8 +9405,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/admissionregistration.k8s.io/v1/watch/mutatingwebhookconfigurations?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/admissionregistration.k8s.io/v1/watch/mutatingwebhookconfigurations$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -5844,8 +9482,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/admissionregistration.k8s.io/v1/watch/mutatingwebhookconfigurations/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/admissionregistration.k8s.io/v1/watch/mutatingwebhookconfigurations/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -5883,8 +9556,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/admissionregistration.k8s.io/v1/watch/validatingwebhookconfigurations?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/admissionregistration.k8s.io/v1/watch/validatingwebhookconfigurations$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -5925,8 +9633,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/admissionregistration.k8s.io/v1/watch/validatingwebhookconfigurations/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/admissionregistration.k8s.io/v1/watch/validatingwebhookconfigurations/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -5953,8 +9696,16 @@ class KubernetesClient {
       listApiextensionsV1CustomResourceDefinition({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions?pretty=$pretty');
+        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions$query');
     return apiextensions__apiserver_pkg_apis_apiextensions_v1
         .CustomResourceDefinitionList.fromJson(result);
   }
@@ -5966,8 +9717,16 @@ class KubernetesClient {
       deleteApiextensionsV1CollectionCustomResourceDefinition({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions?pretty=$pretty');
+        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -5980,8 +9739,16 @@ class KubernetesClient {
       createApiextensionsV1CustomResourceDefinition({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions?pretty=$pretty');
+        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions$query');
     return apiextensions__apiserver_pkg_apis_apiextensions_v1
         .CustomResourceDefinition.fromJson(result);
   }
@@ -5998,8 +9765,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions/$name?pretty=$pretty');
+        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions/$name$query');
     return apiextensions__apiserver_pkg_apis_apiextensions_v1
         .CustomResourceDefinition.fromJson(result);
   }
@@ -6014,8 +9789,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions/$name?pretty=$pretty');
+        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -6031,8 +9814,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions/$name?pretty=$pretty');
+        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions/$name$query');
     return apiextensions__apiserver_pkg_apis_apiextensions_v1
         .CustomResourceDefinition.fromJson(result);
   }
@@ -6049,8 +9840,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions/$name?pretty=$pretty');
+        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions/$name$query');
     return apiextensions__apiserver_pkg_apis_apiextensions_v1
         .CustomResourceDefinition.fromJson(result);
   }
@@ -6067,8 +9866,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions/$name/status?pretty=$pretty');
+        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions/$name/status$query');
     return apiextensions__apiserver_pkg_apis_apiextensions_v1
         .CustomResourceDefinition.fromJson(result);
   }
@@ -6085,8 +9892,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions/$name/status?pretty=$pretty');
+        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions/$name/status$query');
     return apiextensions__apiserver_pkg_apis_apiextensions_v1
         .CustomResourceDefinition.fromJson(result);
   }
@@ -6103,8 +9918,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions/$name/status?pretty=$pretty');
+        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions/$name/status$query');
     return apiextensions__apiserver_pkg_apis_apiextensions_v1
         .CustomResourceDefinition.fromJson(result);
   }
@@ -6143,8 +9966,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apiextensions.k8s.io/v1/watch/customresourcedefinitions?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/apiextensions.k8s.io/v1/watch/customresourcedefinitions$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -6185,8 +10043,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apiextensions.k8s.io/v1/watch/customresourcedefinitions/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/apiextensions.k8s.io/v1/watch/customresourcedefinitions/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -6211,8 +10104,16 @@ class KubernetesClient {
       listApiregistrationV1APIService({
     bool? pretty,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/apiregistration.k8s.io/v1/apiservices?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/apiregistration.k8s.io/v1/apiservices$query');
     return kube__aggregator_pkg_apis_apiregistration_v1.APIServiceList.fromJson(
         result);
   }
@@ -6224,8 +10125,16 @@ class KubernetesClient {
       deleteApiregistrationV1CollectionAPIService({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/apiregistration.k8s.io/v1/apiservices?pretty=$pretty');
+        '/apis/apiregistration.k8s.io/v1/apiservices$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -6236,8 +10145,16 @@ class KubernetesClient {
       createApiregistrationV1APIService({
     bool? pretty,
   }) async {
-    final result = await _postJsonMap(
-        '/apis/apiregistration.k8s.io/v1/apiservices?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _postJsonMap('/apis/apiregistration.k8s.io/v1/apiservices$query');
     return kube__aggregator_pkg_apis_apiregistration_v1.APIService.fromJson(
         result);
   }
@@ -6252,8 +10169,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apiregistration.k8s.io/v1/apiservices/$name?pretty=$pretty');
+        '/apis/apiregistration.k8s.io/v1/apiservices/$name$query');
     return kube__aggregator_pkg_apis_apiregistration_v1.APIService.fromJson(
         result);
   }
@@ -6268,8 +10193,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/apiregistration.k8s.io/v1/apiservices/$name?pretty=$pretty');
+        '/apis/apiregistration.k8s.io/v1/apiservices/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -6283,8 +10216,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/apiregistration.k8s.io/v1/apiservices/$name?pretty=$pretty');
+        '/apis/apiregistration.k8s.io/v1/apiservices/$name$query');
     return kube__aggregator_pkg_apis_apiregistration_v1.APIService.fromJson(
         result);
   }
@@ -6299,8 +10240,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/apiregistration.k8s.io/v1/apiservices/$name?pretty=$pretty');
+        '/apis/apiregistration.k8s.io/v1/apiservices/$name$query');
     return kube__aggregator_pkg_apis_apiregistration_v1.APIService.fromJson(
         result);
   }
@@ -6315,8 +10264,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apiregistration.k8s.io/v1/apiservices/$name/status?pretty=$pretty');
+        '/apis/apiregistration.k8s.io/v1/apiservices/$name/status$query');
     return kube__aggregator_pkg_apis_apiregistration_v1.APIService.fromJson(
         result);
   }
@@ -6331,8 +10288,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/apiregistration.k8s.io/v1/apiservices/$name/status?pretty=$pretty');
+        '/apis/apiregistration.k8s.io/v1/apiservices/$name/status$query');
     return kube__aggregator_pkg_apis_apiregistration_v1.APIService.fromJson(
         result);
   }
@@ -6347,8 +10312,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/apiregistration.k8s.io/v1/apiservices/$name/status?pretty=$pretty');
+        '/apis/apiregistration.k8s.io/v1/apiservices/$name/status$query');
     return kube__aggregator_pkg_apis_apiregistration_v1.APIService.fromJson(
         result);
   }
@@ -6387,8 +10360,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apiregistration.k8s.io/v1/watch/apiservices?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/apiregistration.k8s.io/v1/watch/apiservices$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -6429,8 +10437,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apiregistration.k8s.io/v1/watch/apiservices/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/apiregistration.k8s.io/v1/watch/apiservices/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -6481,8 +10524,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/apps/v1/controllerrevisions?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/apis/apps/v1/controllerrevisions$query');
     return api_apps_v1.ControllerRevisionList.fromJson(result);
   }
 
@@ -6519,8 +10596,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/apps/v1/daemonsets?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/apis/apps/v1/daemonsets$query');
     return api_apps_v1.DaemonSetList.fromJson(result);
   }
 
@@ -6557,8 +10668,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/apps/v1/deployments?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/apis/apps/v1/deployments$query');
     return api_apps_v1.DeploymentList.fromJson(result);
   }
 
@@ -6572,8 +10717,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/controllerrevisions?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/controllerrevisions$query');
     return api_apps_v1.ControllerRevisionList.fromJson(result);
   }
 
@@ -6587,8 +10740,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/controllerrevisions?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/controllerrevisions$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -6602,8 +10763,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/controllerrevisions?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/controllerrevisions$query');
     return api_apps_v1.ControllerRevision.fromJson(result);
   }
 
@@ -6620,8 +10789,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/controllerrevisions/$name?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/controllerrevisions/$name$query');
     return api_apps_v1.ControllerRevision.fromJson(result);
   }
 
@@ -6638,8 +10815,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/controllerrevisions/$name?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/controllerrevisions/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -6656,8 +10841,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/controllerrevisions/$name?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/controllerrevisions/$name$query');
     return api_apps_v1.ControllerRevision.fromJson(result);
   }
 
@@ -6674,8 +10867,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/controllerrevisions/$name?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/controllerrevisions/$name$query');
     return api_apps_v1.ControllerRevision.fromJson(result);
   }
 
@@ -6688,8 +10889,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/daemonsets?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/daemonsets$query');
     return api_apps_v1.DaemonSetList.fromJson(result);
   }
 
@@ -6703,8 +10912,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/daemonsets?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/daemonsets$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -6717,8 +10934,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/daemonsets?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/daemonsets$query');
     return api_apps_v1.DaemonSet.fromJson(result);
   }
 
@@ -6734,8 +10959,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/daemonsets/$name?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/daemonsets/$name$query');
     return api_apps_v1.DaemonSet.fromJson(result);
   }
 
@@ -6751,8 +10984,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/daemonsets/$name?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/daemonsets/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -6768,8 +11009,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/daemonsets/$name?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/daemonsets/$name$query');
     return api_apps_v1.DaemonSet.fromJson(result);
   }
 
@@ -6785,8 +11034,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/daemonsets/$name?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/daemonsets/$name$query');
     return api_apps_v1.DaemonSet.fromJson(result);
   }
 
@@ -6802,8 +11059,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/daemonsets/$name/status?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/daemonsets/$name/status$query');
     return api_apps_v1.DaemonSet.fromJson(result);
   }
 
@@ -6819,8 +11084,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/daemonsets/$name/status?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/daemonsets/$name/status$query');
     return api_apps_v1.DaemonSet.fromJson(result);
   }
 
@@ -6836,8 +11109,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/daemonsets/$name/status?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/daemonsets/$name/status$query');
     return api_apps_v1.DaemonSet.fromJson(result);
   }
 
@@ -6850,8 +11131,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/deployments?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/deployments$query');
     return api_apps_v1.DeploymentList.fromJson(result);
   }
 
@@ -6865,8 +11154,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/deployments?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/deployments$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -6879,8 +11176,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/deployments?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/deployments$query');
     return api_apps_v1.Deployment.fromJson(result);
   }
 
@@ -6896,8 +11201,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/deployments/$name?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/deployments/$name$query');
     return api_apps_v1.Deployment.fromJson(result);
   }
 
@@ -6914,8 +11227,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/deployments/$name?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/deployments/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -6931,8 +11252,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/deployments/$name?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/deployments/$name$query');
     return api_apps_v1.Deployment.fromJson(result);
   }
 
@@ -6948,8 +11277,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/deployments/$name?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/deployments/$name$query');
     return api_apps_v1.Deployment.fromJson(result);
   }
 
@@ -6965,8 +11302,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/deployments/$name/scale?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/deployments/$name/scale$query');
     return api_autoscaling_v1.Scale.fromJson(result);
   }
 
@@ -6982,8 +11327,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/deployments/$name/scale?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/deployments/$name/scale$query');
     return api_autoscaling_v1.Scale.fromJson(result);
   }
 
@@ -6999,8 +11352,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/deployments/$name/scale?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/deployments/$name/scale$query');
     return api_autoscaling_v1.Scale.fromJson(result);
   }
 
@@ -7016,8 +11377,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/deployments/$name/status?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/deployments/$name/status$query');
     return api_apps_v1.Deployment.fromJson(result);
   }
 
@@ -7033,8 +11402,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/deployments/$name/status?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/deployments/$name/status$query');
     return api_apps_v1.Deployment.fromJson(result);
   }
 
@@ -7050,8 +11427,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/deployments/$name/status?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/deployments/$name/status$query');
     return api_apps_v1.Deployment.fromJson(result);
   }
 
@@ -7064,8 +11449,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/replicasets?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/replicasets$query');
     return api_apps_v1.ReplicaSetList.fromJson(result);
   }
 
@@ -7079,8 +11472,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/replicasets?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/replicasets$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -7093,8 +11494,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/replicasets?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/replicasets$query');
     return api_apps_v1.ReplicaSet.fromJson(result);
   }
 
@@ -7110,8 +11519,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/replicasets/$name?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/replicasets/$name$query');
     return api_apps_v1.ReplicaSet.fromJson(result);
   }
 
@@ -7128,8 +11545,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/replicasets/$name?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/replicasets/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -7145,8 +11570,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/replicasets/$name?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/replicasets/$name$query');
     return api_apps_v1.ReplicaSet.fromJson(result);
   }
 
@@ -7162,8 +11595,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/replicasets/$name?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/replicasets/$name$query');
     return api_apps_v1.ReplicaSet.fromJson(result);
   }
 
@@ -7179,8 +11620,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/replicasets/$name/scale?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/replicasets/$name/scale$query');
     return api_autoscaling_v1.Scale.fromJson(result);
   }
 
@@ -7196,8 +11645,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/replicasets/$name/scale?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/replicasets/$name/scale$query');
     return api_autoscaling_v1.Scale.fromJson(result);
   }
 
@@ -7213,8 +11670,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/replicasets/$name/scale?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/replicasets/$name/scale$query');
     return api_autoscaling_v1.Scale.fromJson(result);
   }
 
@@ -7230,8 +11695,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/replicasets/$name/status?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/replicasets/$name/status$query');
     return api_apps_v1.ReplicaSet.fromJson(result);
   }
 
@@ -7247,8 +11720,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/replicasets/$name/status?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/replicasets/$name/status$query');
     return api_apps_v1.ReplicaSet.fromJson(result);
   }
 
@@ -7264,8 +11745,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/replicasets/$name/status?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/replicasets/$name/status$query');
     return api_apps_v1.ReplicaSet.fromJson(result);
   }
 
@@ -7278,8 +11767,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/statefulsets?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/statefulsets$query');
     return api_apps_v1.StatefulSetList.fromJson(result);
   }
 
@@ -7293,8 +11790,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/statefulsets?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/statefulsets$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -7307,8 +11812,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/statefulsets?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/statefulsets$query');
     return api_apps_v1.StatefulSet.fromJson(result);
   }
 
@@ -7324,8 +11837,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name$query');
     return api_apps_v1.StatefulSet.fromJson(result);
   }
 
@@ -7342,8 +11863,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -7359,8 +11888,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name$query');
     return api_apps_v1.StatefulSet.fromJson(result);
   }
 
@@ -7376,8 +11913,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name$query');
     return api_apps_v1.StatefulSet.fromJson(result);
   }
 
@@ -7393,8 +11938,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name/scale?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name/scale$query');
     return api_autoscaling_v1.Scale.fromJson(result);
   }
 
@@ -7410,8 +11963,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name/scale?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name/scale$query');
     return api_autoscaling_v1.Scale.fromJson(result);
   }
 
@@ -7427,8 +11988,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name/scale?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name/scale$query');
     return api_autoscaling_v1.Scale.fromJson(result);
   }
 
@@ -7444,8 +12013,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name/status?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name/status$query');
     return api_apps_v1.StatefulSet.fromJson(result);
   }
 
@@ -7461,8 +12038,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name/status?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name/status$query');
     return api_apps_v1.StatefulSet.fromJson(result);
   }
 
@@ -7478,8 +12063,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name/status?pretty=$pretty');
+        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name/status$query');
     return api_apps_v1.StatefulSet.fromJson(result);
   }
 
@@ -7516,8 +12109,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/apps/v1/replicasets?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/apis/apps/v1/replicasets$query');
     return api_apps_v1.ReplicaSetList.fromJson(result);
   }
 
@@ -7554,8 +12181,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/apps/v1/statefulsets?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/apis/apps/v1/statefulsets$query');
     return api_apps_v1.StatefulSetList.fromJson(result);
   }
 
@@ -7593,8 +12254,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/apps/v1/watch/controllerrevisions?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/apps/v1/watch/controllerrevisions$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -7632,8 +12328,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/apps/v1/watch/daemonsets?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/apis/apps/v1/watch/daemonsets$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -7671,8 +12401,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/apps/v1/watch/deployments?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/apis/apps/v1/watch/deployments$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -7713,8 +12477,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/watch/namespaces/$namespace/controllerrevisions?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/apps/v1/watch/namespaces/$namespace/controllerrevisions$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -7758,8 +12557,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/watch/namespaces/$namespace/controllerrevisions/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/apps/v1/watch/namespaces/$namespace/controllerrevisions/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -7800,8 +12634,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/watch/namespaces/$namespace/daemonsets?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/apps/v1/watch/namespaces/$namespace/daemonsets$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -7845,8 +12714,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/watch/namespaces/$namespace/daemonsets/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/apps/v1/watch/namespaces/$namespace/daemonsets/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -7887,8 +12791,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/watch/namespaces/$namespace/deployments?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/apps/v1/watch/namespaces/$namespace/deployments$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -7932,8 +12871,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/watch/namespaces/$namespace/deployments/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/apps/v1/watch/namespaces/$namespace/deployments/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -7974,8 +12948,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/watch/namespaces/$namespace/replicasets?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/apps/v1/watch/namespaces/$namespace/replicasets$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -8019,8 +13028,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/watch/namespaces/$namespace/replicasets/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/apps/v1/watch/namespaces/$namespace/replicasets/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -8061,8 +13105,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/watch/namespaces/$namespace/statefulsets?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/apps/v1/watch/namespaces/$namespace/statefulsets$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -8106,8 +13185,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/apps/v1/watch/namespaces/$namespace/statefulsets/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/apps/v1/watch/namespaces/$namespace/statefulsets/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -8145,8 +13259,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/apps/v1/watch/replicasets?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/apis/apps/v1/watch/replicasets$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -8184,8 +13332,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/apps/v1/watch/statefulsets?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/apis/apps/v1/watch/statefulsets$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -8215,8 +13397,22 @@ class KubernetesClient {
     String? fieldManager,
     bool? pretty,
   }) async {
-    final result = await _postJsonMap(
-        '/apis/authentication.k8s.io/v1/tokenreviews?dryRun=$dryRun&fieldManager=$fieldManager&pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (dryRun != null) {
+      queryStrings['dryRun'] = dryRun;
+    }
+    if (fieldManager != null) {
+      queryStrings['fieldManager'] = fieldManager;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _postJsonMap('/apis/authentication.k8s.io/v1/tokenreviews$query');
     return api_authentication_v1.TokenReview.fromJson(result);
   }
 
@@ -8250,8 +13446,22 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (dryRun != null) {
+      queryStrings['dryRun'] = dryRun;
+    }
+    if (fieldManager != null) {
+      queryStrings['fieldManager'] = fieldManager;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/authorization.k8s.io/v1/namespaces/$namespace/localsubjectaccessreviews?dryRun=$dryRun&fieldManager=$fieldManager&pretty=$pretty');
+        '/apis/authorization.k8s.io/v1/namespaces/$namespace/localsubjectaccessreviews$query');
     return api_authorization_v1.LocalSubjectAccessReview.fromJson(result);
   }
 
@@ -8268,8 +13478,22 @@ class KubernetesClient {
     String? fieldManager,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (dryRun != null) {
+      queryStrings['dryRun'] = dryRun;
+    }
+    if (fieldManager != null) {
+      queryStrings['fieldManager'] = fieldManager;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/authorization.k8s.io/v1/selfsubjectaccessreviews?dryRun=$dryRun&fieldManager=$fieldManager&pretty=$pretty');
+        '/apis/authorization.k8s.io/v1/selfsubjectaccessreviews$query');
     return api_authorization_v1.SelfSubjectAccessReview.fromJson(result);
   }
 
@@ -8286,8 +13510,22 @@ class KubernetesClient {
     String? fieldManager,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (dryRun != null) {
+      queryStrings['dryRun'] = dryRun;
+    }
+    if (fieldManager != null) {
+      queryStrings['fieldManager'] = fieldManager;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/authorization.k8s.io/v1/selfsubjectrulesreviews?dryRun=$dryRun&fieldManager=$fieldManager&pretty=$pretty');
+        '/apis/authorization.k8s.io/v1/selfsubjectrulesreviews$query');
     return api_authorization_v1.SelfSubjectRulesReview.fromJson(result);
   }
 
@@ -8304,8 +13542,22 @@ class KubernetesClient {
     String? fieldManager,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (dryRun != null) {
+      queryStrings['dryRun'] = dryRun;
+    }
+    if (fieldManager != null) {
+      queryStrings['fieldManager'] = fieldManager;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/authorization.k8s.io/v1/subjectaccessreviews?dryRun=$dryRun&fieldManager=$fieldManager&pretty=$pretty');
+        '/apis/authorization.k8s.io/v1/subjectaccessreviews$query');
     return api_authorization_v1.SubjectAccessReview.fromJson(result);
   }
 
@@ -8357,8 +13609,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/autoscaling/v1/horizontalpodautoscalers?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/autoscaling/v1/horizontalpodautoscalers$query');
     return api_autoscaling_v1.HorizontalPodAutoscalerList.fromJson(result);
   }
 
@@ -8372,8 +13659,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers?pretty=$pretty');
+        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers$query');
     return api_autoscaling_v1.HorizontalPodAutoscalerList.fromJson(result);
   }
 
@@ -8387,8 +13682,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers?pretty=$pretty');
+        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -8402,8 +13705,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers?pretty=$pretty');
+        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers$query');
     return api_autoscaling_v1.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -8420,8 +13731,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers/$name?pretty=$pretty');
+        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers/$name$query');
     return api_autoscaling_v1.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -8438,8 +13757,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers/$name?pretty=$pretty');
+        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -8456,8 +13783,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers/$name?pretty=$pretty');
+        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers/$name$query');
     return api_autoscaling_v1.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -8474,8 +13809,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers/$name?pretty=$pretty');
+        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers/$name$query');
     return api_autoscaling_v1.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -8492,8 +13835,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers/$name/status?pretty=$pretty');
+        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers/$name/status$query');
     return api_autoscaling_v1.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -8510,8 +13861,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers/$name/status?pretty=$pretty');
+        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers/$name/status$query');
     return api_autoscaling_v1.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -8528,8 +13887,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers/$name/status?pretty=$pretty');
+        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers/$name/status$query');
     return api_autoscaling_v1.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -8567,8 +13934,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/autoscaling/v1/watch/horizontalpodautoscalers?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/autoscaling/v1/watch/horizontalpodautoscalers$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -8609,8 +14011,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/autoscaling/v1/watch/namespaces/$namespace/horizontalpodautoscalers?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/autoscaling/v1/watch/namespaces/$namespace/horizontalpodautoscalers$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -8654,8 +14091,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/autoscaling/v1/watch/namespaces/$namespace/horizontalpodautoscalers/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/autoscaling/v1/watch/namespaces/$namespace/horizontalpodautoscalers/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -8700,8 +14172,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/autoscaling/v2beta1/horizontalpodautoscalers?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/autoscaling/v2beta1/horizontalpodautoscalers$query');
     return api_autoscaling_v2beta1.HorizontalPodAutoscalerList.fromJson(result);
   }
 
@@ -8715,8 +14222,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers?pretty=$pretty');
+        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers$query');
     return api_autoscaling_v2beta1.HorizontalPodAutoscalerList.fromJson(result);
   }
 
@@ -8730,8 +14245,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers?pretty=$pretty');
+        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -8745,8 +14268,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers?pretty=$pretty');
+        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers$query');
     return api_autoscaling_v2beta1.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -8763,8 +14294,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name?pretty=$pretty');
+        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name$query');
     return api_autoscaling_v2beta1.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -8781,8 +14320,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name?pretty=$pretty');
+        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -8799,8 +14346,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name?pretty=$pretty');
+        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name$query');
     return api_autoscaling_v2beta1.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -8817,8 +14372,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name?pretty=$pretty');
+        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name$query');
     return api_autoscaling_v2beta1.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -8835,8 +14398,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name/status?pretty=$pretty');
+        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name/status$query');
     return api_autoscaling_v2beta1.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -8853,8 +14424,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name/status?pretty=$pretty');
+        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name/status$query');
     return api_autoscaling_v2beta1.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -8871,8 +14450,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name/status?pretty=$pretty');
+        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name/status$query');
     return api_autoscaling_v2beta1.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -8910,8 +14497,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/autoscaling/v2beta1/watch/horizontalpodautoscalers?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/autoscaling/v2beta1/watch/horizontalpodautoscalers$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -8952,8 +14574,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/autoscaling/v2beta1/watch/namespaces/$namespace/horizontalpodautoscalers?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/autoscaling/v2beta1/watch/namespaces/$namespace/horizontalpodautoscalers$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -8997,8 +14654,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/autoscaling/v2beta1/watch/namespaces/$namespace/horizontalpodautoscalers/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/autoscaling/v2beta1/watch/namespaces/$namespace/horizontalpodautoscalers/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -9043,8 +14735,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/autoscaling/v2beta2/horizontalpodautoscalers?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/autoscaling/v2beta2/horizontalpodautoscalers$query');
     return api_autoscaling_v2beta2.HorizontalPodAutoscalerList.fromJson(result);
   }
 
@@ -9058,8 +14785,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers?pretty=$pretty');
+        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers$query');
     return api_autoscaling_v2beta2.HorizontalPodAutoscalerList.fromJson(result);
   }
 
@@ -9073,8 +14808,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers?pretty=$pretty');
+        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -9088,8 +14831,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers?pretty=$pretty');
+        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers$query');
     return api_autoscaling_v2beta2.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -9106,8 +14857,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers/$name?pretty=$pretty');
+        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers/$name$query');
     return api_autoscaling_v2beta2.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -9124,8 +14883,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers/$name?pretty=$pretty');
+        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -9142,8 +14909,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers/$name?pretty=$pretty');
+        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers/$name$query');
     return api_autoscaling_v2beta2.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -9160,8 +14935,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers/$name?pretty=$pretty');
+        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers/$name$query');
     return api_autoscaling_v2beta2.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -9178,8 +14961,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers/$name/status?pretty=$pretty');
+        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers/$name/status$query');
     return api_autoscaling_v2beta2.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -9196,8 +14987,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers/$name/status?pretty=$pretty');
+        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers/$name/status$query');
     return api_autoscaling_v2beta2.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -9214,8 +15013,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers/$name/status?pretty=$pretty');
+        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers/$name/status$query');
     return api_autoscaling_v2beta2.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -9253,8 +15060,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/autoscaling/v2beta2/watch/horizontalpodautoscalers?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/autoscaling/v2beta2/watch/horizontalpodautoscalers$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -9295,8 +15137,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/autoscaling/v2beta2/watch/namespaces/$namespace/horizontalpodautoscalers?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/autoscaling/v2beta2/watch/namespaces/$namespace/horizontalpodautoscalers$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -9340,8 +15217,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/autoscaling/v2beta2/watch/namespaces/$namespace/horizontalpodautoscalers/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/autoscaling/v2beta2/watch/namespaces/$namespace/horizontalpodautoscalers/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -9391,8 +15303,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/batch/v1/cronjobs?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/apis/batch/v1/cronjobs$query');
     return api_batch_v1.CronJobList.fromJson(result);
   }
 
@@ -9429,8 +15375,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/batch/v1/jobs?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/apis/batch/v1/jobs$query');
     return api_batch_v1.JobList.fromJson(result);
   }
 
@@ -9443,8 +15423,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/cronjobs?pretty=$pretty');
+        '/apis/batch/v1/namespaces/$namespace/cronjobs$query');
     return api_batch_v1.CronJobList.fromJson(result);
   }
 
@@ -9458,8 +15446,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/cronjobs?pretty=$pretty');
+        '/apis/batch/v1/namespaces/$namespace/cronjobs$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -9472,8 +15468,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/cronjobs?pretty=$pretty');
+        '/apis/batch/v1/namespaces/$namespace/cronjobs$query');
     return api_batch_v1.CronJob.fromJson(result);
   }
 
@@ -9489,8 +15493,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/cronjobs/$name?pretty=$pretty');
+        '/apis/batch/v1/namespaces/$namespace/cronjobs/$name$query');
     return api_batch_v1.CronJob.fromJson(result);
   }
 
@@ -9506,8 +15518,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/cronjobs/$name?pretty=$pretty');
+        '/apis/batch/v1/namespaces/$namespace/cronjobs/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -9523,8 +15543,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/cronjobs/$name?pretty=$pretty');
+        '/apis/batch/v1/namespaces/$namespace/cronjobs/$name$query');
     return api_batch_v1.CronJob.fromJson(result);
   }
 
@@ -9540,8 +15568,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/cronjobs/$name?pretty=$pretty');
+        '/apis/batch/v1/namespaces/$namespace/cronjobs/$name$query');
     return api_batch_v1.CronJob.fromJson(result);
   }
 
@@ -9557,8 +15593,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/cronjobs/$name/status?pretty=$pretty');
+        '/apis/batch/v1/namespaces/$namespace/cronjobs/$name/status$query');
     return api_batch_v1.CronJob.fromJson(result);
   }
 
@@ -9574,8 +15618,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/cronjobs/$name/status?pretty=$pretty');
+        '/apis/batch/v1/namespaces/$namespace/cronjobs/$name/status$query');
     return api_batch_v1.CronJob.fromJson(result);
   }
 
@@ -9591,8 +15643,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/cronjobs/$name/status?pretty=$pretty');
+        '/apis/batch/v1/namespaces/$namespace/cronjobs/$name/status$query');
     return api_batch_v1.CronJob.fromJson(result);
   }
 
@@ -9605,8 +15665,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/jobs?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/batch/v1/namespaces/$namespace/jobs$query');
     return api_batch_v1.JobList.fromJson(result);
   }
 
@@ -9620,8 +15688,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _deleteJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/jobs?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _deleteJsonMap('/apis/batch/v1/namespaces/$namespace/jobs$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -9634,8 +15710,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
-    final result = await _postJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/jobs?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _postJsonMap('/apis/batch/v1/namespaces/$namespace/jobs$query');
     return api_batch_v1.Job.fromJson(result);
   }
 
@@ -9651,8 +15735,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/jobs/$name?pretty=$pretty');
+        '/apis/batch/v1/namespaces/$namespace/jobs/$name$query');
     return api_batch_v1.Job.fromJson(result);
   }
 
@@ -9668,8 +15760,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/jobs/$name?pretty=$pretty');
+        '/apis/batch/v1/namespaces/$namespace/jobs/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -9685,8 +15785,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/jobs/$name?pretty=$pretty');
+        '/apis/batch/v1/namespaces/$namespace/jobs/$name$query');
     return api_batch_v1.Job.fromJson(result);
   }
 
@@ -9702,8 +15810,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/jobs/$name?pretty=$pretty');
+        '/apis/batch/v1/namespaces/$namespace/jobs/$name$query');
     return api_batch_v1.Job.fromJson(result);
   }
 
@@ -9719,8 +15835,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/jobs/$name/status?pretty=$pretty');
+        '/apis/batch/v1/namespaces/$namespace/jobs/$name/status$query');
     return api_batch_v1.Job.fromJson(result);
   }
 
@@ -9736,8 +15860,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/jobs/$name/status?pretty=$pretty');
+        '/apis/batch/v1/namespaces/$namespace/jobs/$name/status$query');
     return api_batch_v1.Job.fromJson(result);
   }
 
@@ -9753,8 +15885,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/jobs/$name/status?pretty=$pretty');
+        '/apis/batch/v1/namespaces/$namespace/jobs/$name/status$query');
     return api_batch_v1.Job.fromJson(result);
   }
 
@@ -9792,8 +15932,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/batch/v1/watch/cronjobs?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/apis/batch/v1/watch/cronjobs$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -9831,8 +16005,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/batch/v1/watch/jobs?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/apis/batch/v1/watch/jobs$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -9873,8 +16081,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/batch/v1/watch/namespaces/$namespace/cronjobs?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/batch/v1/watch/namespaces/$namespace/cronjobs$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -9918,8 +16161,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/batch/v1/watch/namespaces/$namespace/cronjobs/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/batch/v1/watch/namespaces/$namespace/cronjobs/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -9960,8 +16238,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/batch/v1/watch/namespaces/$namespace/jobs?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/batch/v1/watch/namespaces/$namespace/jobs$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -10004,8 +16317,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/batch/v1/watch/namespaces/$namespace/jobs/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/batch/v1/watch/namespaces/$namespace/jobs/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -10050,8 +16398,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/batch/v1beta1/cronjobs?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/apis/batch/v1beta1/cronjobs$query');
     return api_batch_v1beta1.CronJobList.fromJson(result);
   }
 
@@ -10064,8 +16446,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs?pretty=$pretty');
+        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs$query');
     return api_batch_v1beta1.CronJobList.fromJson(result);
   }
 
@@ -10079,8 +16469,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs?pretty=$pretty');
+        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -10093,8 +16491,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs?pretty=$pretty');
+        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs$query');
     return api_batch_v1beta1.CronJob.fromJson(result);
   }
 
@@ -10110,8 +16516,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name?pretty=$pretty');
+        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name$query');
     return api_batch_v1beta1.CronJob.fromJson(result);
   }
 
@@ -10128,8 +16542,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name?pretty=$pretty');
+        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -10145,8 +16567,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name?pretty=$pretty');
+        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name$query');
     return api_batch_v1beta1.CronJob.fromJson(result);
   }
 
@@ -10162,8 +16592,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name?pretty=$pretty');
+        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name$query');
     return api_batch_v1beta1.CronJob.fromJson(result);
   }
 
@@ -10179,8 +16617,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name/status?pretty=$pretty');
+        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name/status$query');
     return api_batch_v1beta1.CronJob.fromJson(result);
   }
 
@@ -10196,8 +16642,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name/status?pretty=$pretty');
+        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name/status$query');
     return api_batch_v1beta1.CronJob.fromJson(result);
   }
 
@@ -10213,8 +16667,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name/status?pretty=$pretty');
+        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name/status$query');
     return api_batch_v1beta1.CronJob.fromJson(result);
   }
 
@@ -10252,8 +16714,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/batch/v1beta1/watch/cronjobs?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/batch/v1beta1/watch/cronjobs$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -10294,8 +16791,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/batch/v1beta1/watch/namespaces/$namespace/cronjobs?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/batch/v1beta1/watch/namespaces/$namespace/cronjobs$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -10339,8 +16871,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/batch/v1beta1/watch/namespaces/$namespace/cronjobs/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/batch/v1beta1/watch/namespaces/$namespace/cronjobs/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -10365,8 +16932,16 @@ class KubernetesClient {
       listCertificatesV1CertificateSigningRequest({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/certificates.k8s.io/v1/certificatesigningrequests?pretty=$pretty');
+        '/apis/certificates.k8s.io/v1/certificatesigningrequests$query');
     return api_certificates_v1.CertificateSigningRequestList.fromJson(result);
   }
 
@@ -10377,8 +16952,16 @@ class KubernetesClient {
       deleteCertificatesV1CollectionCertificateSigningRequest({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/certificates.k8s.io/v1/certificatesigningrequests?pretty=$pretty');
+        '/apis/certificates.k8s.io/v1/certificatesigningrequests$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -10389,8 +16972,16 @@ class KubernetesClient {
       createCertificatesV1CertificateSigningRequest({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/certificates.k8s.io/v1/certificatesigningrequests?pretty=$pretty');
+        '/apis/certificates.k8s.io/v1/certificatesigningrequests$query');
     return api_certificates_v1.CertificateSigningRequest.fromJson(result);
   }
 
@@ -10404,8 +16995,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name?pretty=$pretty');
+        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name$query');
     return api_certificates_v1.CertificateSigningRequest.fromJson(result);
   }
 
@@ -10419,8 +17018,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name?pretty=$pretty');
+        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -10434,8 +17041,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name?pretty=$pretty');
+        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name$query');
     return api_certificates_v1.CertificateSigningRequest.fromJson(result);
   }
 
@@ -10449,8 +17064,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name?pretty=$pretty');
+        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name$query');
     return api_certificates_v1.CertificateSigningRequest.fromJson(result);
   }
 
@@ -10464,8 +17087,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name/approval?pretty=$pretty');
+        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name/approval$query');
     return api_certificates_v1.CertificateSigningRequest.fromJson(result);
   }
 
@@ -10479,8 +17110,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name/approval?pretty=$pretty');
+        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name/approval$query');
     return api_certificates_v1.CertificateSigningRequest.fromJson(result);
   }
 
@@ -10494,8 +17133,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name/approval?pretty=$pretty');
+        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name/approval$query');
     return api_certificates_v1.CertificateSigningRequest.fromJson(result);
   }
 
@@ -10509,8 +17156,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name/status?pretty=$pretty');
+        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name/status$query');
     return api_certificates_v1.CertificateSigningRequest.fromJson(result);
   }
 
@@ -10524,8 +17179,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name/status?pretty=$pretty');
+        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name/status$query');
     return api_certificates_v1.CertificateSigningRequest.fromJson(result);
   }
 
@@ -10539,8 +17202,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name/status?pretty=$pretty');
+        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name/status$query');
     return api_certificates_v1.CertificateSigningRequest.fromJson(result);
   }
 
@@ -10578,8 +17249,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/certificates.k8s.io/v1/watch/certificatesigningrequests?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/certificates.k8s.io/v1/watch/certificatesigningrequests$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -10620,8 +17326,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/certificates.k8s.io/v1/watch/certificatesigningrequests/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/certificates.k8s.io/v1/watch/certificatesigningrequests/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -10673,8 +17414,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/coordination.k8s.io/v1/leases?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/coordination.k8s.io/v1/leases$query');
     return api_coordination_v1.LeaseList.fromJson(result);
   }
 
@@ -10687,8 +17463,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/coordination.k8s.io/v1/namespaces/$namespace/leases?pretty=$pretty');
+        '/apis/coordination.k8s.io/v1/namespaces/$namespace/leases$query');
     return api_coordination_v1.LeaseList.fromJson(result);
   }
 
@@ -10702,8 +17486,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/coordination.k8s.io/v1/namespaces/$namespace/leases?pretty=$pretty');
+        '/apis/coordination.k8s.io/v1/namespaces/$namespace/leases$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -10716,8 +17508,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/coordination.k8s.io/v1/namespaces/$namespace/leases?pretty=$pretty');
+        '/apis/coordination.k8s.io/v1/namespaces/$namespace/leases$query');
     return api_coordination_v1.Lease.fromJson(result);
   }
 
@@ -10733,8 +17533,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/coordination.k8s.io/v1/namespaces/$namespace/leases/$name?pretty=$pretty');
+        '/apis/coordination.k8s.io/v1/namespaces/$namespace/leases/$name$query');
     return api_coordination_v1.Lease.fromJson(result);
   }
 
@@ -10751,8 +17559,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/coordination.k8s.io/v1/namespaces/$namespace/leases/$name?pretty=$pretty');
+        '/apis/coordination.k8s.io/v1/namespaces/$namespace/leases/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -10768,8 +17584,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/coordination.k8s.io/v1/namespaces/$namespace/leases/$name?pretty=$pretty');
+        '/apis/coordination.k8s.io/v1/namespaces/$namespace/leases/$name$query');
     return api_coordination_v1.Lease.fromJson(result);
   }
 
@@ -10785,8 +17609,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/coordination.k8s.io/v1/namespaces/$namespace/leases/$name?pretty=$pretty');
+        '/apis/coordination.k8s.io/v1/namespaces/$namespace/leases/$name$query');
     return api_coordination_v1.Lease.fromJson(result);
   }
 
@@ -10824,8 +17656,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/coordination.k8s.io/v1/watch/leases?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/coordination.k8s.io/v1/watch/leases$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -10866,8 +17733,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/coordination.k8s.io/v1/watch/namespaces/$namespace/leases?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/coordination.k8s.io/v1/watch/namespaces/$namespace/leases$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -10911,8 +17813,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/coordination.k8s.io/v1/watch/namespaces/$namespace/leases/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/coordination.k8s.io/v1/watch/namespaces/$namespace/leases/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -10963,8 +17900,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/discovery.k8s.io/v1/endpointslices?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/discovery.k8s.io/v1/endpointslices$query');
     return api_discovery_v1.EndpointSliceList.fromJson(result);
   }
 
@@ -10978,8 +17950,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/discovery.k8s.io/v1/namespaces/$namespace/endpointslices?pretty=$pretty');
+        '/apis/discovery.k8s.io/v1/namespaces/$namespace/endpointslices$query');
     return api_discovery_v1.EndpointSliceList.fromJson(result);
   }
 
@@ -10993,8 +17973,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/discovery.k8s.io/v1/namespaces/$namespace/endpointslices?pretty=$pretty');
+        '/apis/discovery.k8s.io/v1/namespaces/$namespace/endpointslices$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -11008,8 +17996,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/discovery.k8s.io/v1/namespaces/$namespace/endpointslices?pretty=$pretty');
+        '/apis/discovery.k8s.io/v1/namespaces/$namespace/endpointslices$query');
     return api_discovery_v1.EndpointSlice.fromJson(result);
   }
 
@@ -11026,8 +18022,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/discovery.k8s.io/v1/namespaces/$namespace/endpointslices/$name?pretty=$pretty');
+        '/apis/discovery.k8s.io/v1/namespaces/$namespace/endpointslices/$name$query');
     return api_discovery_v1.EndpointSlice.fromJson(result);
   }
 
@@ -11044,8 +18048,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/discovery.k8s.io/v1/namespaces/$namespace/endpointslices/$name?pretty=$pretty');
+        '/apis/discovery.k8s.io/v1/namespaces/$namespace/endpointslices/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -11062,8 +18074,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/discovery.k8s.io/v1/namespaces/$namespace/endpointslices/$name?pretty=$pretty');
+        '/apis/discovery.k8s.io/v1/namespaces/$namespace/endpointslices/$name$query');
     return api_discovery_v1.EndpointSlice.fromJson(result);
   }
 
@@ -11080,8 +18100,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/discovery.k8s.io/v1/namespaces/$namespace/endpointslices/$name?pretty=$pretty');
+        '/apis/discovery.k8s.io/v1/namespaces/$namespace/endpointslices/$name$query');
     return api_discovery_v1.EndpointSlice.fromJson(result);
   }
 
@@ -11119,8 +18147,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/discovery.k8s.io/v1/watch/endpointslices?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/discovery.k8s.io/v1/watch/endpointslices$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -11161,8 +18224,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/discovery.k8s.io/v1/watch/namespaces/$namespace/endpointslices?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/discovery.k8s.io/v1/watch/namespaces/$namespace/endpointslices$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -11206,8 +18304,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/discovery.k8s.io/v1/watch/namespaces/$namespace/endpointslices/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/discovery.k8s.io/v1/watch/namespaces/$namespace/endpointslices/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -11252,8 +18385,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/discovery.k8s.io/v1beta1/endpointslices?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/discovery.k8s.io/v1beta1/endpointslices$query');
     return api_discovery_v1beta1.EndpointSliceList.fromJson(result);
   }
 
@@ -11267,8 +18435,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices?pretty=$pretty');
+        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices$query');
     return api_discovery_v1beta1.EndpointSliceList.fromJson(result);
   }
 
@@ -11282,8 +18458,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices?pretty=$pretty');
+        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -11297,8 +18481,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices?pretty=$pretty');
+        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices$query');
     return api_discovery_v1beta1.EndpointSlice.fromJson(result);
   }
 
@@ -11315,8 +18507,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices/$name?pretty=$pretty');
+        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices/$name$query');
     return api_discovery_v1beta1.EndpointSlice.fromJson(result);
   }
 
@@ -11333,8 +18533,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices/$name?pretty=$pretty');
+        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -11351,8 +18559,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices/$name?pretty=$pretty');
+        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices/$name$query');
     return api_discovery_v1beta1.EndpointSlice.fromJson(result);
   }
 
@@ -11369,8 +18585,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices/$name?pretty=$pretty');
+        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices/$name$query');
     return api_discovery_v1beta1.EndpointSlice.fromJson(result);
   }
 
@@ -11408,8 +18632,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/discovery.k8s.io/v1beta1/watch/endpointslices?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/discovery.k8s.io/v1beta1/watch/endpointslices$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -11450,8 +18709,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/discovery.k8s.io/v1beta1/watch/namespaces/$namespace/endpointslices?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/discovery.k8s.io/v1beta1/watch/namespaces/$namespace/endpointslices$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -11495,8 +18789,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/discovery.k8s.io/v1beta1/watch/namespaces/$namespace/endpointslices/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/discovery.k8s.io/v1beta1/watch/namespaces/$namespace/endpointslices/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -11546,8 +18875,42 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/events.k8s.io/v1/events?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/apis/events.k8s.io/v1/events$query');
     return api_events_v1.EventList.fromJson(result);
   }
 
@@ -11560,8 +18923,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/events.k8s.io/v1/namespaces/$namespace/events?pretty=$pretty');
+        '/apis/events.k8s.io/v1/namespaces/$namespace/events$query');
     return api_events_v1.EventList.fromJson(result);
   }
 
@@ -11575,8 +18946,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/events.k8s.io/v1/namespaces/$namespace/events?pretty=$pretty');
+        '/apis/events.k8s.io/v1/namespaces/$namespace/events$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -11589,8 +18968,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/events.k8s.io/v1/namespaces/$namespace/events?pretty=$pretty');
+        '/apis/events.k8s.io/v1/namespaces/$namespace/events$query');
     return api_events_v1.Event.fromJson(result);
   }
 
@@ -11606,8 +18993,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/events.k8s.io/v1/namespaces/$namespace/events/$name?pretty=$pretty');
+        '/apis/events.k8s.io/v1/namespaces/$namespace/events/$name$query');
     return api_events_v1.Event.fromJson(result);
   }
 
@@ -11623,8 +19018,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/events.k8s.io/v1/namespaces/$namespace/events/$name?pretty=$pretty');
+        '/apis/events.k8s.io/v1/namespaces/$namespace/events/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -11640,8 +19043,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/events.k8s.io/v1/namespaces/$namespace/events/$name?pretty=$pretty');
+        '/apis/events.k8s.io/v1/namespaces/$namespace/events/$name$query');
     return api_events_v1.Event.fromJson(result);
   }
 
@@ -11657,8 +19068,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/events.k8s.io/v1/namespaces/$namespace/events/$name?pretty=$pretty');
+        '/apis/events.k8s.io/v1/namespaces/$namespace/events/$name$query');
     return api_events_v1.Event.fromJson(result);
   }
 
@@ -11696,8 +19115,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/events.k8s.io/v1/watch/events?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/events.k8s.io/v1/watch/events$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -11738,8 +19192,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/events.k8s.io/v1/watch/namespaces/$namespace/events?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/events.k8s.io/v1/watch/namespaces/$namespace/events$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -11783,8 +19272,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/events.k8s.io/v1/watch/namespaces/$namespace/events/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/events.k8s.io/v1/watch/namespaces/$namespace/events/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -11828,8 +19352,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/events.k8s.io/v1beta1/events?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/events.k8s.io/v1beta1/events$query');
     return api_events_v1beta1.EventList.fromJson(result);
   }
 
@@ -11842,8 +19401,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events?pretty=$pretty');
+        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events$query');
     return api_events_v1beta1.EventList.fromJson(result);
   }
 
@@ -11857,8 +19424,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events?pretty=$pretty');
+        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -11871,8 +19446,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events?pretty=$pretty');
+        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events$query');
     return api_events_v1beta1.Event.fromJson(result);
   }
 
@@ -11888,8 +19471,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events/$name?pretty=$pretty');
+        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events/$name$query');
     return api_events_v1beta1.Event.fromJson(result);
   }
 
@@ -11906,8 +19497,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events/$name?pretty=$pretty');
+        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -11923,8 +19522,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events/$name?pretty=$pretty');
+        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events/$name$query');
     return api_events_v1beta1.Event.fromJson(result);
   }
 
@@ -11940,8 +19547,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events/$name?pretty=$pretty');
+        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events/$name$query');
     return api_events_v1beta1.Event.fromJson(result);
   }
 
@@ -11979,8 +19594,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/events.k8s.io/v1beta1/watch/events?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/events.k8s.io/v1beta1/watch/events$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -12021,8 +19671,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/events.k8s.io/v1beta1/watch/namespaces/$namespace/events?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/events.k8s.io/v1beta1/watch/namespaces/$namespace/events$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -12066,8 +19751,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/events.k8s.io/v1beta1/watch/namespaces/$namespace/events/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/events.k8s.io/v1beta1/watch/namespaces/$namespace/events/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -12093,8 +19813,16 @@ class KubernetesClient {
       listFlowcontrolApiserverV1beta1FlowSchema({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas?pretty=$pretty');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas$query');
     return api_flowcontrol_v1beta1.FlowSchemaList.fromJson(result);
   }
 
@@ -12105,8 +19833,16 @@ class KubernetesClient {
       deleteFlowcontrolApiserverV1beta1CollectionFlowSchema({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas?pretty=$pretty');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -12117,8 +19853,16 @@ class KubernetesClient {
       createFlowcontrolApiserverV1beta1FlowSchema({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas?pretty=$pretty');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas$query');
     return api_flowcontrol_v1beta1.FlowSchema.fromJson(result);
   }
 
@@ -12132,8 +19876,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name?pretty=$pretty');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name$query');
     return api_flowcontrol_v1beta1.FlowSchema.fromJson(result);
   }
 
@@ -12147,8 +19899,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name?pretty=$pretty');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -12162,8 +19922,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name?pretty=$pretty');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name$query');
     return api_flowcontrol_v1beta1.FlowSchema.fromJson(result);
   }
 
@@ -12177,8 +19945,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name?pretty=$pretty');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name$query');
     return api_flowcontrol_v1beta1.FlowSchema.fromJson(result);
   }
 
@@ -12192,8 +19968,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name/status?pretty=$pretty');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name/status$query');
     return api_flowcontrol_v1beta1.FlowSchema.fromJson(result);
   }
 
@@ -12207,8 +19991,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name/status?pretty=$pretty');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name/status$query');
     return api_flowcontrol_v1beta1.FlowSchema.fromJson(result);
   }
 
@@ -12222,8 +20014,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name/status?pretty=$pretty');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name/status$query');
     return api_flowcontrol_v1beta1.FlowSchema.fromJson(result);
   }
 
@@ -12234,8 +20034,16 @@ class KubernetesClient {
       listFlowcontrolApiserverV1beta1PriorityLevelConfiguration({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations?pretty=$pretty');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations$query');
     return api_flowcontrol_v1beta1.PriorityLevelConfigurationList.fromJson(
         result);
   }
@@ -12247,8 +20055,16 @@ class KubernetesClient {
       deleteFlowcontrolApiserverV1beta1CollectionPriorityLevelConfiguration({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations?pretty=$pretty');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -12259,8 +20075,16 @@ class KubernetesClient {
       createFlowcontrolApiserverV1beta1PriorityLevelConfiguration({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations?pretty=$pretty');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations$query');
     return api_flowcontrol_v1beta1.PriorityLevelConfiguration.fromJson(result);
   }
 
@@ -12274,8 +20098,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name?pretty=$pretty');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name$query');
     return api_flowcontrol_v1beta1.PriorityLevelConfiguration.fromJson(result);
   }
 
@@ -12289,8 +20121,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name?pretty=$pretty');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -12304,8 +20144,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name?pretty=$pretty');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name$query');
     return api_flowcontrol_v1beta1.PriorityLevelConfiguration.fromJson(result);
   }
 
@@ -12319,8 +20167,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name?pretty=$pretty');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name$query');
     return api_flowcontrol_v1beta1.PriorityLevelConfiguration.fromJson(result);
   }
 
@@ -12334,8 +20190,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name/status?pretty=$pretty');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name/status$query');
     return api_flowcontrol_v1beta1.PriorityLevelConfiguration.fromJson(result);
   }
 
@@ -12349,8 +20213,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name/status?pretty=$pretty');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name/status$query');
     return api_flowcontrol_v1beta1.PriorityLevelConfiguration.fromJson(result);
   }
 
@@ -12364,8 +20236,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name/status?pretty=$pretty');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name/status$query');
     return api_flowcontrol_v1beta1.PriorityLevelConfiguration.fromJson(result);
   }
 
@@ -12403,8 +20283,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/watch/flowschemas?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/watch/flowschemas$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -12445,8 +20360,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/watch/flowschemas/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/watch/flowschemas/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -12484,8 +20434,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/watch/prioritylevelconfigurations?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/watch/prioritylevelconfigurations$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -12526,8 +20511,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/watch/prioritylevelconfigurations/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/watch/prioritylevelconfigurations/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -12553,8 +20573,16 @@ class KubernetesClient {
       listInternalApiserverV1alpha1StorageVersion({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions?pretty=$pretty');
+        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions$query');
     return api_apiserverinternal_v1alpha1.StorageVersionList.fromJson(result);
   }
 
@@ -12565,8 +20593,16 @@ class KubernetesClient {
       deleteInternalApiserverV1alpha1CollectionStorageVersion({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions?pretty=$pretty');
+        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -12577,8 +20613,16 @@ class KubernetesClient {
       createInternalApiserverV1alpha1StorageVersion({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions?pretty=$pretty');
+        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions$query');
     return api_apiserverinternal_v1alpha1.StorageVersion.fromJson(result);
   }
 
@@ -12592,8 +20636,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions/$name?pretty=$pretty');
+        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions/$name$query');
     return api_apiserverinternal_v1alpha1.StorageVersion.fromJson(result);
   }
 
@@ -12607,8 +20659,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions/$name?pretty=$pretty');
+        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -12622,8 +20682,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions/$name?pretty=$pretty');
+        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions/$name$query');
     return api_apiserverinternal_v1alpha1.StorageVersion.fromJson(result);
   }
 
@@ -12637,8 +20705,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions/$name?pretty=$pretty');
+        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions/$name$query');
     return api_apiserverinternal_v1alpha1.StorageVersion.fromJson(result);
   }
 
@@ -12652,8 +20728,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions/$name/status?pretty=$pretty');
+        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions/$name/status$query');
     return api_apiserverinternal_v1alpha1.StorageVersion.fromJson(result);
   }
 
@@ -12667,8 +20751,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions/$name/status?pretty=$pretty');
+        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions/$name/status$query');
     return api_apiserverinternal_v1alpha1.StorageVersion.fromJson(result);
   }
 
@@ -12682,8 +20774,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions/$name/status?pretty=$pretty');
+        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions/$name/status$query');
     return api_apiserverinternal_v1alpha1.StorageVersion.fromJson(result);
   }
 
@@ -12721,8 +20821,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/internal.apiserver.k8s.io/v1alpha1/watch/storageversions?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/internal.apiserver.k8s.io/v1alpha1/watch/storageversions$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -12763,8 +20898,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/internal.apiserver.k8s.io/v1alpha1/watch/storageversions/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/internal.apiserver.k8s.io/v1alpha1/watch/storageversions/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -12787,8 +20957,16 @@ class KubernetesClient {
   Future<api_networking_v1.IngressClassList> listNetworkingV1IngressClass({
     bool? pretty,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/networking.k8s.io/v1/ingressclasses?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/networking.k8s.io/v1/ingressclasses$query');
     return api_networking_v1.IngressClassList.fromJson(result);
   }
 
@@ -12799,8 +20977,16 @@ class KubernetesClient {
       deleteNetworkingV1CollectionIngressClass({
     bool? pretty,
   }) async {
-    final result = await _deleteJsonMap(
-        '/apis/networking.k8s.io/v1/ingressclasses?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _deleteJsonMap('/apis/networking.k8s.io/v1/ingressclasses$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -12810,8 +20996,16 @@ class KubernetesClient {
   Future<api_networking_v1.IngressClass> createNetworkingV1IngressClass({
     bool? pretty,
   }) async {
-    final result = await _postJsonMap(
-        '/apis/networking.k8s.io/v1/ingressclasses?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _postJsonMap('/apis/networking.k8s.io/v1/ingressclasses$query');
     return api_networking_v1.IngressClass.fromJson(result);
   }
 
@@ -12824,8 +21018,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/networking.k8s.io/v1/ingressclasses/$name?pretty=$pretty');
+        '/apis/networking.k8s.io/v1/ingressclasses/$name$query');
     return api_networking_v1.IngressClass.fromJson(result);
   }
 
@@ -12838,8 +21040,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/networking.k8s.io/v1/ingressclasses/$name?pretty=$pretty');
+        '/apis/networking.k8s.io/v1/ingressclasses/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -12852,8 +21062,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/networking.k8s.io/v1/ingressclasses/$name?pretty=$pretty');
+        '/apis/networking.k8s.io/v1/ingressclasses/$name$query');
     return api_networking_v1.IngressClass.fromJson(result);
   }
 
@@ -12866,8 +21084,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/networking.k8s.io/v1/ingressclasses/$name?pretty=$pretty');
+        '/apis/networking.k8s.io/v1/ingressclasses/$name$query');
     return api_networking_v1.IngressClass.fromJson(result);
   }
 
@@ -12905,8 +21131,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/networking.k8s.io/v1/ingresses?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/networking.k8s.io/v1/ingresses$query');
     return api_networking_v1.IngressList.fromJson(result);
   }
 
@@ -12919,8 +21180,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses?pretty=$pretty');
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses$query');
     return api_networking_v1.IngressList.fromJson(result);
   }
 
@@ -12934,8 +21203,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses?pretty=$pretty');
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -12948,8 +21225,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses?pretty=$pretty');
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses$query');
     return api_networking_v1.Ingress.fromJson(result);
   }
 
@@ -12965,8 +21250,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses/$name?pretty=$pretty');
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses/$name$query');
     return api_networking_v1.Ingress.fromJson(result);
   }
 
@@ -12983,8 +21276,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses/$name?pretty=$pretty');
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -13000,8 +21301,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses/$name?pretty=$pretty');
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses/$name$query');
     return api_networking_v1.Ingress.fromJson(result);
   }
 
@@ -13017,8 +21326,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses/$name?pretty=$pretty');
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses/$name$query');
     return api_networking_v1.Ingress.fromJson(result);
   }
 
@@ -13034,8 +21351,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses/$name/status?pretty=$pretty');
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses/$name/status$query');
     return api_networking_v1.Ingress.fromJson(result);
   }
 
@@ -13051,8 +21376,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses/$name/status?pretty=$pretty');
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses/$name/status$query');
     return api_networking_v1.Ingress.fromJson(result);
   }
 
@@ -13068,8 +21401,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses/$name/status?pretty=$pretty');
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses/$name/status$query');
     return api_networking_v1.Ingress.fromJson(result);
   }
 
@@ -13083,8 +21424,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/networking.k8s.io/v1/namespaces/$namespace/networkpolicies?pretty=$pretty');
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/networkpolicies$query');
     return api_networking_v1.NetworkPolicyList.fromJson(result);
   }
 
@@ -13098,8 +21447,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/networking.k8s.io/v1/namespaces/$namespace/networkpolicies?pretty=$pretty');
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/networkpolicies$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -13113,8 +21470,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/networking.k8s.io/v1/namespaces/$namespace/networkpolicies?pretty=$pretty');
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/networkpolicies$query');
     return api_networking_v1.NetworkPolicy.fromJson(result);
   }
 
@@ -13131,8 +21496,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/networking.k8s.io/v1/namespaces/$namespace/networkpolicies/$name?pretty=$pretty');
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/networkpolicies/$name$query');
     return api_networking_v1.NetworkPolicy.fromJson(result);
   }
 
@@ -13149,8 +21522,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/networking.k8s.io/v1/namespaces/$namespace/networkpolicies/$name?pretty=$pretty');
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/networkpolicies/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -13167,8 +21548,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/networking.k8s.io/v1/namespaces/$namespace/networkpolicies/$name?pretty=$pretty');
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/networkpolicies/$name$query');
     return api_networking_v1.NetworkPolicy.fromJson(result);
   }
 
@@ -13185,8 +21574,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/networking.k8s.io/v1/namespaces/$namespace/networkpolicies/$name?pretty=$pretty');
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/networkpolicies/$name$query');
     return api_networking_v1.NetworkPolicy.fromJson(result);
   }
 
@@ -13224,8 +21621,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/networking.k8s.io/v1/networkpolicies?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/networking.k8s.io/v1/networkpolicies$query');
     return api_networking_v1.NetworkPolicyList.fromJson(result);
   }
 
@@ -13263,8 +21695,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/networking.k8s.io/v1/watch/ingressclasses?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/networking.k8s.io/v1/watch/ingressclasses$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -13305,8 +21772,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/networking.k8s.io/v1/watch/ingressclasses/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/networking.k8s.io/v1/watch/ingressclasses/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -13344,8 +21846,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/networking.k8s.io/v1/watch/ingresses?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/networking.k8s.io/v1/watch/ingresses$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -13386,8 +21923,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/networking.k8s.io/v1/watch/namespaces/$namespace/ingresses?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/networking.k8s.io/v1/watch/namespaces/$namespace/ingresses$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -13431,8 +22003,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/networking.k8s.io/v1/watch/namespaces/$namespace/ingresses/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/networking.k8s.io/v1/watch/namespaces/$namespace/ingresses/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -13473,8 +22080,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/networking.k8s.io/v1/watch/namespaces/$namespace/networkpolicies?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/networking.k8s.io/v1/watch/namespaces/$namespace/networkpolicies$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -13518,8 +22160,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/networking.k8s.io/v1/watch/namespaces/$namespace/networkpolicies/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/networking.k8s.io/v1/watch/namespaces/$namespace/networkpolicies/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -13557,8 +22234,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/networking.k8s.io/v1/watch/networkpolicies?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/networking.k8s.io/v1/watch/networkpolicies$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -13581,8 +22293,16 @@ class KubernetesClient {
   Future<api_node_v1.RuntimeClassList> listNodeV1RuntimeClass({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result =
-        await _getJsonMap('/apis/node.k8s.io/v1/runtimeclasses?pretty=$pretty');
+        await _getJsonMap('/apis/node.k8s.io/v1/runtimeclasses$query');
     return api_node_v1.RuntimeClassList.fromJson(result);
   }
 
@@ -13593,8 +22313,16 @@ class KubernetesClient {
       deleteNodeV1CollectionRuntimeClass({
     bool? pretty,
   }) async {
-    final result = await _deleteJsonMap(
-        '/apis/node.k8s.io/v1/runtimeclasses?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _deleteJsonMap('/apis/node.k8s.io/v1/runtimeclasses$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -13604,8 +22332,16 @@ class KubernetesClient {
   Future<api_node_v1.RuntimeClass> createNodeV1RuntimeClass({
     bool? pretty,
   }) async {
-    final result = await _postJsonMap(
-        '/apis/node.k8s.io/v1/runtimeclasses?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _postJsonMap('/apis/node.k8s.io/v1/runtimeclasses$query');
     return api_node_v1.RuntimeClass.fromJson(result);
   }
 
@@ -13618,8 +22354,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/node.k8s.io/v1/runtimeclasses/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/node.k8s.io/v1/runtimeclasses/$name$query');
     return api_node_v1.RuntimeClass.fromJson(result);
   }
 
@@ -13632,8 +22376,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result = await _deleteJsonMap(
-        '/apis/node.k8s.io/v1/runtimeclasses/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _deleteJsonMap('/apis/node.k8s.io/v1/runtimeclasses/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -13646,8 +22398,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result = await _putJsonMap(
-        '/apis/node.k8s.io/v1/runtimeclasses/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _putJsonMap('/apis/node.k8s.io/v1/runtimeclasses/$name$query');
     return api_node_v1.RuntimeClass.fromJson(result);
   }
 
@@ -13660,8 +22420,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result = await _patchJsonMap(
-        '/apis/node.k8s.io/v1/runtimeclasses/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _patchJsonMap('/apis/node.k8s.io/v1/runtimeclasses/$name$query');
     return api_node_v1.RuntimeClass.fromJson(result);
   }
 
@@ -13698,8 +22466,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/node.k8s.io/v1/watch/runtimeclasses?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/node.k8s.io/v1/watch/runtimeclasses$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -13739,8 +22542,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/node.k8s.io/v1/watch/runtimeclasses/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/node.k8s.io/v1/watch/runtimeclasses/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -13757,8 +22595,16 @@ class KubernetesClient {
   Future<api_node_v1alpha1.RuntimeClassList> listNodeV1alpha1RuntimeClass({
     bool? pretty,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/node.k8s.io/v1alpha1/runtimeclasses?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/node.k8s.io/v1alpha1/runtimeclasses$query');
     return api_node_v1alpha1.RuntimeClassList.fromJson(result);
   }
 
@@ -13769,8 +22615,16 @@ class KubernetesClient {
       deleteNodeV1alpha1CollectionRuntimeClass({
     bool? pretty,
   }) async {
-    final result = await _deleteJsonMap(
-        '/apis/node.k8s.io/v1alpha1/runtimeclasses?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _deleteJsonMap('/apis/node.k8s.io/v1alpha1/runtimeclasses$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -13780,8 +22634,16 @@ class KubernetesClient {
   Future<api_node_v1alpha1.RuntimeClass> createNodeV1alpha1RuntimeClass({
     bool? pretty,
   }) async {
-    final result = await _postJsonMap(
-        '/apis/node.k8s.io/v1alpha1/runtimeclasses?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _postJsonMap('/apis/node.k8s.io/v1alpha1/runtimeclasses$query');
     return api_node_v1alpha1.RuntimeClass.fromJson(result);
   }
 
@@ -13794,8 +22656,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/node.k8s.io/v1alpha1/runtimeclasses/$name?pretty=$pretty');
+        '/apis/node.k8s.io/v1alpha1/runtimeclasses/$name$query');
     return api_node_v1alpha1.RuntimeClass.fromJson(result);
   }
 
@@ -13808,8 +22678,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/node.k8s.io/v1alpha1/runtimeclasses/$name?pretty=$pretty');
+        '/apis/node.k8s.io/v1alpha1/runtimeclasses/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -13822,8 +22700,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/node.k8s.io/v1alpha1/runtimeclasses/$name?pretty=$pretty');
+        '/apis/node.k8s.io/v1alpha1/runtimeclasses/$name$query');
     return api_node_v1alpha1.RuntimeClass.fromJson(result);
   }
 
@@ -13836,8 +22722,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/node.k8s.io/v1alpha1/runtimeclasses/$name?pretty=$pretty');
+        '/apis/node.k8s.io/v1alpha1/runtimeclasses/$name$query');
     return api_node_v1alpha1.RuntimeClass.fromJson(result);
   }
 
@@ -13875,8 +22769,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/node.k8s.io/v1alpha1/watch/runtimeclasses?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/node.k8s.io/v1alpha1/watch/runtimeclasses$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -13917,8 +22846,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/node.k8s.io/v1alpha1/watch/runtimeclasses/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/node.k8s.io/v1alpha1/watch/runtimeclasses/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -13935,8 +22899,16 @@ class KubernetesClient {
   Future<api_node_v1beta1.RuntimeClassList> listNodeV1beta1RuntimeClass({
     bool? pretty,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/node.k8s.io/v1beta1/runtimeclasses?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/node.k8s.io/v1beta1/runtimeclasses$query');
     return api_node_v1beta1.RuntimeClassList.fromJson(result);
   }
 
@@ -13947,8 +22919,16 @@ class KubernetesClient {
       deleteNodeV1beta1CollectionRuntimeClass({
     bool? pretty,
   }) async {
-    final result = await _deleteJsonMap(
-        '/apis/node.k8s.io/v1beta1/runtimeclasses?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _deleteJsonMap('/apis/node.k8s.io/v1beta1/runtimeclasses$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -13958,8 +22938,16 @@ class KubernetesClient {
   Future<api_node_v1beta1.RuntimeClass> createNodeV1beta1RuntimeClass({
     bool? pretty,
   }) async {
-    final result = await _postJsonMap(
-        '/apis/node.k8s.io/v1beta1/runtimeclasses?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _postJsonMap('/apis/node.k8s.io/v1beta1/runtimeclasses$query');
     return api_node_v1beta1.RuntimeClass.fromJson(result);
   }
 
@@ -13972,8 +22960,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/node.k8s.io/v1beta1/runtimeclasses/$name?pretty=$pretty');
+        '/apis/node.k8s.io/v1beta1/runtimeclasses/$name$query');
     return api_node_v1beta1.RuntimeClass.fromJson(result);
   }
 
@@ -13986,8 +22982,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/node.k8s.io/v1beta1/runtimeclasses/$name?pretty=$pretty');
+        '/apis/node.k8s.io/v1beta1/runtimeclasses/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -14000,8 +23004,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/node.k8s.io/v1beta1/runtimeclasses/$name?pretty=$pretty');
+        '/apis/node.k8s.io/v1beta1/runtimeclasses/$name$query');
     return api_node_v1beta1.RuntimeClass.fromJson(result);
   }
 
@@ -14014,8 +23026,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/node.k8s.io/v1beta1/runtimeclasses/$name?pretty=$pretty');
+        '/apis/node.k8s.io/v1beta1/runtimeclasses/$name$query');
     return api_node_v1beta1.RuntimeClass.fromJson(result);
   }
 
@@ -14053,8 +23073,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/node.k8s.io/v1beta1/watch/runtimeclasses?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/node.k8s.io/v1beta1/watch/runtimeclasses$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -14095,8 +23150,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/node.k8s.io/v1beta1/watch/runtimeclasses/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/node.k8s.io/v1beta1/watch/runtimeclasses/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -14123,8 +23213,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets?pretty=$pretty');
+        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets$query');
     return api_policy_v1.PodDisruptionBudgetList.fromJson(result);
   }
 
@@ -14138,8 +23236,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets?pretty=$pretty');
+        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -14153,8 +23259,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets?pretty=$pretty');
+        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets$query');
     return api_policy_v1.PodDisruptionBudget.fromJson(result);
   }
 
@@ -14171,8 +23285,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets/$name?pretty=$pretty');
+        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets/$name$query');
     return api_policy_v1.PodDisruptionBudget.fromJson(result);
   }
 
@@ -14189,8 +23311,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets/$name?pretty=$pretty');
+        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -14207,8 +23337,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets/$name?pretty=$pretty');
+        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets/$name$query');
     return api_policy_v1.PodDisruptionBudget.fromJson(result);
   }
 
@@ -14225,8 +23363,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets/$name?pretty=$pretty');
+        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets/$name$query');
     return api_policy_v1.PodDisruptionBudget.fromJson(result);
   }
 
@@ -14243,8 +23389,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets/$name/status?pretty=$pretty');
+        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets/$name/status$query');
     return api_policy_v1.PodDisruptionBudget.fromJson(result);
   }
 
@@ -14261,8 +23415,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets/$name/status?pretty=$pretty');
+        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets/$name/status$query');
     return api_policy_v1.PodDisruptionBudget.fromJson(result);
   }
 
@@ -14279,8 +23441,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets/$name/status?pretty=$pretty');
+        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets/$name/status$query');
     return api_policy_v1.PodDisruptionBudget.fromJson(result);
   }
 
@@ -14318,8 +23488,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/policy/v1/poddisruptionbudgets?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/policy/v1/poddisruptionbudgets$query');
     return api_policy_v1.PodDisruptionBudgetList.fromJson(result);
   }
 
@@ -14360,8 +23565,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/policy/v1/watch/namespaces/$namespace/poddisruptionbudgets?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/policy/v1/watch/namespaces/$namespace/poddisruptionbudgets$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -14405,8 +23645,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/policy/v1/watch/namespaces/$namespace/poddisruptionbudgets/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/policy/v1/watch/namespaces/$namespace/poddisruptionbudgets/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -14444,8 +23719,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/policy/v1/watch/poddisruptionbudgets?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/policy/v1/watch/poddisruptionbudgets$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -14466,8 +23776,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets?pretty=$pretty');
+        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets$query');
     return api_policy_v1beta1.PodDisruptionBudgetList.fromJson(result);
   }
 
@@ -14481,8 +23799,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets?pretty=$pretty');
+        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -14496,8 +23822,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets?pretty=$pretty');
+        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets$query');
     return api_policy_v1beta1.PodDisruptionBudget.fromJson(result);
   }
 
@@ -14514,8 +23848,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name?pretty=$pretty');
+        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name$query');
     return api_policy_v1beta1.PodDisruptionBudget.fromJson(result);
   }
 
@@ -14532,8 +23874,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name?pretty=$pretty');
+        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -14550,8 +23900,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name?pretty=$pretty');
+        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name$query');
     return api_policy_v1beta1.PodDisruptionBudget.fromJson(result);
   }
 
@@ -14568,8 +23926,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name?pretty=$pretty');
+        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name$query');
     return api_policy_v1beta1.PodDisruptionBudget.fromJson(result);
   }
 
@@ -14586,8 +23952,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name/status?pretty=$pretty');
+        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name/status$query');
     return api_policy_v1beta1.PodDisruptionBudget.fromJson(result);
   }
 
@@ -14604,8 +23978,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name/status?pretty=$pretty');
+        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name/status$query');
     return api_policy_v1beta1.PodDisruptionBudget.fromJson(result);
   }
 
@@ -14622,8 +24004,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name/status?pretty=$pretty');
+        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name/status$query');
     return api_policy_v1beta1.PodDisruptionBudget.fromJson(result);
   }
 
@@ -14661,8 +24051,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/policy/v1beta1/poddisruptionbudgets?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/policy/v1beta1/poddisruptionbudgets$query');
     return api_policy_v1beta1.PodDisruptionBudgetList.fromJson(result);
   }
 
@@ -14673,8 +24098,16 @@ class KubernetesClient {
       listPolicyV1beta1PodSecurityPolicy({
     bool? pretty,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/policy/v1beta1/podsecuritypolicies?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/policy/v1beta1/podsecuritypolicies$query');
     return api_policy_v1beta1.PodSecurityPolicyList.fromJson(result);
   }
 
@@ -14685,8 +24118,16 @@ class KubernetesClient {
       deletePolicyV1beta1CollectionPodSecurityPolicy({
     bool? pretty,
   }) async {
-    final result = await _deleteJsonMap(
-        '/apis/policy/v1beta1/podsecuritypolicies?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _deleteJsonMap('/apis/policy/v1beta1/podsecuritypolicies$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -14697,8 +24138,16 @@ class KubernetesClient {
       createPolicyV1beta1PodSecurityPolicy({
     bool? pretty,
   }) async {
-    final result = await _postJsonMap(
-        '/apis/policy/v1beta1/podsecuritypolicies?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _postJsonMap('/apis/policy/v1beta1/podsecuritypolicies$query');
     return api_policy_v1beta1.PodSecurityPolicy.fromJson(result);
   }
 
@@ -14712,8 +24161,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/policy/v1beta1/podsecuritypolicies/$name?pretty=$pretty');
+        '/apis/policy/v1beta1/podsecuritypolicies/$name$query');
     return api_policy_v1beta1.PodSecurityPolicy.fromJson(result);
   }
 
@@ -14727,8 +24184,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/policy/v1beta1/podsecuritypolicies/$name?pretty=$pretty');
+        '/apis/policy/v1beta1/podsecuritypolicies/$name$query');
     return api_policy_v1beta1.PodSecurityPolicy.fromJson(result);
   }
 
@@ -14742,8 +24207,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/policy/v1beta1/podsecuritypolicies/$name?pretty=$pretty');
+        '/apis/policy/v1beta1/podsecuritypolicies/$name$query');
     return api_policy_v1beta1.PodSecurityPolicy.fromJson(result);
   }
 
@@ -14757,8 +24230,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/policy/v1beta1/podsecuritypolicies/$name?pretty=$pretty');
+        '/apis/policy/v1beta1/podsecuritypolicies/$name$query');
     return api_policy_v1beta1.PodSecurityPolicy.fromJson(result);
   }
 
@@ -14799,8 +24280,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/policy/v1beta1/watch/namespaces/$namespace/poddisruptionbudgets?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/policy/v1beta1/watch/namespaces/$namespace/poddisruptionbudgets$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -14844,8 +24360,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/policy/v1beta1/watch/namespaces/$namespace/poddisruptionbudgets/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/policy/v1beta1/watch/namespaces/$namespace/poddisruptionbudgets/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -14883,8 +24434,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/policy/v1beta1/watch/poddisruptionbudgets?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/policy/v1beta1/watch/poddisruptionbudgets$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -14922,8 +24508,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/policy/v1beta1/watch/podsecuritypolicies?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/policy/v1beta1/watch/podsecuritypolicies$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -14964,8 +24585,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/policy/v1beta1/watch/podsecuritypolicies/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/policy/v1beta1/watch/podsecuritypolicies/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -14990,8 +24646,16 @@ class KubernetesClient {
       listRbacAuthorizationV1ClusterRoleBinding({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/clusterrolebindings?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/clusterrolebindings$query');
     return api_rbac_v1.ClusterRoleBindingList.fromJson(result);
   }
 
@@ -15002,8 +24666,16 @@ class KubernetesClient {
       deleteRbacAuthorizationV1CollectionClusterRoleBinding({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/clusterrolebindings?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/clusterrolebindings$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -15014,8 +24686,16 @@ class KubernetesClient {
       createRbacAuthorizationV1ClusterRoleBinding({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/clusterrolebindings?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/clusterrolebindings$query');
     return api_rbac_v1.ClusterRoleBinding.fromJson(result);
   }
 
@@ -15029,8 +24709,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/$name$query');
     return api_rbac_v1.ClusterRoleBinding.fromJson(result);
   }
 
@@ -15044,8 +24732,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -15059,8 +24755,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/$name$query');
     return api_rbac_v1.ClusterRoleBinding.fromJson(result);
   }
 
@@ -15074,8 +24778,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/$name$query');
     return api_rbac_v1.ClusterRoleBinding.fromJson(result);
   }
 
@@ -15085,8 +24797,16 @@ class KubernetesClient {
   Future<api_rbac_v1.ClusterRoleList> listRbacAuthorizationV1ClusterRole({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/clusterroles?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/clusterroles$query');
     return api_rbac_v1.ClusterRoleList.fromJson(result);
   }
 
@@ -15097,8 +24817,16 @@ class KubernetesClient {
       deleteRbacAuthorizationV1CollectionClusterRole({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/clusterroles?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/clusterroles$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -15108,8 +24836,16 @@ class KubernetesClient {
   Future<api_rbac_v1.ClusterRole> createRbacAuthorizationV1ClusterRole({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/clusterroles?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/clusterroles$query');
     return api_rbac_v1.ClusterRole.fromJson(result);
   }
 
@@ -15122,8 +24858,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/clusterroles/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/clusterroles/$name$query');
     return api_rbac_v1.ClusterRole.fromJson(result);
   }
 
@@ -15137,8 +24881,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/clusterroles/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/clusterroles/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -15151,8 +24903,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/clusterroles/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/clusterroles/$name$query');
     return api_rbac_v1.ClusterRole.fromJson(result);
   }
 
@@ -15165,8 +24925,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/clusterroles/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/clusterroles/$name$query');
     return api_rbac_v1.ClusterRole.fromJson(result);
   }
 
@@ -15180,8 +24948,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/rolebindings?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/rolebindings$query');
     return api_rbac_v1.RoleBindingList.fromJson(result);
   }
 
@@ -15195,8 +24971,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/rolebindings?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/rolebindings$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -15210,8 +24994,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/rolebindings?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/rolebindings$query');
     return api_rbac_v1.RoleBinding.fromJson(result);
   }
 
@@ -15227,8 +25019,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/rolebindings/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/rolebindings/$name$query');
     return api_rbac_v1.RoleBinding.fromJson(result);
   }
 
@@ -15245,8 +25045,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/rolebindings/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/rolebindings/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -15263,8 +25071,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/rolebindings/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/rolebindings/$name$query');
     return api_rbac_v1.RoleBinding.fromJson(result);
   }
 
@@ -15281,8 +25097,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/rolebindings/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/rolebindings/$name$query');
     return api_rbac_v1.RoleBinding.fromJson(result);
   }
 
@@ -15295,8 +25119,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/roles?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/roles$query');
     return api_rbac_v1.RoleList.fromJson(result);
   }
 
@@ -15310,8 +25142,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/roles?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/roles$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -15324,8 +25164,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/roles?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/roles$query');
     return api_rbac_v1.Role.fromJson(result);
   }
 
@@ -15341,8 +25189,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/roles/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/roles/$name$query');
     return api_rbac_v1.Role.fromJson(result);
   }
 
@@ -15359,8 +25215,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/roles/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/roles/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -15376,8 +25240,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/roles/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/roles/$name$query');
     return api_rbac_v1.Role.fromJson(result);
   }
 
@@ -15393,8 +25265,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/roles/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/roles/$name$query');
     return api_rbac_v1.Role.fromJson(result);
   }
 
@@ -15432,8 +25312,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/rolebindings?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/rbac.authorization.k8s.io/v1/rolebindings$query');
     return api_rbac_v1.RoleBindingList.fromJson(result);
   }
 
@@ -15470,8 +25385,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/roles?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/rbac.authorization.k8s.io/v1/roles$query');
     return api_rbac_v1.RoleList.fromJson(result);
   }
 
@@ -15509,8 +25459,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/watch/clusterrolebindings?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/rbac.authorization.k8s.io/v1/watch/clusterrolebindings$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -15551,8 +25536,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/watch/clusterrolebindings/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/rbac.authorization.k8s.io/v1/watch/clusterrolebindings/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -15590,8 +25610,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/watch/clusterroles?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/rbac.authorization.k8s.io/v1/watch/clusterroles$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -15632,8 +25687,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/watch/clusterroles/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/rbac.authorization.k8s.io/v1/watch/clusterroles/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -15674,8 +25764,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/watch/namespaces/$namespace/rolebindings?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/rbac.authorization.k8s.io/v1/watch/namespaces/$namespace/rolebindings$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -15719,8 +25844,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/watch/namespaces/$namespace/rolebindings/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/rbac.authorization.k8s.io/v1/watch/namespaces/$namespace/rolebindings/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -15761,8 +25921,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/watch/namespaces/$namespace/roles?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/rbac.authorization.k8s.io/v1/watch/namespaces/$namespace/roles$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -15806,8 +26001,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/watch/namespaces/$namespace/roles/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/rbac.authorization.k8s.io/v1/watch/namespaces/$namespace/roles/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -15845,8 +26075,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/watch/rolebindings?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/rbac.authorization.k8s.io/v1/watch/rolebindings$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -15884,8 +26149,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/watch/roles?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/rbac.authorization.k8s.io/v1/watch/roles$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -15904,8 +26204,16 @@ class KubernetesClient {
       listRbacAuthorizationV1alpha1ClusterRoleBinding({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings$query');
     return api_rbac_v1alpha1.ClusterRoleBindingList.fromJson(result);
   }
 
@@ -15916,8 +26224,16 @@ class KubernetesClient {
       deleteRbacAuthorizationV1alpha1CollectionClusterRoleBinding({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -15928,8 +26244,16 @@ class KubernetesClient {
       createRbacAuthorizationV1alpha1ClusterRoleBinding({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings$query');
     return api_rbac_v1alpha1.ClusterRoleBinding.fromJson(result);
   }
 
@@ -15943,8 +26267,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings/$name$query');
     return api_rbac_v1alpha1.ClusterRoleBinding.fromJson(result);
   }
 
@@ -15958,8 +26290,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -15973,8 +26313,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings/$name$query');
     return api_rbac_v1alpha1.ClusterRoleBinding.fromJson(result);
   }
 
@@ -15988,8 +26336,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings/$name$query');
     return api_rbac_v1alpha1.ClusterRoleBinding.fromJson(result);
   }
 
@@ -16000,8 +26356,16 @@ class KubernetesClient {
       listRbacAuthorizationV1alpha1ClusterRole({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles$query');
     return api_rbac_v1alpha1.ClusterRoleList.fromJson(result);
   }
 
@@ -16012,8 +26376,16 @@ class KubernetesClient {
       deleteRbacAuthorizationV1alpha1CollectionClusterRole({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -16024,8 +26396,16 @@ class KubernetesClient {
       createRbacAuthorizationV1alpha1ClusterRole({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles$query');
     return api_rbac_v1alpha1.ClusterRole.fromJson(result);
   }
 
@@ -16039,8 +26419,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles/$name$query');
     return api_rbac_v1alpha1.ClusterRole.fromJson(result);
   }
 
@@ -16054,8 +26442,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -16069,8 +26465,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles/$name$query');
     return api_rbac_v1alpha1.ClusterRole.fromJson(result);
   }
 
@@ -16084,8 +26488,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles/$name$query');
     return api_rbac_v1alpha1.ClusterRole.fromJson(result);
   }
 
@@ -16099,8 +26511,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings$query');
     return api_rbac_v1alpha1.RoleBindingList.fromJson(result);
   }
 
@@ -16114,8 +26534,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -16129,8 +26557,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings$query');
     return api_rbac_v1alpha1.RoleBinding.fromJson(result);
   }
 
@@ -16147,8 +26583,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings/$name$query');
     return api_rbac_v1alpha1.RoleBinding.fromJson(result);
   }
 
@@ -16165,8 +26609,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -16183,8 +26635,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings/$name$query');
     return api_rbac_v1alpha1.RoleBinding.fromJson(result);
   }
 
@@ -16201,8 +26661,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings/$name$query');
     return api_rbac_v1alpha1.RoleBinding.fromJson(result);
   }
 
@@ -16216,8 +26684,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles$query');
     return api_rbac_v1alpha1.RoleList.fromJson(result);
   }
 
@@ -16231,8 +26707,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -16245,8 +26729,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles$query');
     return api_rbac_v1alpha1.Role.fromJson(result);
   }
 
@@ -16262,8 +26754,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles/$name$query');
     return api_rbac_v1alpha1.Role.fromJson(result);
   }
 
@@ -16280,8 +26780,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -16298,8 +26806,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles/$name$query');
     return api_rbac_v1alpha1.Role.fromJson(result);
   }
 
@@ -16315,8 +26831,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles/$name?pretty=$pretty');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles/$name$query');
     return api_rbac_v1alpha1.Role.fromJson(result);
   }
 
@@ -16354,8 +26878,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/rolebindings?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/rolebindings$query');
     return api_rbac_v1alpha1.RoleBindingList.fromJson(result);
   }
 
@@ -16393,8 +26952,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/roles?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/roles$query');
     return api_rbac_v1alpha1.RoleList.fromJson(result);
   }
 
@@ -16432,8 +27026,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/clusterrolebindings?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/clusterrolebindings$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -16474,8 +27103,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/clusterrolebindings/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/clusterrolebindings/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -16513,8 +27177,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/clusterroles?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/clusterroles$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -16555,8 +27254,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/clusterroles/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/clusterroles/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -16597,8 +27331,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/namespaces/$namespace/rolebindings?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/namespaces/$namespace/rolebindings$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -16642,8 +27411,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/namespaces/$namespace/rolebindings/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/namespaces/$namespace/rolebindings/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -16684,8 +27488,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/namespaces/$namespace/roles?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/namespaces/$namespace/roles$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -16729,8 +27568,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/namespaces/$namespace/roles/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/namespaces/$namespace/roles/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -16768,8 +27642,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/rolebindings?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/rolebindings$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -16807,8 +27716,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/roles?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/roles$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -16831,8 +27775,16 @@ class KubernetesClient {
   Future<api_scheduling_v1.PriorityClassList> listSchedulingV1PriorityClass({
     bool? pretty,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/scheduling.k8s.io/v1/priorityclasses?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/scheduling.k8s.io/v1/priorityclasses$query');
     return api_scheduling_v1.PriorityClassList.fromJson(result);
   }
 
@@ -16843,8 +27795,16 @@ class KubernetesClient {
       deleteSchedulingV1CollectionPriorityClass({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/scheduling.k8s.io/v1/priorityclasses?pretty=$pretty');
+        '/apis/scheduling.k8s.io/v1/priorityclasses$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -16854,8 +27814,16 @@ class KubernetesClient {
   Future<api_scheduling_v1.PriorityClass> createSchedulingV1PriorityClass({
     bool? pretty,
   }) async {
-    final result = await _postJsonMap(
-        '/apis/scheduling.k8s.io/v1/priorityclasses?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _postJsonMap('/apis/scheduling.k8s.io/v1/priorityclasses$query');
     return api_scheduling_v1.PriorityClass.fromJson(result);
   }
 
@@ -16868,8 +27836,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/scheduling.k8s.io/v1/priorityclasses/$name?pretty=$pretty');
+        '/apis/scheduling.k8s.io/v1/priorityclasses/$name$query');
     return api_scheduling_v1.PriorityClass.fromJson(result);
   }
 
@@ -16882,8 +27858,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/scheduling.k8s.io/v1/priorityclasses/$name?pretty=$pretty');
+        '/apis/scheduling.k8s.io/v1/priorityclasses/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -16896,8 +27880,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/scheduling.k8s.io/v1/priorityclasses/$name?pretty=$pretty');
+        '/apis/scheduling.k8s.io/v1/priorityclasses/$name$query');
     return api_scheduling_v1.PriorityClass.fromJson(result);
   }
 
@@ -16910,8 +27902,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/scheduling.k8s.io/v1/priorityclasses/$name?pretty=$pretty');
+        '/apis/scheduling.k8s.io/v1/priorityclasses/$name$query');
     return api_scheduling_v1.PriorityClass.fromJson(result);
   }
 
@@ -16949,8 +27949,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/scheduling.k8s.io/v1/watch/priorityclasses?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/scheduling.k8s.io/v1/watch/priorityclasses$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -16991,8 +28026,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/scheduling.k8s.io/v1/watch/priorityclasses/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/scheduling.k8s.io/v1/watch/priorityclasses/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -17010,8 +28080,16 @@ class KubernetesClient {
       listSchedulingV1alpha1PriorityClass({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses?pretty=$pretty');
+        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses$query');
     return api_scheduling_v1alpha1.PriorityClassList.fromJson(result);
   }
 
@@ -17022,8 +28100,16 @@ class KubernetesClient {
       deleteSchedulingV1alpha1CollectionPriorityClass({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses?pretty=$pretty');
+        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -17034,8 +28120,16 @@ class KubernetesClient {
       createSchedulingV1alpha1PriorityClass({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses?pretty=$pretty');
+        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses$query');
     return api_scheduling_v1alpha1.PriorityClass.fromJson(result);
   }
 
@@ -17049,8 +28143,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses/$name?pretty=$pretty');
+        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses/$name$query');
     return api_scheduling_v1alpha1.PriorityClass.fromJson(result);
   }
 
@@ -17064,8 +28166,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses/$name?pretty=$pretty');
+        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -17079,8 +28189,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses/$name?pretty=$pretty');
+        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses/$name$query');
     return api_scheduling_v1alpha1.PriorityClass.fromJson(result);
   }
 
@@ -17094,8 +28212,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses/$name?pretty=$pretty');
+        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses/$name$query');
     return api_scheduling_v1alpha1.PriorityClass.fromJson(result);
   }
 
@@ -17133,8 +28259,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/scheduling.k8s.io/v1alpha1/watch/priorityclasses?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/scheduling.k8s.io/v1alpha1/watch/priorityclasses$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -17175,8 +28336,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/scheduling.k8s.io/v1alpha1/watch/priorityclasses/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/scheduling.k8s.io/v1alpha1/watch/priorityclasses/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -17199,8 +28395,16 @@ class KubernetesClient {
   Future<api_storage_v1.CSIDriverList> listStorageV1CSIDriver({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result =
-        await _getJsonMap('/apis/storage.k8s.io/v1/csidrivers?pretty=$pretty');
+        await _getJsonMap('/apis/storage.k8s.io/v1/csidrivers$query');
     return api_storage_v1.CSIDriverList.fromJson(result);
   }
 
@@ -17211,8 +28415,16 @@ class KubernetesClient {
       deleteStorageV1CollectionCSIDriver({
     bool? pretty,
   }) async {
-    final result = await _deleteJsonMap(
-        '/apis/storage.k8s.io/v1/csidrivers?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _deleteJsonMap('/apis/storage.k8s.io/v1/csidrivers$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -17222,8 +28434,16 @@ class KubernetesClient {
   Future<api_storage_v1.CSIDriver> createStorageV1CSIDriver({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result =
-        await _postJsonMap('/apis/storage.k8s.io/v1/csidrivers?pretty=$pretty');
+        await _postJsonMap('/apis/storage.k8s.io/v1/csidrivers$query');
     return api_storage_v1.CSIDriver.fromJson(result);
   }
 
@@ -17236,8 +28456,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1/csidrivers/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/storage.k8s.io/v1/csidrivers/$name$query');
     return api_storage_v1.CSIDriver.fromJson(result);
   }
 
@@ -17250,8 +28478,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result = await _deleteJsonMap(
-        '/apis/storage.k8s.io/v1/csidrivers/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _deleteJsonMap('/apis/storage.k8s.io/v1/csidrivers/$name$query');
     return api_storage_v1.CSIDriver.fromJson(result);
   }
 
@@ -17264,8 +28500,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result = await _putJsonMap(
-        '/apis/storage.k8s.io/v1/csidrivers/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _putJsonMap('/apis/storage.k8s.io/v1/csidrivers/$name$query');
     return api_storage_v1.CSIDriver.fromJson(result);
   }
 
@@ -17278,8 +28522,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result = await _patchJsonMap(
-        '/apis/storage.k8s.io/v1/csidrivers/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _patchJsonMap('/apis/storage.k8s.io/v1/csidrivers/$name$query');
     return api_storage_v1.CSIDriver.fromJson(result);
   }
 
@@ -17289,8 +28541,15 @@ class KubernetesClient {
   Future<api_storage_v1.CSINodeList> listStorageV1CSINode({
     bool? pretty,
   }) async {
-    final result =
-        await _getJsonMap('/apis/storage.k8s.io/v1/csinodes?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap('/apis/storage.k8s.io/v1/csinodes$query');
     return api_storage_v1.CSINodeList.fromJson(result);
   }
 
@@ -17301,8 +28560,16 @@ class KubernetesClient {
       deleteStorageV1CollectionCSINode({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result =
-        await _deleteJsonMap('/apis/storage.k8s.io/v1/csinodes?pretty=$pretty');
+        await _deleteJsonMap('/apis/storage.k8s.io/v1/csinodes$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -17312,8 +28579,15 @@ class KubernetesClient {
   Future<api_storage_v1.CSINode> createStorageV1CSINode({
     bool? pretty,
   }) async {
-    final result =
-        await _postJsonMap('/apis/storage.k8s.io/v1/csinodes?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _postJsonMap('/apis/storage.k8s.io/v1/csinodes$query');
     return api_storage_v1.CSINode.fromJson(result);
   }
 
@@ -17326,8 +28600,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1/csinodes/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/storage.k8s.io/v1/csinodes/$name$query');
     return api_storage_v1.CSINode.fromJson(result);
   }
 
@@ -17340,8 +28622,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result = await _deleteJsonMap(
-        '/apis/storage.k8s.io/v1/csinodes/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _deleteJsonMap('/apis/storage.k8s.io/v1/csinodes/$name$query');
     return api_storage_v1.CSINode.fromJson(result);
   }
 
@@ -17354,8 +28644,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result = await _putJsonMap(
-        '/apis/storage.k8s.io/v1/csinodes/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _putJsonMap('/apis/storage.k8s.io/v1/csinodes/$name$query');
     return api_storage_v1.CSINode.fromJson(result);
   }
 
@@ -17368,8 +28666,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result = await _patchJsonMap(
-        '/apis/storage.k8s.io/v1/csinodes/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _patchJsonMap('/apis/storage.k8s.io/v1/csinodes/$name$query');
     return api_storage_v1.CSINode.fromJson(result);
   }
 
@@ -17379,8 +28685,16 @@ class KubernetesClient {
   Future<api_storage_v1.StorageClassList> listStorageV1StorageClass({
     bool? pretty,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1/storageclasses?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/storage.k8s.io/v1/storageclasses$query');
     return api_storage_v1.StorageClassList.fromJson(result);
   }
 
@@ -17391,8 +28705,16 @@ class KubernetesClient {
       deleteStorageV1CollectionStorageClass({
     bool? pretty,
   }) async {
-    final result = await _deleteJsonMap(
-        '/apis/storage.k8s.io/v1/storageclasses?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _deleteJsonMap('/apis/storage.k8s.io/v1/storageclasses$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -17402,8 +28724,16 @@ class KubernetesClient {
   Future<api_storage_v1.StorageClass> createStorageV1StorageClass({
     bool? pretty,
   }) async {
-    final result = await _postJsonMap(
-        '/apis/storage.k8s.io/v1/storageclasses?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _postJsonMap('/apis/storage.k8s.io/v1/storageclasses$query');
     return api_storage_v1.StorageClass.fromJson(result);
   }
 
@@ -17416,8 +28746,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1/storageclasses/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/storage.k8s.io/v1/storageclasses/$name$query');
     return api_storage_v1.StorageClass.fromJson(result);
   }
 
@@ -17430,8 +28768,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/storage.k8s.io/v1/storageclasses/$name?pretty=$pretty');
+        '/apis/storage.k8s.io/v1/storageclasses/$name$query');
     return api_storage_v1.StorageClass.fromJson(result);
   }
 
@@ -17444,8 +28790,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
-    final result = await _putJsonMap(
-        '/apis/storage.k8s.io/v1/storageclasses/$name?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _putJsonMap('/apis/storage.k8s.io/v1/storageclasses/$name$query');
     return api_storage_v1.StorageClass.fromJson(result);
   }
 
@@ -17458,8 +28812,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/storage.k8s.io/v1/storageclasses/$name?pretty=$pretty');
+        '/apis/storage.k8s.io/v1/storageclasses/$name$query');
     return api_storage_v1.StorageClass.fromJson(result);
   }
 
@@ -17469,8 +28831,16 @@ class KubernetesClient {
   Future<api_storage_v1.VolumeAttachmentList> listStorageV1VolumeAttachment({
     bool? pretty,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1/volumeattachments?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/storage.k8s.io/v1/volumeattachments$query');
     return api_storage_v1.VolumeAttachmentList.fromJson(result);
   }
 
@@ -17481,8 +28851,16 @@ class KubernetesClient {
       deleteStorageV1CollectionVolumeAttachment({
     bool? pretty,
   }) async {
-    final result = await _deleteJsonMap(
-        '/apis/storage.k8s.io/v1/volumeattachments?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _deleteJsonMap('/apis/storage.k8s.io/v1/volumeattachments$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -17492,8 +28870,16 @@ class KubernetesClient {
   Future<api_storage_v1.VolumeAttachment> createStorageV1VolumeAttachment({
     bool? pretty,
   }) async {
-    final result = await _postJsonMap(
-        '/apis/storage.k8s.io/v1/volumeattachments?pretty=$pretty');
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _postJsonMap('/apis/storage.k8s.io/v1/volumeattachments$query');
     return api_storage_v1.VolumeAttachment.fromJson(result);
   }
 
@@ -17506,8 +28892,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1/volumeattachments/$name?pretty=$pretty');
+        '/apis/storage.k8s.io/v1/volumeattachments/$name$query');
     return api_storage_v1.VolumeAttachment.fromJson(result);
   }
 
@@ -17520,8 +28914,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/storage.k8s.io/v1/volumeattachments/$name?pretty=$pretty');
+        '/apis/storage.k8s.io/v1/volumeattachments/$name$query');
     return api_storage_v1.VolumeAttachment.fromJson(result);
   }
 
@@ -17534,8 +28936,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/storage.k8s.io/v1/volumeattachments/$name?pretty=$pretty');
+        '/apis/storage.k8s.io/v1/volumeattachments/$name$query');
     return api_storage_v1.VolumeAttachment.fromJson(result);
   }
 
@@ -17548,8 +28958,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/storage.k8s.io/v1/volumeattachments/$name?pretty=$pretty');
+        '/apis/storage.k8s.io/v1/volumeattachments/$name$query');
     return api_storage_v1.VolumeAttachment.fromJson(result);
   }
 
@@ -17562,8 +28980,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1/volumeattachments/$name/status?pretty=$pretty');
+        '/apis/storage.k8s.io/v1/volumeattachments/$name/status$query');
     return api_storage_v1.VolumeAttachment.fromJson(result);
   }
 
@@ -17577,8 +29003,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/storage.k8s.io/v1/volumeattachments/$name/status?pretty=$pretty');
+        '/apis/storage.k8s.io/v1/volumeattachments/$name/status$query');
     return api_storage_v1.VolumeAttachment.fromJson(result);
   }
 
@@ -17591,8 +29025,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/storage.k8s.io/v1/volumeattachments/$name/status?pretty=$pretty');
+        '/apis/storage.k8s.io/v1/volumeattachments/$name/status$query');
     return api_storage_v1.VolumeAttachment.fromJson(result);
   }
 
@@ -17629,8 +29071,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1/watch/csidrivers?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/storage.k8s.io/v1/watch/csidrivers$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -17670,8 +29147,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1/watch/csidrivers/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/storage.k8s.io/v1/watch/csidrivers/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -17708,8 +29220,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1/watch/csinodes?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/storage.k8s.io/v1/watch/csinodes$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -17749,8 +29296,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1/watch/csinodes/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/storage.k8s.io/v1/watch/csinodes/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -17788,8 +29370,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
-    final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1/watch/storageclasses?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/storage.k8s.io/v1/watch/storageclasses$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -17829,8 +29446,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1/watch/storageclasses/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/storage.k8s.io/v1/watch/storageclasses/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -17868,8 +29520,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1/watch/volumeattachments?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/storage.k8s.io/v1/watch/volumeattachments$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -17910,8 +29597,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1/watch/volumeattachments/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/storage.k8s.io/v1/watch/volumeattachments/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -17956,8 +29678,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/csistoragecapacities?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/storage.k8s.io/v1alpha1/csistoragecapacities$query');
     return api_storage_v1alpha1.CSIStorageCapacityList.fromJson(result);
   }
 
@@ -17971,8 +29728,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities?pretty=$pretty');
+        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities$query');
     return api_storage_v1alpha1.CSIStorageCapacityList.fromJson(result);
   }
 
@@ -17986,8 +29751,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities?pretty=$pretty');
+        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -18001,8 +29774,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities?pretty=$pretty');
+        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities$query');
     return api_storage_v1alpha1.CSIStorageCapacity.fromJson(result);
   }
 
@@ -18019,8 +29800,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities/$name?pretty=$pretty');
+        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities/$name$query');
     return api_storage_v1alpha1.CSIStorageCapacity.fromJson(result);
   }
 
@@ -18037,8 +29826,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities/$name?pretty=$pretty');
+        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -18055,8 +29852,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities/$name?pretty=$pretty');
+        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities/$name$query');
     return api_storage_v1alpha1.CSIStorageCapacity.fromJson(result);
   }
 
@@ -18073,8 +29878,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities/$name?pretty=$pretty');
+        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities/$name$query');
     return api_storage_v1alpha1.CSIStorageCapacity.fromJson(result);
   }
 
@@ -18085,8 +29898,16 @@ class KubernetesClient {
       listStorageV1alpha1VolumeAttachment({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/volumeattachments?pretty=$pretty');
+        '/apis/storage.k8s.io/v1alpha1/volumeattachments$query');
     return api_storage_v1alpha1.VolumeAttachmentList.fromJson(result);
   }
 
@@ -18097,8 +29918,16 @@ class KubernetesClient {
       deleteStorageV1alpha1CollectionVolumeAttachment({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/volumeattachments?pretty=$pretty');
+        '/apis/storage.k8s.io/v1alpha1/volumeattachments$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -18109,8 +29938,16 @@ class KubernetesClient {
       createStorageV1alpha1VolumeAttachment({
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/volumeattachments?pretty=$pretty');
+        '/apis/storage.k8s.io/v1alpha1/volumeattachments$query');
     return api_storage_v1alpha1.VolumeAttachment.fromJson(result);
   }
 
@@ -18124,8 +29961,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/volumeattachments/$name?pretty=$pretty');
+        '/apis/storage.k8s.io/v1alpha1/volumeattachments/$name$query');
     return api_storage_v1alpha1.VolumeAttachment.fromJson(result);
   }
 
@@ -18139,8 +29984,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/volumeattachments/$name?pretty=$pretty');
+        '/apis/storage.k8s.io/v1alpha1/volumeattachments/$name$query');
     return api_storage_v1alpha1.VolumeAttachment.fromJson(result);
   }
 
@@ -18154,8 +30007,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/volumeattachments/$name?pretty=$pretty');
+        '/apis/storage.k8s.io/v1alpha1/volumeattachments/$name$query');
     return api_storage_v1alpha1.VolumeAttachment.fromJson(result);
   }
 
@@ -18169,8 +30030,16 @@ class KubernetesClient {
     required String name,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/volumeattachments/$name?pretty=$pretty');
+        '/apis/storage.k8s.io/v1alpha1/volumeattachments/$name$query');
     return api_storage_v1alpha1.VolumeAttachment.fromJson(result);
   }
 
@@ -18208,8 +30077,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/watch/csistoragecapacities?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/storage.k8s.io/v1alpha1/watch/csistoragecapacities$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -18250,8 +30154,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/watch/namespaces/$namespace/csistoragecapacities?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/storage.k8s.io/v1alpha1/watch/namespaces/$namespace/csistoragecapacities$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -18295,8 +30234,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/watch/namespaces/$namespace/csistoragecapacities/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/storage.k8s.io/v1alpha1/watch/namespaces/$namespace/csistoragecapacities/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -18334,8 +30308,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/watch/volumeattachments?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/storage.k8s.io/v1alpha1/watch/volumeattachments$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -18376,8 +30385,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/watch/volumeattachments/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/storage.k8s.io/v1alpha1/watch/volumeattachments/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -18422,8 +30466,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1beta1/csistoragecapacities?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/storage.k8s.io/v1beta1/csistoragecapacities$query');
     return api_storage_v1beta1.CSIStorageCapacityList.fromJson(result);
   }
 
@@ -18437,8 +30516,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1beta1/namespaces/$namespace/csistoragecapacities?pretty=$pretty');
+        '/apis/storage.k8s.io/v1beta1/namespaces/$namespace/csistoragecapacities$query');
     return api_storage_v1beta1.CSIStorageCapacityList.fromJson(result);
   }
 
@@ -18452,8 +30539,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/storage.k8s.io/v1beta1/namespaces/$namespace/csistoragecapacities?pretty=$pretty');
+        '/apis/storage.k8s.io/v1beta1/namespaces/$namespace/csistoragecapacities$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -18467,8 +30562,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _postJsonMap(
-        '/apis/storage.k8s.io/v1beta1/namespaces/$namespace/csistoragecapacities?pretty=$pretty');
+        '/apis/storage.k8s.io/v1beta1/namespaces/$namespace/csistoragecapacities$query');
     return api_storage_v1beta1.CSIStorageCapacity.fromJson(result);
   }
 
@@ -18485,8 +30588,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1beta1/namespaces/$namespace/csistoragecapacities/$name?pretty=$pretty');
+        '/apis/storage.k8s.io/v1beta1/namespaces/$namespace/csistoragecapacities/$name$query');
     return api_storage_v1beta1.CSIStorageCapacity.fromJson(result);
   }
 
@@ -18503,8 +30614,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _deleteJsonMap(
-        '/apis/storage.k8s.io/v1beta1/namespaces/$namespace/csistoragecapacities/$name?pretty=$pretty');
+        '/apis/storage.k8s.io/v1beta1/namespaces/$namespace/csistoragecapacities/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -18521,8 +30640,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _putJsonMap(
-        '/apis/storage.k8s.io/v1beta1/namespaces/$namespace/csistoragecapacities/$name?pretty=$pretty');
+        '/apis/storage.k8s.io/v1beta1/namespaces/$namespace/csistoragecapacities/$name$query');
     return api_storage_v1beta1.CSIStorageCapacity.fromJson(result);
   }
 
@@ -18539,8 +30666,16 @@ class KubernetesClient {
     required String namespace,
     bool? pretty,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _patchJsonMap(
-        '/apis/storage.k8s.io/v1beta1/namespaces/$namespace/csistoragecapacities/$name?pretty=$pretty');
+        '/apis/storage.k8s.io/v1beta1/namespaces/$namespace/csistoragecapacities/$name$query');
     return api_storage_v1beta1.CSIStorageCapacity.fromJson(result);
   }
 
@@ -18578,8 +30713,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1beta1/watch/csistoragecapacities?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/storage.k8s.io/v1beta1/watch/csistoragecapacities$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -18620,8 +30790,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1beta1/watch/namespaces/$namespace/csistoragecapacities?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/storage.k8s.io/v1beta1/watch/namespaces/$namespace/csistoragecapacities$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -18665,8 +30870,43 @@ class KubernetesClient {
     int? timeoutSeconds,
     bool? watch,
   }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
     final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1beta1/watch/namespaces/$namespace/csistoragecapacities/$name?allowWatchBookmarks=$allowWatchBookmarks&continue=${$continue}&fieldSelector=$fieldSelector&labelSelector=$labelSelector&limit=$limit&pretty=$pretty&resourceVersion=$resourceVersion&resourceVersionMatch=$resourceVersionMatch&timeoutSeconds=$timeoutSeconds&watch=$watch');
+        '/apis/storage.k8s.io/v1beta1/watch/namespaces/$namespace/csistoragecapacities/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
