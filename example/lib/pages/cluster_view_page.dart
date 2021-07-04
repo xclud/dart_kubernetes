@@ -26,6 +26,12 @@ class _ClusterViewPageState extends State<ClusterViewPage> {
     return pods;
   }
 
+  // Future<DeploymentList> _getDeployments() async {
+  //   final result = await widget.kubernetes
+  //       .listAppsV1NamespacedDeployment(namespace: _namespace);
+  //   return result;
+  // }
+
   Future<NamespaceList> _getNamespaces() async {
     final namespaces = await widget.kubernetes.listCoreV1Namespace();
     return namespaces;
@@ -36,6 +42,46 @@ class _ClusterViewPageState extends State<ClusterViewPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.cluster.name),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            DrawerHeader(
+              child: Text(widget.cluster.name),
+              decoration: const BoxDecoration(
+                color: Colors.blue,
+              ),
+            ),
+            ListTile(
+              title: const Text('Deployments'),
+              onTap: () {
+                //
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Pods'),
+              onTap: () {
+                //
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('ReplicaSets'),
+              onTap: () {
+                //
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('StatefulSets'),
+              onTap: () {
+//
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -119,4 +165,12 @@ class _ClusterViewPageState extends State<ClusterViewPage> {
       ),
     );
   }
+}
+
+enum ClusterViewMode {
+  deployments,
+  pods,
+  replicasets,
+  statefulsets,
+  daemonsets,
 }
