@@ -1,5 +1,3 @@
-import 'package:kubernetes/src/generated/apimachinery/pkg/api/resource/quantity.dart';
-
 /// ResourceFieldSelector represents container resources (cpu, memory) and their output format
 class ResourceFieldSelector {
   /// The main constructor.
@@ -13,9 +11,7 @@ class ResourceFieldSelector {
   ResourceFieldSelector.fromJson(Map<String, dynamic> json)
       : this(
           containerName: json['containerName'],
-          divisor: json['divisor'] != null
-              ? Quantity.fromJson(json['divisor'])
-              : null,
+          divisor: json['divisor'],
           resource: json['resource'],
         );
 
@@ -29,7 +25,7 @@ class ResourceFieldSelector {
   final String? containerName;
 
   /// Specifies the output format of the exposed resources, defaults to "1"
-  final Quantity? divisor;
+  final String? divisor;
 
   /// Required: resource to select
   final String resource;

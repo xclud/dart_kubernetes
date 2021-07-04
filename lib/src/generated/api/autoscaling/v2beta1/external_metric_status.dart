@@ -1,4 +1,3 @@
-import 'package:kubernetes/src/generated/apimachinery/pkg/api/resource/quantity.dart';
 import 'package:kubernetes/src/generated/apimachinery/pkg/apis/meta/v1/label_selector.dart';
 
 /// ExternalMetricStatus indicates the current value of a global metric not associated with any Kubernetes object.
@@ -14,10 +13,8 @@ class ExternalMetricStatus {
   /// Creates a ExternalMetricStatus from JSON data.
   ExternalMetricStatus.fromJson(Map<String, dynamic> json)
       : this(
-          currentAverageValue: json['currentAverageValue'] != null
-              ? Quantity.fromJson(json['currentAverageValue'])
-              : null,
-          currentValue: Quantity.fromJson(json['currentValue']),
+          currentAverageValue: json['currentAverageValue'],
+          currentValue: json['currentValue'],
           metricName: json['metricName'],
           metricSelector: json['metricSelector'] != null
               ? LabelSelector.fromJson(json['metricSelector'])
@@ -31,10 +28,10 @@ class ExternalMetricStatus {
   }
 
   /// currentAverageValue is the current value of metric averaged over autoscaled pods.
-  final Quantity? currentAverageValue;
+  final String? currentAverageValue;
 
   /// currentValue is the current value of the metric (as a quantity)
-  final Quantity currentValue;
+  final String currentValue;
 
   /// metricName is the name of a metric used for autoscaling in metric system.
   final String metricName;

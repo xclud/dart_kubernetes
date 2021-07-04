@@ -1,4 +1,3 @@
-import 'package:kubernetes/src/generated/apimachinery/pkg/api/resource/quantity.dart';
 import 'package:kubernetes/src/generated/apimachinery/pkg/apis/meta/v1/object_meta.dart';
 import 'package:kubernetes/src/generated/apimachinery/pkg/apis/meta/v1/label_selector.dart';
 
@@ -27,13 +26,9 @@ class CSIStorageCapacity {
   CSIStorageCapacity.fromJson(Map<String, dynamic> json)
       : this(
           apiVersion: json['apiVersion'],
-          capacity: json['capacity'] != null
-              ? Quantity.fromJson(json['capacity'])
-              : null,
+          capacity: json['capacity'],
           kind: json['kind'],
-          maximumVolumeSize: json['maximumVolumeSize'] != null
-              ? Quantity.fromJson(json['maximumVolumeSize'])
-              : null,
+          maximumVolumeSize: json['maximumVolumeSize'],
           metadata: json['metadata'] != null
               ? ObjectMeta.fromJson(json['metadata'])
               : null,
@@ -55,7 +50,7 @@ class CSIStorageCapacity {
   /// Capacity is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
   ///
   /// The semantic is currently (CSI spec 1.2) defined as: The available capacity, in bytes, of the storage that can be used to provision volumes. If not set, that information is currently unavailable and treated like zero capacity.
-  final Quantity? capacity;
+  final String? capacity;
 
   /// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
   final String? kind;
@@ -63,7 +58,7 @@ class CSIStorageCapacity {
   /// MaximumVolumeSize is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
   ///
   /// This is defined since CSI spec 1.4.0 as the largest size that may be used in a CreateVolumeRequest.capacity_range.required_bytes field to create a volume with the same parameters as those in GetCapacityRequest. The corresponding value in the Kubernetes API is ResourceRequirements.Requests in a volume claim.
-  final Quantity? maximumVolumeSize;
+  final String? maximumVolumeSize;
 
   /// Standard object's metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
   ///

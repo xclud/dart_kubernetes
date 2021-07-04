@@ -1,4 +1,3 @@
-import 'package:kubernetes/src/generated/apimachinery/pkg/api/resource/quantity.dart';
 import 'package:kubernetes/src/generated/apimachinery/pkg/apis/meta/v1/label_selector.dart';
 
 /// PodsMetricStatus indicates the current value of a metric describing each pod in the current scale target (for example, transactions-processed-per-second).
@@ -13,7 +12,7 @@ class PodsMetricStatus {
   /// Creates a PodsMetricStatus from JSON data.
   PodsMetricStatus.fromJson(Map<String, dynamic> json)
       : this(
-          currentAverageValue: Quantity.fromJson(json['currentAverageValue']),
+          currentAverageValue: json['currentAverageValue'],
           metricName: json['metricName'],
           selector: json['selector'] != null
               ? LabelSelector.fromJson(json['selector'])
@@ -27,7 +26,7 @@ class PodsMetricStatus {
   }
 
   /// currentAverageValue is the current value of the average of the metric across all relevant pods (as a quantity)
-  final Quantity currentAverageValue;
+  final String currentAverageValue;
 
   /// metricName is the name of the metric in question
   final String metricName;

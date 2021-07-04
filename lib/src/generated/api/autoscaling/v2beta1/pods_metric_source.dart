@@ -1,5 +1,4 @@
 import 'package:kubernetes/src/generated/apimachinery/pkg/apis/meta/v1/label_selector.dart';
-import 'package:kubernetes/src/generated/apimachinery/pkg/api/resource/quantity.dart';
 
 /// PodsMetricSource indicates how to scale on a metric describing each pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value.
 class PodsMetricSource {
@@ -17,7 +16,7 @@ class PodsMetricSource {
           selector: json['selector'] != null
               ? LabelSelector.fromJson(json['selector'])
               : null,
-          targetAverageValue: Quantity.fromJson(json['targetAverageValue']),
+          targetAverageValue: json['targetAverageValue'],
         );
 
   /// Creates a list of PodsMetricSource from JSON data.
@@ -33,5 +32,5 @@ class PodsMetricSource {
   final LabelSelector? selector;
 
   /// targetAverageValue is the target value of the average of the metric across all relevant pods (as a quantity)
-  final Quantity targetAverageValue;
+  final String targetAverageValue;
 }

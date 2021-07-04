@@ -1,5 +1,3 @@
-import 'package:kubernetes/src/generated/apimachinery/pkg/api/resource/quantity.dart';
-
 /// MetricValueStatus holds the current value for a metric
 class MetricValueStatus {
   /// The main constructor.
@@ -13,11 +11,8 @@ class MetricValueStatus {
   MetricValueStatus.fromJson(Map<String, dynamic> json)
       : this(
           averageUtilization: json['averageUtilization'],
-          averageValue: json['averageValue'] != null
-              ? Quantity.fromJson(json['averageValue'])
-              : null,
-          value:
-              json['value'] != null ? Quantity.fromJson(json['value']) : null,
+          averageValue: json['averageValue'],
+          value: json['value'],
         );
 
   /// Creates a list of MetricValueStatus from JSON data.
@@ -30,8 +25,8 @@ class MetricValueStatus {
   final int? averageUtilization;
 
   /// averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
-  final Quantity? averageValue;
+  final String? averageValue;
 
   /// value is the current value of the metric (as a quantity).
-  final Quantity? value;
+  final String? value;
 }

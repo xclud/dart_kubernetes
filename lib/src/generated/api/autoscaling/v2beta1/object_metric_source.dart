@@ -1,4 +1,3 @@
-import 'package:kubernetes/src/generated/apimachinery/pkg/api/resource/quantity.dart';
 import 'package:kubernetes/src/generated/apimachinery/pkg/apis/meta/v1/label_selector.dart';
 import 'package:kubernetes/src/generated/api/autoscaling/v2beta1/cross_version_object_reference.dart';
 
@@ -16,15 +15,13 @@ class ObjectMetricSource {
   /// Creates a ObjectMetricSource from JSON data.
   ObjectMetricSource.fromJson(Map<String, dynamic> json)
       : this(
-          averageValue: json['averageValue'] != null
-              ? Quantity.fromJson(json['averageValue'])
-              : null,
+          averageValue: json['averageValue'],
           metricName: json['metricName'],
           selector: json['selector'] != null
               ? LabelSelector.fromJson(json['selector'])
               : null,
           target: CrossVersionObjectReference.fromJson(json['target']),
-          targetValue: Quantity.fromJson(json['targetValue']),
+          targetValue: json['targetValue'],
         );
 
   /// Creates a list of ObjectMetricSource from JSON data.
@@ -34,7 +31,7 @@ class ObjectMetricSource {
   }
 
   /// averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
-  final Quantity? averageValue;
+  final String? averageValue;
 
   /// metricName is the name of the metric in question.
   final String metricName;
@@ -46,5 +43,5 @@ class ObjectMetricSource {
   final CrossVersionObjectReference target;
 
   /// targetValue is the target value of the metric (as a quantity).
-  final Quantity targetValue;
+  final String targetValue;
 }

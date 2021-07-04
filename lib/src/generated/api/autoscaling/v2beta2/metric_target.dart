@@ -1,5 +1,3 @@
-import 'package:kubernetes/src/generated/apimachinery/pkg/api/resource/quantity.dart';
-
 /// MetricTarget defines the target value, average value, or average utilization of a specific metric
 class MetricTarget {
   /// The main constructor.
@@ -14,12 +12,9 @@ class MetricTarget {
   MetricTarget.fromJson(Map<String, dynamic> json)
       : this(
           averageUtilization: json['averageUtilization'],
-          averageValue: json['averageValue'] != null
-              ? Quantity.fromJson(json['averageValue'])
-              : null,
+          averageValue: json['averageValue'],
           type: json['type'],
-          value:
-              json['value'] != null ? Quantity.fromJson(json['value']) : null,
+          value: json['value'],
         );
 
   /// Creates a list of MetricTarget from JSON data.
@@ -31,11 +26,11 @@ class MetricTarget {
   final int? averageUtilization;
 
   /// averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
-  final Quantity? averageValue;
+  final String? averageValue;
 
   /// type represents whether the metric type is Utilization, Value, or AverageValue
   final String type;
 
   /// value is the target value of the metric (as a quantity).
-  final Quantity? value;
+  final String? value;
 }

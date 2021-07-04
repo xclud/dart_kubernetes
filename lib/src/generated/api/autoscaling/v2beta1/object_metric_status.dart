@@ -1,4 +1,3 @@
-import 'package:kubernetes/src/generated/apimachinery/pkg/api/resource/quantity.dart';
 import 'package:kubernetes/src/generated/apimachinery/pkg/apis/meta/v1/label_selector.dart';
 import 'package:kubernetes/src/generated/api/autoscaling/v2beta1/cross_version_object_reference.dart';
 
@@ -16,10 +15,8 @@ class ObjectMetricStatus {
   /// Creates a ObjectMetricStatus from JSON data.
   ObjectMetricStatus.fromJson(Map<String, dynamic> json)
       : this(
-          averageValue: json['averageValue'] != null
-              ? Quantity.fromJson(json['averageValue'])
-              : null,
-          currentValue: Quantity.fromJson(json['currentValue']),
+          averageValue: json['averageValue'],
+          currentValue: json['currentValue'],
           metricName: json['metricName'],
           selector: json['selector'] != null
               ? LabelSelector.fromJson(json['selector'])
@@ -34,10 +31,10 @@ class ObjectMetricStatus {
   }
 
   /// averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
-  final Quantity? averageValue;
+  final String? averageValue;
 
   /// currentValue is the current value of the metric (as a quantity).
-  final Quantity currentValue;
+  final String currentValue;
 
   /// metricName is the name of the metric in question.
   final String metricName;

@@ -1,5 +1,3 @@
-import 'package:kubernetes/src/generated/apimachinery/pkg/api/resource/quantity.dart';
-
 /// Represents an empty directory for a pod. Empty directory volumes support ownership management and SELinux relabeling.
 class EmptyDirVolumeSource {
   /// The main constructor.
@@ -12,9 +10,7 @@ class EmptyDirVolumeSource {
   EmptyDirVolumeSource.fromJson(Map<String, dynamic> json)
       : this(
           medium: json['medium'],
-          sizeLimit: json['sizeLimit'] != null
-              ? Quantity.fromJson(json['sizeLimit'])
-              : null,
+          sizeLimit: json['sizeLimit'],
         );
 
   /// Creates a list of EmptyDirVolumeSource from JSON data.
@@ -27,5 +23,5 @@ class EmptyDirVolumeSource {
   final String? medium;
 
   /// Total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
-  final Quantity? sizeLimit;
+  final String? sizeLimit;
 }
