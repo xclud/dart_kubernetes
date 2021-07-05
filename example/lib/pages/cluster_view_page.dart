@@ -15,7 +15,7 @@ class ClusterViewPage extends StatefulWidget {
     Key? key,
   })  : kubernetes = KubernetesClient(
           serverUrl: cluster.server,
-          authorizationToken: cluster.jwt,
+          accessToken: cluster.jwt,
         ),
         super(key: key);
 
