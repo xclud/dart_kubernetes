@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:kubernetes/kubernetes.dart';
 
 class PodPropertiesPage extends StatefulWidget {
-  final Pod pod;
-
   const PodPropertiesPage({
     required this.pod,
     Key? key,
   }) : super(key: key);
+
+  final Pod pod;
 
   @override
   State<PodPropertiesPage> createState() => _PodPropertiesPageState();
