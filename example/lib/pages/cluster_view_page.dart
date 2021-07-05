@@ -4,14 +4,17 @@ import 'package:kubernetes/kubernetes.dart';
 import 'package:yakc/models.dart' as models;
 
 class ClusterViewPage extends StatefulWidget {
-  final models.Cluster cluster;
-  final KubernetesClient kubernetes;
-
   ClusterViewPage({
     required this.cluster,
     Key? key,
-  })  : kubernetes = KubernetesClient(cluster.server, cluster.jwt),
+  })  : kubernetes = KubernetesClient(
+          serverUrl: cluster.server,
+          authorizationToken: cluster.jwt,
+        ),
         super(key: key);
+
+  final models.Cluster cluster;
+  final KubernetesClient kubernetes;
 
   @override
   State<ClusterViewPage> createState() => _ClusterViewPageState();

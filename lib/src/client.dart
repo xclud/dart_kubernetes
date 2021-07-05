@@ -42,17 +42,25 @@ import '../kube__aggregator_pkg_apis_apiregistration_v1.dart'
 import 'package:http/http.dart' as http;
 
 class KubernetesClient {
-  KubernetesClient(String server, this.jwt)
-      : _baseUrl = (server + (server.endsWith('/') ? '' : '/')),
-        _httpClient = http.Client();
+  KubernetesClient({
+    required this.serverUrl,
+    required this.authorizationToken,
+    http.Client? httpClient,
+  })  : assert(!serverUrl.endsWith('/'), 'Server url must not end with \'/\''),
+        _httpClient = httpClient ?? http.Client();
 
-  final String jwt;
-  final String _baseUrl;
+  /// The JWT to authorize to the server.
+  final String authorizationToken;
+
+  /// Url of the cluster control-plane.
+  final String serverUrl;
   final http.Client _httpClient;
 
   Future<Map<String, dynamic>> _getJsonMap(String url) async {
     final fullurl = _getFullUrl(url);
-    final headers = <String, String>{'Authorization': 'Bearer $jwt'};
+    final headers = <String, String>{
+      'Authorization': 'Bearer $authorizationToken'
+    };
 
     final resp = await _httpClient.get(Uri.parse(fullurl), headers: headers);
     final body = utf8.decode(resp.bodyBytes);
@@ -62,7 +70,9 @@ class KubernetesClient {
 
   Future<String> _getJsonString(String url) async {
     final fullurl = _getFullUrl(url);
-    final headers = <String, String>{'Authorization': 'Bearer $jwt'};
+    final headers = <String, String>{
+      'Authorization': 'Bearer $authorizationToken'
+    };
 
     final resp = await _httpClient.get(Uri.parse(fullurl), headers: headers);
     return resp.body;
@@ -70,7 +80,9 @@ class KubernetesClient {
 
   Future<Map<String, dynamic>> _postJsonMap(String url) async {
     final fullurl = _getFullUrl(url);
-    final headers = <String, String>{'Authorization': 'Bearer $jwt'};
+    final headers = <String, String>{
+      'Authorization': 'Bearer $authorizationToken'
+    };
 
     final resp = await _httpClient.post(Uri.parse(fullurl), headers: headers);
     final map = json.decode(resp.body) as Map<String, dynamic>;
@@ -79,7 +91,9 @@ class KubernetesClient {
 
   Future<String> _postJsonString(String url) async {
     final fullurl = _getFullUrl(url);
-    final headers = <String, String>{'Authorization': 'Bearer $jwt'};
+    final headers = <String, String>{
+      'Authorization': 'Bearer $authorizationToken'
+    };
 
     final resp = await _httpClient.post(Uri.parse(fullurl), headers: headers);
     return resp.body;
@@ -87,7 +101,9 @@ class KubernetesClient {
 
   Future<Map<String, dynamic>> _putJsonMap(String url) async {
     final fullurl = _getFullUrl(url);
-    final headers = <String, String>{'Authorization': 'Bearer $jwt'};
+    final headers = <String, String>{
+      'Authorization': 'Bearer $authorizationToken'
+    };
 
     final resp = await _httpClient.put(Uri.parse(fullurl), headers: headers);
     final map = json.decode(resp.body) as Map<String, dynamic>;
@@ -96,7 +112,9 @@ class KubernetesClient {
 
   Future<String> _putJsonString(String url) async {
     final fullurl = _getFullUrl(url);
-    final headers = <String, String>{'Authorization': 'Bearer $jwt'};
+    final headers = <String, String>{
+      'Authorization': 'Bearer $authorizationToken'
+    };
 
     final resp = await _httpClient.put(Uri.parse(fullurl), headers: headers);
     return resp.body;
@@ -104,7 +122,9 @@ class KubernetesClient {
 
   Future<Map<String, dynamic>> _deleteJsonMap(String url) async {
     final fullurl = _getFullUrl(url);
-    final headers = <String, String>{'Authorization': 'Bearer $jwt'};
+    final headers = <String, String>{
+      'Authorization': 'Bearer $authorizationToken'
+    };
 
     final resp = await _httpClient.delete(Uri.parse(fullurl), headers: headers);
     final map = json.decode(resp.body) as Map<String, dynamic>;
@@ -113,7 +133,9 @@ class KubernetesClient {
 
   Future<String> _deleteJsonString(String url) async {
     final fullurl = _getFullUrl(url);
-    final headers = <String, String>{'Authorization': 'Bearer $jwt'};
+    final headers = <String, String>{
+      'Authorization': 'Bearer $authorizationToken'
+    };
 
     final resp = await _httpClient.delete(Uri.parse(fullurl), headers: headers);
     return resp.body;
@@ -121,7 +143,9 @@ class KubernetesClient {
 
   Future<Map<String, dynamic>> _patchJsonMap(String url) async {
     final fullurl = _getFullUrl(url);
-    final headers = <String, String>{'Authorization': 'Bearer $jwt'};
+    final headers = <String, String>{
+      'Authorization': 'Bearer $authorizationToken'
+    };
 
     final resp = await _httpClient.patch(Uri.parse(fullurl), headers: headers);
     final map = json.decode(resp.body) as Map<String, dynamic>;
@@ -130,7 +154,9 @@ class KubernetesClient {
 
   Future<String> _patchJsonString(String url) async {
     final fullurl = _getFullUrl(url);
-    final headers = <String, String>{'Authorization': 'Bearer $jwt'};
+    final headers = <String, String>{
+      'Authorization': 'Bearer $authorizationToken'
+    };
 
     final resp = await _httpClient.patch(Uri.parse(fullurl), headers: headers);
     return resp.body;
@@ -138,7 +164,9 @@ class KubernetesClient {
 
   Future<String> _optionsJsonString(String url) async {
     final fullurl = _getFullUrl(url);
-    final headers = <String, String>{'Authorization': 'Bearer $jwt'};
+    final headers = <String, String>{
+      'Authorization': 'Bearer $authorizationToken'
+    };
 
     final request = http.Request('options', Uri.parse(fullurl));
     request.headers.addAll(headers);
@@ -149,7 +177,9 @@ class KubernetesClient {
 
   Future<String> _headJsonString(String url) async {
     final fullurl = _getFullUrl(url);
-    final headers = <String, String>{'Authorization': 'Bearer $jwt'};
+    final headers = <String, String>{
+      'Authorization': 'Bearer $authorizationToken'
+    };
 
     final resp = await _httpClient.head(Uri.parse(fullurl), headers: headers);
     return resp.body;
@@ -160,11 +190,7 @@ class KubernetesClient {
   }
 
   String _getFullUrl(String url) {
-    if (url.startsWith('/')) {
-      url = url.substring(1);
-    }
-
-    return '$_baseUrl$url';
+    return '$serverUrl$url';
   }
 
   /// get service account issuer OpenID configuration, also known as the 'OIDC discovery doc'
