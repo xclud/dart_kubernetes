@@ -1,5 +1,6 @@
 /// Kubernetes Configuration.
 class K8SConfiguration {
+  /// The main constructor.
   K8SConfiguration({
     this.preferences,
     required this.apiVersion,
@@ -11,7 +12,7 @@ class K8SConfiguration {
     this.extensions = const [],
   });
 
-  /// Create a K8SConfiguration from JSON data.
+  /// Creates a K8SConfiguration from JSON data.
   K8SConfiguration.fromJson(Map<String, dynamic> json)
       : this(
           apiVersion: json['apiVersion'],
@@ -31,31 +32,35 @@ class K8SConfiguration {
                   .map((e) => e as Map<String, dynamic>)),
         );
 
-  /// Gets or sets general information to be use for CLI interactions
+  /// Gets or sets general information to be use for CLI interactions.
   Map<String, Object>? preferences;
 
+  /// API version.
   final String apiVersion;
+
+  /// Kind.
   final String kind;
 
   /// Gets or sets the name of the context that you would like to use by default.
-  String? currentContext;
+  final String? currentContext;
 
   /// Gets or sets a map of referencable names to context configs.
-  Iterable<Context> contexts;
+  final Iterable<Context> contexts;
 
   /// Gets or sets a map of referencable names to cluster configs.
-  Iterable<Cluster> clusters = [];
+  final Iterable<Cluster> clusters;
 
   /// Gets or sets a map of referencable names to user configs
-  Iterable<User> users = [];
+  final Iterable<User> users;
 
   /// Gets or sets additional information. This is useful for extenders so that reads and writes don't clobber unknown fields.
-  Iterable<NamedExtension>? extensions;
+  final Iterable<NamedExtension>? extensions;
 }
 
 /// Represents a tuple of references to a cluster (how do I communicate with a kubernetes cluster),
 /// a user (how do I identify myself), and a namespace (what subset of resources do I want to work with)
 class ContextDetails {
+  /// The main constructor.
   ContextDetails({
     required this.cluster,
     required this.user,
@@ -63,6 +68,7 @@ class ContextDetails {
     this.extensions,
   });
 
+  /// Creates a ContextDetails from JSON data.
   ContextDetails.fromJson(Map<String, dynamic> json)
       : this(
           cluster: json['cluster'],
@@ -78,20 +84,22 @@ class ContextDetails {
   final String user;
 
   /// Gets or sets the default namespace to use on unspecified requests.
-  String? namespace;
+  final String? namespace;
 
   /// Gets or sets additional information. This is useful for extenders so that reads and writes don't clobber unknown fields.
-  Iterable<NamedExtension>? extensions;
+  final Iterable<NamedExtension>? extensions;
 }
 
 /// Relates nicknames to context information.
 class Context {
+  /// The default constructor.
   Context({
     required this.name,
     this.contextDetails,
     this.extensions,
   });
 
+  /// Creates a Context from JSON data.
   Context.fromJson(Map<String, dynamic> json)
       : this(
           name: json['name'],
@@ -99,6 +107,7 @@ class Context {
           //extensions: json['extensions'],
         );
 
+  /// Creates a list of Context from JSON data.
   static List<Context> listFromJson(Iterable<Map<String, dynamic>> list) {
     return list.map((e) => Context.fromJson(e)).toList();
   }
@@ -124,11 +133,16 @@ class NamedExtension {
 
 /// Contains information about how to communicate with a kubernetes cluster
 class ClusterEndpoint {
+  /// The default constructor.
   ClusterEndpoint({
     required this.server,
     this.certificateAuthorityData,
+    this.certificateAuthority,
+    this.extensions,
+    this.skipTlsVerify,
   });
 
+  /// Creates a ClusterEndpoint from JSON data.
   ClusterEndpoint.fromJson(Map<String, dynamic> json)
       : this(
           server: json['server'],
@@ -136,7 +150,7 @@ class ClusterEndpoint {
         );
 
   /// Gets or sets the path to a cert file for the certificate authority.
-  String? certificateAuthority;
+  final String? certificateAuthority;
 
   /// Gets or sets =PEM-encoded certificate authority certificates. Overrides <see cref="CertificateAuthority"/>.
   final String? certificateAuthorityData;
@@ -146,10 +160,10 @@ class ClusterEndpoint {
 
   /// Gets or sets a value indicating whether to skip the validity check for the server's certificate.
   /// This will make your HTTPS connections insecure.
-  bool? skipTlsVerify;
+  final bool? skipTlsVerify;
 
   /// Gets or sets additional information. This is useful for extenders so that reads and writes don't clobber unknown fields.
-  Iterable<NamedExtension>? extensions;
+  final Iterable<NamedExtension>? extensions;
 }
 
 /// Relates nicknames to cluster information.
@@ -159,12 +173,14 @@ class Cluster {
     required this.clusterEndpoint,
   });
 
+  /// Creates a Cluster from JSON data.
   Cluster.fromJson(Map<String, dynamic> json)
       : this(
           name: json['name'],
           clusterEndpoint: ClusterEndpoint.fromJson(json['cluster']),
         );
 
+  /// Creates a list of Cluster from JSON data.
   static List<Cluster> listFromJson(Iterable<Map<String, dynamic>> list) {
     return list.map((e) => Cluster.fromJson(e)).toList();
   }
@@ -187,11 +203,14 @@ class AuthProvider {
 
 /// Contains information that describes identity information. This is use to tell the kubernetes cluster who you are.
 class UserCredentials {
+  /// The default constructor.
   UserCredentials({
     this.clientCertificateData,
     this.clientKeyData,
+    this.clientCertificate,
   });
 
+  /// Creates a UserCredentials from JSON data.
   UserCredentials.fromJson(Map<String, dynamic> json)
       : this(
           clientCertificateData: json['client-certificate-data'],
@@ -199,10 +218,10 @@ class UserCredentials {
         );
 
   /// Gets or sets PEM-encoded data from a client cert file for TLS. Overrides <see cref="ClientCertificate"/>.
-  String? clientCertificateData;
+  final String? clientCertificateData;
 
   /// Gets or sets the path to a client cert file for TLS.
-  String? clientCertificate;
+  final String? clientCertificate;
 
   /// Gets or sets PEM-encoded data from a client key file for TLS. Overrides <see cref="ClientKey"/>.
   String? clientKeyData;
@@ -240,11 +259,13 @@ class UserCredentials {
 
 /// Relates nicknames to auth information.
 class User {
+  /// The default constructor.
   User({
     required this.name,
     required this.userCredentials,
   });
 
+  /// Creates a User from JSON data.
   User.fromJson(Map<String, dynamic> json)
       : this(
           name: json['name'],
@@ -253,6 +274,7 @@ class User {
               : UserCredentials.fromJson(json['user']),
         );
 
+  /// Creates a list of User from JSON data.
   static List<User> listFromJson(Iterable<Map<String, dynamic>> list) {
     return list.map((e) => User.fromJson(e)).toList();
   }

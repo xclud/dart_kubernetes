@@ -41,7 +41,9 @@ import '../kube__aggregator_pkg_apis_apiregistration_v1.dart'
 
 import 'package:http/http.dart' as http;
 
+/// Kubernetes client.
 class KubernetesClient {
+  /// The default constructor.
   KubernetesClient({
     required this.serverUrl,
     required this.authorizationToken,
