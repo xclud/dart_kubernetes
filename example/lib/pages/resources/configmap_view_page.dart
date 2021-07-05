@@ -2,24 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kubernetes/kubernetes.dart';
 
-class PodPropertiesPage extends StatefulWidget {
-  const PodPropertiesPage({
-    required this.pod,
+class ConfigMapViewPage extends StatefulWidget {
+  const ConfigMapViewPage({
+    required this.configmap,
     Key? key,
   }) : super(key: key);
 
-  final Pod pod;
+  final ConfigMap configmap;
 
   @override
-  State<PodPropertiesPage> createState() => _PodPropertiesPageState();
+  State<ConfigMapViewPage> createState() => _ConfigMapViewPageState();
 }
 
-class _PodPropertiesPageState extends State<PodPropertiesPage> {
+class _ConfigMapViewPageState extends State<ConfigMapViewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pod ${widget.pod.metadata?.name}'),
+        title: Text('ConfigMap ${widget.configmap.metadata?.name}'),
       ),
       body: ListView(
         padding: const EdgeInsets.all(4.0),
@@ -27,7 +27,7 @@ class _PodPropertiesPageState extends State<PodPropertiesPage> {
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: Card(
-              child: Text('Pod Name: ${widget.pod.metadata?.name}'),
+              child: Text('ConfigMap Name: ${widget.configmap.metadata?.name}'),
             ),
           ),
         ],
