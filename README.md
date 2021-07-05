@@ -10,7 +10,7 @@ This package is in the early states of development. This means it's not feature 
 The roadmap of the package is as it follows. Please do not hesitate to suggest changes in the priorities or features. Contributions are welcome:
 
 - [x] Support for all Kubernetes APIs (REST).
-- [ ] Support for `Watch`ing resources (WebSocket).
+- [ ] Support for `Watch`ing resources.
 - [ ] Implement a fully-fledged UI aiming towards being the best cross-platform Kubernetes client.
 - [ ] Support [Istio](https://istio.io) APIs.
 - [ ] Support [Knative](https://knative.dev) APIs.
