@@ -1,3 +1,7 @@
+## 0.1.0
+
+* Implements all REST apis.
+
 ## 0.0.4
 
 * Implements all model definitions.
