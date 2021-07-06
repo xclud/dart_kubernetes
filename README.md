@@ -11,6 +11,7 @@ The roadmap of the package is as it follows. Please do not hesitate to suggest c
 
 - [x] Support for all Kubernetes APIs (REST).
 - [ ] Support for `Watch`ing resources.
+- [ ] Support for Metric APIs.
 - [ ] Implement a fully-fledged UI aiming towards being the best cross-platform Kubernetes client.
 - [ ] Support [Istio](https://istio.io) APIs.
 - [ ] Support [Knative](https://knative.dev) APIs.
