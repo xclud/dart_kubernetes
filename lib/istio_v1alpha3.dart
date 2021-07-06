@@ -7,6 +7,7 @@ export 'src/istio/gateway_spec.dart';
 export 'src/istio/peer_authentication.dart';
 export 'src/istio/request_authentication.dart';
 export 'src/istio/service_entry.dart';
+export 'src/istio/sidecar.dart';
 export 'src/istio/sidecar_list.dart';
 export 'src/istio/telemetry.dart';
 export 'src/istio/virtual_service.dart';

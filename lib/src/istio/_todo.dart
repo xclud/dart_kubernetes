@@ -126,14 +126,6 @@ class TelemetryStatus {
   TelemetryStatus.fromJson(Map<String, dynamic> json) : this();
 }
 
-class VirtualServiceSpec {
-  /// The main constructor.
-  const VirtualServiceSpec();
-
-  /// Creates a VirtualServiceSpec from JSON data.
-  VirtualServiceSpec.fromJson(Map<String, dynamic> json) : this();
-}
-
 class VirtualServiceStatus {
   /// The main constructor.
   const VirtualServiceStatus();

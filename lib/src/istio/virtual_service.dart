@@ -1,6 +1,7 @@
 import 'package:kubernetes/apimachinery_pkg_apis_meta_v1.dart';
 
 import '_todo.dart';
+import 'virtual_service_spec.dart';
 
 class VirtualService {
   /// The main constructor.
