@@ -44,8 +44,8 @@ class DestinationRule {
   final ObjectMeta? metadata;
 
   /// Spec defines the desired identities of object.
-  final Object? spec;
+  final DestinationRuleSpec? spec;
 
   /// Status is the current status of this object.
-  final Object? status;
+  final DestinationRuleStatus? status;
 }

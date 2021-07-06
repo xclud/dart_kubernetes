@@ -43,8 +43,8 @@ class Telemetry {
   final ObjectMeta? metadata;
 
   /// Spec defines the desired identities of object.
-  final Object? spec;
+  final TelemetrySpec? spec;
 
   /// Status is the current status of this object.
-  final Object? status;
+  final TelemetryStatus? status;
 }

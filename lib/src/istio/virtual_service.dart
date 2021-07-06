@@ -44,8 +44,8 @@ class VirtualService {
   final ObjectMeta? metadata;
 
   /// Spec defines the desired identities of object.
-  final Object? spec;
+  final VirtualServiceSpec? spec;
 
   /// Status is the current status of this object.
-  final Object? status;
+  final VirtualServiceStatus? status;
 }

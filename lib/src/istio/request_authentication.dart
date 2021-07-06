@@ -44,8 +44,8 @@ class RequestAuthentication {
   final ObjectMeta? metadata;
 
   /// Spec defines the desired identities of object.
-  final Object? spec;
+  final RequestAuthenticationSpec? spec;
 
   /// Status is the current status of this object.
-  final Object? status;
+  final RequestAuthenticationStatus? status;
 }
