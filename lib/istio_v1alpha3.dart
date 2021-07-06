@@ -4,7 +4,6 @@ export 'src/istio/envoy_filter.dart';
 export 'src/istio/gateway.dart';
 export 'src/istio/gateway_list.dart';
 export 'src/istio/gateway_spec.dart';
-export 'src/istio/gateway_status.dart';
 export 'src/istio/peer_authentication.dart';
 export 'src/istio/request_authentication.dart';
 export 'src/istio/service_entry.dart';

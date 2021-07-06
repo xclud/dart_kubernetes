@@ -38,8 +38,12 @@ import '../apiextensions__apiserver_pkg_apis_apiextensions_v1.dart'
 import '../apimachinery_pkg_apis_meta_v1.dart' as apimachinery_pkg_apis_meta_v1;
 import '../kube__aggregator_pkg_apis_apiregistration_v1.dart'
     as kube__aggregator_pkg_apis_apiregistration_v1;
+import '../istio_v1alpha3.dart' as istio_v1alpha3;
 
 import 'package:http/http.dart' as http;
+
+typedef CustomResourceDefinitionConvertor<T> = T Function(
+    Map<String, dynamic> json);
 
 /// Kubernetes client.
 class KubernetesClient {
@@ -170,6 +174,39 @@ class KubernetesClient {
   String _getFullUrl(String url) {
     return '$serverUrl$url';
   }
+
+  /// List or watch objects of kind [istio_v1alpha3.Gateway].
+  ///
+  /// [namespace] Object name and auth scope, such as for teams and projects.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<istio_v1alpha3.GatewayList> listIstioV1alpha3NamespacedGateway({
+    required String namespace,
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap(
+        '/apis/networking.istio.io/v1alpha3/namespaces/$namespace/gateways$query');
+    return istio_v1alpha3.GatewayList.fromJson(result);
+  }
+
+  // Get CRD.
+  // Future<T> getCustomResourceDefinition<T>(
+  //   String apiGroup,
+  //   String crd,
+  //   CustomResourceDefinitionConvertor<T> convertor,
+  // ) async {
+  //   final result =
+  //       await _getJsonMap('/apis/$apiGroup/v1/clusterroles/$name$query');
+  //   return convertor(result);
+  // }
 
   /// Get service account issuer OpenID configuration, also known as the 'OIDC discovery doc'.
   Future<String> getServiceAccountIssuerOpenIDConfiguration() async {

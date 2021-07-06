@@ -1,5 +1,5 @@
 import 'package:kubernetes/apimachinery_pkg_apis_meta_v1.dart';
-import 'gateway_status.dart';
+//import 'gateway_status.dart';
 import 'gateway_spec.dart';
 
 class Gateway {
@@ -9,7 +9,7 @@ class Gateway {
     this.kind,
     this.metadata,
     this.spec,
-    this.status,
+    //this.status,
   });
 
   /// Creates a Gateway from JSON data.
@@ -22,9 +22,9 @@ class Gateway {
               : null,
           spec:
               json['spec'] != null ? GatewaySpec.fromJson(json['spec']) : null,
-          status: json['status'] != null
-              ? GatewayStatus.fromJson(json['status'])
-              : null,
+          // status: json['status'] != null
+          //     ? GatewayStatus.fromJson(json['status'])
+          //     : null,
         );
 
   /// Creates a list of Gateway from JSON data.
@@ -44,6 +44,6 @@ class Gateway {
   /// Spec defines the desired identities of object.
   final GatewaySpec? spec;
 
-  /// Status is the current status of this object.
-  final GatewayStatus? status;
+  // Status is the current status of this object.
+  //final GatewayStatus? status;
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kubernetes/istio_v1alpha3.dart';
 import 'package:kubernetes/kubernetes.dart';
 import 'package:yakc/models.dart' as models;
 import 'package:yakc/pages/resources/configmap_view_page.dart';
 import 'package:yakc/pages/resources/deployment_view_page.dart';
+import 'package:yakc/pages/resources/gateway_view_page.dart';
 import 'package:yakc/pages/resources/pod_view_page.dart';
 import 'package:yakc/pages/resources/replicaset_view_page.dart';
 import 'package:yakc/pages/resources/secret_view_page.dart';
@@ -29,6 +31,12 @@ class ClusterViewPage extends StatefulWidget {
 class _ClusterViewPageState extends State<ClusterViewPage> {
   String _namespace = 'default';
   var _viewMode = ClusterViewMode.pods;
+
+  Future<GatewayList> _getGateways() async {
+    final result = await widget.kubernetes
+        .listIstioV1alpha3NamespacedGateway(namespace: _namespace);
+    return result;
+  }
 
   Future<PodList> _getPods() async {
     final result =
@@ -162,6 +170,17 @@ class _ClusterViewPageState extends State<ClusterViewPage> {
                 Navigator.pop(context);
               },
             ),
+            const Divider(),
+            ListTile(
+              title: const Text('Gateways'),
+              selected: _viewMode == ClusterViewMode.gateways,
+              onTap: () {
+                setState(() {
+                  _viewMode = ClusterViewMode.gateways;
+                });
+                Navigator.pop(context);
+              },
+            ),
           ],
         ),
       ),
@@ -234,6 +253,8 @@ class _ClusterViewPageState extends State<ClusterViewPage> {
       return _buildConfigMapList();
     } else if (_viewMode == ClusterViewMode.secrets) {
       return _buildSecretList();
+    } else if (_viewMode == ClusterViewMode.gateways) {
+      return _buildGatewayList();
     }
 
     //
@@ -467,6 +488,38 @@ class _ClusterViewPageState extends State<ClusterViewPage> {
       },
     );
   }
+
+  FutureBuilder<GatewayList> _buildGatewayList() {
+    return FutureBuilder<GatewayList>(
+      future: _getGateways(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const Center(
+            child: Text('Loading...'),
+          );
+        }
+
+        var items = snapshot.data!.items;
+        return ListView(
+          children: items
+              .map(
+                (e) => ListTile(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => GatewayViewPage(gateway: e),
+                        fullscreenDialog: true,
+                      ),
+                    );
+                  },
+                  title: Text(e.metadata?.name ?? ''),
+                ),
+              )
+              .toList(),
+        );
+      },
+    );
+  }
 }
 
 enum ClusterViewMode {
@@ -478,4 +531,6 @@ enum ClusterViewMode {
   secrets,
   services,
   statefulsets,
+
+  gateways,
 }
