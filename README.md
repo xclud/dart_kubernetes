@@ -14,6 +14,12 @@ The roadmap of the package is as it follows. Please do not hesitate to suggest c
 - [ ] Support for Metric APIs.
 - [ ] Implement a fully-fledged UI aiming towards being the best cross-platform Kubernetes client.
 - [ ] Support [Istio](https://istio.io) APIs.
+  - [x] [Gateway](https://istio.io/latest/docs/reference/config/networking/gateway/)
+  - [ ] [Virtual Service](https://istio.io/latest/docs/reference/config/networking/virtual-service/)
+  - [ ] [Destination Rule](https://istio.io/latest/docs/reference/config/networking/destination-rule/)
+  - [ ] [Service Entry](https://istio.io/latest/docs/reference/config/networking/service-entry/)
+  - [ ] [Sidecar](https://istio.io/latest/docs/reference/config/networking/sidecar/)
+  - [ ] [Network resilience and testing](https://istio.io/latest/docs/concepts/traffic-management/#network-resilience-and-testing)
 - [ ] Support [Knative](https://knative.dev) APIs.
 - [ ] Support [Tekton](https://tekton.dev/) CI/CD APIs.
 
