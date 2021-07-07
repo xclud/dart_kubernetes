@@ -1,4 +1,5 @@
 class TLSMatchAttributes {
+  /// The main constructor.
   const TLSMatchAttributes({
     required this.sniHosts,
     this.destinationSubnets,

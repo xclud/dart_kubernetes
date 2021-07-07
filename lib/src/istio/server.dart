@@ -2,6 +2,7 @@ import 'port.dart';
 import 'server_tls_settings.dart';
 
 class Server {
+  /// The main constructor.
   const Server({
     this.name,
     this.defaultEndpoint,

@@ -1,6 +1,15 @@
+/// Describes the delegate [VirtualService].
 class Delegate {
-  const Delegate({this.name, this.namespace});
+  /// The main constructor.
+  const Delegate({
+    this.name,
+    this.namespace,
+  });
 
+  /// Name specifies the name of the delegate [VirtualService].
   final String? name;
+
+  /// Namespace specifies the namespace where the delegate VirtualService resides.
+  /// By default, it is same to the root’s.
   final String? namespace;
 }

@@ -1,4 +1,4 @@
-import 'package:kubernetes/src/istio/destination.dart';
+import 'destination.dart';
 import 'headers.dart';
 
 /// Each routing rule is associated with one or more service versions (see glossary in beginning of document).

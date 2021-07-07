@@ -1,8 +1,9 @@
-import 'package:kubernetes/src/istio/route_destination.dart';
-import 'package:kubernetes/src/istio/tls_match_attributes.dart';
+import 'route_destination.dart';
+import 'tls_match_attributes.dart';
 
 /// Describes match conditions and actions for routing unterminated TLS traffic (TLS/HTTPS).
 class TLSRoute {
+  /// The main constructor.
   const TLSRoute({
     required this.match,
     this.route,

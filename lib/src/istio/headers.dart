@@ -1,6 +1,9 @@
-import 'package:kubernetes/src/istio/header_operations.dart';
+import 'header_operations.dart';
 
+/// Message headers can be manipulated when Envoy forwards requests to, or responses from, a destination service.
+/// Header manipulation rules can be specified for a specific route destination or for all destinations.
 class Headers {
+  /// The main constructor.
   const Headers({
     this.request,
     this.response,

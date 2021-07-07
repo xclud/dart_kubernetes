@@ -2,5 +2,6 @@
 class Percent {
   Percent({this.value});
 
+  /// Value.
   final double? value;
 }

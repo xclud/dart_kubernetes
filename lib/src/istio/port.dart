@@ -1,4 +1,6 @@
+/// Port describes the properties of a specific port of a service.
 class Port {
+  /// The main constructor.
   const Port({
     this.name,
     required this.number,

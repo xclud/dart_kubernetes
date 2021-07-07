@@ -3,6 +3,7 @@ import 'tls_protocol.dart';
 
 /// Set of TLS related options that govern the server's behavior.
 class ServerTLSSettings {
+  /// The main constructor.
   const ServerTLSSettings({
     this.caCertificates,
     this.cipherSuites,

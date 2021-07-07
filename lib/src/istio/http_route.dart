@@ -1,5 +1,4 @@
-import 'package:kubernetes/src/istio/cors_policy.dart';
-
+import 'cors_policy.dart';
 import 'delegate.dart';
 import 'destination.dart';
 import 'headers.dart';
@@ -11,7 +10,9 @@ import 'http_rewrite.dart';
 import 'http_route_destination.dart';
 import 'percent.dart';
 
+/// Describes match conditions and actions for routing HTTP/1.1, HTTP2, and gRPC traffic. See [VirtualService] for usage examples.
 class HTTPRoute {
+  /// The main constructor.
   const HTTPRoute({
     this.name,
     this.match,
