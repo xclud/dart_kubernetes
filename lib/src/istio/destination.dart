@@ -20,6 +20,14 @@ class Destination {
     this.port,
   });
 
+  Destination.fromJson(Map<String, dynamic> json)
+      : this(
+          host: json['host'],
+          subnet: json['subnet'],
+          port:
+              json['port'] != null ? PortSelector.fromJson(json['port']) : null,
+        );
+
   /// The name of a service from the service registry. Service names are looked up from the platform’s service
   /// registry (e.g., Kubernetes services, Consul services, etc.) and from the hosts declared by [ServiceEntry].
   /// Traffic forwarded to destinations that are not found in either of the two, will be dropped.

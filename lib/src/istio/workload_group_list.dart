@@ -3,6 +3,7 @@ import 'package:kubernetes/src/generated/apimachinery/pkg/apis/meta/v1/list_meta
 import 'workload_group.dart';
 
 class WorkloadGroupList {
+  /// The main constructor.
   const WorkloadGroupList({
     this.apiVersion,
     required this.items,

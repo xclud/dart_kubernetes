@@ -6,6 +6,12 @@ class Delegate {
     this.namespace,
   });
 
+  Delegate.fromJson(Map<String, dynamic> json)
+      : this(
+          name: json['name'],
+          namespace: json['namespace'],
+        );
+
   /// Name specifies the name of the delegate [VirtualService].
   final String? name;
 

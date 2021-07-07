@@ -7,6 +7,14 @@ class StringMatch {
     this.regex,
   });
 
+  /// Creates a StringMatch from JSON data.
+  StringMatch.fromJson(Map<String, dynamic> json)
+      : this(
+          exact: json['exact'],
+          prefix: json['prefix'],
+          regex: json['regex'],
+        );
+
   /// exact string match.
   final String? exact;
 

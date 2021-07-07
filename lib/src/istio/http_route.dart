@@ -30,6 +30,33 @@ class HTTPRoute {
     this.mirrorPercent,
   });
 
+  /// Creates a HTTPRoute from JSON data.
+  HTTPRoute.fromJson(Map<String, dynamic> json)
+      : this(
+          name: json['name'],
+          match: json['match'] != null
+              ? (json['match'] as Iterable)
+                  .cast<Map<String, dynamic>>()
+                  .map((e) => HTTPMatchRequest.fromJson(e))
+                  .toList()
+              : null,
+          route: json['route'] != null
+              ? (json['route'] as Iterable)
+                  .cast<Map<String, dynamic>>()
+                  .map((e) => HTTPRouteDestination.fromJson(e))
+                  .toList()
+              : null,
+          redirect: json['redirect'] != null
+              ? HTTPRedirect.fromJson(json['redirect'])
+              : null,
+          delegate: json['delegate'] != null
+              ? Delegate.fromJson(json['delegate'])
+              : null,
+          rewrite: json['rewrite'] != null
+              ? HTTPRewrite.fromJson(json['rewrite'])
+              : null,
+        );
+
   /// The name assigned to the route for debugging purposes.
   /// The route’s name will be concatenated with the match’s name and will be logged in the access logs
   /// for requests matching this route/match.
@@ -51,6 +78,17 @@ class HTTPRoute {
   /// If traffic passthrough option is specified in the rule, route/redirect will be ignored.
   /// The redirect primitive can be used to send a HTTP 301 redirect to a different URI or Authority.
   final HTTPRedirect? redirect;
+
+  ///
+  /// Delegate is used to specify the particular VirtualService which can be used to define delegate [HTTPRoute].
+  ///
+  /// It can be set only when Route and Redirect are empty, and the route rules of the delegate [VirtualService] will be merged with that in the current one.
+  ///
+  /// NOTE:
+  ///
+  /// - Only one level delegation is supported.
+  ///
+  /// - The delegate’s [HTTPMatchRequest] must be a strict subset of the root’s, otherwise there is a conflict and the [HTTPRoute] will not take effect.
   final Delegate? delegate;
 
   /// Rewrite HTTP URIs and Authority headers. Rewrite cannot be used with Redirect primitive.

@@ -9,6 +9,16 @@ class Headers {
     this.response,
   });
 
+  Headers.fromJson(Map<String, dynamic> json)
+      : this(
+          request: json['request'] != null
+              ? HeaderOperations.fromJson(json['request'])
+              : null,
+          response: json['response'] != null
+              ? HeaderOperations.fromJson(json['response'])
+              : null,
+        );
+
   /// Header manipulation rules to apply before forwarding a request to the destination service.
   final HeaderOperations? request;
 

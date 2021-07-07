@@ -7,6 +7,18 @@ class HeaderOperations {
     this.remove,
   });
 
+  HeaderOperations.fromJson(Map<String, dynamic> json)
+      : this(
+          set: json['set'] != null
+              ? Map<String, String>.from(json['set'])
+              : null,
+          add: json['add'] != null
+              ? Map<String, String>.from(json['add'])
+              : null,
+          remove:
+              json['remove'] != null ? List<String>.from(json['remove']) : null,
+        );
+
   /// Overwrite the headers specified by key with the given values.
   final Map<String, String>? set;
 

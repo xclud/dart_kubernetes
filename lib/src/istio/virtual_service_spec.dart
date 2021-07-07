@@ -14,7 +14,17 @@ class VirtualServiceSpec {
   });
 
   /// Creates a VirtualServiceSpec from JSON data.
-  VirtualServiceSpec.fromJson(Map<String, dynamic> json) : this();
+  VirtualServiceSpec.fromJson(Map<String, dynamic> json)
+      : this(
+          hosts:
+              json['hosts'] != null ? List<String>.from(json['hosts']) : null,
+          gateways: json['gateways'] != null
+              ? List<String>.from(json['gateways'])
+              : null,
+          exportTo: json['exportTo'] != null
+              ? List<String>.from(json['exportTo'])
+              : null,
+        );
 
   /// The destination hosts to which traffic is being sent.
   /// Could be a DNS name with wildcard prefix or an IP address.

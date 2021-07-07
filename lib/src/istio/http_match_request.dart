@@ -21,6 +21,52 @@ class HTTPMatchRequest {
     this.sourceNamespace,
   });
 
+  /// Creates a HTTPMatchRequest from JSON data.
+  HTTPMatchRequest.fromJson(Map<String, dynamic> json)
+      : this(
+          name: json['name'],
+          uri: json['uri'] != null ? StringMatch.fromJson(json['uri']) : null,
+          scheme: json['scheme'] != null
+              ? StringMatch.fromJson(json['scheme'])
+              : null,
+          method: json['method'] != null
+              ? StringMatch.fromJson(json['method'])
+              : null,
+          authority: json['authority'] != null
+              ? StringMatch.fromJson(json['authority'])
+              : null,
+          headers: json['headers'] != null
+              ? Map<String, dynamic>.from(json['headers'])
+                  .map((key, value) => MapEntry(
+                        key,
+                        StringMatch.fromJson(value),
+                      ))
+              : null,
+          port: json['port'],
+          sourceLabels: json['sourceLabels'] != null
+              ? Map<String, String>.from(json['sourceLabels'])
+              : null,
+          gateways: json['gateways'] != null
+              ? List<String>.from(json['gateways'])
+              : null,
+          queryParams: json['queryParams'] != null
+              ? Map<String, dynamic>.from(json['queryParams'])
+                  .map((key, value) => MapEntry(
+                        key,
+                        StringMatch.fromJson(value),
+                      ))
+              : null,
+          ignoreUriCase: json['ignoreUriCase'],
+          withoutHeaders: json['withoutHeaders'] != null
+              ? Map<String, dynamic>.from(json['withoutHeaders'])
+                  .map((key, value) => MapEntry(
+                        key,
+                        StringMatch.fromJson(value),
+                      ))
+              : null,
+          sourceNamespace: json['sourceNamespace'],
+        );
+
   /// The name assigned to a match.
   /// The match’s name will be concatenated with the parent route’s name and
   /// will be logged in the access logs for requests matching this route.
