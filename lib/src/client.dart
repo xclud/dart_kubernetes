@@ -42,9 +42,6 @@ import '../istio_v1beta1.dart' as istio_v1beta1;
 
 import 'package:http/http.dart' as http;
 
-typedef CustomResourceDefinitionConvertor<T> = T Function(
-    Map<String, dynamic> json);
-
 /// Kubernetes client.
 class KubernetesClient {
   /// The default constructor.
@@ -219,17 +216,6 @@ class KubernetesClient {
         '/apis/networking.istio.io/v1beta1/namespaces/$namespace/virtualservices$query');
     return istio_v1beta1.VirtualServiceList.fromJson(result);
   }
-
-  // Get CRD.
-  // Future<T> getCustomResourceDefinition<T>(
-  //   String apiGroup,
-  //   String crd,
-  //   CustomResourceDefinitionConvertor<T> convertor,
-  // ) async {
-  //   final result =
-  //       await _getJsonMap('/apis/$apiGroup/v1/clusterroles/$name$query');
-  //   return convertor(result);
-  // }
 
   /// Get service account issuer OpenID configuration, also known as the 'OIDC discovery doc'.
   Future<String> getServiceAccountIssuerOpenIDConfiguration() async {
