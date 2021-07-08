@@ -4,7 +4,7 @@
 Kubernetes client for Dart/Flutter.
 
 # Warning
-This package is in the early states of development. This means it's not feature complete, is buggy and the APIs are subject to change. Please use this package for development and testing purposes only.
+This package is in the early stages of development. This means it's not feature complete, is buggy and the APIs are subject to change. Please use this package for development and testing purposes only.
 
 # Roadmap
 The roadmap of the package is as it follows. Please do not hesitate to suggest changes in the priorities or features. Contributions are welcome:
@@ -15,7 +15,7 @@ The roadmap of the package is as it follows. Please do not hesitate to suggest c
 - [ ] Implement a fully-fledged UI aiming towards being the best cross-platform Kubernetes client.
 - [ ] Support [Istio](https://istio.io) APIs.
   - [x] [Gateway](https://istio.io/latest/docs/reference/config/networking/gateway/)
-  - [ ] [Virtual Service](https://istio.io/latest/docs/reference/config/networking/virtual-service/)
+  - [x] [Virtual Service](https://istio.io/latest/docs/reference/config/networking/virtual-service/)
   - [ ] [Destination Rule](https://istio.io/latest/docs/reference/config/networking/destination-rule/)
   - [ ] [Service Entry](https://istio.io/latest/docs/reference/config/networking/service-entry/)
   - [ ] [Sidecar](https://istio.io/latest/docs/reference/config/networking/sidecar/)
