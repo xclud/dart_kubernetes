@@ -23,7 +23,9 @@ class ServerTLSSettings {
   ServerTLSSettings.fromJson(Map<String, dynamic> json)
       : this(
           caCertificates: json['caCertificates'],
-          cipherSuites: json['cipherSuites'],
+          cipherSuites: json['cipherSuites'] != null
+              ? List<String>.from(json['cipherSuites'])
+              : null,
           credentialName: json['credentialName'],
           httpsRedirect: json['httpsRedirect'],
           minProtocolVersion:
@@ -33,9 +35,15 @@ class ServerTLSSettings {
           mode: _getTlsMode(json['mode']),
           privateKey: json['privateKey'],
           serverCertificate: json['serverCertificate'],
-          subjectAltNames: json['subjectAltNames'],
-          verifyCertificateHash: json['verifyCertificateHash'],
-          verifyCertificateSpki: json['verifyCertificateSpki'],
+          subjectAltNames: json['subjectAltNames'] != null
+              ? List<String>.from(json['subjectAltNames'])
+              : null,
+          verifyCertificateHash: json['verifyCertificateHash'] != null
+              ? List<String>.from(json['verifyCertificateHash'])
+              : null,
+          verifyCertificateSpki: json['verifyCertificateSpki'] != null
+              ? List<String>.from(json['verifyCertificateSpki'])
+              : null,
         );
 
   /// REQUIRED if mode is [TlsMode.mutual].
