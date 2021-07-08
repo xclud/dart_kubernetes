@@ -8,6 +8,12 @@ class RouteDestination {
     this.weight,
   });
 
+  RouteDestination.fromJson(Map<String, dynamic> json)
+      : this(
+          destination: Destination.fromJson(json['destination']),
+          weight: json['weight'],
+        );
+
   /// Destination uniquely identifies the instances of a service to which the request/connection should be forwarded to.
   final Destination destination;
 

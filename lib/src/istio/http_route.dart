@@ -9,6 +9,7 @@ import 'http_retry.dart';
 import 'http_rewrite.dart';
 import 'http_route_destination.dart';
 import 'percent.dart';
+import 'utils.dart';
 
 /// Describes match conditions and actions for routing HTTP/1.1, HTTP2, and gRPC traffic. See [VirtualService] for usage examples.
 class HTTPRoute {
@@ -55,6 +56,26 @@ class HTTPRoute {
           rewrite: json['rewrite'] != null
               ? HTTPRewrite.fromJson(json['rewrite'])
               : null,
+          timeout: parseDuration(json['timeout']),
+          retries: json['retries'] != null
+              ? HTTPRetry.fromJson(json['retries'])
+              : null,
+          fault: json['fault'] != null
+              ? HTTPFaultInjection.fromJson(json['fault'])
+              : null,
+          mirror: json['mirror'] != null
+              ? Destination.fromJson(json['mirror'])
+              : null,
+          mirrorPercentage: json['mirrorPercentage'] != null
+              ? Percent.fromJson(json['mirrorPercentage'])
+              : null,
+          corsPolicy: json['corsPolicy'] != null
+              ? CorsPolicy.fromJson(json['corsPolicy'])
+              : null,
+          headers: json['headers'] != null
+              ? Headers.fromJson(json['headers'])
+              : null,
+          mirrorPercent: json['mirrorPercent'],
         );
 
   /// The name assigned to the route for debugging purposes.

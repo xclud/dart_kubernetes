@@ -1,3 +1,5 @@
+import 'utils.dart';
+
 import 'percent.dart';
 
 /// Delay specification is used to inject latency into the request forwarding path.
@@ -14,6 +16,18 @@ class Delay {
     this.percentage,
     this.percent,
   });
+
+  /// Creates a Delay from JSON data.
+  Delay.fromJson(Map<String, dynamic> json)
+      : this(
+          fixedDelay: json['fixedDelay'] != null
+              ? parseDuration(json['fixedDelay'])
+              : null,
+          percentage: json['percentage'] != null
+              ? Percent.fromJson(json['percentage'])
+              : null,
+          percent: json['percent'],
+        );
 
   /// Add a fixed delay before forwarding the request. Format: 1h/1m/1s/1ms. MUST be >=1ms.
   final Duration? fixedDelay;

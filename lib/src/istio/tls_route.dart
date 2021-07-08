@@ -9,6 +9,15 @@ class TLSRoute {
     this.route,
   });
 
+  /// Creates a TLSRoute from JSON data.
+  TLSRoute.fromJson(Map<String, dynamic> json)
+      : this(
+          match: TLSMatchAttributes.fromJson(json['match']),
+          route: json['route'] != null
+              ? RouteDestination.fromJson(json['route'])
+              : null,
+        );
+
   /// Match conditions to be satisfied for the rule to be activated.
   /// All conditions inside a single match block have AND semantics,
   /// while the list of match blocks have OR semantics.

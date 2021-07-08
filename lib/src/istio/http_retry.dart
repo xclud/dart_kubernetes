@@ -1,3 +1,5 @@
+import 'utils.dart';
+
 /// Describes the retry policy to use when a HTTP request fails.
 class HTTPRetry {
   const HTTPRetry({
@@ -6,6 +8,17 @@ class HTTPRetry {
     this.retryOn,
     this.retryRemoteLocalities,
   });
+
+  /// Creates a HTTPRetry from JSON data.
+  HTTPRetry.fromJson(Map<String, dynamic> json)
+      : this(
+          attempts: json['attempts'],
+          perTryTimeout: json['perTryTimeout'] != null
+              ? parseDuration(json['perTryTimeout'])
+              : null,
+          retryOn: json['retryOn'],
+          retryRemoteLocalities: json['retryRemoteLocalities'],
+        );
 
   /// Number of retries to be allowed for a given request.
   /// The interval between retries will be determined automatically (25ms+).

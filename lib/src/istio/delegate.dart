@@ -6,6 +6,7 @@ class Delegate {
     this.namespace,
   });
 
+  /// Creates a Delegate from JSON data.
   Delegate.fromJson(Map<String, dynamic> json)
       : this(
           name: json['name'],

@@ -13,6 +13,13 @@ class HTTPFaultInjection {
     this.abort,
   });
 
+  /// Creates a HTTPFaultInjection from JSON data.
+  HTTPFaultInjection.fromJson(Map<String, dynamic> json)
+      : this(
+            delay: json['delay'] != null ? Delay.fromJson(json['delay']) : null,
+            abort:
+                json['abort'] != null ? Abort.fromJson(json['abort']) : null);
+
   /// Delay requests before forwarding, emulating various failures such as network issues, overloaded upstream service, etc.
   final Delay? delay;
 

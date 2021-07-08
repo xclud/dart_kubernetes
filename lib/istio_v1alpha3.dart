@@ -10,6 +10,7 @@ export 'src/istio/service_entry.dart';
 export 'src/istio/sidecar.dart';
 export 'src/istio/sidecar_list.dart';
 export 'src/istio/telemetry.dart';
+export 'src/istio/virtual_service_list.dart';
 export 'src/istio/virtual_service.dart';
 export 'src/istio/workload_entry.dart';
 export 'src/istio/workload_group.dart';

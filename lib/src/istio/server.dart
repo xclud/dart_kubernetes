@@ -12,7 +12,7 @@ class Server {
     this.tls,
   });
 
-  /// Creates a GatewayServerSpec from JSON data.
+  /// Creates a Server from JSON data.
   Server.fromJson(Map<String, dynamic> json)
       : this(
           name: json['name'],
@@ -26,7 +26,7 @@ class Server {
               : null,
         );
 
-  /// Creates a list of GatewayServerSpec from JSON data.
+  /// Creates a list of Server from JSON data.
   static List<Server> listFromJson(Iterable<Map<String, dynamic>> list) {
     return list.map((e) => Server.fromJson(e)).toList();
   }

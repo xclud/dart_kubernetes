@@ -6,6 +6,7 @@ class HTTPRewrite {
     this.authority,
   });
 
+  /// Creates a HTTPRewrite from JSON data.
   HTTPRewrite.fromJson(Map<String, dynamic> json)
       : this(
           uri: json['uri'],

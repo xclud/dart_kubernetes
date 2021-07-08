@@ -9,6 +9,21 @@ class L4MatchAttributes {
     this.sourceNamespace,
   });
 
+  L4MatchAttributes.fromJson(Map<String, dynamic> json)
+      : this(
+          destinationSubnets: json['destinationSubnets'] != null
+              ? List<String>.from(json['destinationSubnets'])
+              : null,
+          port: json['port'],
+          sourceLabels: json['sourceLabels'] != null
+              ? Map<String, String>.from(json['sourceLabels'])
+              : null,
+          gateways: json['gateways'] != null
+              ? List<String>.from(json['gateways'])
+              : null,
+          sourceNamespace: json['sourceNamespace'],
+        );
+
   /// IPv4 or IPv6 ip addresses of destination with optional subnet. E.g., a.b.c.d/xx form or just a.b.c.d.
   final List<String>? destinationSubnets;
 

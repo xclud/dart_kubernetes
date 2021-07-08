@@ -197,6 +197,29 @@ class KubernetesClient {
     return istio_v1alpha3.GatewayList.fromJson(result);
   }
 
+  /// List or watch objects of kind [istio_v1alpha3.VirtualService].
+  ///
+  /// [namespace] Object name and auth scope, such as for teams and projects.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<istio_v1alpha3.VirtualServiceList>
+      listIstioV1alpha3NamespacedVirtualService({
+    required String namespace,
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap(
+        '/apis/networking.istio.io/v1alpha3/namespaces/$namespace/virtualservices$query');
+    return istio_v1alpha3.VirtualServiceList.fromJson(result);
+  }
+
   // Get CRD.
   // Future<T> getCustomResourceDefinition<T>(
   //   String apiGroup,

@@ -9,6 +9,7 @@ class HTTPRedirect {
     this.redirectCode,
   });
 
+  /// Creates a HTTPRedirect from JSON data.
   HTTPRedirect.fromJson(Map<String, dynamic> json)
       : this(
           uri: json['uri'],

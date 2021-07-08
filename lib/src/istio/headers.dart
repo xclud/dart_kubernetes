@@ -9,6 +9,7 @@ class Headers {
     this.response,
   });
 
+  /// Creates a Headers from JSON data.
   Headers.fromJson(Map<String, dynamic> json)
       : this(
           request: json['request'] != null

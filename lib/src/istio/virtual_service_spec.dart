@@ -21,6 +21,24 @@ class VirtualServiceSpec {
           gateways: json['gateways'] != null
               ? List<String>.from(json['gateways'])
               : null,
+          http: json['http'] != null
+              ? (json['http'] as Iterable)
+                  .cast<Map<String, dynamic>>()
+                  .map((e) => HTTPRoute.fromJson(e))
+                  .toList()
+              : null,
+          tls: json['tls'] != null
+              ? (json['tls'] as Iterable)
+                  .cast<Map<String, dynamic>>()
+                  .map((e) => TLSRoute.fromJson(e))
+                  .toList()
+              : null,
+          tcp: json['tcp'] != null
+              ? (json['tcp'] as Iterable)
+                  .cast<Map<String, dynamic>>()
+                  .map((e) => TCPRoute.fromJson(e))
+                  .toList()
+              : null,
           exportTo: json['exportTo'] != null
               ? List<String>.from(json['exportTo'])
               : null,

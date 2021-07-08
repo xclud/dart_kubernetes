@@ -2,6 +2,9 @@
 class Percent {
   Percent({this.value});
 
+  /// Creates a Percent from JSON data.
+  Percent.fromJson(Map<String, dynamic> json) : this(value: json['value']);
+
   /// Value.
   final double? value;
 }

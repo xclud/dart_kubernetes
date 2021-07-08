@@ -20,6 +20,7 @@ class Destination {
     this.port,
   });
 
+  /// Creates a Destination from JSON data.
   Destination.fromJson(Map<String, dynamic> json)
       : this(
           host: json['host'],

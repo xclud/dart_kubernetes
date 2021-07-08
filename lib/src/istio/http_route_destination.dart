@@ -13,7 +13,7 @@ class HTTPRouteDestination {
     this.headers,
   });
 
-  /// Creates a StringMatch from JSON data.
+  /// Creates a HTTPRouteDestination from JSON data.
   HTTPRouteDestination.fromJson(Map<String, dynamic> json)
       : this(
           destination: Destination.fromJson(json['destination']),

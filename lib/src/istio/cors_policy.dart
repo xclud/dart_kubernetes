@@ -1,4 +1,5 @@
 import 'string_match.dart';
+import 'utils.dart';
 
 /// Describes the Cross-Origin Resource Sharing (CORS) policy,
 /// for a given service. Refer to CORS for further details about cross origin resource sharing.
@@ -15,6 +16,28 @@ class CorsPolicy {
     this.maxAge,
     this.allowCredentials,
   });
+
+  /// Creates a CorsPolicy from JSON data.
+  CorsPolicy.fromJson(Map<String, dynamic> json)
+      : this(
+          allowOrigins: json['allowOrigins'] != null
+              ? (json['allowOrigins'] as Iterable)
+                  .cast<Map<String, dynamic>>()
+                  .map((e) => StringMatch.fromJson(e))
+                  .toList()
+              : null,
+          allowMethods: json['allowMethods'] != null
+              ? List<String>.from(json['allowMethods'])
+              : null,
+          allowHeaders: json['allowHeaders'] != null
+              ? List<String>.from(json['allowHeaders'])
+              : null,
+          exposeHeaders: json['exposeHeaders'] != null
+              ? List<String>.from(json['exposeHeaders'])
+              : null,
+          maxAge: parseDuration(json['maxAge']),
+          allowCredentials: json['allowCredentials'],
+        );
 
   /// String patterns that match allowed origins. An origin is allowed if any of the string matchers match.
   /// If a match is found, then the outgoing Access-Control-Allow-Origin would be set to the origin as provided by the client.

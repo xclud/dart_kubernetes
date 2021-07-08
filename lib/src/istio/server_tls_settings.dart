@@ -18,7 +18,7 @@ class ServerTLSSettings {
     this.verifyCertificateSpki,
   });
 
-  /// Creates a Tls from JSON data.
+  /// Creates a ServerTLSSettings from JSON data.
   ServerTLSSettings.fromJson(Map<String, dynamic> json)
       : this(
           caCertificates: json['caCertificates'],

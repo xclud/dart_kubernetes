@@ -7,6 +7,7 @@ class HeaderOperations {
     this.remove,
   });
 
+  /// Creates a HeaderOperations from JSON data.
   HeaderOperations.fromJson(Map<String, dynamic> json)
       : this(
           set: json['set'] != null

@@ -8,6 +8,23 @@ class TCPRoute {
   /// The main constructor.
   const TCPRoute({this.match, this.route});
 
+  /// Creates a TCPRoute from JSON data.
+  TCPRoute.fromJson(Map<String, dynamic> json)
+      : this(
+          match: json['match'] != null
+              ? (json['match'] as Iterable)
+                  .cast<Map<String, dynamic>>()
+                  .map((e) => L4MatchAttributes.fromJson(e))
+                  .toList()
+              : null,
+          route: json['route'] != null
+              ? (json['route'] as Iterable)
+                  .cast<Map<String, dynamic>>()
+                  .map((e) => RouteDestination.fromJson(e))
+                  .toList()
+              : null,
+        );
+
   /// Match conditions to be satisfied for the rule to be activated.
   /// All conditions inside a single match block have AND semantics,
   /// while the list of match blocks have OR semantics.

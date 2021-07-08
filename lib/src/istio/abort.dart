@@ -13,6 +13,15 @@ class Abort {
     this.percentage,
   });
 
+  /// Creates a Abort from JSON data.
+  Abort.fromJson(Map<String, dynamic> json)
+      : this(
+          httpStatus: json['httpStatus'],
+          percentage: json['percentage'] != null
+              ? Percent.fromJson(json['percentage'])
+              : null,
+        );
+
   /// HTTP status code to use to abort the Http request.
   final int httpStatus;
 
