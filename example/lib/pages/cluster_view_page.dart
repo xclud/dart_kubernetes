@@ -10,6 +10,7 @@ import 'package:yakc/pages/resources/replicaset_view_page.dart';
 import 'package:yakc/pages/resources/secret_view_page.dart';
 import 'package:yakc/pages/resources/service_view_page.dart';
 import 'package:yakc/pages/resources/statefulset_view_page.dart';
+import 'package:yakc/pages/resources/virtual_service_view_page.dart';
 
 class ClusterViewPage extends StatefulWidget {
   ClusterViewPage({
@@ -35,6 +36,12 @@ class _ClusterViewPageState extends State<ClusterViewPage> {
   Future<GatewayList> _getGateways() async {
     final result = await widget.kubernetes
         .listIstioV1alpha3NamespacedGateway(namespace: _namespace);
+    return result;
+  }
+
+  Future<VirtualServiceList> _getVirtualServices() async {
+    final result = await widget.kubernetes
+        .listIstioV1alpha3NamespacedVirtualService(namespace: _namespace);
     return result;
   }
 
@@ -181,6 +188,16 @@ class _ClusterViewPageState extends State<ClusterViewPage> {
                 Navigator.pop(context);
               },
             ),
+            ListTile(
+              title: const Text('Virtual Services'),
+              selected: _viewMode == ClusterViewMode.virtualservice,
+              onTap: () {
+                setState(() {
+                  _viewMode = ClusterViewMode.virtualservice;
+                });
+                Navigator.pop(context);
+              },
+            ),
           ],
         ),
       ),
@@ -255,6 +272,8 @@ class _ClusterViewPageState extends State<ClusterViewPage> {
       return _buildSecretList();
     } else if (_viewMode == ClusterViewMode.gateways) {
       return _buildGatewayList();
+    } else if (_viewMode == ClusterViewMode.virtualservice) {
+      return _buildVirtualServiceList();
     }
 
     //
@@ -520,6 +539,39 @@ class _ClusterViewPageState extends State<ClusterViewPage> {
       },
     );
   }
+
+  FutureBuilder<VirtualServiceList> _buildVirtualServiceList() {
+    return FutureBuilder<VirtualServiceList>(
+      future: _getVirtualServices(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const Center(
+            child: Text('Loading...'),
+          );
+        }
+
+        var items = snapshot.data!.items;
+        return ListView(
+          children: items
+              .map(
+                (e) => ListTile(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            VirtualServiceViewPage(virtualservice: e),
+                        fullscreenDialog: true,
+                      ),
+                    );
+                  },
+                  title: Text(e.metadata?.name ?? ''),
+                ),
+              )
+              .toList(),
+        );
+      },
+    );
+  }
 }
 
 enum ClusterViewMode {
@@ -533,4 +585,5 @@ enum ClusterViewMode {
   statefulsets,
 
   gateways,
+  virtualservice,
 }
