@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kubernetes/istio_v1alpha3.dart';
+import 'package:kubernetes/istio_v1beta1.dart';
 import 'package:kubernetes/kubernetes.dart';
 import 'package:yakc/models.dart' as models;
 import 'package:yakc/pages/resources/configmap_view_page.dart';
@@ -35,13 +35,13 @@ class _ClusterViewPageState extends State<ClusterViewPage> {
 
   Future<GatewayList> _getGateways() async {
     final result = await widget.kubernetes
-        .listIstioV1alpha3NamespacedGateway(namespace: _namespace);
+        .listIstioV1beta1NamespacedGateway(namespace: _namespace);
     return result;
   }
 
   Future<VirtualServiceList> _getVirtualServices() async {
     final result = await widget.kubernetes
-        .listIstioV1alpha3NamespacedVirtualService(namespace: _namespace);
+        .listIstioV1beta1NamespacedVirtualService(namespace: _namespace);
     return result;
   }
 

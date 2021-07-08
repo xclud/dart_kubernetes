@@ -2,6 +2,7 @@ import 'package:kubernetes/src/generated/apimachinery/pkg/apis/meta/v1/list_meta
 
 import 'request_authentication.dart';
 
+/// Represents a list of [RequestAuthentication].
 class RequestAuthenticationList {
   /// The main constructor.
   const RequestAuthenticationList({

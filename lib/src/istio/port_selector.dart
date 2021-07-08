@@ -1,3 +1,4 @@
+/// PortSelector specifies the number of a port to be used for matching or selection for final routing.
 class PortSelector {
   /// The main constructor.
   const PortSelector({

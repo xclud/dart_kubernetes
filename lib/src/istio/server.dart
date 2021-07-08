@@ -1,6 +1,7 @@
 import 'port.dart';
 import 'server_tls_settings.dart';
 
+/// Describes the properties of the proxy on a given load balancer port.
 class Server {
   /// The main constructor.
   const Server({

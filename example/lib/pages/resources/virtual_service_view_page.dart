@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kubernetes/istio_v1alpha3.dart';
+import 'package:kubernetes/istio_v1beta1.dart';
 
 class VirtualServiceViewPage extends StatefulWidget {
   const VirtualServiceViewPage({

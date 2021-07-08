@@ -2,6 +2,15 @@ import 'package:kubernetes/apimachinery_pkg_apis_meta_v1.dart';
 
 import '_todo.dart';
 
+/// Peer authentication policies specify the mutual TLS mode Istio enforces on target workloads. The following modes are supported:
+///
+/// - PERMISSIVE: Workloads accept both mutual TLS and plain text traffic. This mode is most useful during migrations when workloads
+/// without sidecar cannot use mutual TLS. Once workloads are migrated with sidecar injection, you should switch the mode to STRICT.
+/// - STRICT: Workloads only accept mutual TLS traffic.
+/// - DISABLE: Mutual TLS is disabled. From a security perspective, you shouldn’t use this mode unless you provide your own security solution.
+///
+/// When the mode is unset, the mode of the parent scope is inherited. Mesh-wide peer authentication policies with an unset mode
+/// use the PERMISSIVE mode by default.
 class PeerAuthentication {
   /// The main constructor.
   const PeerAuthentication({

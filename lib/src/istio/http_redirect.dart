@@ -3,6 +3,7 @@
 /// For example, the following rule redirects requests for /v1/getProductRatings API on the ratings
 /// service to /v1/bookRatings provided by the bookratings service.
 class HTTPRedirect {
+  /// The main constructor.
   const HTTPRedirect({
     this.uri,
     this.authority,

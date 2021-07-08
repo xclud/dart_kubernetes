@@ -14,6 +14,7 @@ import 'port_selector.dart';
 /// with the reviews service. To avoid potential misconfigurations, it is recommended to always use
 /// fully qualified domain names over short names.
 class Destination {
+  /// The main constructor.
   const Destination({
     required this.host,
     this.subnet,

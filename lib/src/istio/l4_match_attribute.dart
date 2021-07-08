@@ -9,6 +9,7 @@ class L4MatchAttributes {
     this.sourceNamespace,
   });
 
+  /// Creates a L4MatchAttributes from JSON data.
   L4MatchAttributes.fromJson(Map<String, dynamic> json)
       : this(
           destinationSubnets: json['destinationSubnets'] != null

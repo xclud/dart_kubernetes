@@ -2,6 +2,7 @@ import 'http_route.dart';
 import 'tcp_route.dart';
 import 'tls_route.dart';
 
+/// Configuration affecting traffic routing.
 class VirtualServiceSpec {
   /// The main constructor.
   const VirtualServiceSpec({

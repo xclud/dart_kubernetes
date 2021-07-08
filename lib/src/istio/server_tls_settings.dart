@@ -9,6 +9,7 @@ class ServerTLSSettings {
     this.cipherSuites,
     this.credentialName,
     this.httpsRedirect,
+    this.minProtocolVersion,
     this.maxProtocolVersion,
     required this.mode,
     this.privateKey,
@@ -25,6 +26,8 @@ class ServerTLSSettings {
           cipherSuites: json['cipherSuites'],
           credentialName: json['credentialName'],
           httpsRedirect: json['httpsRedirect'],
+          minProtocolVersion:
+              _getTlsProtocolVersion(json['minProtocolVersion']),
           maxProtocolVersion:
               _getTlsProtocolVersion(json['maxProtocolVersion']),
           mode: _getTlsMode(json['mode']),
@@ -35,31 +38,52 @@ class ServerTLSSettings {
           verifyCertificateSpki: json['verifyCertificateSpki'],
         );
 
-  /// REQUIRED if mode is `MUTUAL`.
+  /// REQUIRED if mode is [TlsMode.mutual].
   final String? caCertificates;
 
   /// Optional: If specified, only support the specified cipher list.
   final List<String>? cipherSuites;
 
+  /// For gateways running on Kubernetes, the name of the secret that holds the TLS certs including the CA certificates.
+  ///
+  /// Applicable only on Kubernetes.
+  /// The secret (of type generic) should contain the following keys and values: key: <privateKey> and cert: <serverCert>.
+  /// For mutual TLS, cacert: <CACertificate> can be provided in the same secret or a separate secret named <secret>-cacert.
+  /// Secret of type tls for server certificates along with ca.crt key for CA certificates is also supported.
+  /// Only one of server certificates and CA certificate or credentialName can be specified.
   final String? credentialName;
 
+  /// If set to true, the load balancer will send a 301 redirect for all http connections, asking the clients to use HTTPS.
   final bool? httpsRedirect;
+
+  /// Optional: Maximum TLS protocol version.
+  final TlsProtocol? minProtocolVersion;
 
   /// Optional: Maximum TLS protocol version.
   final TlsProtocol? maxProtocolVersion;
 
+  /// Optional: Indicates whether connections to this port should be secured using TLS. The value of this field determines how TLS is enforced.
   final TlsMode mode;
 
-  /// REQUIRED if mode is `SIMPLE` or `MUTUAL`.
+  /// REQUIRED if mode is [TlsMode.simple] or [TlsMode.mutual].
   final String? privateKey;
 
-  /// REQUIRED if mode is `SIMPLE` or `MUTUAL`.
+  /// REQUIRED if [mode] is [TlsMode.simple] or [TlsMode.mutual]. The path to the file holding the server-side TLS certificate to use.
   final String? serverCertificate;
 
+  /// A list of alternate names to verify the subject identity in the certificate presented by the client.
   final List<String>? subjectAltNames;
 
+  /// An optional list of hex-encoded SHA-256 hashes of the authorized client certificates. Both simple and colon separated formats are acceptable.
+  ///
+  /// Note: When both verifycertificatehash and verifycertificatespki are specified,
+  /// a hash matching either value will result in the certificate being accepted.
   final List<String>? verifyCertificateHash;
 
+  /// An optional list of base64-encoded SHA-256 hashes of the SKPIs of authorized client certificates.
+  ///
+  /// Note: When both verifycertificatehash and verifycertificatespki are specified,
+  /// a hash matching either value will result in the certificate being accepted.
   final List<String>? verifyCertificateSpki;
 }
 

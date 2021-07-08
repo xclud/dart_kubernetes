@@ -2,6 +2,7 @@ import 'utils.dart';
 
 /// Describes the retry policy to use when a HTTP request fails.
 class HTTPRetry {
+  /// The main constructor.
   const HTTPRetry({
     required this.attempts,
     this.perTryTimeout,

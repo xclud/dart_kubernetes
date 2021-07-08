@@ -38,7 +38,7 @@ import '../apiextensions__apiserver_pkg_apis_apiextensions_v1.dart'
 import '../apimachinery_pkg_apis_meta_v1.dart' as apimachinery_pkg_apis_meta_v1;
 import '../kube__aggregator_pkg_apis_apiregistration_v1.dart'
     as kube__aggregator_pkg_apis_apiregistration_v1;
-import '../istio_v1alpha3.dart' as istio_v1alpha3;
+import '../istio_v1beta1.dart' as istio_v1beta1;
 
 import 'package:http/http.dart' as http;
 
@@ -175,12 +175,12 @@ class KubernetesClient {
     return '$serverUrl$url';
   }
 
-  /// List or watch objects of kind [istio_v1alpha3.Gateway].
+  /// List or watch objects of kind [istio_v1beta1.Gateway].
   ///
   /// [namespace] Object name and auth scope, such as for teams and projects.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<istio_v1alpha3.GatewayList> listIstioV1alpha3NamespacedGateway({
+  Future<istio_v1beta1.GatewayList> listIstioV1beta1NamespacedGateway({
     required String namespace,
     bool? pretty,
   }) async {
@@ -193,17 +193,17 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _getJsonMap(
-        '/apis/networking.istio.io/v1alpha3/namespaces/$namespace/gateways$query');
-    return istio_v1alpha3.GatewayList.fromJson(result);
+        '/apis/networking.istio.io/v1beta1/namespaces/$namespace/gateways$query');
+    return istio_v1beta1.GatewayList.fromJson(result);
   }
 
-  /// List or watch objects of kind [istio_v1alpha3.VirtualService].
+  /// List or watch objects of kind [istio_v1beta1.VirtualService].
   ///
   /// [namespace] Object name and auth scope, such as for teams and projects.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<istio_v1alpha3.VirtualServiceList>
-      listIstioV1alpha3NamespacedVirtualService({
+  Future<istio_v1beta1.VirtualServiceList>
+      listIstioV1beta1NamespacedVirtualService({
     required String namespace,
     bool? pretty,
   }) async {
@@ -216,8 +216,8 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _getJsonMap(
-        '/apis/networking.istio.io/v1alpha3/namespaces/$namespace/virtualservices$query');
-    return istio_v1alpha3.VirtualServiceList.fromJson(result);
+        '/apis/networking.istio.io/v1beta1/namespaces/$namespace/virtualservices$query');
+    return istio_v1beta1.VirtualServiceList.fromJson(result);
   }
 
   // Get CRD.

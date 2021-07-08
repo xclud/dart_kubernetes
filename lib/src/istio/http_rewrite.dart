@@ -1,6 +1,7 @@
 /// HTTPRewrite can be used to rewrite specific parts of a HTTP request before forwarding the
 /// request to the destination. Rewrite primitive can be used only with [HTTPRouteDestination].
 class HTTPRewrite {
+  /// The main constructor.
   const HTTPRewrite({
     this.uri,
     this.authority,
