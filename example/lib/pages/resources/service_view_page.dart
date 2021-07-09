@@ -31,6 +31,22 @@ class _ServiceViewPageState extends State<ServiceViewPage> {
               child: ObjectMetaWidget(metadata: widget.service.metadata!),
             ),
           ),
+          if (widget.service.spec != null)
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Card(
+                child: Column(
+                  children: widget.service.spec!.ports!
+                      .map(
+                        (e) => ListTile(
+                          title: Text(e.name ?? ''),
+                          subtitle: Text(e.port.toString()),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
+            ),
         ],
       ),
     );

@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kubernetes/kubernetes.dart';
+import 'package:yakc/dialogs/json_editor_dialog.dart';
 import 'package:yakc/views/object_meta_widget.dart';
 
 class PodViewPage extends StatefulWidget {
@@ -21,6 +24,27 @@ class _PodViewPageState extends State<PodViewPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Pod'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.edit),
+            tooltip: 'Edit',
+            onPressed: () {
+              const encoder = JsonEncoder.withIndent('  ');
+              String prettyprint = encoder.convert(widget.pod.toJson());
+              showDialog(
+                context: context,
+                builder: (context) => JsonEditorDialog(json: prettyprint),
+              );
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.delete),
+            tooltip: 'Delete',
+            onPressed: () {
+              //
+            },
+          ),
+        ],
       ),
       body: ListView(
         padding: const EdgeInsets.all(4.0),

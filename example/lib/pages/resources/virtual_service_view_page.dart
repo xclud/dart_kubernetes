@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kubernetes/istio_v1beta1.dart';
+import 'package:yakc/dialogs/json_editor_dialog.dart';
 import 'package:yakc/views/object_meta_widget.dart';
 
 class VirtualServiceViewPage extends StatefulWidget {
@@ -23,6 +26,27 @@ class _VirtualServiceViewPageState extends State<VirtualServiceViewPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Virtual Service'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.edit),
+            tooltip: 'Edit',
+            onPressed: () {
+              const encoder = JsonEncoder.withIndent('  ');
+              String prettyprint = encoder.convert('{}');
+              showDialog(
+                context: context,
+                builder: (context) => JsonEditorDialog(json: prettyprint),
+              );
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.delete),
+            tooltip: 'Delete',
+            onPressed: () {
+              //
+            },
+          ),
+        ],
       ),
       body: ListView(
         padding: const EdgeInsets.all(4.0),
@@ -43,6 +67,21 @@ class _VirtualServiceViewPageState extends State<VirtualServiceViewPage> {
                       .map(
                         (e) => ListTile(
                           title: Text('Name: ${e.name}'),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
+            ),
+          if (vs.spec?.gateways != null && vs.spec!.gateways!.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Card(
+                child: Column(
+                  children: vs.spec!.gateways!
+                      .map(
+                        (e) => ListTile(
+                          title: Text('Name: $e'),
                         ),
                       )
                       .toList(),

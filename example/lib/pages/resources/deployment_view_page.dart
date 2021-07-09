@@ -58,6 +58,20 @@ class _DeploymentViewPageState extends State<DeploymentViewPage> {
                 child: ObjectMetaWidget(metadata: widget.deployment.metadata!),
               ),
             ),
+          if (widget.deployment.spec?.template.spec?.containers != null)
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Card(
+                child: Column(
+                  children: widget.deployment.spec!.template.spec!.containers
+                      .map((e) => ListTile(
+                            title: Text(e.name),
+                            subtitle: Text(e.image ?? ''),
+                          ))
+                      .toList(),
+                ),
+              ),
+            ),
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: Card(
