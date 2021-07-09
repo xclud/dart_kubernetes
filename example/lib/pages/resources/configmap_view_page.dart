@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kubernetes/kubernetes.dart';
+import 'package:yakc/views/object_meta_widget.dart';
 
 class ConfigMapViewPage extends StatefulWidget {
   const ConfigMapViewPage({
@@ -27,7 +28,7 @@ class _ConfigMapViewPageState extends State<ConfigMapViewPage> {
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: Card(
-              child: Text('ConfigMap Name: ${widget.configmap.metadata?.name}'),
+              child: ObjectMetaWidget(metadata: widget.configmap.metadata!),
             ),
           ),
         ],

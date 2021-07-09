@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kubernetes/istio_v1beta1.dart';
+import 'package:yakc/views/object_meta_widget.dart';
 
 class GatewayViewPage extends StatefulWidget {
   const GatewayViewPage({
@@ -27,7 +28,7 @@ class _GatewayViewPageState extends State<GatewayViewPage> {
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: Card(
-              child: Text('Gateway Name: ${widget.gateway.metadata?.name}'),
+              child: ObjectMetaWidget(metadata: widget.gateway.metadata!),
             ),
           ),
         ],

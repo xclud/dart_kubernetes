@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kubernetes/istio_v1beta1.dart';
+import 'package:yakc/views/object_meta_widget.dart';
 
 class VirtualServiceViewPage extends StatefulWidget {
   const VirtualServiceViewPage({
@@ -29,7 +30,8 @@ class _VirtualServiceViewPageState extends State<VirtualServiceViewPage> {
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: Card(
-              child: Text('VirtualService Name: ${vs.metadata?.name}'),
+              child:
+                  ObjectMetaWidget(metadata: widget.virtualservice.metadata!),
             ),
           ),
           if (vs.spec?.http != null && vs.spec!.http!.isNotEmpty)

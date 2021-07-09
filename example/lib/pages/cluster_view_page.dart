@@ -333,7 +333,10 @@ class _ClusterViewPageState extends State<ClusterViewPage> {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => DeploymentViewPage(deployment: e),
+                        builder: (context) => DeploymentViewPage(
+                          client: widget.kubernetes,
+                          deployment: e,
+                        ),
                         fullscreenDialog: true,
                       ),
                     );

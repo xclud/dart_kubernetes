@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kubernetes/kubernetes.dart';
+import 'package:yakc/views/object_meta_widget.dart';
 
 class StatefulSetViewPage extends StatefulWidget {
   const StatefulSetViewPage({
@@ -27,8 +28,7 @@ class _StatefulSetViewPageState extends State<StatefulSetViewPage> {
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: Card(
-              child: Text(
-                  'StatefulSet Name: ${widget.statefulset.metadata?.name}'),
+              child: ObjectMetaWidget(metadata: widget.statefulset.metadata!),
             ),
           ),
         ],

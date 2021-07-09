@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kubernetes/kubernetes.dart';
+import 'package:yakc/views/object_meta_widget.dart';
 
 class ServiceViewPage extends StatefulWidget {
   const ServiceViewPage({
@@ -27,7 +28,7 @@ class _ServiceViewPageState extends State<ServiceViewPage> {
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: Card(
-              child: Text('Service Name: ${widget.service.metadata?.name}'),
+              child: ObjectMetaWidget(metadata: widget.service.metadata!),
             ),
           ),
         ],

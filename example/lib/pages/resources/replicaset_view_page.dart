@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kubernetes/kubernetes.dart';
+import 'package:yakc/views/object_meta_widget.dart';
 
 class ReplicaSetViewPage extends StatefulWidget {
   const ReplicaSetViewPage({
@@ -27,8 +28,9 @@ class _ReplicaSetViewPageState extends State<ReplicaSetViewPage> {
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: Card(
-              child:
-                  Text('ReplicaSet Name: ${widget.replicaset.metadata?.name}'),
+              child: Card(
+                child: ObjectMetaWidget(metadata: widget.replicaset.metadata!),
+              ),
             ),
           ),
         ],

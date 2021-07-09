@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kubernetes/kubernetes.dart';
+import 'package:yakc/views/object_meta_widget.dart';
 
 class PodViewPage extends StatefulWidget {
   const PodViewPage({
@@ -27,7 +28,22 @@ class _PodViewPageState extends State<PodViewPage> {
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: Card(
-              child: Text('Pod Name: ${widget.pod.metadata?.name}'),
+              child: ObjectMetaWidget(metadata: widget.pod.metadata!),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Card(
+              child: Column(
+                children: widget.pod.spec!.containers
+                    .map(
+                      (e) => ListTile(
+                        title: Text(e.name),
+                        subtitle: Text(e.image ?? ''),
+                      ),
+                    )
+                    .toList(),
+              ),
             ),
           ),
         ],

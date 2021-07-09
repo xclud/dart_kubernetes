@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kubernetes/kubernetes.dart';
+import 'package:yakc/views/object_meta_widget.dart';
 
 class SecretViewPage extends StatefulWidget {
   const SecretViewPage({
@@ -27,7 +28,7 @@ class _SecretViewPageState extends State<SecretViewPage> {
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: Card(
-              child: Text('Secret Name: ${widget.secret.metadata?.name}'),
+              child: ObjectMetaWidget(metadata: widget.secret.metadata!),
             ),
           ),
         ],
