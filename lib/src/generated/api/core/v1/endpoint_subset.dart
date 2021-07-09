@@ -41,6 +41,24 @@ class EndpointSubset {
     return list.map((e) => EndpointSubset.fromJson(e)).toList();
   }
 
+  /// Converts a EndpointSubset instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (addresses != null) {
+      jsonData['addresses'] = addresses!.map((item) => item.toJson()).toList();
+    }
+    if (notReadyAddresses != null) {
+      jsonData['notReadyAddresses'] =
+          notReadyAddresses!.map((item) => item.toJson()).toList();
+    }
+    if (ports != null) {
+      jsonData['ports'] = ports!.map((item) => item.toJson()).toList();
+    }
+
+    return jsonData;
+  }
+
   /// IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
   final List<EndpointAddress>? addresses;
 

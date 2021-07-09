@@ -25,6 +25,19 @@ class PodsMetricSource {
     return list.map((e) => PodsMetricSource.fromJson(e)).toList();
   }
 
+  /// Converts a PodsMetricSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['metricName'] = metricName;
+    if (selector != null) {
+      jsonData['selector'] = selector!.toJson();
+    }
+    jsonData['targetAverageValue'] = targetAverageValue;
+
+    return jsonData;
+  }
+
   /// MetricName is the name of the metric in question.
   final String metricName;
 

@@ -19,6 +19,20 @@ class IngressTLS {
     return list.map((e) => IngressTLS.fromJson(e)).toList();
   }
 
+  /// Converts a IngressTLS instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (hosts != null) {
+      jsonData['hosts'] = hosts!;
+    }
+    if (secretName != null) {
+      jsonData['secretName'] = secretName!;
+    }
+
+    return jsonData;
+  }
+
   /// Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
   final List<String>? hosts;
 

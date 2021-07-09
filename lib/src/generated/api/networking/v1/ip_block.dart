@@ -19,6 +19,18 @@ class IPBlock {
     return list.map((e) => IPBlock.fromJson(e)).toList();
   }
 
+  /// Converts a IPBlock instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['cidr'] = cidr;
+    if (except != null) {
+      jsonData['except'] = except!;
+    }
+
+    return jsonData;
+  }
+
   /// CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64".
   final String cidr;
 

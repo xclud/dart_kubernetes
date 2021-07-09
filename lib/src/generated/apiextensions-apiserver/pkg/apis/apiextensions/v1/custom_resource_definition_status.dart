@@ -31,6 +31,24 @@ class CustomResourceDefinitionStatus {
     return list.map((e) => CustomResourceDefinitionStatus.fromJson(e)).toList();
   }
 
+  /// Converts a CustomResourceDefinitionStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (acceptedNames != null) {
+      jsonData['acceptedNames'] = acceptedNames!.toJson();
+    }
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
+    if (storedVersions != null) {
+      jsonData['storedVersions'] = storedVersions!;
+    }
+
+    return jsonData;
+  }
+
   /// AcceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
   final CustomResourceDefinitionNames? acceptedNames;
 

@@ -21,6 +21,19 @@ class ResourceMetricStatus {
     return list.map((e) => ResourceMetricStatus.fromJson(e)).toList();
   }
 
+  /// Converts a ResourceMetricStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (currentAverageUtilization != null) {
+      jsonData['currentAverageUtilization'] = currentAverageUtilization!;
+    }
+    jsonData['currentAverageValue'] = currentAverageValue;
+    jsonData['name'] = name;
+
+    return jsonData;
+  }
+
   /// CurrentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.  It will only be present if `targetAverageValue` was set in the corresponding metric specification.
   final int? currentAverageUtilization;
 

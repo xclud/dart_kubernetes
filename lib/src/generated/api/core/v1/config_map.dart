@@ -34,6 +34,32 @@ class ConfigMap {
     return list.map((e) => ConfigMap.fromJson(e)).toList();
   }
 
+  /// Converts a ConfigMap instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (binaryData != null) {
+      jsonData['binaryData'] = binaryData!;
+    }
+    if (data != null) {
+      jsonData['data'] = data!;
+    }
+    if (immutable != null) {
+      jsonData['immutable'] = immutable!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;
 

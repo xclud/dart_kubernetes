@@ -23,6 +23,17 @@ class VolumeAttachmentSpec {
     return list.map((e) => VolumeAttachmentSpec.fromJson(e)).toList();
   }
 
+  /// Converts a VolumeAttachmentSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['attacher'] = attacher;
+    jsonData['nodeName'] = nodeName;
+    jsonData['source'] = source.toJson();
+
+    return jsonData;
+  }
+
   /// Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
   final String attacher;
 

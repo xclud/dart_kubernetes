@@ -26,6 +26,20 @@ class SelfSubjectAccessReviewSpec {
     return list.map((e) => SelfSubjectAccessReviewSpec.fromJson(e)).toList();
   }
 
+  /// Converts a SelfSubjectAccessReviewSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (nonResourceAttributes != null) {
+      jsonData['nonResourceAttributes'] = nonResourceAttributes!.toJson();
+    }
+    if (resourceAttributes != null) {
+      jsonData['resourceAttributes'] = resourceAttributes!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// NonResourceAttributes describes information for a non-resource access request.
   final NonResourceAttributes? nonResourceAttributes;
 

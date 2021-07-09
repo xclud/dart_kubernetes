@@ -16,6 +16,15 @@ class UserSubject {
     return list.map((e) => UserSubject.fromJson(e)).toList();
   }
 
+  /// Converts a UserSubject instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['name'] = name;
+
+    return jsonData;
+  }
+
   /// `name` is the username that matches, or "*" to match all usernames. Required.
   final String name;
 }

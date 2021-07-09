@@ -23,6 +23,18 @@ class MetricIdentifier {
     return list.map((e) => MetricIdentifier.fromJson(e)).toList();
   }
 
+  /// Converts a MetricIdentifier instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['name'] = name;
+    if (selector != null) {
+      jsonData['selector'] = selector!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// Name is the name of the given metric.
   final String name;
 

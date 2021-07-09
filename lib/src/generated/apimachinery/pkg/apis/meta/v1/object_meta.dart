@@ -67,6 +67,64 @@ class ObjectMeta {
     return list.map((e) => ObjectMeta.fromJson(e)).toList();
   }
 
+  /// Converts a ObjectMeta instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (annotations != null) {
+      jsonData['annotations'] = annotations!;
+    }
+    if (clusterName != null) {
+      jsonData['clusterName'] = clusterName!;
+    }
+    if (creationTimestamp != null) {
+      jsonData['creationTimestamp'] = creationTimestamp!.toIso8601String();
+    }
+    if (deletionGracePeriodSeconds != null) {
+      jsonData['deletionGracePeriodSeconds'] = deletionGracePeriodSeconds!;
+    }
+    if (deletionTimestamp != null) {
+      jsonData['deletionTimestamp'] = deletionTimestamp!.toIso8601String();
+    }
+    if (finalizers != null) {
+      jsonData['finalizers'] = finalizers!;
+    }
+    if (generateName != null) {
+      jsonData['generateName'] = generateName!;
+    }
+    if (generation != null) {
+      jsonData['generation'] = generation!;
+    }
+    if (labels != null) {
+      jsonData['labels'] = labels!;
+    }
+    if (managedFields != null) {
+      jsonData['managedFields'] =
+          managedFields!.map((item) => item.toJson()).toList();
+    }
+    if (name != null) {
+      jsonData['name'] = name!;
+    }
+    if (namespace != null) {
+      jsonData['namespace'] = namespace!;
+    }
+    if (ownerReferences != null) {
+      jsonData['ownerReferences'] =
+          ownerReferences!.map((item) => item.toJson()).toList();
+    }
+    if (resourceVersion != null) {
+      jsonData['resourceVersion'] = resourceVersion!;
+    }
+    if (selfLink != null) {
+      jsonData['selfLink'] = selfLink!;
+    }
+    if (uid != null) {
+      jsonData['uid'] = uid!;
+    }
+
+    return jsonData;
+  }
+
   /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations.
   final Map<String, String>? annotations;
 

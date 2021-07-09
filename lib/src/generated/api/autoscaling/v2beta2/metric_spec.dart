@@ -43,6 +43,30 @@ class MetricSpec {
     return list.map((e) => MetricSpec.fromJson(e)).toList();
   }
 
+  /// Converts a MetricSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (containerResource != null) {
+      jsonData['containerResource'] = containerResource!.toJson();
+    }
+    if (external != null) {
+      jsonData['external'] = external!.toJson();
+    }
+    if (object != null) {
+      jsonData['object'] = object!.toJson();
+    }
+    if (pods != null) {
+      jsonData['pods'] = pods!.toJson();
+    }
+    if (resource != null) {
+      jsonData['resource'] = resource!.toJson();
+    }
+    jsonData['type'] = type;
+
+    return jsonData;
+  }
+
   /// Container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
   final ContainerResourceMetricSource? containerResource;
 

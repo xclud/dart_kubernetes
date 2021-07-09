@@ -43,6 +43,41 @@ class ISCSIPersistentVolumeSource {
     return list.map((e) => ISCSIPersistentVolumeSource.fromJson(e)).toList();
   }
 
+  /// Converts a ISCSIPersistentVolumeSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (chapAuthDiscovery != null) {
+      jsonData['chapAuthDiscovery'] = chapAuthDiscovery!;
+    }
+    if (chapAuthSession != null) {
+      jsonData['chapAuthSession'] = chapAuthSession!;
+    }
+    if (fsType != null) {
+      jsonData['fsType'] = fsType!;
+    }
+    if (initiatorName != null) {
+      jsonData['initiatorName'] = initiatorName!;
+    }
+    jsonData['iqn'] = iqn;
+    if (iscsiInterface != null) {
+      jsonData['iscsiInterface'] = iscsiInterface!;
+    }
+    jsonData['lun'] = lun;
+    if (portals != null) {
+      jsonData['portals'] = portals!;
+    }
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
+    if (secretRef != null) {
+      jsonData['secretRef'] = secretRef!.toJson();
+    }
+    jsonData['targetPortal'] = targetPortal;
+
+    return jsonData;
+  }
+
   /// Whether support iSCSI Discovery CHAP authentication.
   final bool? chapAuthDiscovery;
 

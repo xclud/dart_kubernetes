@@ -35,6 +35,26 @@ class EnvVarSource {
     return list.map((e) => EnvVarSource.fromJson(e)).toList();
   }
 
+  /// Converts a EnvVarSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (configMapKeyRef != null) {
+      jsonData['configMapKeyRef'] = configMapKeyRef!.toJson();
+    }
+    if (fieldRef != null) {
+      jsonData['fieldRef'] = fieldRef!.toJson();
+    }
+    if (resourceFieldRef != null) {
+      jsonData['resourceFieldRef'] = resourceFieldRef!.toJson();
+    }
+    if (secretKeyRef != null) {
+      jsonData['secretKeyRef'] = secretKeyRef!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// Selects a key of a ConfigMap.
   final ConfigMapKeySelector? configMapKeyRef;
 

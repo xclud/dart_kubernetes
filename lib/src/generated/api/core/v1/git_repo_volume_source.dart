@@ -23,6 +23,21 @@ class GitRepoVolumeSource {
     return list.map((e) => GitRepoVolumeSource.fromJson(e)).toList();
   }
 
+  /// Converts a GitRepoVolumeSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (directory != null) {
+      jsonData['directory'] = directory!;
+    }
+    jsonData['repository'] = repository;
+    if (revision != null) {
+      jsonData['revision'] = revision!;
+    }
+
+    return jsonData;
+  }
+
   /// Target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
   final String? directory;
 

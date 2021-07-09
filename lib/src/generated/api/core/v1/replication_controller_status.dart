@@ -32,6 +32,31 @@ class ReplicationControllerStatus {
     return list.map((e) => ReplicationControllerStatus.fromJson(e)).toList();
   }
 
+  /// Converts a ReplicationControllerStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (availableReplicas != null) {
+      jsonData['availableReplicas'] = availableReplicas!;
+    }
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
+    if (fullyLabeledReplicas != null) {
+      jsonData['fullyLabeledReplicas'] = fullyLabeledReplicas!;
+    }
+    if (observedGeneration != null) {
+      jsonData['observedGeneration'] = observedGeneration!;
+    }
+    if (readyReplicas != null) {
+      jsonData['readyReplicas'] = readyReplicas!;
+    }
+    jsonData['replicas'] = replicas;
+
+    return jsonData;
+  }
+
   /// The number of available replicas (ready for at least minReadySeconds) for this replication controller.
   final int? availableReplicas;
 

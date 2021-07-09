@@ -30,6 +30,23 @@ class ObjectMetricStatus {
     return list.map((e) => ObjectMetricStatus.fromJson(e)).toList();
   }
 
+  /// Converts a ObjectMetricStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (averageValue != null) {
+      jsonData['averageValue'] = averageValue!;
+    }
+    jsonData['currentValue'] = currentValue;
+    jsonData['metricName'] = metricName;
+    if (selector != null) {
+      jsonData['selector'] = selector!.toJson();
+    }
+    jsonData['target'] = target.toJson();
+
+    return jsonData;
+  }
+
   /// AverageValue is the current value of the average of the metric across all relevant pods (as a quantity).
   final String? averageValue;
 

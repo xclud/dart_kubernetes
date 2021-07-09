@@ -38,6 +38,35 @@ class NodeSpec {
     return list.map((e) => NodeSpec.fromJson(e)).toList();
   }
 
+  /// Converts a NodeSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (configSource != null) {
+      jsonData['configSource'] = configSource!.toJson();
+    }
+    if (externalID != null) {
+      jsonData['externalID'] = externalID!;
+    }
+    if (podCIDR != null) {
+      jsonData['podCIDR'] = podCIDR!;
+    }
+    if (podCIDRs != null) {
+      jsonData['podCIDRs'] = podCIDRs!;
+    }
+    if (providerID != null) {
+      jsonData['providerID'] = providerID!;
+    }
+    if (taints != null) {
+      jsonData['taints'] = taints!.map((item) => item.toJson()).toList();
+    }
+    if (unschedulable != null) {
+      jsonData['unschedulable'] = unschedulable!;
+    }
+
+    return jsonData;
+  }
+
   /// If specified, the source to get node configuration from The DynamicKubeletConfig feature gate must be enabled for the Kubelet to use this field.
   final NodeConfigSource? configSource;
 

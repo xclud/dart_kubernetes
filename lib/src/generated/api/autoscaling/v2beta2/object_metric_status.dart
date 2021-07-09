@@ -26,6 +26,17 @@ class ObjectMetricStatus {
     return list.map((e) => ObjectMetricStatus.fromJson(e)).toList();
   }
 
+  /// Converts a ObjectMetricStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['current'] = current.toJson();
+    jsonData['describedObject'] = describedObject.toJson();
+    jsonData['metric'] = metric.toJson();
+
+    return jsonData;
+  }
+
   /// Current contains the current value for the given metric.
   final MetricValueStatus current;
 

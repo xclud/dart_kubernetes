@@ -19,6 +19,16 @@ class ServiceAccountSubject {
     return list.map((e) => ServiceAccountSubject.fromJson(e)).toList();
   }
 
+  /// Converts a ServiceAccountSubject instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['name'] = name;
+    jsonData['namespace'] = namespace;
+
+    return jsonData;
+  }
+
   /// `name` is the name of matching ServiceAccount objects, or "*" to match regardless of name. Required.
   final String name;
 

@@ -36,6 +36,39 @@ class DeploymentStatus {
     return list.map((e) => DeploymentStatus.fromJson(e)).toList();
   }
 
+  /// Converts a DeploymentStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (availableReplicas != null) {
+      jsonData['availableReplicas'] = availableReplicas!;
+    }
+    if (collisionCount != null) {
+      jsonData['collisionCount'] = collisionCount!;
+    }
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
+    if (observedGeneration != null) {
+      jsonData['observedGeneration'] = observedGeneration!;
+    }
+    if (readyReplicas != null) {
+      jsonData['readyReplicas'] = readyReplicas!;
+    }
+    if (replicas != null) {
+      jsonData['replicas'] = replicas!;
+    }
+    if (unavailableReplicas != null) {
+      jsonData['unavailableReplicas'] = unavailableReplicas!;
+    }
+    if (updatedReplicas != null) {
+      jsonData['updatedReplicas'] = updatedReplicas!;
+    }
+
+    return jsonData;
+  }
+
   /// Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
   final int? availableReplicas;
 

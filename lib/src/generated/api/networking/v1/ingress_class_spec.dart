@@ -23,6 +23,20 @@ class IngressClassSpec {
     return list.map((e) => IngressClassSpec.fromJson(e)).toList();
   }
 
+  /// Converts a IngressClassSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (controller != null) {
+      jsonData['controller'] = controller!;
+    }
+    if (parameters != null) {
+      jsonData['parameters'] = parameters!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
   final String? controller;
 

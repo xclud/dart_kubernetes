@@ -21,6 +21,21 @@ class ResourceMetricSource {
     return list.map((e) => ResourceMetricSource.fromJson(e)).toList();
   }
 
+  /// Converts a ResourceMetricSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['name'] = name;
+    if (targetAverageUtilization != null) {
+      jsonData['targetAverageUtilization'] = targetAverageUtilization!;
+    }
+    if (targetAverageValue != null) {
+      jsonData['targetAverageValue'] = targetAverageValue!;
+    }
+
+    return jsonData;
+  }
+
   /// Name is the name of the resource in question.
   final String name;
 

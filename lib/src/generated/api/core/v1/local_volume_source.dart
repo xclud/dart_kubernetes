@@ -19,6 +19,18 @@ class LocalVolumeSource {
     return list.map((e) => LocalVolumeSource.fromJson(e)).toList();
   }
 
+  /// Converts a LocalVolumeSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (fsType != null) {
+      jsonData['fsType'] = fsType!;
+    }
+    jsonData['path'] = path;
+
+    return jsonData;
+  }
+
   /// Filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a fileystem if unspecified.
   final String? fsType;
 

@@ -23,6 +23,23 @@ class ServerStorageVersion {
     return list.map((e) => ServerStorageVersion.fromJson(e)).toList();
   }
 
+  /// Converts a ServerStorageVersion instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (apiServerID != null) {
+      jsonData['apiServerID'] = apiServerID!;
+    }
+    if (decodableVersions != null) {
+      jsonData['decodableVersions'] = decodableVersions!;
+    }
+    if (encodingVersion != null) {
+      jsonData['encodingVersion'] = encodingVersion!;
+    }
+
+    return jsonData;
+  }
+
   /// The ID of the reporting API server.
   final String? apiServerID;
 

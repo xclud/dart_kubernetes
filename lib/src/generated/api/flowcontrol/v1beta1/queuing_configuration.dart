@@ -21,6 +21,23 @@ class QueuingConfiguration {
     return list.map((e) => QueuingConfiguration.fromJson(e)).toList();
   }
 
+  /// Converts a QueuingConfiguration instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (handSize != null) {
+      jsonData['handSize'] = handSize!;
+    }
+    if (queueLengthLimit != null) {
+      jsonData['queueLengthLimit'] = queueLengthLimit!;
+    }
+    if (queues != null) {
+      jsonData['queues'] = queues!;
+    }
+
+    return jsonData;
+  }
+
   /// `handSize` is a small positive number that configures the shuffle sharding of requests into queues.  When enqueuing a request at this priority level the request's flow identifier (a string pair) is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size specified here.  The request is put into one of the shortest queues in that hand. `handSize` must be no larger than `queues`, and should be significantly smaller (so that a few heavy flows do not saturate most of the queues).  See the user-facing documentation for more extensive guidance on setting this field.  This field has a default value of 8.
   final int? handSize;
 

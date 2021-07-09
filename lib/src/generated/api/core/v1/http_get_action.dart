@@ -29,6 +29,28 @@ class HTTPGetAction {
     return list.map((e) => HTTPGetAction.fromJson(e)).toList();
   }
 
+  /// Converts a HTTPGetAction instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (host != null) {
+      jsonData['host'] = host!;
+    }
+    if (httpHeaders != null) {
+      jsonData['httpHeaders'] =
+          httpHeaders!.map((item) => item.toJson()).toList();
+    }
+    if (path != null) {
+      jsonData['path'] = path!;
+    }
+    jsonData['port'] = port;
+    if (scheme != null) {
+      jsonData['scheme'] = scheme!;
+    }
+
+    return jsonData;
+  }
+
   /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
   final String? host;
 

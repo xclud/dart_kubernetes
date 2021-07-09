@@ -19,6 +19,16 @@ class ServerAddressByClientCIDR {
     return list.map((e) => ServerAddressByClientCIDR.fromJson(e)).toList();
   }
 
+  /// Converts a ServerAddressByClientCIDR instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['clientCIDR'] = clientCIDR;
+    jsonData['serverAddress'] = serverAddress;
+
+    return jsonData;
+  }
+
   /// The CIDR with which clients can match their IP to figure out the server address that they should use.
   final String clientCIDR;
 

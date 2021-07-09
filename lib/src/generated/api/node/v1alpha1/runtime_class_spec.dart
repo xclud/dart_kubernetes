@@ -28,6 +28,21 @@ class RuntimeClassSpec {
     return list.map((e) => RuntimeClassSpec.fromJson(e)).toList();
   }
 
+  /// Converts a RuntimeClassSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (overhead != null) {
+      jsonData['overhead'] = overhead!.toJson();
+    }
+    jsonData['runtimeHandler'] = runtimeHandler;
+    if (scheduling != null) {
+      jsonData['scheduling'] = scheduling!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
   final Overhead? overhead;
 

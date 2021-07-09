@@ -21,6 +21,16 @@ class ResourceMetricStatus {
     return list.map((e) => ResourceMetricStatus.fromJson(e)).toList();
   }
 
+  /// Converts a ResourceMetricStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['current'] = current.toJson();
+    jsonData['name'] = name;
+
+    return jsonData;
+  }
+
   /// Current contains the current value for the given metric.
   final MetricValueStatus current;
 

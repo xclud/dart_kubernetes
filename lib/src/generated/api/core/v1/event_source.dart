@@ -18,6 +18,20 @@ class EventSource {
     return list.map((e) => EventSource.fromJson(e)).toList();
   }
 
+  /// Converts a EventSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (component != null) {
+      jsonData['component'] = component!;
+    }
+    if (host != null) {
+      jsonData['host'] = host!;
+    }
+
+    return jsonData;
+  }
+
   /// Component from which the event is generated.
   final String? component;
 

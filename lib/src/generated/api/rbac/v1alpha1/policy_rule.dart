@@ -32,6 +32,27 @@ class PolicyRule {
     return list.map((e) => PolicyRule.fromJson(e)).toList();
   }
 
+  /// Converts a PolicyRule instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (apiGroups != null) {
+      jsonData['apiGroups'] = apiGroups!;
+    }
+    if (nonResourceURLs != null) {
+      jsonData['nonResourceURLs'] = nonResourceURLs!;
+    }
+    if (resourceNames != null) {
+      jsonData['resourceNames'] = resourceNames!;
+    }
+    if (resources != null) {
+      jsonData['resources'] = resources!;
+    }
+    jsonData['verbs'] = verbs;
+
+    return jsonData;
+  }
+
   /// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.
   final List<String>? apiGroups;
 

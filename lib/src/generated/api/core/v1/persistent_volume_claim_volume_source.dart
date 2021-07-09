@@ -21,6 +21,18 @@ class PersistentVolumeClaimVolumeSource {
         .toList();
   }
 
+  /// Converts a PersistentVolumeClaimVolumeSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['claimName'] = claimName;
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
+
+    return jsonData;
+  }
+
   /// ClaimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims.
   final String claimName;
 

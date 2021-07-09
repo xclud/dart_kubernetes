@@ -29,6 +29,29 @@ class StorageOSVolumeSource {
     return list.map((e) => StorageOSVolumeSource.fromJson(e)).toList();
   }
 
+  /// Converts a StorageOSVolumeSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (fsType != null) {
+      jsonData['fsType'] = fsType!;
+    }
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
+    if (secretRef != null) {
+      jsonData['secretRef'] = secretRef!.toJson();
+    }
+    if (volumeName != null) {
+      jsonData['volumeName'] = volumeName!;
+    }
+    if (volumeNamespace != null) {
+      jsonData['volumeNamespace'] = volumeNamespace!;
+    }
+
+    return jsonData;
+  }
+
   /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
   final String? fsType;
 

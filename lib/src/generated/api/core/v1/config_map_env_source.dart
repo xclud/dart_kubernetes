@@ -21,6 +21,20 @@ class ConfigMapEnvSource {
     return list.map((e) => ConfigMapEnvSource.fromJson(e)).toList();
   }
 
+  /// Converts a ConfigMapEnvSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (name != null) {
+      jsonData['name'] = name!;
+    }
+    if (optional != null) {
+      jsonData['optional'] = optional!;
+    }
+
+    return jsonData;
+  }
+
   /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names.
   final String? name;
 

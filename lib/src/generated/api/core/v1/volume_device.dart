@@ -18,6 +18,16 @@ class VolumeDevice {
     return list.map((e) => VolumeDevice.fromJson(e)).toList();
   }
 
+  /// Converts a VolumeDevice instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['devicePath'] = devicePath;
+    jsonData['name'] = name;
+
+    return jsonData;
+  }
+
   /// DevicePath is the path inside of the container that the device will be mapped to.
   final String devicePath;
 

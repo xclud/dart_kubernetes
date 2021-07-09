@@ -30,6 +30,25 @@ class DaemonSetSpec {
     return list.map((e) => DaemonSetSpec.fromJson(e)).toList();
   }
 
+  /// Converts a DaemonSetSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (minReadySeconds != null) {
+      jsonData['minReadySeconds'] = minReadySeconds!;
+    }
+    if (revisionHistoryLimit != null) {
+      jsonData['revisionHistoryLimit'] = revisionHistoryLimit!;
+    }
+    jsonData['selector'] = selector.toJson();
+    jsonData['template'] = template.toJson();
+    if (updateStrategy != null) {
+      jsonData['updateStrategy'] = updateStrategy!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
   final int? minReadySeconds;
 

@@ -20,6 +20,19 @@ class PortStatus {
     return list.map((e) => PortStatus.fromJson(e)).toList();
   }
 
+  /// Converts a PortStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (error != null) {
+      jsonData['error'] = error!;
+    }
+    jsonData['port'] = port;
+    jsonData['protocol'] = protocol;
+
+    return jsonData;
+  }
+
   /// Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
   ///   CamelCase names
   /// - cloud provider specific error values must have names that comply with the

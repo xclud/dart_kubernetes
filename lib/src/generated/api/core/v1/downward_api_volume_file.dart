@@ -30,6 +30,24 @@ class DownwardAPIVolumeFile {
     return list.map((e) => DownwardAPIVolumeFile.fromJson(e)).toList();
   }
 
+  /// Converts a DownwardAPIVolumeFile instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (fieldRef != null) {
+      jsonData['fieldRef'] = fieldRef!.toJson();
+    }
+    if (mode != null) {
+      jsonData['mode'] = mode!;
+    }
+    jsonData['path'] = path;
+    if (resourceFieldRef != null) {
+      jsonData['resourceFieldRef'] = resourceFieldRef!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
   final ObjectFieldSelector? fieldRef;
 

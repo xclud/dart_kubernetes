@@ -21,6 +21,19 @@ class TypedLocalObjectReference {
     return list.map((e) => TypedLocalObjectReference.fromJson(e)).toList();
   }
 
+  /// Converts a TypedLocalObjectReference instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (apiGroup != null) {
+      jsonData['apiGroup'] = apiGroup!;
+    }
+    jsonData['kind'] = kind;
+    jsonData['name'] = name;
+
+    return jsonData;
+  }
+
   /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
   final String? apiGroup;
 

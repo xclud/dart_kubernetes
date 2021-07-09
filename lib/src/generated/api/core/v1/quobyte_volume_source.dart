@@ -27,6 +27,28 @@ class QuobyteVolumeSource {
     return list.map((e) => QuobyteVolumeSource.fromJson(e)).toList();
   }
 
+  /// Converts a QuobyteVolumeSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (group != null) {
+      jsonData['group'] = group!;
+    }
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
+    jsonData['registry'] = registry;
+    if (tenant != null) {
+      jsonData['tenant'] = tenant!;
+    }
+    if (user != null) {
+      jsonData['user'] = user!;
+    }
+    jsonData['volume'] = volume;
+
+    return jsonData;
+  }
+
   /// Group to map volume access to Default is no group.
   final String? group;
 

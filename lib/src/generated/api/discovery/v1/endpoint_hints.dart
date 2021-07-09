@@ -21,6 +21,17 @@ class EndpointHints {
     return list.map((e) => EndpointHints.fromJson(e)).toList();
   }
 
+  /// Converts a EndpointHints instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (forZones != null) {
+      jsonData['forZones'] = forZones!.map((item) => item.toJson()).toList();
+    }
+
+    return jsonData;
+  }
+
   /// ForZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing.
   final List<ForZone>? forZones;
 }

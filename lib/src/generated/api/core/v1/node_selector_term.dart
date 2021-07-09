@@ -29,6 +29,22 @@ class NodeSelectorTerm {
     return list.map((e) => NodeSelectorTerm.fromJson(e)).toList();
   }
 
+  /// Converts a NodeSelectorTerm instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (matchExpressions != null) {
+      jsonData['matchExpressions'] =
+          matchExpressions!.map((item) => item.toJson()).toList();
+    }
+    if (matchFields != null) {
+      jsonData['matchFields'] =
+          matchFields!.map((item) => item.toJson()).toList();
+    }
+
+    return jsonData;
+  }
+
   /// A list of node selector requirements by node's labels.
   final List<NodeSelectorRequirement>? matchExpressions;
 

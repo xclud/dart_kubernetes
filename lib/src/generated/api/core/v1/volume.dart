@@ -164,6 +164,102 @@ class Volume {
     return list.map((e) => Volume.fromJson(e)).toList();
   }
 
+  /// Converts a Volume instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (awsElasticBlockStore != null) {
+      jsonData['awsElasticBlockStore'] = awsElasticBlockStore!.toJson();
+    }
+    if (azureDisk != null) {
+      jsonData['azureDisk'] = azureDisk!.toJson();
+    }
+    if (azureFile != null) {
+      jsonData['azureFile'] = azureFile!.toJson();
+    }
+    if (cephfs != null) {
+      jsonData['cephfs'] = cephfs!.toJson();
+    }
+    if (cinder != null) {
+      jsonData['cinder'] = cinder!.toJson();
+    }
+    if (configMap != null) {
+      jsonData['configMap'] = configMap!.toJson();
+    }
+    if (csi != null) {
+      jsonData['csi'] = csi!.toJson();
+    }
+    if (downwardAPI != null) {
+      jsonData['downwardAPI'] = downwardAPI!.toJson();
+    }
+    if (emptyDir != null) {
+      jsonData['emptyDir'] = emptyDir!.toJson();
+    }
+    if (ephemeral != null) {
+      jsonData['ephemeral'] = ephemeral!.toJson();
+    }
+    if (fc != null) {
+      jsonData['fc'] = fc!.toJson();
+    }
+    if (flexVolume != null) {
+      jsonData['flexVolume'] = flexVolume!.toJson();
+    }
+    if (flocker != null) {
+      jsonData['flocker'] = flocker!.toJson();
+    }
+    if (gcePersistentDisk != null) {
+      jsonData['gcePersistentDisk'] = gcePersistentDisk!.toJson();
+    }
+    if (gitRepo != null) {
+      jsonData['gitRepo'] = gitRepo!.toJson();
+    }
+    if (glusterfs != null) {
+      jsonData['glusterfs'] = glusterfs!.toJson();
+    }
+    if (hostPath != null) {
+      jsonData['hostPath'] = hostPath!.toJson();
+    }
+    if (iscsi != null) {
+      jsonData['iscsi'] = iscsi!.toJson();
+    }
+    jsonData['name'] = name;
+    if (nfs != null) {
+      jsonData['nfs'] = nfs!.toJson();
+    }
+    if (persistentVolumeClaim != null) {
+      jsonData['persistentVolumeClaim'] = persistentVolumeClaim!.toJson();
+    }
+    if (photonPersistentDisk != null) {
+      jsonData['photonPersistentDisk'] = photonPersistentDisk!.toJson();
+    }
+    if (portworxVolume != null) {
+      jsonData['portworxVolume'] = portworxVolume!.toJson();
+    }
+    if (projected != null) {
+      jsonData['projected'] = projected!.toJson();
+    }
+    if (quobyte != null) {
+      jsonData['quobyte'] = quobyte!.toJson();
+    }
+    if (rbd != null) {
+      jsonData['rbd'] = rbd!.toJson();
+    }
+    if (scaleIO != null) {
+      jsonData['scaleIO'] = scaleIO!.toJson();
+    }
+    if (secret != null) {
+      jsonData['secret'] = secret!.toJson();
+    }
+    if (storageos != null) {
+      jsonData['storageos'] = storageos!.toJson();
+    }
+    if (vsphereVolume != null) {
+      jsonData['vsphereVolume'] = vsphereVolume!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore.
   final AWSElasticBlockStoreVolumeSource? awsElasticBlockStore;
 

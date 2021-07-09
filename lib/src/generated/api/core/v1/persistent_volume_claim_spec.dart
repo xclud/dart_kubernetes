@@ -41,6 +41,35 @@ class PersistentVolumeClaimSpec {
     return list.map((e) => PersistentVolumeClaimSpec.fromJson(e)).toList();
   }
 
+  /// Converts a PersistentVolumeClaimSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (accessModes != null) {
+      jsonData['accessModes'] = accessModes!;
+    }
+    if (dataSource != null) {
+      jsonData['dataSource'] = dataSource!.toJson();
+    }
+    if (resources != null) {
+      jsonData['resources'] = resources!.toJson();
+    }
+    if (selector != null) {
+      jsonData['selector'] = selector!.toJson();
+    }
+    if (storageClassName != null) {
+      jsonData['storageClassName'] = storageClassName!;
+    }
+    if (volumeMode != null) {
+      jsonData['volumeMode'] = volumeMode!;
+    }
+    if (volumeName != null) {
+      jsonData['volumeName'] = volumeName!;
+    }
+
+    return jsonData;
+  }
+
   /// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1.
   final List<String>? accessModes;
 

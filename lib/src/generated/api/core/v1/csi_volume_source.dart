@@ -31,6 +31,27 @@ class CSIVolumeSource {
     return list.map((e) => CSIVolumeSource.fromJson(e)).toList();
   }
 
+  /// Converts a CSIVolumeSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['driver'] = driver;
+    if (fsType != null) {
+      jsonData['fsType'] = fsType!;
+    }
+    if (nodePublishSecretRef != null) {
+      jsonData['nodePublishSecretRef'] = nodePublishSecretRef!.toJson();
+    }
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
+    if (volumeAttributes != null) {
+      jsonData['volumeAttributes'] = volumeAttributes!;
+    }
+
+    return jsonData;
+  }
+
   /// Driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
   final String driver;
 

@@ -23,6 +23,18 @@ class AggregationRule {
     return list.map((e) => AggregationRule.fromJson(e)).toList();
   }
 
+  /// Converts a AggregationRule instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (clusterRoleSelectors != null) {
+      jsonData['clusterRoleSelectors'] =
+          clusterRoleSelectors!.map((item) => item.toJson()).toList();
+    }
+
+    return jsonData;
+  }
+
   /// ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added.
   final List<LabelSelector>? clusterRoleSelectors;
 }

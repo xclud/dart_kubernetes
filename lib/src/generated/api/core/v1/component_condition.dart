@@ -23,6 +23,22 @@ class ComponentCondition {
     return list.map((e) => ComponentCondition.fromJson(e)).toList();
   }
 
+  /// Converts a ComponentCondition instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (error != null) {
+      jsonData['error'] = error!;
+    }
+    if (message != null) {
+      jsonData['message'] = message!;
+    }
+    jsonData['status'] = status;
+    jsonData['type'] = type;
+
+    return jsonData;
+  }
+
   /// Condition error code for a component. For example, a health check error code.
   final String? error;
 

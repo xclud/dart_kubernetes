@@ -21,6 +21,19 @@ class NFSVolumeSource {
     return list.map((e) => NFSVolumeSource.fromJson(e)).toList();
   }
 
+  /// Converts a NFSVolumeSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['path'] = path;
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
+    jsonData['server'] = server;
+
+    return jsonData;
+  }
+
   /// Path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs.
   final String path;
 

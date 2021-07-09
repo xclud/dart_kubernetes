@@ -18,6 +18,18 @@ class TokenRequest {
     return list.map((e) => TokenRequest.fromJson(e)).toList();
   }
 
+  /// Converts a TokenRequest instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['audience'] = audience;
+    if (expirationSeconds != null) {
+      jsonData['expirationSeconds'] = expirationSeconds!;
+    }
+
+    return jsonData;
+  }
+
   /// Audience is the intended audience of the token in "TokenRequestSpec". It will default to the audiences of kube apiserver.
   final String audience;
 

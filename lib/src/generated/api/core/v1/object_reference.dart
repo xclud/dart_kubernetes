@@ -29,6 +29,35 @@ class ObjectReference {
     return list.map((e) => ObjectReference.fromJson(e)).toList();
   }
 
+  /// Converts a ObjectReference instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (fieldPath != null) {
+      jsonData['fieldPath'] = fieldPath!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (name != null) {
+      jsonData['name'] = name!;
+    }
+    if (namespace != null) {
+      jsonData['namespace'] = namespace!;
+    }
+    if (resourceVersion != null) {
+      jsonData['resourceVersion'] = resourceVersion!;
+    }
+    if (uid != null) {
+      jsonData['uid'] = uid!;
+    }
+
+    return jsonData;
+  }
+
   /// API version of the referent.
   final String? apiVersion;
 

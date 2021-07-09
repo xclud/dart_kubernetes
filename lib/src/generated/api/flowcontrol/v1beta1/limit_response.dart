@@ -22,6 +22,18 @@ class LimitResponse {
     return list.map((e) => LimitResponse.fromJson(e)).toList();
   }
 
+  /// Converts a LimitResponse instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (queuing != null) {
+      jsonData['queuing'] = queuing!.toJson();
+    }
+    jsonData['type'] = type;
+
+    return jsonData;
+  }
+
   /// `queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `"Queue"`.
   final QueuingConfiguration? queuing;
 

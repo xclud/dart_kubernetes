@@ -40,6 +40,43 @@ class StatefulSetStatus {
     return list.map((e) => StatefulSetStatus.fromJson(e)).toList();
   }
 
+  /// Converts a StatefulSetStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (availableReplicas != null) {
+      jsonData['availableReplicas'] = availableReplicas!;
+    }
+    if (collisionCount != null) {
+      jsonData['collisionCount'] = collisionCount!;
+    }
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
+    if (currentReplicas != null) {
+      jsonData['currentReplicas'] = currentReplicas!;
+    }
+    if (currentRevision != null) {
+      jsonData['currentRevision'] = currentRevision!;
+    }
+    if (observedGeneration != null) {
+      jsonData['observedGeneration'] = observedGeneration!;
+    }
+    if (readyReplicas != null) {
+      jsonData['readyReplicas'] = readyReplicas!;
+    }
+    jsonData['replicas'] = replicas;
+    if (updateRevision != null) {
+      jsonData['updateRevision'] = updateRevision!;
+    }
+    if (updatedReplicas != null) {
+      jsonData['updatedReplicas'] = updatedReplicas!;
+    }
+
+    return jsonData;
+  }
+
   /// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate. Remove omitempty when graduating to beta.
   final int? availableReplicas;
 

@@ -21,6 +21,16 @@ class NonResourcePolicyRule {
     return list.map((e) => NonResourcePolicyRule.fromJson(e)).toList();
   }
 
+  /// Converts a NonResourcePolicyRule instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['nonResourceURLs'] = nonResourceURLs;
+    jsonData['verbs'] = verbs;
+
+    return jsonData;
+  }
+
   /// `nonResourceURLs` is a set of url prefixes that a user should have access to and may not be empty. For example:
   ///   - "/healthz" is legal
   ///   - "/hea*" is illegal

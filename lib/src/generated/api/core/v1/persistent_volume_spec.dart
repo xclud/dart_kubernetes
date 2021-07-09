@@ -155,6 +155,105 @@ class PersistentVolumeSpec {
     return list.map((e) => PersistentVolumeSpec.fromJson(e)).toList();
   }
 
+  /// Converts a PersistentVolumeSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (accessModes != null) {
+      jsonData['accessModes'] = accessModes!;
+    }
+    if (awsElasticBlockStore != null) {
+      jsonData['awsElasticBlockStore'] = awsElasticBlockStore!.toJson();
+    }
+    if (azureDisk != null) {
+      jsonData['azureDisk'] = azureDisk!.toJson();
+    }
+    if (azureFile != null) {
+      jsonData['azureFile'] = azureFile!.toJson();
+    }
+    if (capacity != null) {
+      jsonData['capacity'] = capacity!;
+    }
+    if (cephfs != null) {
+      jsonData['cephfs'] = cephfs!.toJson();
+    }
+    if (cinder != null) {
+      jsonData['cinder'] = cinder!.toJson();
+    }
+    if (claimRef != null) {
+      jsonData['claimRef'] = claimRef!.toJson();
+    }
+    if (csi != null) {
+      jsonData['csi'] = csi!.toJson();
+    }
+    if (fc != null) {
+      jsonData['fc'] = fc!.toJson();
+    }
+    if (flexVolume != null) {
+      jsonData['flexVolume'] = flexVolume!.toJson();
+    }
+    if (flocker != null) {
+      jsonData['flocker'] = flocker!.toJson();
+    }
+    if (gcePersistentDisk != null) {
+      jsonData['gcePersistentDisk'] = gcePersistentDisk!.toJson();
+    }
+    if (glusterfs != null) {
+      jsonData['glusterfs'] = glusterfs!.toJson();
+    }
+    if (hostPath != null) {
+      jsonData['hostPath'] = hostPath!.toJson();
+    }
+    if (iscsi != null) {
+      jsonData['iscsi'] = iscsi!.toJson();
+    }
+    if (local != null) {
+      jsonData['local'] = local!.toJson();
+    }
+    if (mountOptions != null) {
+      jsonData['mountOptions'] = mountOptions!;
+    }
+    if (nfs != null) {
+      jsonData['nfs'] = nfs!.toJson();
+    }
+    if (nodeAffinity != null) {
+      jsonData['nodeAffinity'] = nodeAffinity!.toJson();
+    }
+    if (persistentVolumeReclaimPolicy != null) {
+      jsonData['persistentVolumeReclaimPolicy'] =
+          persistentVolumeReclaimPolicy!;
+    }
+    if (photonPersistentDisk != null) {
+      jsonData['photonPersistentDisk'] = photonPersistentDisk!.toJson();
+    }
+    if (portworxVolume != null) {
+      jsonData['portworxVolume'] = portworxVolume!.toJson();
+    }
+    if (quobyte != null) {
+      jsonData['quobyte'] = quobyte!.toJson();
+    }
+    if (rbd != null) {
+      jsonData['rbd'] = rbd!.toJson();
+    }
+    if (scaleIO != null) {
+      jsonData['scaleIO'] = scaleIO!.toJson();
+    }
+    if (storageClassName != null) {
+      jsonData['storageClassName'] = storageClassName!;
+    }
+    if (storageos != null) {
+      jsonData['storageos'] = storageos!.toJson();
+    }
+    if (volumeMode != null) {
+      jsonData['volumeMode'] = volumeMode!;
+    }
+    if (vsphereVolume != null) {
+      jsonData['vsphereVolume'] = vsphereVolume!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// AccessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes.
   final List<String>? accessModes;
 

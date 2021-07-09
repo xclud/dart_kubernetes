@@ -29,6 +29,23 @@ class PodDNSConfig {
     return list.map((e) => PodDNSConfig.fromJson(e)).toList();
   }
 
+  /// Converts a PodDNSConfig instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (nameservers != null) {
+      jsonData['nameservers'] = nameservers!;
+    }
+    if (options != null) {
+      jsonData['options'] = options!.map((item) => item.toJson()).toList();
+    }
+    if (searches != null) {
+      jsonData['searches'] = searches!;
+    }
+
+    return jsonData;
+  }
+
   /// A list of DNS name server IP addresses. This will be appended to the base nameservers generated from DNSPolicy. Duplicated nameservers will be removed.
   final List<String>? nameservers;
 

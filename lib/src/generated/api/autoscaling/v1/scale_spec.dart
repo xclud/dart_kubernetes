@@ -16,6 +16,17 @@ class ScaleSpec {
     return list.map((e) => ScaleSpec.fromJson(e)).toList();
   }
 
+  /// Converts a ScaleSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (replicas != null) {
+      jsonData['replicas'] = replicas!;
+    }
+
+    return jsonData;
+  }
+
   /// Desired number of instances for the scaled object.
   final int? replicas;
 }

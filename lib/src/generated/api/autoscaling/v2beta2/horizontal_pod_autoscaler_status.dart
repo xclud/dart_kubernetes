@@ -38,6 +38,27 @@ class HorizontalPodAutoscalerStatus {
     return list.map((e) => HorizontalPodAutoscalerStatus.fromJson(e)).toList();
   }
 
+  /// Converts a HorizontalPodAutoscalerStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['conditions'] = conditions.map((item) => item.toJson()).toList();
+    if (currentMetrics != null) {
+      jsonData['currentMetrics'] =
+          currentMetrics!.map((item) => item.toJson()).toList();
+    }
+    jsonData['currentReplicas'] = currentReplicas;
+    jsonData['desiredReplicas'] = desiredReplicas;
+    if (lastScaleTime != null) {
+      jsonData['lastScaleTime'] = lastScaleTime!.toIso8601String();
+    }
+    if (observedGeneration != null) {
+      jsonData['observedGeneration'] = observedGeneration!;
+    }
+
+    return jsonData;
+  }
+
   /// Conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
   final List<HorizontalPodAutoscalerCondition> conditions;
 

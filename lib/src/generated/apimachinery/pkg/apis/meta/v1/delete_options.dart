@@ -33,6 +33,35 @@ class DeleteOptions {
     return list.map((e) => DeleteOptions.fromJson(e)).toList();
   }
 
+  /// Converts a DeleteOptions instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (dryRun != null) {
+      jsonData['dryRun'] = dryRun!;
+    }
+    if (gracePeriodSeconds != null) {
+      jsonData['gracePeriodSeconds'] = gracePeriodSeconds!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (orphanDependents != null) {
+      jsonData['orphanDependents'] = orphanDependents!;
+    }
+    if (preconditions != null) {
+      jsonData['preconditions'] = preconditions!.toJson();
+    }
+    if (propagationPolicy != null) {
+      jsonData['propagationPolicy'] = propagationPolicy!;
+    }
+
+    return jsonData;
+  }
+
   /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;
 

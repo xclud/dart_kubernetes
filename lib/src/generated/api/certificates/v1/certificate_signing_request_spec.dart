@@ -33,6 +33,31 @@ class CertificateSigningRequestSpec {
     return list.map((e) => CertificateSigningRequestSpec.fromJson(e)).toList();
   }
 
+  /// Converts a CertificateSigningRequestSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (extra != null) {
+      jsonData['extra'] = extra!;
+    }
+    if (groups != null) {
+      jsonData['groups'] = groups!;
+    }
+    jsonData['request'] = request;
+    jsonData['signerName'] = signerName;
+    if (uid != null) {
+      jsonData['uid'] = uid!;
+    }
+    if (usages != null) {
+      jsonData['usages'] = usages!;
+    }
+    if (username != null) {
+      jsonData['username'] = username!;
+    }
+
+    return jsonData;
+  }
+
   /// Extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
   final Map<String, List<String>>? extra;
 

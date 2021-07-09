@@ -33,6 +33,29 @@ class RuleWithOperations {
     return list.map((e) => RuleWithOperations.fromJson(e)).toList();
   }
 
+  /// Converts a RuleWithOperations instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (apiGroups != null) {
+      jsonData['apiGroups'] = apiGroups!;
+    }
+    if (apiVersions != null) {
+      jsonData['apiVersions'] = apiVersions!;
+    }
+    if (operations != null) {
+      jsonData['operations'] = operations!;
+    }
+    if (resources != null) {
+      jsonData['resources'] = resources!;
+    }
+    if (scope != null) {
+      jsonData['scope'] = scope!;
+    }
+
+    return jsonData;
+  }
+
   /// APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
   final List<String>? apiGroups;
 

@@ -21,6 +21,17 @@ class HPAScalingPolicy {
     return list.map((e) => HPAScalingPolicy.fromJson(e)).toList();
   }
 
+  /// Converts a HPAScalingPolicy instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['periodSeconds'] = periodSeconds;
+    jsonData['type'] = type;
+    jsonData['value'] = value;
+
+    return jsonData;
+  }
+
   /// PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
   final int periodSeconds;
 

@@ -18,6 +18,20 @@ class VolumeError {
     return list.map((e) => VolumeError.fromJson(e)).toList();
   }
 
+  /// Converts a VolumeError instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (message != null) {
+      jsonData['message'] = message!;
+    }
+    if (time != null) {
+      jsonData['time'] = time!.toIso8601String();
+    }
+
+    return jsonData;
+  }
+
   /// String detailing the error encountered during Attach or Detach operation. This string maybe logged, so it should not contain sensitive information.
   final String? message;
 

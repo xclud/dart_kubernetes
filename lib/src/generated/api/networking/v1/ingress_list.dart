@@ -30,6 +30,24 @@ class IngressList {
     return list.map((e) => IngressList.fromJson(e)).toList();
   }
 
+  /// Converts a IngressList instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    jsonData['items'] = items.map((item) => item.toJson()).toList();
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;
 

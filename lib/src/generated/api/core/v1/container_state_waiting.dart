@@ -19,6 +19,20 @@ class ContainerStateWaiting {
     return list.map((e) => ContainerStateWaiting.fromJson(e)).toList();
   }
 
+  /// Converts a ContainerStateWaiting instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (message != null) {
+      jsonData['message'] = message!;
+    }
+    if (reason != null) {
+      jsonData['reason'] = reason!;
+    }
+
+    return jsonData;
+  }
+
   /// Message regarding why the container is not yet running.
   final String? message;
 

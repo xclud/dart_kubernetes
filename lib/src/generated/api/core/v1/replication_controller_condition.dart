@@ -27,6 +27,25 @@ class ReplicationControllerCondition {
     return list.map((e) => ReplicationControllerCondition.fromJson(e)).toList();
   }
 
+  /// Converts a ReplicationControllerCondition instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (lastTransitionTime != null) {
+      jsonData['lastTransitionTime'] = lastTransitionTime!.toIso8601String();
+    }
+    if (message != null) {
+      jsonData['message'] = message!;
+    }
+    if (reason != null) {
+      jsonData['reason'] = reason!;
+    }
+    jsonData['status'] = status;
+    jsonData['type'] = type;
+
+    return jsonData;
+  }
+
   /// The last time the condition transitioned from one status to another.
   final DateTime? lastTransitionTime;
 

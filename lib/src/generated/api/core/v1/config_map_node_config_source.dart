@@ -25,6 +25,23 @@ class ConfigMapNodeConfigSource {
     return list.map((e) => ConfigMapNodeConfigSource.fromJson(e)).toList();
   }
 
+  /// Converts a ConfigMapNodeConfigSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['kubeletConfigKey'] = kubeletConfigKey;
+    jsonData['name'] = name;
+    jsonData['namespace'] = namespace;
+    if (resourceVersion != null) {
+      jsonData['resourceVersion'] = resourceVersion!;
+    }
+    if (uid != null) {
+      jsonData['uid'] = uid!;
+    }
+
+    return jsonData;
+  }
+
   /// KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
   final String kubeletConfigKey;
 

@@ -24,6 +24,22 @@ class Taint {
     return list.map((e) => Taint.fromJson(e)).toList();
   }
 
+  /// Converts a Taint instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['effect'] = effect;
+    jsonData['key'] = key;
+    if (timeAdded != null) {
+      jsonData['timeAdded'] = timeAdded!.toIso8601String();
+    }
+    if (value != null) {
+      jsonData['value'] = value!;
+    }
+
+    return jsonData;
+  }
+
   /// Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute.
   final String effect;
 

@@ -18,6 +18,20 @@ class Capabilities {
     return list.map((e) => Capabilities.fromJson(e)).toList();
   }
 
+  /// Converts a Capabilities instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (add != null) {
+      jsonData['add'] = add!;
+    }
+    if (drop != null) {
+      jsonData['drop'] = drop!;
+    }
+
+    return jsonData;
+  }
+
   /// Added capabilities.
   final List<String>? add;
 

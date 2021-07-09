@@ -38,6 +38,29 @@ class APIGroup {
     return list.map((e) => APIGroup.fromJson(e)).toList();
   }
 
+  /// Converts a APIGroup instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    jsonData['name'] = name;
+    if (preferredVersion != null) {
+      jsonData['preferredVersion'] = preferredVersion!.toJson();
+    }
+    if (serverAddressByClientCIDRs != null) {
+      jsonData['serverAddressByClientCIDRs'] =
+          serverAddressByClientCIDRs!.map((item) => item.toJson()).toList();
+    }
+    jsonData['versions'] = versions.map((item) => item.toJson()).toList();
+
+    return jsonData;
+  }
+
   /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;
 

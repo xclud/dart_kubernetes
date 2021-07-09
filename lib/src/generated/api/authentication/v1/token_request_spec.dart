@@ -27,6 +27,21 @@ class TokenRequestSpec {
     return list.map((e) => TokenRequestSpec.fromJson(e)).toList();
   }
 
+  /// Converts a TokenRequestSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['audiences'] = audiences;
+    if (boundObjectRef != null) {
+      jsonData['boundObjectRef'] = boundObjectRef!.toJson();
+    }
+    if (expirationSeconds != null) {
+      jsonData['expirationSeconds'] = expirationSeconds!;
+    }
+
+    return jsonData;
+  }
+
   /// Audiences are the intendend audiences of the token. A recipient of a token must identitfy themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
   final List<String> audiences;
 

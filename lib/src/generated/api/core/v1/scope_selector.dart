@@ -22,6 +22,18 @@ class ScopeSelector {
     return list.map((e) => ScopeSelector.fromJson(e)).toList();
   }
 
+  /// Converts a ScopeSelector instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (matchExpressions != null) {
+      jsonData['matchExpressions'] =
+          matchExpressions!.map((item) => item.toJson()).toList();
+    }
+
+    return jsonData;
+  }
+
   /// A list of scope selector requirements by scope of the resources.
   final List<ScopedResourceSelectorRequirement>? matchExpressions;
 }

@@ -32,6 +32,23 @@ class Info {
     return list.map((e) => Info.fromJson(e)).toList();
   }
 
+  /// Converts a Info instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['buildDate'] = buildDate;
+    jsonData['compiler'] = compiler;
+    jsonData['gitCommit'] = gitCommit;
+    jsonData['gitTreeState'] = gitTreeState;
+    jsonData['gitVersion'] = gitVersion;
+    jsonData['goVersion'] = goVersion;
+    jsonData['major'] = major;
+    jsonData['minor'] = minor;
+    jsonData['platform'] = platform;
+
+    return jsonData;
+  }
+
   ///
   final String buildDate;
 

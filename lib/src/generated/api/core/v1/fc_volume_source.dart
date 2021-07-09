@@ -28,6 +28,29 @@ class FCVolumeSource {
     return list.map((e) => FCVolumeSource.fromJson(e)).toList();
   }
 
+  /// Converts a FCVolumeSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (fsType != null) {
+      jsonData['fsType'] = fsType!;
+    }
+    if (lun != null) {
+      jsonData['lun'] = lun!;
+    }
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
+    if (targetWWNs != null) {
+      jsonData['targetWWNs'] = targetWWNs!;
+    }
+    if (wwids != null) {
+      jsonData['wwids'] = wwids!;
+    }
+
+    return jsonData;
+  }
+
   /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
   final String? fsType;
 

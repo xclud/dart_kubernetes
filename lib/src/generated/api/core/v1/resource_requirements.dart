@@ -23,6 +23,20 @@ class ResourceRequirements {
     return list.map((e) => ResourceRequirements.fromJson(e)).toList();
   }
 
+  /// Converts a ResourceRequirements instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (limits != null) {
+      jsonData['limits'] = limits!;
+    }
+    if (requests != null) {
+      jsonData['requests'] = requests!;
+    }
+
+    return jsonData;
+  }
+
   /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/.
   final Map<String, String>? limits;
 

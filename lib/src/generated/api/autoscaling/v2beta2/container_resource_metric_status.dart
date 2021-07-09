@@ -23,6 +23,17 @@ class ContainerResourceMetricStatus {
     return list.map((e) => ContainerResourceMetricStatus.fromJson(e)).toList();
   }
 
+  /// Converts a ContainerResourceMetricStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['container'] = container;
+    jsonData['current'] = current.toJson();
+    jsonData['name'] = name;
+
+    return jsonData;
+  }
+
   /// Container is the name of the container in the pods of the scaling target.
   final String container;
 

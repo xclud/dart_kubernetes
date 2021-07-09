@@ -137,6 +137,125 @@ class PodSpec {
     return list.map((e) => PodSpec.fromJson(e)).toList();
   }
 
+  /// Converts a PodSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (activeDeadlineSeconds != null) {
+      jsonData['activeDeadlineSeconds'] = activeDeadlineSeconds!;
+    }
+    if (affinity != null) {
+      jsonData['affinity'] = affinity!.toJson();
+    }
+    if (automountServiceAccountToken != null) {
+      jsonData['automountServiceAccountToken'] = automountServiceAccountToken!;
+    }
+    jsonData['containers'] = containers.map((item) => item.toJson()).toList();
+    if (dnsConfig != null) {
+      jsonData['dnsConfig'] = dnsConfig!.toJson();
+    }
+    if (dnsPolicy != null) {
+      jsonData['dnsPolicy'] = dnsPolicy!;
+    }
+    if (enableServiceLinks != null) {
+      jsonData['enableServiceLinks'] = enableServiceLinks!;
+    }
+    if (ephemeralContainers != null) {
+      jsonData['ephemeralContainers'] =
+          ephemeralContainers!.map((item) => item.toJson()).toList();
+    }
+    if (hostAliases != null) {
+      jsonData['hostAliases'] =
+          hostAliases!.map((item) => item.toJson()).toList();
+    }
+    if (hostIPC != null) {
+      jsonData['hostIPC'] = hostIPC!;
+    }
+    if (hostNetwork != null) {
+      jsonData['hostNetwork'] = hostNetwork!;
+    }
+    if (hostPID != null) {
+      jsonData['hostPID'] = hostPID!;
+    }
+    if (hostname != null) {
+      jsonData['hostname'] = hostname!;
+    }
+    if (imagePullSecrets != null) {
+      jsonData['imagePullSecrets'] =
+          imagePullSecrets!.map((item) => item.toJson()).toList();
+    }
+    if (initContainers != null) {
+      jsonData['initContainers'] =
+          initContainers!.map((item) => item.toJson()).toList();
+    }
+    if (nodeName != null) {
+      jsonData['nodeName'] = nodeName!;
+    }
+    if (nodeSelector != null) {
+      jsonData['nodeSelector'] = nodeSelector!;
+    }
+    if (overhead != null) {
+      jsonData['overhead'] = overhead!;
+    }
+    if (preemptionPolicy != null) {
+      jsonData['preemptionPolicy'] = preemptionPolicy!;
+    }
+    if (priority != null) {
+      jsonData['priority'] = priority!;
+    }
+    if (priorityClassName != null) {
+      jsonData['priorityClassName'] = priorityClassName!;
+    }
+    if (readinessGates != null) {
+      jsonData['readinessGates'] =
+          readinessGates!.map((item) => item.toJson()).toList();
+    }
+    if (restartPolicy != null) {
+      jsonData['restartPolicy'] = restartPolicy!;
+    }
+    if (runtimeClassName != null) {
+      jsonData['runtimeClassName'] = runtimeClassName!;
+    }
+    if (schedulerName != null) {
+      jsonData['schedulerName'] = schedulerName!;
+    }
+    if (securityContext != null) {
+      jsonData['securityContext'] = securityContext!.toJson();
+    }
+    if (serviceAccount != null) {
+      jsonData['serviceAccount'] = serviceAccount!;
+    }
+    if (serviceAccountName != null) {
+      jsonData['serviceAccountName'] = serviceAccountName!;
+    }
+    if (setHostnameAsFQDN != null) {
+      jsonData['setHostnameAsFQDN'] = setHostnameAsFQDN!;
+    }
+    if (shareProcessNamespace != null) {
+      jsonData['shareProcessNamespace'] = shareProcessNamespace!;
+    }
+    if (subdomain != null) {
+      jsonData['subdomain'] = subdomain!;
+    }
+    if (terminationGracePeriodSeconds != null) {
+      jsonData['terminationGracePeriodSeconds'] =
+          terminationGracePeriodSeconds!;
+    }
+    if (tolerations != null) {
+      jsonData['tolerations'] =
+          tolerations!.map((item) => item.toJson()).toList();
+    }
+    if (topologySpreadConstraints != null) {
+      jsonData['topologySpreadConstraints'] =
+          topologySpreadConstraints!.map((item) => item.toJson()).toList();
+    }
+    if (volumes != null) {
+      jsonData['volumes'] = volumes!.map((item) => item.toJson()).toList();
+    }
+
+    return jsonData;
+  }
+
   /// Optional duration in seconds the pod may be active on the node relative to StartTime before the system will actively try to mark it failed and kill associated containers. Value must be a positive integer.
   final int? activeDeadlineSeconds;
 

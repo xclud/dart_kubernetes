@@ -21,6 +21,19 @@ class CrossVersionObjectReference {
     return list.map((e) => CrossVersionObjectReference.fromJson(e)).toList();
   }
 
+  /// Converts a CrossVersionObjectReference instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    jsonData['kind'] = kind;
+    jsonData['name'] = name;
+
+    return jsonData;
+  }
+
   /// API version of the referent.
   final String? apiVersion;
 

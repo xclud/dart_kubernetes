@@ -19,6 +19,18 @@ class SeccompProfile {
     return list.map((e) => SeccompProfile.fromJson(e)).toList();
   }
 
+  /// Converts a SeccompProfile instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (localhostProfile != null) {
+      jsonData['localhostProfile'] = localhostProfile!;
+    }
+    jsonData['type'] = type;
+
+    return jsonData;
+  }
+
   /// LocalhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
   final String? localhostProfile;
 

@@ -33,6 +33,30 @@ class CephFSVolumeSource {
     return list.map((e) => CephFSVolumeSource.fromJson(e)).toList();
   }
 
+  /// Converts a CephFSVolumeSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['monitors'] = monitors;
+    if (path != null) {
+      jsonData['path'] = path!;
+    }
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
+    if (secretFile != null) {
+      jsonData['secretFile'] = secretFile!;
+    }
+    if (secretRef != null) {
+      jsonData['secretRef'] = secretRef!.toJson();
+    }
+    if (user != null) {
+      jsonData['user'] = user!;
+    }
+
+    return jsonData;
+  }
+
   /// Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it.
   final List<String> monitors;
 

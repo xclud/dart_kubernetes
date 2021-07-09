@@ -24,6 +24,19 @@ class ScopedResourceSelectorRequirement {
         .toList();
   }
 
+  /// Converts a ScopedResourceSelectorRequirement instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['operator'] = operator;
+    jsonData['scopeName'] = scopeName;
+    if (values != null) {
+      jsonData['values'] = values!;
+    }
+
+    return jsonData;
+  }
+
   /// Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist.
   final String operator;
 

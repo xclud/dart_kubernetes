@@ -23,6 +23,20 @@ class DeploymentStrategy {
     return list.map((e) => DeploymentStrategy.fromJson(e)).toList();
   }
 
+  /// Converts a DeploymentStrategy instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (rollingUpdate != null) {
+      jsonData['rollingUpdate'] = rollingUpdate!.toJson();
+    }
+    if (type != null) {
+      jsonData['type'] = type!;
+    }
+
+    return jsonData;
+  }
+
   /// Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
   final RollingUpdateDeployment? rollingUpdate;
 

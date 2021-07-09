@@ -36,6 +36,24 @@ class CustomResourceDefinitionSpec {
     return list.map((e) => CustomResourceDefinitionSpec.fromJson(e)).toList();
   }
 
+  /// Converts a CustomResourceDefinitionSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (conversion != null) {
+      jsonData['conversion'] = conversion!.toJson();
+    }
+    jsonData['group'] = group;
+    jsonData['names'] = names.toJson();
+    if (preserveUnknownFields != null) {
+      jsonData['preserveUnknownFields'] = preserveUnknownFields!;
+    }
+    jsonData['scope'] = scope;
+    jsonData['versions'] = versions.map((item) => item.toJson()).toList();
+
+    return jsonData;
+  }
+
   /// Conversion defines conversion settings for the CRD.
   final CustomResourceConversion? conversion;
 

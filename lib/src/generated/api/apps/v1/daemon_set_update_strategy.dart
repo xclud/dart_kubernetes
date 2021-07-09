@@ -23,6 +23,20 @@ class DaemonSetUpdateStrategy {
     return list.map((e) => DaemonSetUpdateStrategy.fromJson(e)).toList();
   }
 
+  /// Converts a DaemonSetUpdateStrategy instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (rollingUpdate != null) {
+      jsonData['rollingUpdate'] = rollingUpdate!.toJson();
+    }
+    if (type != null) {
+      jsonData['type'] = type!;
+    }
+
+    return jsonData;
+  }
+
   /// Rolling update config params. Present only if type = "RollingUpdate".
   final RollingUpdateDaemonSet? rollingUpdate;
 

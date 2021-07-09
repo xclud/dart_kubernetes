@@ -18,6 +18,16 @@ class NodeAddress {
     return list.map((e) => NodeAddress.fromJson(e)).toList();
   }
 
+  /// Converts a NodeAddress instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['address'] = address;
+    jsonData['type'] = type;
+
+    return jsonData;
+  }
+
   /// The node address.
   final String address;
 

@@ -27,6 +27,25 @@ class NamespaceCondition {
     return list.map((e) => NamespaceCondition.fromJson(e)).toList();
   }
 
+  /// Converts a NamespaceCondition instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (lastTransitionTime != null) {
+      jsonData['lastTransitionTime'] = lastTransitionTime!.toIso8601String();
+    }
+    if (message != null) {
+      jsonData['message'] = message!;
+    }
+    if (reason != null) {
+      jsonData['reason'] = reason!;
+    }
+    jsonData['status'] = status;
+    jsonData['type'] = type;
+
+    return jsonData;
+  }
+
   ///
   final DateTime? lastTransitionTime;
 

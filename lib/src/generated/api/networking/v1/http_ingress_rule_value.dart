@@ -22,6 +22,15 @@ class HTTPIngressRuleValue {
     return list.map((e) => HTTPIngressRuleValue.fromJson(e)).toList();
   }
 
+  /// Converts a HTTPIngressRuleValue instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['paths'] = paths.map((item) => item.toJson()).toList();
+
+    return jsonData;
+  }
+
   /// A collection of paths that map requests to backends.
   final List<HTTPIngressPath> paths;
 }

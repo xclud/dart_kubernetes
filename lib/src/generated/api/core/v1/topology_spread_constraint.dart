@@ -27,6 +27,20 @@ class TopologySpreadConstraint {
     return list.map((e) => TopologySpreadConstraint.fromJson(e)).toList();
   }
 
+  /// Converts a TopologySpreadConstraint instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (labelSelector != null) {
+      jsonData['labelSelector'] = labelSelector!.toJson();
+    }
+    jsonData['maxSkew'] = maxSkew;
+    jsonData['topologyKey'] = topologyKey;
+    jsonData['whenUnsatisfiable'] = whenUnsatisfiable;
+
+    return jsonData;
+  }
+
   /// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
   final LabelSelector? labelSelector;
 

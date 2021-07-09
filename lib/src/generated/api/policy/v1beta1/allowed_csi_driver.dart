@@ -17,6 +17,15 @@ class AllowedCSIDriver {
     return list.map((e) => AllowedCSIDriver.fromJson(e)).toList();
   }
 
+  /// Converts a AllowedCSIDriver instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['name'] = name;
+
+    return jsonData;
+  }
+
   /// Name is the registered name of the CSI driver.
   final String name;
 }

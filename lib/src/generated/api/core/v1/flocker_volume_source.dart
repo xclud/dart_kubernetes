@@ -19,6 +19,20 @@ class FlockerVolumeSource {
     return list.map((e) => FlockerVolumeSource.fromJson(e)).toList();
   }
 
+  /// Converts a FlockerVolumeSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (datasetName != null) {
+      jsonData['datasetName'] = datasetName!;
+    }
+    if (datasetUUID != null) {
+      jsonData['datasetUUID'] = datasetUUID!;
+    }
+
+    return jsonData;
+  }
+
   /// Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated.
   final String? datasetName;
 

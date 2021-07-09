@@ -31,6 +31,24 @@ class VolumeAttachmentStatus {
     return list.map((e) => VolumeAttachmentStatus.fromJson(e)).toList();
   }
 
+  /// Converts a VolumeAttachmentStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (attachError != null) {
+      jsonData['attachError'] = attachError!.toJson();
+    }
+    jsonData['attached'] = attached;
+    if (attachmentMetadata != null) {
+      jsonData['attachmentMetadata'] = attachmentMetadata!;
+    }
+    if (detachError != null) {
+      jsonData['detachError'] = detachError!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
   final VolumeError? attachError;
 

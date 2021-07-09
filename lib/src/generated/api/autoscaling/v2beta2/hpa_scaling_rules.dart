@@ -26,6 +26,23 @@ class HPAScalingRules {
     return list.map((e) => HPAScalingRules.fromJson(e)).toList();
   }
 
+  /// Converts a HPAScalingRules instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (policies != null) {
+      jsonData['policies'] = policies!.map((item) => item.toJson()).toList();
+    }
+    if (selectPolicy != null) {
+      jsonData['selectPolicy'] = selectPolicy!;
+    }
+    if (stabilizationWindowSeconds != null) {
+      jsonData['stabilizationWindowSeconds'] = stabilizationWindowSeconds!;
+    }
+
+    return jsonData;
+  }
+
   /// Policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid.
   final List<HPAScalingPolicy>? policies;
 

@@ -29,6 +29,23 @@ class CronJobStatus {
     return list.map((e) => CronJobStatus.fromJson(e)).toList();
   }
 
+  /// Converts a CronJobStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (active != null) {
+      jsonData['active'] = active!.map((item) => item.toJson()).toList();
+    }
+    if (lastScheduleTime != null) {
+      jsonData['lastScheduleTime'] = lastScheduleTime!.toIso8601String();
+    }
+    if (lastSuccessfulTime != null) {
+      jsonData['lastSuccessfulTime'] = lastSuccessfulTime!.toIso8601String();
+    }
+
+    return jsonData;
+  }
+
   /// A list of pointers to currently running jobs.
   final List<ObjectReference>? active;
 

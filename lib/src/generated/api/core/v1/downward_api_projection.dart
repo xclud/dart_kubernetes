@@ -22,6 +22,17 @@ class DownwardAPIProjection {
     return list.map((e) => DownwardAPIProjection.fromJson(e)).toList();
   }
 
+  /// Converts a DownwardAPIProjection instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (items != null) {
+      jsonData['items'] = items!.map((item) => item.toJson()).toList();
+    }
+
+    return jsonData;
+  }
+
   /// Items is a list of DownwardAPIVolume file.
   final List<DownwardAPIVolumeFile>? items;
 }

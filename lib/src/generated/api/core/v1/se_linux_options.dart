@@ -23,6 +23,26 @@ class SELinuxOptions {
     return list.map((e) => SELinuxOptions.fromJson(e)).toList();
   }
 
+  /// Converts a SELinuxOptions instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (level != null) {
+      jsonData['level'] = level!;
+    }
+    if (role != null) {
+      jsonData['role'] = role!;
+    }
+    if (type != null) {
+      jsonData['type'] = type!;
+    }
+    if (user != null) {
+      jsonData['user'] = user!;
+    }
+
+    return jsonData;
+  }
+
   /// Level is SELinux level label that applies to the container.
   final String? level;
 

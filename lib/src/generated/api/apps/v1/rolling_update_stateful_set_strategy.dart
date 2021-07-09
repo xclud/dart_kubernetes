@@ -19,6 +19,17 @@ class RollingUpdateStatefulSetStrategy {
         .toList();
   }
 
+  /// Converts a RollingUpdateStatefulSetStrategy instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (partition != null) {
+      jsonData['partition'] = partition!;
+    }
+
+    return jsonData;
+  }
+
   /// Partition indicates the ordinal at which the StatefulSet should be partitioned. Default value is 0.
   final int? partition;
 }

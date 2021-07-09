@@ -37,4 +37,11 @@ class RawExtension {
   static List<RawExtension> listFromJson(Iterable<Map<String, dynamic>> list) {
     return list.map((e) => RawExtension.fromJson(e)).toList();
   }
+
+  /// Converts a RawExtension instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    return jsonData;
+  }
 }

@@ -23,6 +23,22 @@ class ServiceReference {
     return list.map((e) => ServiceReference.fromJson(e)).toList();
   }
 
+  /// Converts a ServiceReference instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['name'] = name;
+    jsonData['namespace'] = namespace;
+    if (path != null) {
+      jsonData['path'] = path!;
+    }
+    if (port != null) {
+      jsonData['port'] = port!;
+    }
+
+    return jsonData;
+  }
+
   /// `name` is the name of the service. Required.
   final String name;
 

@@ -51,6 +51,44 @@ class PodSecurityContext {
     return list.map((e) => PodSecurityContext.fromJson(e)).toList();
   }
 
+  /// Converts a PodSecurityContext instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (fsGroup != null) {
+      jsonData['fsGroup'] = fsGroup!;
+    }
+    if (fsGroupChangePolicy != null) {
+      jsonData['fsGroupChangePolicy'] = fsGroupChangePolicy!;
+    }
+    if (runAsGroup != null) {
+      jsonData['runAsGroup'] = runAsGroup!;
+    }
+    if (runAsNonRoot != null) {
+      jsonData['runAsNonRoot'] = runAsNonRoot!;
+    }
+    if (runAsUser != null) {
+      jsonData['runAsUser'] = runAsUser!;
+    }
+    if (seLinuxOptions != null) {
+      jsonData['seLinuxOptions'] = seLinuxOptions!.toJson();
+    }
+    if (seccompProfile != null) {
+      jsonData['seccompProfile'] = seccompProfile!.toJson();
+    }
+    if (supplementalGroups != null) {
+      jsonData['supplementalGroups'] = supplementalGroups!;
+    }
+    if (sysctls != null) {
+      jsonData['sysctls'] = sysctls!.map((item) => item.toJson()).toList();
+    }
+    if (windowsOptions != null) {
+      jsonData['windowsOptions'] = windowsOptions!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
   ///
   /// 1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----

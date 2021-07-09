@@ -24,6 +24,18 @@ class PriorityLevelConfigurationStatus {
         .toList();
   }
 
+  /// Converts a PriorityLevelConfigurationStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
+
+    return jsonData;
+  }
+
   /// `conditions` is the current state of "request-priority".
   final List<PriorityLevelConfigurationCondition>? conditions;
 }

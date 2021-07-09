@@ -20,6 +20,17 @@ class IngressStatus {
     return list.map((e) => IngressStatus.fromJson(e)).toList();
   }
 
+  /// Converts a IngressStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (loadBalancer != null) {
+      jsonData['loadBalancer'] = loadBalancer!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// LoadBalancer contains the current status of the load-balancer.
   final LoadBalancerStatus? loadBalancer;
 }

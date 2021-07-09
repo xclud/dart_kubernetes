@@ -25,6 +25,23 @@ class WebhookClientConfig {
     return list.map((e) => WebhookClientConfig.fromJson(e)).toList();
   }
 
+  /// Converts a WebhookClientConfig instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (caBundle != null) {
+      jsonData['caBundle'] = caBundle!;
+    }
+    if (service != null) {
+      jsonData['service'] = service!.toJson();
+    }
+    if (url != null) {
+      jsonData['url'] = url!;
+    }
+
+    return jsonData;
+  }
+
   /// CaBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
   final String? caBundle;
 

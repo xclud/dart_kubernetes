@@ -23,6 +23,20 @@ class ResourceQuotaStatus {
     return list.map((e) => ResourceQuotaStatus.fromJson(e)).toList();
   }
 
+  /// Converts a ResourceQuotaStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (hard != null) {
+      jsonData['hard'] = hard!;
+    }
+    if (used != null) {
+      jsonData['used'] = used!;
+    }
+
+    return jsonData;
+  }
+
   /// Hard is the set of enforced hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/.
   final Map<String, String>? hard;
 

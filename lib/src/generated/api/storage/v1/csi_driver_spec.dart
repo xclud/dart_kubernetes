@@ -35,6 +35,36 @@ class CSIDriverSpec {
     return list.map((e) => CSIDriverSpec.fromJson(e)).toList();
   }
 
+  /// Converts a CSIDriverSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (attachRequired != null) {
+      jsonData['attachRequired'] = attachRequired!;
+    }
+    if (fsGroupPolicy != null) {
+      jsonData['fsGroupPolicy'] = fsGroupPolicy!;
+    }
+    if (podInfoOnMount != null) {
+      jsonData['podInfoOnMount'] = podInfoOnMount!;
+    }
+    if (requiresRepublish != null) {
+      jsonData['requiresRepublish'] = requiresRepublish!;
+    }
+    if (storageCapacity != null) {
+      jsonData['storageCapacity'] = storageCapacity!;
+    }
+    if (tokenRequests != null) {
+      jsonData['tokenRequests'] =
+          tokenRequests!.map((item) => item.toJson()).toList();
+    }
+    if (volumeLifecycleModes != null) {
+      jsonData['volumeLifecycleModes'] = volumeLifecycleModes!;
+    }
+
+    return jsonData;
+  }
+
   /// AttachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
   ///
   /// This field is immutable.

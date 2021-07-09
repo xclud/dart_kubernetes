@@ -21,6 +21,18 @@ class RuntimeClassStrategyOptions {
     return list.map((e) => RuntimeClassStrategyOptions.fromJson(e)).toList();
   }
 
+  /// Converts a RuntimeClassStrategyOptions instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['allowedRuntimeClassNames'] = allowedRuntimeClassNames;
+    if (defaultRuntimeClassName != null) {
+      jsonData['defaultRuntimeClassName'] = defaultRuntimeClassName!;
+    }
+
+    return jsonData;
+  }
+
   /// AllowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
   final List<String> allowedRuntimeClassNames;
 

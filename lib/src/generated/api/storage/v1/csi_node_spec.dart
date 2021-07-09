@@ -21,6 +21,15 @@ class CSINodeSpec {
     return list.map((e) => CSINodeSpec.fromJson(e)).toList();
   }
 
+  /// Converts a CSINodeSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['drivers'] = drivers.map((item) => item.toJson()).toList();
+
+    return jsonData;
+  }
+
   /// Drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
   final List<CSINodeDriver> drivers;
 }

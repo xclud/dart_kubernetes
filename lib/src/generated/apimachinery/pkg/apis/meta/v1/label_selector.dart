@@ -26,6 +26,21 @@ class LabelSelector {
     return list.map((e) => LabelSelector.fromJson(e)).toList();
   }
 
+  /// Converts a LabelSelector instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (matchExpressions != null) {
+      jsonData['matchExpressions'] =
+          matchExpressions!.map((item) => item.toJson()).toList();
+    }
+    if (matchLabels != null) {
+      jsonData['matchLabels'] = matchLabels!;
+    }
+
+    return jsonData;
+  }
+
   /// MatchExpressions is a list of label selector requirements. The requirements are ANDed.
   final List<LabelSelectorRequirement>? matchExpressions;
 

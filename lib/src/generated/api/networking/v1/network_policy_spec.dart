@@ -35,6 +35,24 @@ class NetworkPolicySpec {
     return list.map((e) => NetworkPolicySpec.fromJson(e)).toList();
   }
 
+  /// Converts a NetworkPolicySpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (egress != null) {
+      jsonData['egress'] = egress!.map((item) => item.toJson()).toList();
+    }
+    if (ingress != null) {
+      jsonData['ingress'] = ingress!.map((item) => item.toJson()).toList();
+    }
+    jsonData['podSelector'] = podSelector.toJson();
+    if (policyTypes != null) {
+      jsonData['policyTypes'] = policyTypes!;
+    }
+
+    return jsonData;
+  }
+
   /// List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8.
   final List<NetworkPolicyEgressRule>? egress;
 

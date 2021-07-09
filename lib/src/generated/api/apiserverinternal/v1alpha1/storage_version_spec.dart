@@ -11,4 +11,11 @@ class StorageVersionSpec {
       Iterable<Map<String, dynamic>> list) {
     return list.map((e) => StorageVersionSpec.fromJson(e)).toList();
   }
+
+  /// Converts a StorageVersionSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    return jsonData;
+  }
 }

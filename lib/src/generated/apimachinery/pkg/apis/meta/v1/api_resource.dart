@@ -38,6 +38,34 @@ class APIResource {
     return list.map((e) => APIResource.fromJson(e)).toList();
   }
 
+  /// Converts a APIResource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (categories != null) {
+      jsonData['categories'] = categories!;
+    }
+    if (group != null) {
+      jsonData['group'] = group!;
+    }
+    jsonData['kind'] = kind;
+    jsonData['name'] = name;
+    jsonData['namespaced'] = namespaced;
+    if (shortNames != null) {
+      jsonData['shortNames'] = shortNames!;
+    }
+    jsonData['singularName'] = singularName;
+    if (storageVersionHash != null) {
+      jsonData['storageVersionHash'] = storageVersionHash!;
+    }
+    jsonData['verbs'] = verbs;
+    if (version != null) {
+      jsonData['version'] = version!;
+    }
+
+    return jsonData;
+  }
+
   /// Categories is a list of the grouped resources this resource belongs to (e.g. 'all').
   final List<String>? categories;
 

@@ -26,6 +26,17 @@ class ObjectMetricSource {
     return list.map((e) => ObjectMetricSource.fromJson(e)).toList();
   }
 
+  /// Converts a ObjectMetricSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['describedObject'] = describedObject.toJson();
+    jsonData['metric'] = metric.toJson();
+    jsonData['target'] = target.toJson();
+
+    return jsonData;
+  }
+
   ///
   final CrossVersionObjectReference describedObject;
 

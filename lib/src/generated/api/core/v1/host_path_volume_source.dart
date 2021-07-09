@@ -19,6 +19,18 @@ class HostPathVolumeSource {
     return list.map((e) => HostPathVolumeSource.fromJson(e)).toList();
   }
 
+  /// Converts a HostPathVolumeSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['path'] = path;
+    if (type != null) {
+      jsonData['type'] = type!;
+    }
+
+    return jsonData;
+  }
+
   /// Path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath.
   final String path;
 

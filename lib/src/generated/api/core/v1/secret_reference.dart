@@ -19,6 +19,20 @@ class SecretReference {
     return list.map((e) => SecretReference.fromJson(e)).toList();
   }
 
+  /// Converts a SecretReference instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (name != null) {
+      jsonData['name'] = name!;
+    }
+    if (namespace != null) {
+      jsonData['namespace'] = namespace!;
+    }
+
+    return jsonData;
+  }
+
   /// Name is unique within a namespace to reference a secret resource.
   final String? name;
 

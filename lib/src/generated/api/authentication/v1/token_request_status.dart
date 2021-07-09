@@ -19,6 +19,16 @@ class TokenRequestStatus {
     return list.map((e) => TokenRequestStatus.fromJson(e)).toList();
   }
 
+  /// Converts a TokenRequestStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['expirationTimestamp'] = expirationTimestamp.toIso8601String();
+    jsonData['token'] = token;
+
+    return jsonData;
+  }
+
   /// ExpirationTimestamp is the time of expiration of the returned token.
   final DateTime expirationTimestamp;
 

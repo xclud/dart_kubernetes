@@ -17,6 +17,15 @@ class FlowDistinguisherMethod {
     return list.map((e) => FlowDistinguisherMethod.fromJson(e)).toList();
   }
 
+  /// Converts a FlowDistinguisherMethod instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['type'] = type;
+
+    return jsonData;
+  }
+
   /// `type` is the type of flow distinguisher method The supported types are "ByUser" and "ByNamespace". Required.
   final String type;
 }

@@ -37,6 +37,36 @@ class JobStatus {
     return list.map((e) => JobStatus.fromJson(e)).toList();
   }
 
+  /// Converts a JobStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (active != null) {
+      jsonData['active'] = active!;
+    }
+    if (completedIndexes != null) {
+      jsonData['completedIndexes'] = completedIndexes!;
+    }
+    if (completionTime != null) {
+      jsonData['completionTime'] = completionTime!.toIso8601String();
+    }
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
+    if (failed != null) {
+      jsonData['failed'] = failed!;
+    }
+    if (startTime != null) {
+      jsonData['startTime'] = startTime!.toIso8601String();
+    }
+    if (succeeded != null) {
+      jsonData['succeeded'] = succeeded!;
+    }
+
+    return jsonData;
+  }
+
   /// The number of actively running pods.
   final int? active;
 

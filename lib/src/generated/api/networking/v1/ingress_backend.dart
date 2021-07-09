@@ -26,6 +26,20 @@ class IngressBackend {
     return list.map((e) => IngressBackend.fromJson(e)).toList();
   }
 
+  /// Converts a IngressBackend instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (resource != null) {
+      jsonData['resource'] = resource!.toJson();
+    }
+    if (service != null) {
+      jsonData['service'] = service!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
   final TypedLocalObjectReference? resource;
 

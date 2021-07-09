@@ -16,6 +16,15 @@ class GroupSubject {
     return list.map((e) => GroupSubject.fromJson(e)).toList();
   }
 
+  /// Converts a GroupSubject instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['name'] = name;
+
+    return jsonData;
+  }
+
   /// Name is the user group that matches, or "*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
   final String name;
 }

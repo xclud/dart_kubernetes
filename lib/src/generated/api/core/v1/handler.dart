@@ -28,6 +28,23 @@ class Handler {
     return list.map((e) => Handler.fromJson(e)).toList();
   }
 
+  /// Converts a Handler instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (exec != null) {
+      jsonData['exec'] = exec!.toJson();
+    }
+    if (httpGet != null) {
+      jsonData['httpGet'] = httpGet!.toJson();
+    }
+    if (tcpSocket != null) {
+      jsonData['tcpSocket'] = tcpSocket!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// One and only one of the following should be specified. Exec specifies the action to take.
   final ExecAction? exec;
 

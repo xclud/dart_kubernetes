@@ -18,6 +18,16 @@ class Sysctl {
     return list.map((e) => Sysctl.fromJson(e)).toList();
   }
 
+  /// Converts a Sysctl instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['name'] = name;
+    jsonData['value'] = value;
+
+    return jsonData;
+  }
+
   /// Name of a property to set.
   final String name;
 

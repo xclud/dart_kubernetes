@@ -21,6 +21,18 @@ class PhotonPersistentDiskVolumeSource {
         .toList();
   }
 
+  /// Converts a PhotonPersistentDiskVolumeSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (fsType != null) {
+      jsonData['fsType'] = fsType!;
+    }
+    jsonData['pdID'] = pdID;
+
+    return jsonData;
+  }
+
   /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
   final String? fsType;
 

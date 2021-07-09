@@ -23,6 +23,26 @@ class BoundObjectReference {
     return list.map((e) => BoundObjectReference.fromJson(e)).toList();
   }
 
+  /// Converts a BoundObjectReference instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (name != null) {
+      jsonData['name'] = name!;
+    }
+    if (uid != null) {
+      jsonData['uid'] = uid!;
+    }
+
+    return jsonData;
+  }
+
   /// API version of the referent.
   final String? apiVersion;
 

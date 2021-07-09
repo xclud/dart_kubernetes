@@ -36,6 +36,23 @@ class PolicyRulesWithSubjects {
     return list.map((e) => PolicyRulesWithSubjects.fromJson(e)).toList();
   }
 
+  /// Converts a PolicyRulesWithSubjects instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (nonResourceRules != null) {
+      jsonData['nonResourceRules'] =
+          nonResourceRules!.map((item) => item.toJson()).toList();
+    }
+    if (resourceRules != null) {
+      jsonData['resourceRules'] =
+          resourceRules!.map((item) => item.toJson()).toList();
+    }
+    jsonData['subjects'] = subjects.map((item) => item.toJson()).toList();
+
+    return jsonData;
+  }
+
   /// `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests according to their verb and the target non-resource URL.
   final List<NonResourcePolicyRule>? nonResourceRules;
 

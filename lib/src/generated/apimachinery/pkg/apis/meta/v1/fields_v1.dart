@@ -14,4 +14,11 @@ class FieldsV1 {
   static List<FieldsV1> listFromJson(Iterable<Map<String, dynamic>> list) {
     return list.map((e) => FieldsV1.fromJson(e)).toList();
   }
+
+  /// Converts a FieldsV1 instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    return jsonData;
+  }
 }

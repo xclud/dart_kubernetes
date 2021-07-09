@@ -23,6 +23,20 @@ class VolumeAttachmentSource {
     return list.map((e) => VolumeAttachmentSource.fromJson(e)).toList();
   }
 
+  /// Converts a VolumeAttachmentSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (inlineVolumeSpec != null) {
+      jsonData['inlineVolumeSpec'] = inlineVolumeSpec!.toJson();
+    }
+    if (persistentVolumeName != null) {
+      jsonData['persistentVolumeName'] = persistentVolumeName!;
+    }
+
+    return jsonData;
+  }
+
   /// InlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
   final PersistentVolumeSpec? inlineVolumeSpec;
 

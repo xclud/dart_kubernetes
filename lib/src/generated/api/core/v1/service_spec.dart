@@ -70,6 +70,72 @@ class ServiceSpec {
     return list.map((e) => ServiceSpec.fromJson(e)).toList();
   }
 
+  /// Converts a ServiceSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (allocateLoadBalancerNodePorts != null) {
+      jsonData['allocateLoadBalancerNodePorts'] =
+          allocateLoadBalancerNodePorts!;
+    }
+    if (clusterIP != null) {
+      jsonData['clusterIP'] = clusterIP!;
+    }
+    if (clusterIPs != null) {
+      jsonData['clusterIPs'] = clusterIPs!;
+    }
+    if (externalIPs != null) {
+      jsonData['externalIPs'] = externalIPs!;
+    }
+    if (externalName != null) {
+      jsonData['externalName'] = externalName!;
+    }
+    if (externalTrafficPolicy != null) {
+      jsonData['externalTrafficPolicy'] = externalTrafficPolicy!;
+    }
+    if (healthCheckNodePort != null) {
+      jsonData['healthCheckNodePort'] = healthCheckNodePort!;
+    }
+    if (internalTrafficPolicy != null) {
+      jsonData['internalTrafficPolicy'] = internalTrafficPolicy!;
+    }
+    if (ipFamilies != null) {
+      jsonData['ipFamilies'] = ipFamilies!;
+    }
+    if (ipFamilyPolicy != null) {
+      jsonData['ipFamilyPolicy'] = ipFamilyPolicy!;
+    }
+    if (loadBalancerClass != null) {
+      jsonData['loadBalancerClass'] = loadBalancerClass!;
+    }
+    if (loadBalancerIP != null) {
+      jsonData['loadBalancerIP'] = loadBalancerIP!;
+    }
+    if (loadBalancerSourceRanges != null) {
+      jsonData['loadBalancerSourceRanges'] = loadBalancerSourceRanges!;
+    }
+    if (ports != null) {
+      jsonData['ports'] = ports!.map((item) => item.toJson()).toList();
+    }
+    if (publishNotReadyAddresses != null) {
+      jsonData['publishNotReadyAddresses'] = publishNotReadyAddresses!;
+    }
+    if (selector != null) {
+      jsonData['selector'] = selector!;
+    }
+    if (sessionAffinity != null) {
+      jsonData['sessionAffinity'] = sessionAffinity!;
+    }
+    if (sessionAffinityConfig != null) {
+      jsonData['sessionAffinityConfig'] = sessionAffinityConfig!.toJson();
+    }
+    if (type != null) {
+      jsonData['type'] = type!;
+    }
+
+    return jsonData;
+  }
+
   /// AllocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts. allocateLoadBalancerNodePorts may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is alpha-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
   final bool? allocateLoadBalancerNodePorts;
 

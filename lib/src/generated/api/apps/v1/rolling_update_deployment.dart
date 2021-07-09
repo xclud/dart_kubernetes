@@ -19,6 +19,20 @@ class RollingUpdateDeployment {
     return list.map((e) => RollingUpdateDeployment.fromJson(e)).toList();
   }
 
+  /// Converts a RollingUpdateDeployment instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (maxSurge != null) {
+      jsonData['maxSurge'] = maxSurge!;
+    }
+    if (maxUnavailable != null) {
+      jsonData['maxUnavailable'] = maxUnavailable!;
+    }
+
+    return jsonData;
+  }
+
   /// The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
   final Object? maxSurge;
 

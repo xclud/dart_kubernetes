@@ -40,6 +40,37 @@ class DaemonSetStatus {
     return list.map((e) => DaemonSetStatus.fromJson(e)).toList();
   }
 
+  /// Converts a DaemonSetStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (collisionCount != null) {
+      jsonData['collisionCount'] = collisionCount!;
+    }
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
+    jsonData['currentNumberScheduled'] = currentNumberScheduled;
+    jsonData['desiredNumberScheduled'] = desiredNumberScheduled;
+    if (numberAvailable != null) {
+      jsonData['numberAvailable'] = numberAvailable!;
+    }
+    jsonData['numberMisscheduled'] = numberMisscheduled;
+    jsonData['numberReady'] = numberReady;
+    if (numberUnavailable != null) {
+      jsonData['numberUnavailable'] = numberUnavailable!;
+    }
+    if (observedGeneration != null) {
+      jsonData['observedGeneration'] = observedGeneration!;
+    }
+    if (updatedNumberScheduled != null) {
+      jsonData['updatedNumberScheduled'] = updatedNumberScheduled!;
+    }
+
+    return jsonData;
+  }
+
   /// Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
   final int? collisionCount;
 

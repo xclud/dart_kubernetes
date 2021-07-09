@@ -25,6 +25,19 @@ class PodsMetricStatus {
     return list.map((e) => PodsMetricStatus.fromJson(e)).toList();
   }
 
+  /// Converts a PodsMetricStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['currentAverageValue'] = currentAverageValue;
+    jsonData['metricName'] = metricName;
+    if (selector != null) {
+      jsonData['selector'] = selector!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// CurrentAverageValue is the current value of the average of the metric across all relevant pods (as a quantity).
   final String currentAverageValue;
 

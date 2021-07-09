@@ -31,6 +31,32 @@ class StatusDetails {
     return list.map((e) => StatusDetails.fromJson(e)).toList();
   }
 
+  /// Converts a StatusDetails instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (causes != null) {
+      jsonData['causes'] = causes!.map((item) => item.toJson()).toList();
+    }
+    if (group != null) {
+      jsonData['group'] = group!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (name != null) {
+      jsonData['name'] = name!;
+    }
+    if (retryAfterSeconds != null) {
+      jsonData['retryAfterSeconds'] = retryAfterSeconds!;
+    }
+    if (uid != null) {
+      jsonData['uid'] = uid!;
+    }
+
+    return jsonData;
+  }
+
   /// The Causes array includes more details associated with the StatusReason failure. Not all StatusReasons may provide detailed causes.
   final List<StatusCause>? causes;
 

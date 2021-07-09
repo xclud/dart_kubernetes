@@ -20,6 +20,17 @@ class RoleRef {
     return list.map((e) => RoleRef.fromJson(e)).toList();
   }
 
+  /// Converts a RoleRef instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['apiGroup'] = apiGroup;
+    jsonData['kind'] = kind;
+    jsonData['name'] = name;
+
+    return jsonData;
+  }
+
   /// APIGroup is the group for the resource being referenced.
   final String apiGroup;
 

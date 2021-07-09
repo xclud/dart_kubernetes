@@ -23,6 +23,19 @@ class HTTPIngressPath {
     return list.map((e) => HTTPIngressPath.fromJson(e)).toList();
   }
 
+  /// Converts a HTTPIngressPath instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['backend'] = backend.toJson();
+    if (path != null) {
+      jsonData['path'] = path!;
+    }
+    jsonData['pathType'] = pathType;
+
+    return jsonData;
+  }
+
   /// Backend defines the referenced service endpoint to which the traffic will be forwarded to.
   final IngressBackend backend;
 

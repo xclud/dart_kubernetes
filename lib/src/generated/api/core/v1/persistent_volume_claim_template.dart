@@ -24,6 +24,18 @@ class PersistentVolumeClaimTemplate {
     return list.map((e) => PersistentVolumeClaimTemplate.fromJson(e)).toList();
   }
 
+  /// Converts a PersistentVolumeClaimTemplate instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
+    jsonData['spec'] = spec.toJson();
+
+    return jsonData;
+  }
+
   /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
   final ObjectMeta? metadata;
 

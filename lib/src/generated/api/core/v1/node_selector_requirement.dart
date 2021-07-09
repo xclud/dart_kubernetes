@@ -22,6 +22,19 @@ class NodeSelectorRequirement {
     return list.map((e) => NodeSelectorRequirement.fromJson(e)).toList();
   }
 
+  /// Converts a NodeSelectorRequirement instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['key'] = key;
+    jsonData['operator'] = operator;
+    if (values != null) {
+      jsonData['values'] = values!;
+    }
+
+    return jsonData;
+  }
+
   /// The label key that the selector applies to.
   final String key;
 

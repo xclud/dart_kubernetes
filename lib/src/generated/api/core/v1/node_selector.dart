@@ -22,6 +22,16 @@ class NodeSelector {
     return list.map((e) => NodeSelector.fromJson(e)).toList();
   }
 
+  /// Converts a NodeSelector instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['nodeSelectorTerms'] =
+        nodeSelectorTerms.map((item) => item.toJson()).toList();
+
+    return jsonData;
+  }
+
   /// Required. A list of node selector terms. The terms are ORed.
   final List<NodeSelectorTerm> nodeSelectorTerms;
 }

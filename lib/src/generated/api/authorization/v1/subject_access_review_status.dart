@@ -23,6 +23,24 @@ class SubjectAccessReviewStatus {
     return list.map((e) => SubjectAccessReviewStatus.fromJson(e)).toList();
   }
 
+  /// Converts a SubjectAccessReviewStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['allowed'] = allowed;
+    if (denied != null) {
+      jsonData['denied'] = denied!;
+    }
+    if (evaluationError != null) {
+      jsonData['evaluationError'] = evaluationError!;
+    }
+    if (reason != null) {
+      jsonData['reason'] = reason!;
+    }
+
+    return jsonData;
+  }
+
   /// Allowed is required. True if the action would be allowed, false otherwise.
   final bool allowed;
 

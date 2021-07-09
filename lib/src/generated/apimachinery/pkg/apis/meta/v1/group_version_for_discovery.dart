@@ -19,6 +19,16 @@ class GroupVersionForDiscovery {
     return list.map((e) => GroupVersionForDiscovery.fromJson(e)).toList();
   }
 
+  /// Converts a GroupVersionForDiscovery instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['groupVersion'] = groupVersion;
+    jsonData['version'] = version;
+
+    return jsonData;
+  }
+
   /// GroupVersion specifies the API group and version in the form "group/version".
   final String groupVersion;
 

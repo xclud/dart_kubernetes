@@ -21,6 +21,18 @@ class NonResourceRule {
     return list.map((e) => NonResourceRule.fromJson(e)).toList();
   }
 
+  /// Converts a NonResourceRule instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (nonResourceURLs != null) {
+      jsonData['nonResourceURLs'] = nonResourceURLs!;
+    }
+    jsonData['verbs'] = verbs;
+
+    return jsonData;
+  }
+
   /// NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path.  "*" means all.
   final List<String>? nonResourceURLs;
 

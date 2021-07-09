@@ -37,6 +37,30 @@ class LimitRangeItem {
     return list.map((e) => LimitRangeItem.fromJson(e)).toList();
   }
 
+  /// Converts a LimitRangeItem instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if ($default != null) {
+      jsonData['default'] = $default!;
+    }
+    if (defaultRequest != null) {
+      jsonData['defaultRequest'] = defaultRequest!;
+    }
+    if (max != null) {
+      jsonData['max'] = max!;
+    }
+    if (maxLimitRequestRatio != null) {
+      jsonData['maxLimitRequestRatio'] = maxLimitRequestRatio!;
+    }
+    if (min != null) {
+      jsonData['min'] = min!;
+    }
+    jsonData['type'] = type;
+
+    return jsonData;
+  }
+
   /// Default resource requirement limit value by resource name if resource limit is omitted.
   final Map<String, String>? $default;
 

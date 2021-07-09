@@ -26,6 +26,21 @@ class CertificateSigningRequestStatus {
         .toList();
   }
 
+  /// Converts a CertificateSigningRequestStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (certificate != null) {
+      jsonData['certificate'] = certificate!;
+    }
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
+
+    return jsonData;
+  }
+
   /// Certificate is populated with an issued certificate by the signer after an Approved condition is present. This field is set via the /status subresource. Once populated, this field is immutable.
   ///
   /// If the certificate signing request is denied, a condition of type "Denied" is added and this field remains empty. If the signer cannot issue the certificate, a condition of type "Failed" is added and this field remains empty.

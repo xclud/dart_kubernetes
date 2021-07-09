@@ -66,6 +66,61 @@ class Event {
     return list.map((e) => Event.fromJson(e)).toList();
   }
 
+  /// Converts a Event instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (action != null) {
+      jsonData['action'] = action!;
+    }
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (count != null) {
+      jsonData['count'] = count!;
+    }
+    if (eventTime != null) {
+      jsonData['eventTime'] = eventTime!.toJson();
+    }
+    if (firstTimestamp != null) {
+      jsonData['firstTimestamp'] = firstTimestamp!.toIso8601String();
+    }
+    jsonData['involvedObject'] = involvedObject.toJson();
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (lastTimestamp != null) {
+      jsonData['lastTimestamp'] = lastTimestamp!.toIso8601String();
+    }
+    if (message != null) {
+      jsonData['message'] = message!;
+    }
+    jsonData['metadata'] = metadata.toJson();
+    if (reason != null) {
+      jsonData['reason'] = reason!;
+    }
+    if (related != null) {
+      jsonData['related'] = related!.toJson();
+    }
+    if (reportingComponent != null) {
+      jsonData['reportingComponent'] = reportingComponent!;
+    }
+    if (reportingInstance != null) {
+      jsonData['reportingInstance'] = reportingInstance!;
+    }
+    if (series != null) {
+      jsonData['series'] = series!.toJson();
+    }
+    if (source != null) {
+      jsonData['source'] = source!.toJson();
+    }
+    if (type != null) {
+      jsonData['type'] = type!;
+    }
+
+    return jsonData;
+  }
+
   /// What action was taken/failed regarding to the Regarding object.
   final String? action;
 

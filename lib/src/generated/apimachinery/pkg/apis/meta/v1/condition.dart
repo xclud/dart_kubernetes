@@ -26,6 +26,22 @@ class Condition {
     return list.map((e) => Condition.fromJson(e)).toList();
   }
 
+  /// Converts a Condition instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['lastTransitionTime'] = lastTransitionTime.toIso8601String();
+    jsonData['message'] = message;
+    if (observedGeneration != null) {
+      jsonData['observedGeneration'] = observedGeneration!;
+    }
+    jsonData['reason'] = reason;
+    jsonData['status'] = status;
+    jsonData['type'] = type;
+
+    return jsonData;
+  }
+
   /// LastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
   final DateTime lastTransitionTime;
 

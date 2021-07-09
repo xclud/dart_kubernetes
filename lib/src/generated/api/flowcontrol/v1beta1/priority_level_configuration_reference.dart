@@ -19,6 +19,15 @@ class PriorityLevelConfigurationReference {
         .toList();
   }
 
+  /// Converts a PriorityLevelConfigurationReference instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['name'] = name;
+
+    return jsonData;
+  }
+
   /// `name` is the name of the priority level configuration being referenced Required.
   final String name;
 }

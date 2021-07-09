@@ -22,6 +22,15 @@ class LimitRangeSpec {
     return list.map((e) => LimitRangeSpec.fromJson(e)).toList();
   }
 
+  /// Converts a LimitRangeSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['limits'] = limits.map((item) => item.toJson()).toList();
+
+    return jsonData;
+  }
+
   /// Limits is the list of LimitRangeItem objects that are enforced.
   final List<LimitRangeItem> limits;
 }

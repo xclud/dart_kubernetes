@@ -33,6 +33,22 @@ class SubjectRulesReviewStatus {
     return list.map((e) => SubjectRulesReviewStatus.fromJson(e)).toList();
   }
 
+  /// Converts a SubjectRulesReviewStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (evaluationError != null) {
+      jsonData['evaluationError'] = evaluationError!;
+    }
+    jsonData['incomplete'] = incomplete;
+    jsonData['nonResourceRules'] =
+        nonResourceRules.map((item) => item.toJson()).toList();
+    jsonData['resourceRules'] =
+        resourceRules.map((item) => item.toJson()).toList();
+
+    return jsonData;
+  }
+
   /// EvaluationError can appear in combination with Rules. It indicates an error occurred during rule evaluation, such as an authorizer that doesn't support rule evaluation, and that ResourceRules and/or NonResourceRules may be incomplete.
   final String? evaluationError;
 

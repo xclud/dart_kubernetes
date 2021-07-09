@@ -24,6 +24,20 @@ class PodTemplateSpec {
     return list.map((e) => PodTemplateSpec.fromJson(e)).toList();
   }
 
+  /// Converts a PodTemplateSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
+    if (spec != null) {
+      jsonData['spec'] = spec!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
   final ObjectMeta? metadata;
 

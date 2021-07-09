@@ -30,6 +30,28 @@ class JobCondition {
     return list.map((e) => JobCondition.fromJson(e)).toList();
   }
 
+  /// Converts a JobCondition instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (lastProbeTime != null) {
+      jsonData['lastProbeTime'] = lastProbeTime!.toIso8601String();
+    }
+    if (lastTransitionTime != null) {
+      jsonData['lastTransitionTime'] = lastTransitionTime!.toIso8601String();
+    }
+    if (message != null) {
+      jsonData['message'] = message!;
+    }
+    if (reason != null) {
+      jsonData['reason'] = reason!;
+    }
+    jsonData['status'] = status;
+    jsonData['type'] = type;
+
+    return jsonData;
+  }
+
   /// Last time the condition was checked.
   final DateTime? lastProbeTime;
 

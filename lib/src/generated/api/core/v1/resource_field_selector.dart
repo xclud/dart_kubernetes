@@ -21,6 +21,21 @@ class ResourceFieldSelector {
     return list.map((e) => ResourceFieldSelector.fromJson(e)).toList();
   }
 
+  /// Converts a ResourceFieldSelector instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (containerName != null) {
+      jsonData['containerName'] = containerName!;
+    }
+    if (divisor != null) {
+      jsonData['divisor'] = divisor!;
+    }
+    jsonData['resource'] = resource;
+
+    return jsonData;
+  }
+
   /// Container name: required for volumes, optional for env vars.
   final String? containerName;
 

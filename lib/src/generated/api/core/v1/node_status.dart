@@ -69,6 +69,49 @@ class NodeStatus {
     return list.map((e) => NodeStatus.fromJson(e)).toList();
   }
 
+  /// Converts a NodeStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (addresses != null) {
+      jsonData['addresses'] = addresses!.map((item) => item.toJson()).toList();
+    }
+    if (allocatable != null) {
+      jsonData['allocatable'] = allocatable!;
+    }
+    if (capacity != null) {
+      jsonData['capacity'] = capacity!;
+    }
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
+    if (config != null) {
+      jsonData['config'] = config!.toJson();
+    }
+    if (daemonEndpoints != null) {
+      jsonData['daemonEndpoints'] = daemonEndpoints!.toJson();
+    }
+    if (images != null) {
+      jsonData['images'] = images!.map((item) => item.toJson()).toList();
+    }
+    if (nodeInfo != null) {
+      jsonData['nodeInfo'] = nodeInfo!.toJson();
+    }
+    if (phase != null) {
+      jsonData['phase'] = phase!;
+    }
+    if (volumesAttached != null) {
+      jsonData['volumesAttached'] =
+          volumesAttached!.map((item) => item.toJson()).toList();
+    }
+    if (volumesInUse != null) {
+      jsonData['volumesInUse'] = volumesInUse!;
+    }
+
+    return jsonData;
+  }
+
   /// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See http://pr.k8s.io/79391 for an example.
   final List<NodeAddress>? addresses;
 

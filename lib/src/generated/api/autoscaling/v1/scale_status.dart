@@ -18,6 +18,18 @@ class ScaleStatus {
     return list.map((e) => ScaleStatus.fromJson(e)).toList();
   }
 
+  /// Converts a ScaleStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['replicas'] = replicas;
+    if (selector != null) {
+      jsonData['selector'] = selector!;
+    }
+
+    return jsonData;
+  }
+
   /// Actual number of observed instances of the scaled object.
   final int replicas;
 

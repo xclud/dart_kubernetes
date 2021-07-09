@@ -19,6 +19,20 @@ class ServiceBackendPort {
     return list.map((e) => ServiceBackendPort.fromJson(e)).toList();
   }
 
+  /// Converts a ServiceBackendPort instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (name != null) {
+      jsonData['name'] = name!;
+    }
+    if (number != null) {
+      jsonData['number'] = number!;
+    }
+
+    return jsonData;
+  }
+
   /// Name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
   final String? name;
 

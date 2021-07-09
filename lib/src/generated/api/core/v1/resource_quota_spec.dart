@@ -28,6 +28,23 @@ class ResourceQuotaSpec {
     return list.map((e) => ResourceQuotaSpec.fromJson(e)).toList();
   }
 
+  /// Converts a ResourceQuotaSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (hard != null) {
+      jsonData['hard'] = hard!;
+    }
+    if (scopeSelector != null) {
+      jsonData['scopeSelector'] = scopeSelector!.toJson();
+    }
+    if (scopes != null) {
+      jsonData['scopes'] = scopes!;
+    }
+
+    return jsonData;
+  }
+
   /// Hard is the set of desired hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/.
   final Map<String, String>? hard;
 

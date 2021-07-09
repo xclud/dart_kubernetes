@@ -19,6 +19,20 @@ class EmptyDirVolumeSource {
     return list.map((e) => EmptyDirVolumeSource.fromJson(e)).toList();
   }
 
+  /// Converts a EmptyDirVolumeSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (medium != null) {
+      jsonData['medium'] = medium!;
+    }
+    if (sizeLimit != null) {
+      jsonData['sizeLimit'] = sizeLimit!;
+    }
+
+    return jsonData;
+  }
+
   /// What type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir.
   final String? medium;
 

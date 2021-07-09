@@ -36,6 +36,28 @@ class PodDisruptionBudgetStatus {
     return list.map((e) => PodDisruptionBudgetStatus.fromJson(e)).toList();
   }
 
+  /// Converts a PodDisruptionBudgetStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
+    jsonData['currentHealthy'] = currentHealthy;
+    jsonData['desiredHealthy'] = desiredHealthy;
+    if (disruptedPods != null) {
+      jsonData['disruptedPods'] = disruptedPods!;
+    }
+    jsonData['disruptionsAllowed'] = disruptionsAllowed;
+    jsonData['expectedPods'] = expectedPods;
+    if (observedGeneration != null) {
+      jsonData['observedGeneration'] = observedGeneration!;
+    }
+
+    return jsonData;
+  }
+
   /// Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
   ///               the number of allowed disruptions. Therefore no disruptions are
   ///               allowed and the status of the condition will be False.

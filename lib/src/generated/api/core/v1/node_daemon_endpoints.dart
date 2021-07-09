@@ -21,6 +21,17 @@ class NodeDaemonEndpoints {
     return list.map((e) => NodeDaemonEndpoints.fromJson(e)).toList();
   }
 
+  /// Converts a NodeDaemonEndpoints instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (kubeletEndpoint != null) {
+      jsonData['kubeletEndpoint'] = kubeletEndpoint!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// Endpoint on which Kubelet is listening.
   final DaemonEndpoint? kubeletEndpoint;
 }

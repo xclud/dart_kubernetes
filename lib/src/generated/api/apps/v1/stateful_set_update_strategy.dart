@@ -23,6 +23,20 @@ class StatefulSetUpdateStrategy {
     return list.map((e) => StatefulSetUpdateStrategy.fromJson(e)).toList();
   }
 
+  /// Converts a StatefulSetUpdateStrategy instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (rollingUpdate != null) {
+      jsonData['rollingUpdate'] = rollingUpdate!.toJson();
+    }
+    if (type != null) {
+      jsonData['type'] = type!;
+    }
+
+    return jsonData;
+  }
+
   /// RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
   final RollingUpdateStatefulSetStrategy? rollingUpdate;
 

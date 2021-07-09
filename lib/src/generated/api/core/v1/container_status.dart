@@ -39,6 +39,31 @@ class ContainerStatus {
     return list.map((e) => ContainerStatus.fromJson(e)).toList();
   }
 
+  /// Converts a ContainerStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (containerID != null) {
+      jsonData['containerID'] = containerID!;
+    }
+    jsonData['image'] = image;
+    jsonData['imageID'] = imageID;
+    if (lastState != null) {
+      jsonData['lastState'] = lastState!.toJson();
+    }
+    jsonData['name'] = name;
+    jsonData['ready'] = ready;
+    jsonData['restartCount'] = restartCount;
+    if (started != null) {
+      jsonData['started'] = started!;
+    }
+    if (state != null) {
+      jsonData['state'] = state!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// Container's ID in the format 'docker://<container_id>'.
   final String? containerID;
 

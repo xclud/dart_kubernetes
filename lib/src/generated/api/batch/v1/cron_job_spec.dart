@@ -30,6 +30,31 @@ class CronJobSpec {
     return list.map((e) => CronJobSpec.fromJson(e)).toList();
   }
 
+  /// Converts a CronJobSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (concurrencyPolicy != null) {
+      jsonData['concurrencyPolicy'] = concurrencyPolicy!;
+    }
+    if (failedJobsHistoryLimit != null) {
+      jsonData['failedJobsHistoryLimit'] = failedJobsHistoryLimit!;
+    }
+    jsonData['jobTemplate'] = jobTemplate.toJson();
+    jsonData['schedule'] = schedule;
+    if (startingDeadlineSeconds != null) {
+      jsonData['startingDeadlineSeconds'] = startingDeadlineSeconds!;
+    }
+    if (successfulJobsHistoryLimit != null) {
+      jsonData['successfulJobsHistoryLimit'] = successfulJobsHistoryLimit!;
+    }
+    if (suspend != null) {
+      jsonData['suspend'] = suspend!;
+    }
+
+    return jsonData;
+  }
+
   /// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one.
   final String? concurrencyPolicy;
 

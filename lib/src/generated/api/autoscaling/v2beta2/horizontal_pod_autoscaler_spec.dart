@@ -35,6 +35,25 @@ class HorizontalPodAutoscalerSpec {
     return list.map((e) => HorizontalPodAutoscalerSpec.fromJson(e)).toList();
   }
 
+  /// Converts a HorizontalPodAutoscalerSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (behavior != null) {
+      jsonData['behavior'] = behavior!.toJson();
+    }
+    jsonData['maxReplicas'] = maxReplicas;
+    if (metrics != null) {
+      jsonData['metrics'] = metrics!.map((item) => item.toJson()).toList();
+    }
+    if (minReplicas != null) {
+      jsonData['minReplicas'] = minReplicas!;
+    }
+    jsonData['scaleTargetRef'] = scaleTargetRef.toJson();
+
+    return jsonData;
+  }
+
   /// Behavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively). If not set, the default HPAScalingRules for scale up and scale down are used.
   final HorizontalPodAutoscalerBehavior? behavior;
 

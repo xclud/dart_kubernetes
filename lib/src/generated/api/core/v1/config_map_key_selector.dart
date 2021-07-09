@@ -21,6 +21,21 @@ class ConfigMapKeySelector {
     return list.map((e) => ConfigMapKeySelector.fromJson(e)).toList();
   }
 
+  /// Converts a ConfigMapKeySelector instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['key'] = key;
+    if (name != null) {
+      jsonData['name'] = name!;
+    }
+    if (optional != null) {
+      jsonData['optional'] = optional!;
+    }
+
+    return jsonData;
+  }
+
   /// The key to select.
   final String key;
 

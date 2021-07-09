@@ -37,6 +37,38 @@ class ScaleIOPersistentVolumeSource {
     return list.map((e) => ScaleIOPersistentVolumeSource.fromJson(e)).toList();
   }
 
+  /// Converts a ScaleIOPersistentVolumeSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (fsType != null) {
+      jsonData['fsType'] = fsType!;
+    }
+    jsonData['gateway'] = gateway;
+    if (protectionDomain != null) {
+      jsonData['protectionDomain'] = protectionDomain!;
+    }
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
+    jsonData['secretRef'] = secretRef.toJson();
+    if (sslEnabled != null) {
+      jsonData['sslEnabled'] = sslEnabled!;
+    }
+    if (storageMode != null) {
+      jsonData['storageMode'] = storageMode!;
+    }
+    if (storagePool != null) {
+      jsonData['storagePool'] = storagePool!;
+    }
+    jsonData['system'] = system;
+    if (volumeName != null) {
+      jsonData['volumeName'] = volumeName!;
+    }
+
+    return jsonData;
+  }
+
   /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
   final String? fsType;
 

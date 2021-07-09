@@ -22,6 +22,16 @@ class TopologySelectorLabelRequirement {
         .toList();
   }
 
+  /// Converts a TopologySelectorLabelRequirement instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['key'] = key;
+    jsonData['values'] = values;
+
+    return jsonData;
+  }
+
   /// The label key that the selector applies to.
   final String key;
 

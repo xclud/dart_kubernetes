@@ -24,6 +24,20 @@ class JobTemplateSpec {
     return list.map((e) => JobTemplateSpec.fromJson(e)).toList();
   }
 
+  /// Converts a JobTemplateSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
+    if (spec != null) {
+      jsonData['spec'] = spec!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
   final ObjectMeta? metadata;
 

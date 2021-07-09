@@ -31,6 +31,28 @@ class CustomResourceDefinitionNames {
     return list.map((e) => CustomResourceDefinitionNames.fromJson(e)).toList();
   }
 
+  /// Converts a CustomResourceDefinitionNames instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (categories != null) {
+      jsonData['categories'] = categories!;
+    }
+    jsonData['kind'] = kind;
+    if (listKind != null) {
+      jsonData['listKind'] = listKind!;
+    }
+    jsonData['plural'] = plural;
+    if (shortNames != null) {
+      jsonData['shortNames'] = shortNames!;
+    }
+    if (singular != null) {
+      jsonData['singular'] = singular!;
+    }
+
+    return jsonData;
+  }
+
   /// Categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
   final List<String>? categories;
 

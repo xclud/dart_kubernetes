@@ -31,6 +31,24 @@ class Subject {
     return list.map((e) => Subject.fromJson(e)).toList();
   }
 
+  /// Converts a Subject instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (group != null) {
+      jsonData['group'] = group!.toJson();
+    }
+    jsonData['kind'] = kind;
+    if (serviceAccount != null) {
+      jsonData['serviceAccount'] = serviceAccount!.toJson();
+    }
+    if (user != null) {
+      jsonData['user'] = user!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// `group` matches based on user group name.
   final GroupSubject? group;
 

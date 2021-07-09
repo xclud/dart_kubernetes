@@ -22,6 +22,19 @@ class LabelSelectorRequirement {
     return list.map((e) => LabelSelectorRequirement.fromJson(e)).toList();
   }
 
+  /// Converts a LabelSelectorRequirement instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['key'] = key;
+    jsonData['operator'] = operator;
+    if (values != null) {
+      jsonData['values'] = values!;
+    }
+
+    return jsonData;
+  }
+
   /// Key is the label key that the selector applies to.
   final String key;
 

@@ -42,6 +42,33 @@ class Endpoint {
     return list.map((e) => Endpoint.fromJson(e)).toList();
   }
 
+  /// Converts a Endpoint instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['addresses'] = addresses;
+    if (conditions != null) {
+      jsonData['conditions'] = conditions!.toJson();
+    }
+    if (hints != null) {
+      jsonData['hints'] = hints!.toJson();
+    }
+    if (hostname != null) {
+      jsonData['hostname'] = hostname!;
+    }
+    if (nodeName != null) {
+      jsonData['nodeName'] = nodeName!;
+    }
+    if (targetRef != null) {
+      jsonData['targetRef'] = targetRef!.toJson();
+    }
+    if (topology != null) {
+      jsonData['topology'] = topology!;
+    }
+
+    return jsonData;
+  }
+
   /// Addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
   final List<String> addresses;
 

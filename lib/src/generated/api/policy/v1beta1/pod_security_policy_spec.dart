@@ -109,6 +109,82 @@ class PodSecurityPolicySpec {
     return list.map((e) => PodSecurityPolicySpec.fromJson(e)).toList();
   }
 
+  /// Converts a PodSecurityPolicySpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (allowPrivilegeEscalation != null) {
+      jsonData['allowPrivilegeEscalation'] = allowPrivilegeEscalation!;
+    }
+    if (allowedCSIDrivers != null) {
+      jsonData['allowedCSIDrivers'] =
+          allowedCSIDrivers!.map((item) => item.toJson()).toList();
+    }
+    if (allowedCapabilities != null) {
+      jsonData['allowedCapabilities'] = allowedCapabilities!;
+    }
+    if (allowedFlexVolumes != null) {
+      jsonData['allowedFlexVolumes'] =
+          allowedFlexVolumes!.map((item) => item.toJson()).toList();
+    }
+    if (allowedHostPaths != null) {
+      jsonData['allowedHostPaths'] =
+          allowedHostPaths!.map((item) => item.toJson()).toList();
+    }
+    if (allowedProcMountTypes != null) {
+      jsonData['allowedProcMountTypes'] = allowedProcMountTypes!;
+    }
+    if (allowedUnsafeSysctls != null) {
+      jsonData['allowedUnsafeSysctls'] = allowedUnsafeSysctls!;
+    }
+    if (defaultAddCapabilities != null) {
+      jsonData['defaultAddCapabilities'] = defaultAddCapabilities!;
+    }
+    if (defaultAllowPrivilegeEscalation != null) {
+      jsonData['defaultAllowPrivilegeEscalation'] =
+          defaultAllowPrivilegeEscalation!;
+    }
+    if (forbiddenSysctls != null) {
+      jsonData['forbiddenSysctls'] = forbiddenSysctls!;
+    }
+    jsonData['fsGroup'] = fsGroup.toJson();
+    if (hostIPC != null) {
+      jsonData['hostIPC'] = hostIPC!;
+    }
+    if (hostNetwork != null) {
+      jsonData['hostNetwork'] = hostNetwork!;
+    }
+    if (hostPID != null) {
+      jsonData['hostPID'] = hostPID!;
+    }
+    if (hostPorts != null) {
+      jsonData['hostPorts'] = hostPorts!.map((item) => item.toJson()).toList();
+    }
+    if (privileged != null) {
+      jsonData['privileged'] = privileged!;
+    }
+    if (readOnlyRootFilesystem != null) {
+      jsonData['readOnlyRootFilesystem'] = readOnlyRootFilesystem!;
+    }
+    if (requiredDropCapabilities != null) {
+      jsonData['requiredDropCapabilities'] = requiredDropCapabilities!;
+    }
+    if (runAsGroup != null) {
+      jsonData['runAsGroup'] = runAsGroup!.toJson();
+    }
+    jsonData['runAsUser'] = runAsUser.toJson();
+    if (runtimeClass != null) {
+      jsonData['runtimeClass'] = runtimeClass!.toJson();
+    }
+    jsonData['seLinux'] = seLinux.toJson();
+    jsonData['supplementalGroups'] = supplementalGroups.toJson();
+    if (volumes != null) {
+      jsonData['volumes'] = volumes!;
+    }
+
+    return jsonData;
+  }
+
   /// AllowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
   final bool? allowPrivilegeEscalation;
 

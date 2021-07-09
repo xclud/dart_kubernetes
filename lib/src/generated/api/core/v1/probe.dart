@@ -40,6 +40,42 @@ class Probe {
     return list.map((e) => Probe.fromJson(e)).toList();
   }
 
+  /// Converts a Probe instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (exec != null) {
+      jsonData['exec'] = exec!.toJson();
+    }
+    if (failureThreshold != null) {
+      jsonData['failureThreshold'] = failureThreshold!;
+    }
+    if (httpGet != null) {
+      jsonData['httpGet'] = httpGet!.toJson();
+    }
+    if (initialDelaySeconds != null) {
+      jsonData['initialDelaySeconds'] = initialDelaySeconds!;
+    }
+    if (periodSeconds != null) {
+      jsonData['periodSeconds'] = periodSeconds!;
+    }
+    if (successThreshold != null) {
+      jsonData['successThreshold'] = successThreshold!;
+    }
+    if (tcpSocket != null) {
+      jsonData['tcpSocket'] = tcpSocket!.toJson();
+    }
+    if (terminationGracePeriodSeconds != null) {
+      jsonData['terminationGracePeriodSeconds'] =
+          terminationGracePeriodSeconds!;
+    }
+    if (timeoutSeconds != null) {
+      jsonData['timeoutSeconds'] = timeoutSeconds!;
+    }
+
+    return jsonData;
+  }
+
   /// One and only one of the following should be specified. Exec specifies the action to take.
   final ExecAction? exec;
 

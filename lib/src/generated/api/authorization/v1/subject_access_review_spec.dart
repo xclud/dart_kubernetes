@@ -37,6 +37,32 @@ class SubjectAccessReviewSpec {
     return list.map((e) => SubjectAccessReviewSpec.fromJson(e)).toList();
   }
 
+  /// Converts a SubjectAccessReviewSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (extra != null) {
+      jsonData['extra'] = extra!;
+    }
+    if (groups != null) {
+      jsonData['groups'] = groups!;
+    }
+    if (nonResourceAttributes != null) {
+      jsonData['nonResourceAttributes'] = nonResourceAttributes!.toJson();
+    }
+    if (resourceAttributes != null) {
+      jsonData['resourceAttributes'] = resourceAttributes!.toJson();
+    }
+    if (uid != null) {
+      jsonData['uid'] = uid!;
+    }
+    if (user != null) {
+      jsonData['user'] = user!;
+    }
+
+    return jsonData;
+  }
+
   /// Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
   final Map<String, List<String>>? extra;
 

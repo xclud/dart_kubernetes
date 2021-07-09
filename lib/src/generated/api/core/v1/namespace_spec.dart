@@ -18,6 +18,17 @@ class NamespaceSpec {
     return list.map((e) => NamespaceSpec.fromJson(e)).toList();
   }
 
+  /// Converts a NamespaceSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (finalizers != null) {
+      jsonData['finalizers'] = finalizers!;
+    }
+
+    return jsonData;
+  }
+
   /// Finalizers is an opaque list of values that must be empty to permanently remove object from storage. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/.
   final List<String>? finalizers;
 }

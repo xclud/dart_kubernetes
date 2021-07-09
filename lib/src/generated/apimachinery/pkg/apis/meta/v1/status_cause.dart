@@ -20,6 +20,23 @@ class StatusCause {
     return list.map((e) => StatusCause.fromJson(e)).toList();
   }
 
+  /// Converts a StatusCause instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (field != null) {
+      jsonData['field'] = field!;
+    }
+    if (message != null) {
+      jsonData['message'] = message!;
+    }
+    if (reason != null) {
+      jsonData['reason'] = reason!;
+    }
+
+    return jsonData;
+  }
+
   /// The field of the resource that has caused this error, as named by its JSON serialization. May include dot and postfix notation for nested attributes. Arrays are zero-indexed.  Fields may appear more than once in an array of causes due to fields having multiple errors. Optional.
   ///
   /// Examples:

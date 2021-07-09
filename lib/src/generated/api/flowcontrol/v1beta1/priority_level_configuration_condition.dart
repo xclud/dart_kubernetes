@@ -29,6 +29,29 @@ class PriorityLevelConfigurationCondition {
         .toList();
   }
 
+  /// Converts a PriorityLevelConfigurationCondition instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (lastTransitionTime != null) {
+      jsonData['lastTransitionTime'] = lastTransitionTime!.toIso8601String();
+    }
+    if (message != null) {
+      jsonData['message'] = message!;
+    }
+    if (reason != null) {
+      jsonData['reason'] = reason!;
+    }
+    if (status != null) {
+      jsonData['status'] = status!;
+    }
+    if (type != null) {
+      jsonData['type'] = type!;
+    }
+
+    return jsonData;
+  }
+
   /// `lastTransitionTime` is the last time the condition transitioned from one status to another.
   final DateTime? lastTransitionTime;
 

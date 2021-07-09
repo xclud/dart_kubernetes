@@ -20,6 +20,20 @@ class ContainerImage {
     return list.map((e) => ContainerImage.fromJson(e)).toList();
   }
 
+  /// Converts a ContainerImage instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (names != null) {
+      jsonData['names'] = names!;
+    }
+    if (sizeBytes != null) {
+      jsonData['sizeBytes'] = sizeBytes!;
+    }
+
+    return jsonData;
+  }
+
   /// Names by which this image is known. e.g. ["k8s.gcr.io/hyperkube:v1.0.7", "dockerhub.io/google_containers/hyperkube:v1.0.7"].
   final List<String>? names;
 

@@ -27,6 +27,24 @@ class OwnerReference {
     return list.map((e) => OwnerReference.fromJson(e)).toList();
   }
 
+  /// Converts a OwnerReference instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['apiVersion'] = apiVersion;
+    if (blockOwnerDeletion != null) {
+      jsonData['blockOwnerDeletion'] = blockOwnerDeletion!;
+    }
+    if (controller != null) {
+      jsonData['controller'] = controller!;
+    }
+    jsonData['kind'] = kind;
+    jsonData['name'] = name;
+    jsonData['uid'] = uid;
+
+    return jsonData;
+  }
+
   /// API version of the referent.
   final String apiVersion;
 

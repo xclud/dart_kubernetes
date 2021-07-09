@@ -22,6 +22,22 @@ class Subject {
     return list.map((e) => Subject.fromJson(e)).toList();
   }
 
+  /// Converts a Subject instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    jsonData['kind'] = kind;
+    jsonData['name'] = name;
+    if (namespace != null) {
+      jsonData['namespace'] = namespace!;
+    }
+
+    return jsonData;
+  }
+
   /// APIVersion holds the API group and version of the referenced subject. Defaults to "v1" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io/v1alpha1" for User and Group subjects.
   final String? apiVersion;
 

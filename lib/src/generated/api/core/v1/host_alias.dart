@@ -20,6 +20,20 @@ class HostAlias {
     return list.map((e) => HostAlias.fromJson(e)).toList();
   }
 
+  /// Converts a HostAlias instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (hostnames != null) {
+      jsonData['hostnames'] = hostnames!;
+    }
+    if (ip != null) {
+      jsonData['ip'] = ip!;
+    }
+
+    return jsonData;
+  }
+
   /// Hostnames for the above IP address.
   final List<String>? hostnames;
 

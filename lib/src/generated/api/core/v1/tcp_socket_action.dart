@@ -19,6 +19,18 @@ class TCPSocketAction {
     return list.map((e) => TCPSocketAction.fromJson(e)).toList();
   }
 
+  /// Converts a TCPSocketAction instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (host != null) {
+      jsonData['host'] = host!;
+    }
+    jsonData['port'] = port;
+
+    return jsonData;
+  }
+
   /// Optional: Host name to connect to, defaults to the pod IP.
   final String? host;
 

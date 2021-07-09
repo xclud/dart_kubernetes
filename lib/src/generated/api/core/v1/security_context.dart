@@ -50,6 +50,47 @@ class SecurityContext {
     return list.map((e) => SecurityContext.fromJson(e)).toList();
   }
 
+  /// Converts a SecurityContext instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (allowPrivilegeEscalation != null) {
+      jsonData['allowPrivilegeEscalation'] = allowPrivilegeEscalation!;
+    }
+    if (capabilities != null) {
+      jsonData['capabilities'] = capabilities!.toJson();
+    }
+    if (privileged != null) {
+      jsonData['privileged'] = privileged!;
+    }
+    if (procMount != null) {
+      jsonData['procMount'] = procMount!;
+    }
+    if (readOnlyRootFilesystem != null) {
+      jsonData['readOnlyRootFilesystem'] = readOnlyRootFilesystem!;
+    }
+    if (runAsGroup != null) {
+      jsonData['runAsGroup'] = runAsGroup!;
+    }
+    if (runAsNonRoot != null) {
+      jsonData['runAsNonRoot'] = runAsNonRoot!;
+    }
+    if (runAsUser != null) {
+      jsonData['runAsUser'] = runAsUser!;
+    }
+    if (seLinuxOptions != null) {
+      jsonData['seLinuxOptions'] = seLinuxOptions!.toJson();
+    }
+    if (seccompProfile != null) {
+      jsonData['seccompProfile'] = seccompProfile!.toJson();
+    }
+    if (windowsOptions != null) {
+      jsonData['windowsOptions'] = windowsOptions!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN.
   final bool? allowPrivilegeEscalation;
 

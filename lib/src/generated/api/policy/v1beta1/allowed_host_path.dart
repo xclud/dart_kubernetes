@@ -19,6 +19,20 @@ class AllowedHostPath {
     return list.map((e) => AllowedHostPath.fromJson(e)).toList();
   }
 
+  /// Converts a AllowedHostPath instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (pathPrefix != null) {
+      jsonData['pathPrefix'] = pathPrefix!;
+    }
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
+
+    return jsonData;
+  }
+
   /// PathPrefix is the path prefix that the host volume must match. It does not support `*`. Trailing slashes are trimmed when validating the path prefix with a host path.
   ///
   /// Examples: `/foo` would allow `/foo`, `/foo/` and `/foo/bar` `/foo` would not allow `/food` or `/etc/foo`.

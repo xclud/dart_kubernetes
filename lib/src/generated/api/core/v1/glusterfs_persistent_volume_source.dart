@@ -25,6 +25,22 @@ class GlusterfsPersistentVolumeSource {
         .toList();
   }
 
+  /// Converts a GlusterfsPersistentVolumeSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['endpoints'] = endpoints;
+    if (endpointsNamespace != null) {
+      jsonData['endpointsNamespace'] = endpointsNamespace!;
+    }
+    jsonData['path'] = path;
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
+
+    return jsonData;
+  }
+
   /// EndpointsName is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod.
   final String endpoints;
 

@@ -27,6 +27,22 @@ class ExternalMetricStatus {
     return list.map((e) => ExternalMetricStatus.fromJson(e)).toList();
   }
 
+  /// Converts a ExternalMetricStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (currentAverageValue != null) {
+      jsonData['currentAverageValue'] = currentAverageValue!;
+    }
+    jsonData['currentValue'] = currentValue;
+    jsonData['metricName'] = metricName;
+    if (metricSelector != null) {
+      jsonData['metricSelector'] = metricSelector!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// CurrentAverageValue is the current value of metric averaged over autoscaled pods.
   final String? currentAverageValue;
 

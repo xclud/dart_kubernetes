@@ -13,4 +13,11 @@ class CustomResourceSubresourceStatus {
         .map((e) => CustomResourceSubresourceStatus.fromJson(e))
         .toList();
   }
+
+  /// Converts a CustomResourceSubresourceStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    return jsonData;
+  }
 }

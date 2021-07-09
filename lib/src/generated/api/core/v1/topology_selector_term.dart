@@ -23,6 +23,18 @@ class TopologySelectorTerm {
     return list.map((e) => TopologySelectorTerm.fromJson(e)).toList();
   }
 
+  /// Converts a TopologySelectorTerm instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (matchLabelExpressions != null) {
+      jsonData['matchLabelExpressions'] =
+          matchLabelExpressions!.map((item) => item.toJson()).toList();
+    }
+
+    return jsonData;
+  }
+
   /// A list of topology selector requirements by labels.
   final List<TopologySelectorLabelRequirement>? matchLabelExpressions;
 }

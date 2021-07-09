@@ -49,6 +49,43 @@ class StorageClass {
     return list.map((e) => StorageClass.fromJson(e)).toList();
   }
 
+  /// Converts a StorageClass instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (allowVolumeExpansion != null) {
+      jsonData['allowVolumeExpansion'] = allowVolumeExpansion!;
+    }
+    if (allowedTopologies != null) {
+      jsonData['allowedTopologies'] =
+          allowedTopologies!.map((item) => item.toJson()).toList();
+    }
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
+    if (mountOptions != null) {
+      jsonData['mountOptions'] = mountOptions!;
+    }
+    if (parameters != null) {
+      jsonData['parameters'] = parameters!;
+    }
+    jsonData['provisioner'] = provisioner;
+    if (reclaimPolicy != null) {
+      jsonData['reclaimPolicy'] = reclaimPolicy!;
+    }
+    if (volumeBindingMode != null) {
+      jsonData['volumeBindingMode'] = volumeBindingMode!;
+    }
+
+    return jsonData;
+  }
+
   /// AllowVolumeExpansion shows whether the storage class allow volume expand.
   final bool? allowVolumeExpansion;
 

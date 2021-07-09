@@ -25,6 +25,23 @@ class PodDisruptionBudgetSpec {
     return list.map((e) => PodDisruptionBudgetSpec.fromJson(e)).toList();
   }
 
+  /// Converts a PodDisruptionBudgetSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (maxUnavailable != null) {
+      jsonData['maxUnavailable'] = maxUnavailable!;
+    }
+    if (minAvailable != null) {
+      jsonData['minAvailable'] = minAvailable!;
+    }
+    if (selector != null) {
+      jsonData['selector'] = selector!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
   final Object? maxUnavailable;
 

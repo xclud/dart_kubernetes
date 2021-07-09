@@ -20,6 +20,19 @@ class KeyToPath {
     return list.map((e) => KeyToPath.fromJson(e)).toList();
   }
 
+  /// Converts a KeyToPath instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['key'] = key;
+    if (mode != null) {
+      jsonData['mode'] = mode!;
+    }
+    jsonData['path'] = path;
+
+    return jsonData;
+  }
+
   /// The key to project.
   final String key;
 

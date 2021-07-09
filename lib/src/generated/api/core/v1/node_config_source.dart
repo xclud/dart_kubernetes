@@ -21,6 +21,17 @@ class NodeConfigSource {
     return list.map((e) => NodeConfigSource.fromJson(e)).toList();
   }
 
+  /// Converts a NodeConfigSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (configMap != null) {
+      jsonData['configMap'] = configMap!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// ConfigMap is a reference to a Node's ConfigMap.
   final ConfigMapNodeConfigSource? configMap;
 }

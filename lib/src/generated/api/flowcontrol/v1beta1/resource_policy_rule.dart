@@ -31,6 +31,23 @@ class ResourcePolicyRule {
     return list.map((e) => ResourcePolicyRule.fromJson(e)).toList();
   }
 
+  /// Converts a ResourcePolicyRule instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['apiGroups'] = apiGroups;
+    if (clusterScope != null) {
+      jsonData['clusterScope'] = clusterScope!;
+    }
+    if (namespaces != null) {
+      jsonData['namespaces'] = namespaces!;
+    }
+    jsonData['resources'] = resources;
+    jsonData['verbs'] = verbs;
+
+    return jsonData;
+  }
+
   /// `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
   final List<String> apiGroups;
 

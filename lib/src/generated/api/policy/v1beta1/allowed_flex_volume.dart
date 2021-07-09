@@ -17,6 +17,15 @@ class AllowedFlexVolume {
     return list.map((e) => AllowedFlexVolume.fromJson(e)).toList();
   }
 
+  /// Converts a AllowedFlexVolume instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['driver'] = driver;
+
+    return jsonData;
+  }
+
   /// Driver is the name of the Flexvolume driver.
   final String driver;
 }

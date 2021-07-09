@@ -26,6 +26,20 @@ class CustomResourceSubresources {
     return list.map((e) => CustomResourceSubresources.fromJson(e)).toList();
   }
 
+  /// Converts a CustomResourceSubresources instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (scale != null) {
+      jsonData['scale'] = scale!.toJson();
+    }
+    if (status != null) {
+      jsonData['status'] = status!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// Scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
   final CustomResourceSubresourceScale? scale;
 

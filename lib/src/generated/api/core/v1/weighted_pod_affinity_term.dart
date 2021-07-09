@@ -21,6 +21,16 @@ class WeightedPodAffinityTerm {
     return list.map((e) => WeightedPodAffinityTerm.fromJson(e)).toList();
   }
 
+  /// Converts a WeightedPodAffinityTerm instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['podAffinityTerm'] = podAffinityTerm.toJson();
+    jsonData['weight'] = weight;
+
+    return jsonData;
+  }
+
   /// Required. A pod affinity term, associated with the corresponding weight.
   final PodAffinityTerm podAffinityTerm;
 

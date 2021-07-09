@@ -33,6 +33,33 @@ class ContainerStateTerminated {
     return list.map((e) => ContainerStateTerminated.fromJson(e)).toList();
   }
 
+  /// Converts a ContainerStateTerminated instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (containerID != null) {
+      jsonData['containerID'] = containerID!;
+    }
+    jsonData['exitCode'] = exitCode;
+    if (finishedAt != null) {
+      jsonData['finishedAt'] = finishedAt!.toIso8601String();
+    }
+    if (message != null) {
+      jsonData['message'] = message!;
+    }
+    if (reason != null) {
+      jsonData['reason'] = reason!;
+    }
+    if (signal != null) {
+      jsonData['signal'] = signal!;
+    }
+    if (startedAt != null) {
+      jsonData['startedAt'] = startedAt!.toIso8601String();
+    }
+
+    return jsonData;
+  }
+
   /// Container's ID in the format 'docker://<container_id>'.
   final String? containerID;
 

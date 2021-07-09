@@ -27,6 +27,24 @@ class CinderVolumeSource {
     return list.map((e) => CinderVolumeSource.fromJson(e)).toList();
   }
 
+  /// Converts a CinderVolumeSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (fsType != null) {
+      jsonData['fsType'] = fsType!;
+    }
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
+    if (secretRef != null) {
+      jsonData['secretRef'] = secretRef!.toJson();
+    }
+    jsonData['volumeID'] = volumeID;
+
+    return jsonData;
+  }
+
   /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md.
   final String? fsType;
 

@@ -18,6 +18,17 @@ class Overhead {
     return list.map((e) => Overhead.fromJson(e)).toList();
   }
 
+  /// Converts a Overhead instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (podFixed != null) {
+      jsonData['podFixed'] = podFixed!;
+    }
+
+    return jsonData;
+  }
+
   /// PodFixed represents the fixed resource overhead associated with running a pod.
   final Map<String, String>? podFixed;
 }

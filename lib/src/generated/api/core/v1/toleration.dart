@@ -24,6 +24,29 @@ class Toleration {
     return list.map((e) => Toleration.fromJson(e)).toList();
   }
 
+  /// Converts a Toleration instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (effect != null) {
+      jsonData['effect'] = effect!;
+    }
+    if (key != null) {
+      jsonData['key'] = key!;
+    }
+    if (operator != null) {
+      jsonData['operator'] = operator!;
+    }
+    if (tolerationSeconds != null) {
+      jsonData['tolerationSeconds'] = tolerationSeconds!;
+    }
+    if (value != null) {
+      jsonData['value'] = value!;
+    }
+
+    return jsonData;
+  }
+
   /// Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
   final String? effect;
 

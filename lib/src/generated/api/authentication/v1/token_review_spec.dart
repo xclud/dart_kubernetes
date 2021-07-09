@@ -21,6 +21,20 @@ class TokenReviewSpec {
     return list.map((e) => TokenReviewSpec.fromJson(e)).toList();
   }
 
+  /// Converts a TokenReviewSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (audiences != null) {
+      jsonData['audiences'] = audiences!;
+    }
+    if (token != null) {
+      jsonData['token'] = token!;
+    }
+
+    return jsonData;
+  }
+
   /// Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
   final List<String>? audiences;
 

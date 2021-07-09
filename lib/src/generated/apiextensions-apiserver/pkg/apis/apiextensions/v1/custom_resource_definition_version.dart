@@ -45,6 +45,33 @@ class CustomResourceDefinitionVersion {
         .toList();
   }
 
+  /// Converts a CustomResourceDefinitionVersion instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (additionalPrinterColumns != null) {
+      jsonData['additionalPrinterColumns'] =
+          additionalPrinterColumns!.map((item) => item.toJson()).toList();
+    }
+    if (deprecated != null) {
+      jsonData['deprecated'] = deprecated!;
+    }
+    if (deprecationWarning != null) {
+      jsonData['deprecationWarning'] = deprecationWarning!;
+    }
+    jsonData['name'] = name;
+    if (schema != null) {
+      jsonData['schema'] = schema!.toJson();
+    }
+    jsonData['served'] = served;
+    jsonData['storage'] = storage;
+    if (subresources != null) {
+      jsonData['subresources'] = subresources!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// AdditionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If no columns are specified, a single column displaying the age of the custom resource is used.
   final List<CustomResourceColumnDefinition>? additionalPrinterColumns;
 

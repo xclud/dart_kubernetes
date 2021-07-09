@@ -10,4 +10,11 @@ class JSON {
   static List<JSON> listFromJson(Iterable<Map<String, dynamic>> list) {
     return list.map((e) => JSON.fromJson(e)).toList();
   }
+
+  /// Converts a JSON instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    return jsonData;
+  }
 }

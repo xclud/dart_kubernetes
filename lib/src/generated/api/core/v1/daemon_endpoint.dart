@@ -17,6 +17,15 @@ class DaemonEndpoint {
     return list.map((e) => DaemonEndpoint.fromJson(e)).toList();
   }
 
+  /// Converts a DaemonEndpoint instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['Port'] = port;
+
+    return jsonData;
+  }
+
   /// Port number of the given endpoint.
   final int port;
 }

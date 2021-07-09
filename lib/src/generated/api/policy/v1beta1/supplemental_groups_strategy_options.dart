@@ -26,6 +26,20 @@ class SupplementalGroupsStrategyOptions {
         .toList();
   }
 
+  /// Converts a SupplementalGroupsStrategyOptions instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (ranges != null) {
+      jsonData['ranges'] = ranges!.map((item) => item.toJson()).toList();
+    }
+    if (rule != null) {
+      jsonData['rule'] = rule!;
+    }
+
+    return jsonData;
+  }
+
   /// Ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
   final List<IDRange>? ranges;
 

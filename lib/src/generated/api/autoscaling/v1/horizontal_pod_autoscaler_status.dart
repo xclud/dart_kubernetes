@@ -28,6 +28,26 @@ class HorizontalPodAutoscalerStatus {
     return list.map((e) => HorizontalPodAutoscalerStatus.fromJson(e)).toList();
   }
 
+  /// Converts a HorizontalPodAutoscalerStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (currentCPUUtilizationPercentage != null) {
+      jsonData['currentCPUUtilizationPercentage'] =
+          currentCPUUtilizationPercentage!;
+    }
+    jsonData['currentReplicas'] = currentReplicas;
+    jsonData['desiredReplicas'] = desiredReplicas;
+    if (lastScaleTime != null) {
+      jsonData['lastScaleTime'] = lastScaleTime!.toIso8601String();
+    }
+    if (observedGeneration != null) {
+      jsonData['observedGeneration'] = observedGeneration!;
+    }
+
+    return jsonData;
+  }
+
   /// Current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
   final int? currentCPUUtilizationPercentage;
 

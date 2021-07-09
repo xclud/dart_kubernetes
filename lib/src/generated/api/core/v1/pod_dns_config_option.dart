@@ -19,6 +19,20 @@ class PodDNSConfigOption {
     return list.map((e) => PodDNSConfigOption.fromJson(e)).toList();
   }
 
+  /// Converts a PodDNSConfigOption instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (name != null) {
+      jsonData['name'] = name!;
+    }
+    if (value != null) {
+      jsonData['value'] = value!;
+    }
+
+    return jsonData;
+  }
+
   /// Required.
   final String? name;
 

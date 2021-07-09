@@ -27,6 +27,20 @@ class HorizontalPodAutoscalerBehavior {
         .toList();
   }
 
+  /// Converts a HorizontalPodAutoscalerBehavior instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (scaleDown != null) {
+      jsonData['scaleDown'] = scaleDown!.toJson();
+    }
+    if (scaleUp != null) {
+      jsonData['scaleUp'] = scaleUp!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// ScaleDown is scaling policy for scaling Down. If not set, the default value is to allow to scale down to minReplicas pods, with a 300 second stabilization window (i.e., the highest recommendation for the last 300sec is used).
   final HPAScalingRules? scaleDown;
 

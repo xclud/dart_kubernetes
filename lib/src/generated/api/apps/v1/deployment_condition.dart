@@ -31,6 +31,28 @@ class DeploymentCondition {
     return list.map((e) => DeploymentCondition.fromJson(e)).toList();
   }
 
+  /// Converts a DeploymentCondition instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (lastTransitionTime != null) {
+      jsonData['lastTransitionTime'] = lastTransitionTime!.toIso8601String();
+    }
+    if (lastUpdateTime != null) {
+      jsonData['lastUpdateTime'] = lastUpdateTime!.toIso8601String();
+    }
+    if (message != null) {
+      jsonData['message'] = message!;
+    }
+    if (reason != null) {
+      jsonData['reason'] = reason!;
+    }
+    jsonData['status'] = status;
+    jsonData['type'] = type;
+
+    return jsonData;
+  }
+
   /// Last time the condition transitioned from one status to another.
   final DateTime? lastTransitionTime;
 

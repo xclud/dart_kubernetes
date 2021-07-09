@@ -19,6 +19,20 @@ class NonResourceAttributes {
     return list.map((e) => NonResourceAttributes.fromJson(e)).toList();
   }
 
+  /// Converts a NonResourceAttributes instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (path != null) {
+      jsonData['path'] = path!;
+    }
+    if (verb != null) {
+      jsonData['verb'] = verb!;
+    }
+
+    return jsonData;
+  }
+
   /// Path is the URL path of the request.
   final String? path;
 

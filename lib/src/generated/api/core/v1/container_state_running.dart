@@ -19,6 +19,17 @@ class ContainerStateRunning {
     return list.map((e) => ContainerStateRunning.fromJson(e)).toList();
   }
 
+  /// Converts a ContainerStateRunning instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (startedAt != null) {
+      jsonData['startedAt'] = startedAt!.toIso8601String();
+    }
+
+    return jsonData;
+  }
+
   /// Time at which the container was last (re-)started.
   final DateTime? startedAt;
 }

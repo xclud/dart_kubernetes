@@ -24,6 +24,21 @@ class EnvVar {
     return list.map((e) => EnvVar.fromJson(e)).toList();
   }
 
+  /// Converts a EnvVar instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['name'] = name;
+    if (value != null) {
+      jsonData['value'] = value!;
+    }
+    if (valueFrom != null) {
+      jsonData['valueFrom'] = valueFrom!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// Name of the environment variable. Must be a C_IDENTIFIER.
   final String name;
 

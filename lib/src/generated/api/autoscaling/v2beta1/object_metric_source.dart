@@ -30,6 +30,23 @@ class ObjectMetricSource {
     return list.map((e) => ObjectMetricSource.fromJson(e)).toList();
   }
 
+  /// Converts a ObjectMetricSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (averageValue != null) {
+      jsonData['averageValue'] = averageValue!;
+    }
+    jsonData['metricName'] = metricName;
+    if (selector != null) {
+      jsonData['selector'] = selector!.toJson();
+    }
+    jsonData['target'] = target.toJson();
+    jsonData['targetValue'] = targetValue;
+
+    return jsonData;
+  }
+
   /// AverageValue is the target value of the average of the metric across all relevant pods (as a quantity).
   final String? averageValue;
 

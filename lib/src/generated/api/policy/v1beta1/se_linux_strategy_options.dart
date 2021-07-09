@@ -23,6 +23,18 @@ class SELinuxStrategyOptions {
     return list.map((e) => SELinuxStrategyOptions.fromJson(e)).toList();
   }
 
+  /// Converts a SELinuxStrategyOptions instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['rule'] = rule;
+    if (seLinuxOptions != null) {
+      jsonData['seLinuxOptions'] = seLinuxOptions!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// Rule is the strategy that will dictate the allowable labels that may be set.
   final String rule;
 

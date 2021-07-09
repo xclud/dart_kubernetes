@@ -10,4 +10,11 @@ class MicroTime {
   static List<MicroTime> listFromJson(Iterable<Map<String, dynamic>> list) {
     return list.map((e) => MicroTime.fromJson(e)).toList();
   }
+
+  /// Converts a MicroTime instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    return jsonData;
+  }
 }

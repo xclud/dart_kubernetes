@@ -64,6 +64,57 @@ class PodStatus {
     return list.map((e) => PodStatus.fromJson(e)).toList();
   }
 
+  /// Converts a PodStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
+    if (containerStatuses != null) {
+      jsonData['containerStatuses'] =
+          containerStatuses!.map((item) => item.toJson()).toList();
+    }
+    if (ephemeralContainerStatuses != null) {
+      jsonData['ephemeralContainerStatuses'] =
+          ephemeralContainerStatuses!.map((item) => item.toJson()).toList();
+    }
+    if (hostIP != null) {
+      jsonData['hostIP'] = hostIP!;
+    }
+    if (initContainerStatuses != null) {
+      jsonData['initContainerStatuses'] =
+          initContainerStatuses!.map((item) => item.toJson()).toList();
+    }
+    if (message != null) {
+      jsonData['message'] = message!;
+    }
+    if (nominatedNodeName != null) {
+      jsonData['nominatedNodeName'] = nominatedNodeName!;
+    }
+    if (phase != null) {
+      jsonData['phase'] = phase!;
+    }
+    if (podIP != null) {
+      jsonData['podIP'] = podIP!;
+    }
+    if (podIPs != null) {
+      jsonData['podIPs'] = podIPs!.map((item) => item.toJson()).toList();
+    }
+    if (qosClass != null) {
+      jsonData['qosClass'] = qosClass!;
+    }
+    if (reason != null) {
+      jsonData['reason'] = reason!;
+    }
+    if (startTime != null) {
+      jsonData['startTime'] = startTime!.toIso8601String();
+    }
+
+    return jsonData;
+  }
+
   /// Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions.
   final List<PodCondition>? conditions;
 

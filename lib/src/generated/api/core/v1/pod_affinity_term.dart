@@ -31,6 +31,24 @@ class PodAffinityTerm {
     return list.map((e) => PodAffinityTerm.fromJson(e)).toList();
   }
 
+  /// Converts a PodAffinityTerm instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (labelSelector != null) {
+      jsonData['labelSelector'] = labelSelector!.toJson();
+    }
+    if (namespaceSelector != null) {
+      jsonData['namespaceSelector'] = namespaceSelector!.toJson();
+    }
+    if (namespaces != null) {
+      jsonData['namespaces'] = namespaces!;
+    }
+    jsonData['topologyKey'] = topologyKey;
+
+    return jsonData;
+  }
+
   /// A label query over a set of resources, in this case pods.
   final LabelSelector? labelSelector;
 

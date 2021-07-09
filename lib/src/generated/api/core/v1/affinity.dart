@@ -30,6 +30,23 @@ class Affinity {
     return list.map((e) => Affinity.fromJson(e)).toList();
   }
 
+  /// Converts a Affinity instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (nodeAffinity != null) {
+      jsonData['nodeAffinity'] = nodeAffinity!.toJson();
+    }
+    if (podAffinity != null) {
+      jsonData['podAffinity'] = podAffinity!.toJson();
+    }
+    if (podAntiAffinity != null) {
+      jsonData['podAntiAffinity'] = podAntiAffinity!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// Describes node affinity scheduling rules for the pod.
   final NodeAffinity? nodeAffinity;
 

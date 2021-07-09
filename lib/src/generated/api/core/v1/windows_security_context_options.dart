@@ -23,6 +23,26 @@ class WindowsSecurityContextOptions {
     return list.map((e) => WindowsSecurityContextOptions.fromJson(e)).toList();
   }
 
+  /// Converts a WindowsSecurityContextOptions instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (gmsaCredentialSpec != null) {
+      jsonData['gmsaCredentialSpec'] = gmsaCredentialSpec!;
+    }
+    if (gmsaCredentialSpecName != null) {
+      jsonData['gmsaCredentialSpecName'] = gmsaCredentialSpecName!;
+    }
+    if (hostProcess != null) {
+      jsonData['hostProcess'] = hostProcess!;
+    }
+    if (runAsUserName != null) {
+      jsonData['runAsUserName'] = runAsUserName!;
+    }
+
+    return jsonData;
+  }
+
   /// GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
   final String? gmsaCredentialSpec;
 

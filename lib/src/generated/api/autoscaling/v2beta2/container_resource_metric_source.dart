@@ -23,6 +23,17 @@ class ContainerResourceMetricSource {
     return list.map((e) => ContainerResourceMetricSource.fromJson(e)).toList();
   }
 
+  /// Converts a ContainerResourceMetricSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['container'] = container;
+    jsonData['name'] = name;
+    jsonData['target'] = target.toJson();
+
+    return jsonData;
+  }
+
   /// Container is the name of the container in the pods of the scaling target.
   final String container;
 

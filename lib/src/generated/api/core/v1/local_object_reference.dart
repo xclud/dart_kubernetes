@@ -17,6 +17,17 @@ class LocalObjectReference {
     return list.map((e) => LocalObjectReference.fromJson(e)).toList();
   }
 
+  /// Converts a LocalObjectReference instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (name != null) {
+      jsonData['name'] = name!;
+    }
+
+    return jsonData;
+  }
+
   /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names.
   final String? name;
 }

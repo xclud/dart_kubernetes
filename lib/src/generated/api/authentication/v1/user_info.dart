@@ -25,6 +25,26 @@ class UserInfo {
     return list.map((e) => UserInfo.fromJson(e)).toList();
   }
 
+  /// Converts a UserInfo instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (extra != null) {
+      jsonData['extra'] = extra!;
+    }
+    if (groups != null) {
+      jsonData['groups'] = groups!;
+    }
+    if (uid != null) {
+      jsonData['uid'] = uid!;
+    }
+    if (username != null) {
+      jsonData['username'] = username!;
+    }
+
+    return jsonData;
+  }
+
   /// Any additional information provided by the authenticator.
   final Map<String, List<String>>? extra;
 

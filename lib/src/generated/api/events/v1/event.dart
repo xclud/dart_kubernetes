@@ -68,6 +68,65 @@ class Event {
     return list.map((e) => Event.fromJson(e)).toList();
   }
 
+  /// Converts a Event instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (action != null) {
+      jsonData['action'] = action!;
+    }
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (deprecatedCount != null) {
+      jsonData['deprecatedCount'] = deprecatedCount!;
+    }
+    if (deprecatedFirstTimestamp != null) {
+      jsonData['deprecatedFirstTimestamp'] =
+          deprecatedFirstTimestamp!.toIso8601String();
+    }
+    if (deprecatedLastTimestamp != null) {
+      jsonData['deprecatedLastTimestamp'] =
+          deprecatedLastTimestamp!.toIso8601String();
+    }
+    if (deprecatedSource != null) {
+      jsonData['deprecatedSource'] = deprecatedSource!.toJson();
+    }
+    jsonData['eventTime'] = eventTime.toJson();
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
+    if (note != null) {
+      jsonData['note'] = note!;
+    }
+    if (reason != null) {
+      jsonData['reason'] = reason!;
+    }
+    if (regarding != null) {
+      jsonData['regarding'] = regarding!.toJson();
+    }
+    if (related != null) {
+      jsonData['related'] = related!.toJson();
+    }
+    if (reportingController != null) {
+      jsonData['reportingController'] = reportingController!;
+    }
+    if (reportingInstance != null) {
+      jsonData['reportingInstance'] = reportingInstance!;
+    }
+    if (series != null) {
+      jsonData['series'] = series!.toJson();
+    }
+    if (type != null) {
+      jsonData['type'] = type!;
+    }
+
+    return jsonData;
+  }
+
   /// Action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
   final String? action;
 

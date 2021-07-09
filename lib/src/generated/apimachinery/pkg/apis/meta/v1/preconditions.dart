@@ -18,6 +18,20 @@ class Preconditions {
     return list.map((e) => Preconditions.fromJson(e)).toList();
   }
 
+  /// Converts a Preconditions instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (resourceVersion != null) {
+      jsonData['resourceVersion'] = resourceVersion!;
+    }
+    if (uid != null) {
+      jsonData['uid'] = uid!;
+    }
+
+    return jsonData;
+  }
+
   /// Specifies the target ResourceVersion.
   final String? resourceVersion;
 

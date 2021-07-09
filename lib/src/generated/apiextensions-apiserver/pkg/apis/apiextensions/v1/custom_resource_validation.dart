@@ -21,6 +21,17 @@ class CustomResourceValidation {
     return list.map((e) => CustomResourceValidation.fromJson(e)).toList();
   }
 
+  /// Converts a CustomResourceValidation instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (openAPIV3Schema != null) {
+      jsonData['openAPIV3Schema'] = openAPIV3Schema!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// OpenAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
   final JSONSchemaProps? openAPIV3Schema;
 }

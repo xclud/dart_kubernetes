@@ -22,6 +22,18 @@ class APIServiceStatus {
     return list.map((e) => APIServiceStatus.fromJson(e)).toList();
   }
 
+  /// Converts a APIServiceStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
+
+    return jsonData;
+  }
+
   /// Current service state of apiService.
   final List<APIServiceCondition>? conditions;
 }

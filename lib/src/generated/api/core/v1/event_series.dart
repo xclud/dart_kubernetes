@@ -22,6 +22,20 @@ class EventSeries {
     return list.map((e) => EventSeries.fromJson(e)).toList();
   }
 
+  /// Converts a EventSeries instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (count != null) {
+      jsonData['count'] = count!;
+    }
+    if (lastObservedTime != null) {
+      jsonData['lastObservedTime'] = lastObservedTime!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// Number of occurrences in this series up to the last heartbeat time.
   final int? count;
 

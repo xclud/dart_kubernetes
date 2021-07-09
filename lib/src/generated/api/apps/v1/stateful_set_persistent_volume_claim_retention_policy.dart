@@ -22,6 +22,20 @@ class StatefulSetPersistentVolumeClaimRetentionPolicy {
         .toList();
   }
 
+  /// Converts a StatefulSetPersistentVolumeClaimRetentionPolicy instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (whenDeleted != null) {
+      jsonData['whenDeleted'] = whenDeleted!;
+    }
+    if (whenScaled != null) {
+      jsonData['whenScaled'] = whenScaled!;
+    }
+
+    return jsonData;
+  }
+
   /// WhenDeleted specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is deleted. The default policy of `Retain` causes PVCs to not be affected by StatefulSet deletion. The `Delete` policy causes those PVCs to be deleted.
   final String? whenDeleted;
 

@@ -24,6 +24,21 @@ class NamespaceStatus {
     return list.map((e) => NamespaceStatus.fromJson(e)).toList();
   }
 
+  /// Converts a NamespaceStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
+    if (phase != null) {
+      jsonData['phase'] = phase!;
+    }
+
+    return jsonData;
+  }
+
   /// Represents the latest available observations of a namespace's current state.
   final List<NamespaceCondition>? conditions;
 

@@ -19,6 +19,20 @@ class ExternalDocumentation {
     return list.map((e) => ExternalDocumentation.fromJson(e)).toList();
   }
 
+  /// Converts a ExternalDocumentation instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (description != null) {
+      jsonData['description'] = description!;
+    }
+    if (url != null) {
+      jsonData['url'] = url!;
+    }
+
+    return jsonData;
+  }
+
   ///
   final String? description;
 

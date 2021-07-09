@@ -21,6 +21,17 @@ class VolumeNodeAffinity {
     return list.map((e) => VolumeNodeAffinity.fromJson(e)).toList();
   }
 
+  /// Converts a VolumeNodeAffinity instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if ($required != null) {
+      jsonData['required'] = $required!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// Required specifies hard node constraints that must be met.
   final NodeSelector? $required;
 }

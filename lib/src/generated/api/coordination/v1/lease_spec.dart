@@ -30,6 +30,29 @@ class LeaseSpec {
     return list.map((e) => LeaseSpec.fromJson(e)).toList();
   }
 
+  /// Converts a LeaseSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (acquireTime != null) {
+      jsonData['acquireTime'] = acquireTime!.toJson();
+    }
+    if (holderIdentity != null) {
+      jsonData['holderIdentity'] = holderIdentity!;
+    }
+    if (leaseDurationSeconds != null) {
+      jsonData['leaseDurationSeconds'] = leaseDurationSeconds!;
+    }
+    if (leaseTransitions != null) {
+      jsonData['leaseTransitions'] = leaseTransitions!;
+    }
+    if (renewTime != null) {
+      jsonData['renewTime'] = renewTime!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// AcquireTime is a time when the current lease was acquired.
   final MicroTime? acquireTime;
 

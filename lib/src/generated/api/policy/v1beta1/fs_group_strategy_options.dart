@@ -24,6 +24,20 @@ class FSGroupStrategyOptions {
     return list.map((e) => FSGroupStrategyOptions.fromJson(e)).toList();
   }
 
+  /// Converts a FSGroupStrategyOptions instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (ranges != null) {
+      jsonData['ranges'] = ranges!.map((item) => item.toJson()).toList();
+    }
+    if (rule != null) {
+      jsonData['rule'] = rule!;
+    }
+
+    return jsonData;
+  }
+
   /// Ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
   final List<IDRange>? ranges;
 

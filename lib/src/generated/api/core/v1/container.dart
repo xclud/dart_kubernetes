@@ -97,6 +97,80 @@ class Container {
     return list.map((e) => Container.fromJson(e)).toList();
   }
 
+  /// Converts a Container instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (args != null) {
+      jsonData['args'] = args!;
+    }
+    if (command != null) {
+      jsonData['command'] = command!;
+    }
+    if (env != null) {
+      jsonData['env'] = env!.map((item) => item.toJson()).toList();
+    }
+    if (envFrom != null) {
+      jsonData['envFrom'] = envFrom!.map((item) => item.toJson()).toList();
+    }
+    if (image != null) {
+      jsonData['image'] = image!;
+    }
+    if (imagePullPolicy != null) {
+      jsonData['imagePullPolicy'] = imagePullPolicy!;
+    }
+    if (lifecycle != null) {
+      jsonData['lifecycle'] = lifecycle!.toJson();
+    }
+    if (livenessProbe != null) {
+      jsonData['livenessProbe'] = livenessProbe!.toJson();
+    }
+    jsonData['name'] = name;
+    if (ports != null) {
+      jsonData['ports'] = ports!.map((item) => item.toJson()).toList();
+    }
+    if (readinessProbe != null) {
+      jsonData['readinessProbe'] = readinessProbe!.toJson();
+    }
+    if (resources != null) {
+      jsonData['resources'] = resources!.toJson();
+    }
+    if (securityContext != null) {
+      jsonData['securityContext'] = securityContext!.toJson();
+    }
+    if (startupProbe != null) {
+      jsonData['startupProbe'] = startupProbe!.toJson();
+    }
+    if (stdin != null) {
+      jsonData['stdin'] = stdin!;
+    }
+    if (stdinOnce != null) {
+      jsonData['stdinOnce'] = stdinOnce!;
+    }
+    if (terminationMessagePath != null) {
+      jsonData['terminationMessagePath'] = terminationMessagePath!;
+    }
+    if (terminationMessagePolicy != null) {
+      jsonData['terminationMessagePolicy'] = terminationMessagePolicy!;
+    }
+    if (tty != null) {
+      jsonData['tty'] = tty!;
+    }
+    if (volumeDevices != null) {
+      jsonData['volumeDevices'] =
+          volumeDevices!.map((item) => item.toJson()).toList();
+    }
+    if (volumeMounts != null) {
+      jsonData['volumeMounts'] =
+          volumeMounts!.map((item) => item.toJson()).toList();
+    }
+    if (workingDir != null) {
+      jsonData['workingDir'] = workingDir!;
+    }
+
+    return jsonData;
+  }
+
   /// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell.
   final List<String>? args;
 

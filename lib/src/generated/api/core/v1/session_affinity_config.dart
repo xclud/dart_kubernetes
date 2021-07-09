@@ -21,6 +21,17 @@ class SessionAffinityConfig {
     return list.map((e) => SessionAffinityConfig.fromJson(e)).toList();
   }
 
+  /// Converts a SessionAffinityConfig instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (clientIP != null) {
+      jsonData['clientIP'] = clientIP!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// ClientIP contains the configurations of Client IP based session affinity.
   final ClientIPConfig? clientIP;
 }

@@ -21,6 +21,21 @@ class SecretKeySelector {
     return list.map((e) => SecretKeySelector.fromJson(e)).toList();
   }
 
+  /// Converts a SecretKeySelector instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['key'] = key;
+    if (name != null) {
+      jsonData['name'] = name!;
+    }
+    if (optional != null) {
+      jsonData['optional'] = optional!;
+    }
+
+    return jsonData;
+  }
+
   /// The key of the secret to select from.  Must be a valid secret key.
   final String key;
 

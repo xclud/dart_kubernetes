@@ -25,6 +25,22 @@ class AzureFilePersistentVolumeSource {
         .toList();
   }
 
+  /// Converts a AzureFilePersistentVolumeSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
+    jsonData['secretName'] = secretName;
+    if (secretNamespace != null) {
+      jsonData['secretNamespace'] = secretNamespace!;
+    }
+    jsonData['shareName'] = shareName;
+
+    return jsonData;
+  }
+
   /// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
   final bool? readOnly;
 

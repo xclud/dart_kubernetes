@@ -28,6 +28,23 @@ class ConfigMapProjection {
     return list.map((e) => ConfigMapProjection.fromJson(e)).toList();
   }
 
+  /// Converts a ConfigMapProjection instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (items != null) {
+      jsonData['items'] = items!.map((item) => item.toJson()).toList();
+    }
+    if (name != null) {
+      jsonData['name'] = name!;
+    }
+    if (optional != null) {
+      jsonData['optional'] = optional!;
+    }
+
+    return jsonData;
+  }
+
   /// If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
   final List<KeyToPath>? items;
 

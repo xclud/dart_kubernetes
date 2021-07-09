@@ -45,6 +45,39 @@ class CSIPersistentVolumeSource {
     return list.map((e) => CSIPersistentVolumeSource.fromJson(e)).toList();
   }
 
+  /// Converts a CSIPersistentVolumeSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (controllerExpandSecretRef != null) {
+      jsonData['controllerExpandSecretRef'] =
+          controllerExpandSecretRef!.toJson();
+    }
+    if (controllerPublishSecretRef != null) {
+      jsonData['controllerPublishSecretRef'] =
+          controllerPublishSecretRef!.toJson();
+    }
+    jsonData['driver'] = driver;
+    if (fsType != null) {
+      jsonData['fsType'] = fsType!;
+    }
+    if (nodePublishSecretRef != null) {
+      jsonData['nodePublishSecretRef'] = nodePublishSecretRef!.toJson();
+    }
+    if (nodeStageSecretRef != null) {
+      jsonData['nodeStageSecretRef'] = nodeStageSecretRef!.toJson();
+    }
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
+    if (volumeAttributes != null) {
+      jsonData['volumeAttributes'] = volumeAttributes!;
+    }
+    jsonData['volumeHandle'] = volumeHandle;
+
+    return jsonData;
+  }
+
   /// ControllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
   final SecretReference? controllerExpandSecretRef;
 

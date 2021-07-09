@@ -31,6 +31,27 @@ class FlexVolumeSource {
     return list.map((e) => FlexVolumeSource.fromJson(e)).toList();
   }
 
+  /// Converts a FlexVolumeSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['driver'] = driver;
+    if (fsType != null) {
+      jsonData['fsType'] = fsType!;
+    }
+    if (options != null) {
+      jsonData['options'] = options!;
+    }
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
+    if (secretRef != null) {
+      jsonData['secretRef'] = secretRef!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// Driver is the name of the driver to use for this volume.
   final String driver;
 

@@ -30,6 +30,23 @@ class NetworkPolicyPeer {
     return list.map((e) => NetworkPolicyPeer.fromJson(e)).toList();
   }
 
+  /// Converts a NetworkPolicyPeer instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (ipBlock != null) {
+      jsonData['ipBlock'] = ipBlock!.toJson();
+    }
+    if (namespaceSelector != null) {
+      jsonData['namespaceSelector'] = namespaceSelector!.toJson();
+    }
+    if (podSelector != null) {
+      jsonData['podSelector'] = podSelector!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
   final IPBlock? ipBlock;
 

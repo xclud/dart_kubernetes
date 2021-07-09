@@ -17,6 +17,17 @@ class SelfSubjectRulesReviewSpec {
     return list.map((e) => SelfSubjectRulesReviewSpec.fromJson(e)).toList();
   }
 
+  /// Converts a SelfSubjectRulesReviewSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (namespace != null) {
+      jsonData['namespace'] = namespace!;
+    }
+
+    return jsonData;
+  }
+
   /// Namespace to evaluate rules for. Required.
   final String? namespace;
 }

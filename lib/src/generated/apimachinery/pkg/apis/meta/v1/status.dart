@@ -37,6 +37,38 @@ class Status {
     return list.map((e) => Status.fromJson(e)).toList();
   }
 
+  /// Converts a Status instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (code != null) {
+      jsonData['code'] = code!;
+    }
+    if (details != null) {
+      jsonData['details'] = details!.toJson();
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (message != null) {
+      jsonData['message'] = message!;
+    }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
+    if (reason != null) {
+      jsonData['reason'] = reason!;
+    }
+    if (status != null) {
+      jsonData['status'] = status!;
+    }
+
+    return jsonData;
+  }
+
   /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;
 

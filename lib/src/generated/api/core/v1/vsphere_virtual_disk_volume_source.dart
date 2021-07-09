@@ -23,6 +23,24 @@ class VsphereVirtualDiskVolumeSource {
     return list.map((e) => VsphereVirtualDiskVolumeSource.fromJson(e)).toList();
   }
 
+  /// Converts a VsphereVirtualDiskVolumeSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (fsType != null) {
+      jsonData['fsType'] = fsType!;
+    }
+    if (storagePolicyID != null) {
+      jsonData['storagePolicyID'] = storagePolicyID!;
+    }
+    if (storagePolicyName != null) {
+      jsonData['storagePolicyName'] = storagePolicyName!;
+    }
+    jsonData['volumePath'] = volumePath;
+
+    return jsonData;
+  }
+
   /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
   final String? fsType;
 

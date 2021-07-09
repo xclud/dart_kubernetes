@@ -39,6 +39,42 @@ class JobSpec {
     return list.map((e) => JobSpec.fromJson(e)).toList();
   }
 
+  /// Converts a JobSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (activeDeadlineSeconds != null) {
+      jsonData['activeDeadlineSeconds'] = activeDeadlineSeconds!;
+    }
+    if (backoffLimit != null) {
+      jsonData['backoffLimit'] = backoffLimit!;
+    }
+    if (completionMode != null) {
+      jsonData['completionMode'] = completionMode!;
+    }
+    if (completions != null) {
+      jsonData['completions'] = completions!;
+    }
+    if (manualSelector != null) {
+      jsonData['manualSelector'] = manualSelector!;
+    }
+    if (parallelism != null) {
+      jsonData['parallelism'] = parallelism!;
+    }
+    if (selector != null) {
+      jsonData['selector'] = selector!.toJson();
+    }
+    if (suspend != null) {
+      jsonData['suspend'] = suspend!;
+    }
+    jsonData['template'] = template.toJson();
+    if (ttlSecondsAfterFinished != null) {
+      jsonData['ttlSecondsAfterFinished'] = ttlSecondsAfterFinished!;
+    }
+
+    return jsonData;
+  }
+
   /// Specifies the duration in seconds relative to the startTime that the job may be continuously active before the system tries to terminate it; value must be positive integer. If a Job is suspended (at creation or through an update), this timer will effectively be stopped and reset when the Job is resumed again.
   final int? activeDeadlineSeconds;
 

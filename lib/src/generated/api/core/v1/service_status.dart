@@ -26,6 +26,21 @@ class ServiceStatus {
     return list.map((e) => ServiceStatus.fromJson(e)).toList();
   }
 
+  /// Converts a ServiceStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
+    if (loadBalancer != null) {
+      jsonData['loadBalancer'] = loadBalancer!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// Current service state.
   final List<Condition>? conditions;
 

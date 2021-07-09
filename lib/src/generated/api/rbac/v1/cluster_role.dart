@@ -35,6 +35,29 @@ class ClusterRole {
     return list.map((e) => ClusterRole.fromJson(e)).toList();
   }
 
+  /// Converts a ClusterRole instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (aggregationRule != null) {
+      jsonData['aggregationRule'] = aggregationRule!.toJson();
+    }
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
+    if (rules != null) {
+      jsonData['rules'] = rules!.map((item) => item.toJson()).toList();
+    }
+
+    return jsonData;
+  }
+
   /// AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
   final AggregationRule? aggregationRule;
 

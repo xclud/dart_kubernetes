@@ -20,6 +20,16 @@ class WatchEvent {
     return list.map((e) => WatchEvent.fromJson(e)).toList();
   }
 
+  /// Converts a WatchEvent instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['object'] = object.toJson();
+    jsonData['type'] = type;
+
+    return jsonData;
+  }
+
   /// Object is:
   ///  * If Type is Added or Modified: the new state of the object.
   ///  * If Type is Deleted: the state of the object immediately before deletion.

@@ -18,6 +18,16 @@ class HTTPHeader {
     return list.map((e) => HTTPHeader.fromJson(e)).toList();
   }
 
+  /// Converts a HTTPHeader instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['name'] = name;
+    jsonData['value'] = value;
+
+    return jsonData;
+  }
+
   /// The header field name.
   final String name;
 

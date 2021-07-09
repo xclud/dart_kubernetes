@@ -27,6 +27,26 @@ class CustomResourceColumnDefinition {
     return list.map((e) => CustomResourceColumnDefinition.fromJson(e)).toList();
   }
 
+  /// Converts a CustomResourceColumnDefinition instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (description != null) {
+      jsonData['description'] = description!;
+    }
+    if (format != null) {
+      jsonData['format'] = format!;
+    }
+    jsonData['jsonPath'] = jsonPath;
+    jsonData['name'] = name;
+    if (priority != null) {
+      jsonData['priority'] = priority!;
+    }
+    jsonData['type'] = type;
+
+    return jsonData;
+  }
+
   /// Description is a human readable description of this column.
   final String? description;
 

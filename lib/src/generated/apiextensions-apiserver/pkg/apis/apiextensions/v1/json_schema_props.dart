@@ -172,6 +172,148 @@ class JSONSchemaProps {
     return list.map((e) => JSONSchemaProps.fromJson(e)).toList();
   }
 
+  /// Converts a JSONSchemaProps instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if ($ref != null) {
+      jsonData['\$ref'] = $ref!;
+    }
+    if ($schema != null) {
+      jsonData['\$schema'] = $schema!;
+    }
+    if (additionalItems != null) {
+      jsonData['additionalItems'] = additionalItems!.toJson();
+    }
+    if (additionalProperties != null) {
+      jsonData['additionalProperties'] = additionalProperties!.toJson();
+    }
+    if (allOf != null) {
+      jsonData['allOf'] = allOf!.map((item) => item.toJson()).toList();
+    }
+    if (anyOf != null) {
+      jsonData['anyOf'] = anyOf!.map((item) => item.toJson()).toList();
+    }
+    if ($default != null) {
+      jsonData['default'] = $default!.toJson();
+    }
+    if (definitions != null) {
+      jsonData['definitions'] =
+          definitions!.map((key, value) => MapEntry(key, value.toJson()));
+    }
+    if (dependencies != null) {
+      jsonData['dependencies'] =
+          dependencies!.map((key, value) => MapEntry(key, value.toJson()));
+    }
+    if (description != null) {
+      jsonData['description'] = description!;
+    }
+    if ($enum != null) {
+      jsonData['enum'] = $enum!.map((item) => item.toJson()).toList();
+    }
+    if (example != null) {
+      jsonData['example'] = example!.toJson();
+    }
+    if (exclusiveMaximum != null) {
+      jsonData['exclusiveMaximum'] = exclusiveMaximum!;
+    }
+    if (exclusiveMinimum != null) {
+      jsonData['exclusiveMinimum'] = exclusiveMinimum!;
+    }
+    if (externalDocs != null) {
+      jsonData['externalDocs'] = externalDocs!.toJson();
+    }
+    if (format != null) {
+      jsonData['format'] = format!;
+    }
+    if (id != null) {
+      jsonData['id'] = id!;
+    }
+    if (items != null) {
+      jsonData['items'] = items!.toJson();
+    }
+    if (maxItems != null) {
+      jsonData['maxItems'] = maxItems!;
+    }
+    if (maxLength != null) {
+      jsonData['maxLength'] = maxLength!;
+    }
+    if (maxProperties != null) {
+      jsonData['maxProperties'] = maxProperties!;
+    }
+    if (maximum != null) {
+      jsonData['maximum'] = maximum!;
+    }
+    if (minItems != null) {
+      jsonData['minItems'] = minItems!;
+    }
+    if (minLength != null) {
+      jsonData['minLength'] = minLength!;
+    }
+    if (minProperties != null) {
+      jsonData['minProperties'] = minProperties!;
+    }
+    if (minimum != null) {
+      jsonData['minimum'] = minimum!;
+    }
+    if (multipleOf != null) {
+      jsonData['multipleOf'] = multipleOf!;
+    }
+    if (not != null) {
+      jsonData['not'] = not!.toJson();
+    }
+    if (nullable != null) {
+      jsonData['nullable'] = nullable!;
+    }
+    if (oneOf != null) {
+      jsonData['oneOf'] = oneOf!.map((item) => item.toJson()).toList();
+    }
+    if (pattern != null) {
+      jsonData['pattern'] = pattern!;
+    }
+    if (patternProperties != null) {
+      jsonData['patternProperties'] =
+          patternProperties!.map((key, value) => MapEntry(key, value.toJson()));
+    }
+    if (properties != null) {
+      jsonData['properties'] =
+          properties!.map((key, value) => MapEntry(key, value.toJson()));
+    }
+    if ($required != null) {
+      jsonData['required'] = $required!;
+    }
+    if (title != null) {
+      jsonData['title'] = title!;
+    }
+    if (type != null) {
+      jsonData['type'] = type!;
+    }
+    if (uniqueItems != null) {
+      jsonData['uniqueItems'] = uniqueItems!;
+    }
+    if (xKubernetesEmbeddedResource != null) {
+      jsonData['x-kubernetes-embedded-resource'] = xKubernetesEmbeddedResource!;
+    }
+    if (xKubernetesIntOrString != null) {
+      jsonData['x-kubernetes-int-or-string'] = xKubernetesIntOrString!;
+    }
+    if (xKubernetesListMapKeys != null) {
+      jsonData['x-kubernetes-list-map-keys'] = xKubernetesListMapKeys!;
+    }
+    if (xKubernetesListType != null) {
+      jsonData['x-kubernetes-list-type'] = xKubernetesListType!;
+    }
+    if (xKubernetesMapType != null) {
+      jsonData['x-kubernetes-map-type'] = xKubernetesMapType!;
+    }
+    if (xKubernetesPreserveUnknownFields != null) {
+      jsonData['x-kubernetes-preserve-unknown-fields'] =
+          xKubernetesPreserveUnknownFields!;
+    }
+
+    return jsonData;
+  }
+
   ///
   final String? $ref;
 

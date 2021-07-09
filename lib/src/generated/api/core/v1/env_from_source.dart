@@ -27,6 +27,23 @@ class EnvFromSource {
     return list.map((e) => EnvFromSource.fromJson(e)).toList();
   }
 
+  /// Converts a EnvFromSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (configMapRef != null) {
+      jsonData['configMapRef'] = configMapRef!.toJson();
+    }
+    if (prefix != null) {
+      jsonData['prefix'] = prefix!;
+    }
+    if (secretRef != null) {
+      jsonData['secretRef'] = secretRef!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// The ConfigMap to select from.
   final ConfigMapEnvSource? configMapRef;
 

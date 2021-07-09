@@ -27,6 +27,24 @@ class ExternalMetricSource {
     return list.map((e) => ExternalMetricSource.fromJson(e)).toList();
   }
 
+  /// Converts a ExternalMetricSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['metricName'] = metricName;
+    if (metricSelector != null) {
+      jsonData['metricSelector'] = metricSelector!.toJson();
+    }
+    if (targetAverageValue != null) {
+      jsonData['targetAverageValue'] = targetAverageValue!;
+    }
+    if (targetValue != null) {
+      jsonData['targetValue'] = targetValue!;
+    }
+
+    return jsonData;
+  }
+
   /// MetricName is the name of the metric in question.
   final String metricName;
 

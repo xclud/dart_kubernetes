@@ -28,6 +28,22 @@ class CSINodeDriver {
     return list.map((e) => CSINodeDriver.fromJson(e)).toList();
   }
 
+  /// Converts a CSINodeDriver instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (allocatable != null) {
+      jsonData['allocatable'] = allocatable!.toJson();
+    }
+    jsonData['name'] = name;
+    jsonData['nodeID'] = nodeID;
+    if (topologyKeys != null) {
+      jsonData['topologyKeys'] = topologyKeys!;
+    }
+
+    return jsonData;
+  }
+
   /// Allocatable represents the volume resources of a node that are available for scheduling. This field is beta.
   final VolumeNodeResources? allocatable;
 

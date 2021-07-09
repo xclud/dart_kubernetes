@@ -29,6 +29,35 @@ class ResourceAttributes {
     return list.map((e) => ResourceAttributes.fromJson(e)).toList();
   }
 
+  /// Converts a ResourceAttributes instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (group != null) {
+      jsonData['group'] = group!;
+    }
+    if (name != null) {
+      jsonData['name'] = name!;
+    }
+    if (namespace != null) {
+      jsonData['namespace'] = namespace!;
+    }
+    if (resource != null) {
+      jsonData['resource'] = resource!;
+    }
+    if (subresource != null) {
+      jsonData['subresource'] = subresource!;
+    }
+    if (verb != null) {
+      jsonData['verb'] = verb!;
+    }
+    if (version != null) {
+      jsonData['version'] = version!;
+    }
+
+    return jsonData;
+  }
+
   /// Group is the API Group of the Resource.  "*" means all.
   final String? group;
 

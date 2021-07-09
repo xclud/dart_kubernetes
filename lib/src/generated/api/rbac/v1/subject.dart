@@ -22,6 +22,22 @@ class Subject {
     return list.map((e) => Subject.fromJson(e)).toList();
   }
 
+  /// Converts a Subject instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (apiGroup != null) {
+      jsonData['apiGroup'] = apiGroup!;
+    }
+    jsonData['kind'] = kind;
+    jsonData['name'] = name;
+    if (namespace != null) {
+      jsonData['namespace'] = namespace!;
+    }
+
+    return jsonData;
+  }
+
   /// APIGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
   final String? apiGroup;
 

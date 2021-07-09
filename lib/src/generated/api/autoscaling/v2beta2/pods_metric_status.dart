@@ -22,6 +22,16 @@ class PodsMetricStatus {
     return list.map((e) => PodsMetricStatus.fromJson(e)).toList();
   }
 
+  /// Converts a PodsMetricStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['current'] = current.toJson();
+    jsonData['metric'] = metric.toJson();
+
+    return jsonData;
+  }
+
   /// Current contains the current value for the given metric.
   final MetricValueStatus current;
 

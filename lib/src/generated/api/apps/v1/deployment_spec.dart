@@ -37,6 +37,34 @@ class DeploymentSpec {
     return list.map((e) => DeploymentSpec.fromJson(e)).toList();
   }
 
+  /// Converts a DeploymentSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (minReadySeconds != null) {
+      jsonData['minReadySeconds'] = minReadySeconds!;
+    }
+    if (paused != null) {
+      jsonData['paused'] = paused!;
+    }
+    if (progressDeadlineSeconds != null) {
+      jsonData['progressDeadlineSeconds'] = progressDeadlineSeconds!;
+    }
+    if (replicas != null) {
+      jsonData['replicas'] = replicas!;
+    }
+    if (revisionHistoryLimit != null) {
+      jsonData['revisionHistoryLimit'] = revisionHistoryLimit!;
+    }
+    jsonData['selector'] = selector.toJson();
+    if (strategy != null) {
+      jsonData['strategy'] = strategy!.toJson();
+    }
+    jsonData['template'] = template.toJson();
+
+    return jsonData;
+  }
+
   /// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
   final int? minReadySeconds;
 

@@ -27,6 +27,24 @@ class EndpointAddress {
     return list.map((e) => EndpointAddress.fromJson(e)).toList();
   }
 
+  /// Converts a EndpointAddress instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (hostname != null) {
+      jsonData['hostname'] = hostname!;
+    }
+    jsonData['ip'] = ip;
+    if (nodeName != null) {
+      jsonData['nodeName'] = nodeName!;
+    }
+    if (targetRef != null) {
+      jsonData['targetRef'] = targetRef!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// The Hostname of this endpoint.
   final String? hostname;
 

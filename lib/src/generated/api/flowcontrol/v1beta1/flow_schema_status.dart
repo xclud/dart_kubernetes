@@ -22,6 +22,18 @@ class FlowSchemaStatus {
     return list.map((e) => FlowSchemaStatus.fromJson(e)).toList();
   }
 
+  /// Converts a FlowSchemaStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
+
+    return jsonData;
+  }
+
   /// `conditions` is a list of the current states of FlowSchema.
   final List<FlowSchemaCondition>? conditions;
 }

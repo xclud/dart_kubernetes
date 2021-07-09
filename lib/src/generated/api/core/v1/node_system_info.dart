@@ -35,6 +35,24 @@ class NodeSystemInfo {
     return list.map((e) => NodeSystemInfo.fromJson(e)).toList();
   }
 
+  /// Converts a NodeSystemInfo instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['architecture'] = architecture;
+    jsonData['bootID'] = bootID;
+    jsonData['containerRuntimeVersion'] = containerRuntimeVersion;
+    jsonData['kernelVersion'] = kernelVersion;
+    jsonData['kubeProxyVersion'] = kubeProxyVersion;
+    jsonData['kubeletVersion'] = kubeletVersion;
+    jsonData['machineID'] = machineID;
+    jsonData['operatingSystem'] = operatingSystem;
+    jsonData['osImage'] = osImage;
+    jsonData['systemUUID'] = systemUUID;
+
+    return jsonData;
+  }
+
   /// The Architecture reported by the node.
   final String architecture;
 

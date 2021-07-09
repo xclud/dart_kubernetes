@@ -31,6 +31,26 @@ class NodeConfigStatus {
     return list.map((e) => NodeConfigStatus.fromJson(e)).toList();
   }
 
+  /// Converts a NodeConfigStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (active != null) {
+      jsonData['active'] = active!.toJson();
+    }
+    if (assigned != null) {
+      jsonData['assigned'] = assigned!.toJson();
+    }
+    if (error != null) {
+      jsonData['error'] = error!;
+    }
+    if (lastKnownGood != null) {
+      jsonData['lastKnownGood'] = lastKnownGood!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// Active reports the checkpointed config the node is actively using. Active will represent either the current version of the Assigned config, or the current LastKnownGood config, depending on whether attempting to use the Assigned config results in an error.
   final NodeConfigSource? active;
 

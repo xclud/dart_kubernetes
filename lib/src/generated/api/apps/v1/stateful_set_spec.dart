@@ -51,6 +51,40 @@ class StatefulSetSpec {
     return list.map((e) => StatefulSetSpec.fromJson(e)).toList();
   }
 
+  /// Converts a StatefulSetSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (minReadySeconds != null) {
+      jsonData['minReadySeconds'] = minReadySeconds!;
+    }
+    if (persistentVolumeClaimRetentionPolicy != null) {
+      jsonData['persistentVolumeClaimRetentionPolicy'] =
+          persistentVolumeClaimRetentionPolicy!.toJson();
+    }
+    if (podManagementPolicy != null) {
+      jsonData['podManagementPolicy'] = podManagementPolicy!;
+    }
+    if (replicas != null) {
+      jsonData['replicas'] = replicas!;
+    }
+    if (revisionHistoryLimit != null) {
+      jsonData['revisionHistoryLimit'] = revisionHistoryLimit!;
+    }
+    jsonData['selector'] = selector.toJson();
+    jsonData['serviceName'] = serviceName;
+    jsonData['template'] = template.toJson();
+    if (updateStrategy != null) {
+      jsonData['updateStrategy'] = updateStrategy!.toJson();
+    }
+    if (volumeClaimTemplates != null) {
+      jsonData['volumeClaimTemplates'] =
+          volumeClaimTemplates!.map((item) => item.toJson()).toList();
+    }
+
+    return jsonData;
+  }
+
   /// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
   final int? minReadySeconds;
 

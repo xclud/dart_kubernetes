@@ -28,6 +28,24 @@ class ResourceRule {
     return list.map((e) => ResourceRule.fromJson(e)).toList();
   }
 
+  /// Converts a ResourceRule instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (apiGroups != null) {
+      jsonData['apiGroups'] = apiGroups!;
+    }
+    if (resourceNames != null) {
+      jsonData['resourceNames'] = resourceNames!;
+    }
+    if (resources != null) {
+      jsonData['resources'] = resources!;
+    }
+    jsonData['verbs'] = verbs;
+
+    return jsonData;
+  }
+
   /// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.  "*" means all.
   final List<String>? apiGroups;
 

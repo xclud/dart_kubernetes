@@ -26,6 +26,23 @@ class LoadBalancerIngress {
     return list.map((e) => LoadBalancerIngress.fromJson(e)).toList();
   }
 
+  /// Converts a LoadBalancerIngress instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (hostname != null) {
+      jsonData['hostname'] = hostname!;
+    }
+    if (ip != null) {
+      jsonData['ip'] = ip!;
+    }
+    if (ports != null) {
+      jsonData['ports'] = ports!.map((item) => item.toJson()).toList();
+    }
+
+    return jsonData;
+  }
+
   /// Hostname is set for load-balancer ingress points that are DNS based (typically AWS load-balancers).
   final String? hostname;
 

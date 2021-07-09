@@ -27,6 +27,24 @@ class AWSElasticBlockStoreVolumeSource {
         .toList();
   }
 
+  /// Converts a AWSElasticBlockStoreVolumeSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (fsType != null) {
+      jsonData['fsType'] = fsType!;
+    }
+    if (partition != null) {
+      jsonData['partition'] = partition!;
+    }
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
+    jsonData['volumeID'] = volumeID;
+
+    return jsonData;
+  }
+
   /// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore.
   final String? fsType;
 

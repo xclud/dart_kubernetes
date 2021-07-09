@@ -18,6 +18,16 @@ class IDRange {
     return list.map((e) => IDRange.fromJson(e)).toList();
   }
 
+  /// Converts a IDRange instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['max'] = max;
+    jsonData['min'] = min;
+
+    return jsonData;
+  }
+
   /// Max is the end of the range, inclusive.
   final int max;
 

@@ -24,6 +24,20 @@ class Lifecycle {
     return list.map((e) => Lifecycle.fromJson(e)).toList();
   }
 
+  /// Converts a Lifecycle instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (postStart != null) {
+      jsonData['postStart'] = postStart!.toJson();
+    }
+    if (preStop != null) {
+      jsonData['preStop'] = preStop!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks.
   final Handler? postStart;
 

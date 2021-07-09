@@ -48,6 +48,36 @@ class ValidatingWebhook {
     return list.map((e) => ValidatingWebhook.fromJson(e)).toList();
   }
 
+  /// Converts a ValidatingWebhook instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['admissionReviewVersions'] = admissionReviewVersions;
+    jsonData['clientConfig'] = clientConfig.toJson();
+    if (failurePolicy != null) {
+      jsonData['failurePolicy'] = failurePolicy!;
+    }
+    if (matchPolicy != null) {
+      jsonData['matchPolicy'] = matchPolicy!;
+    }
+    jsonData['name'] = name;
+    if (namespaceSelector != null) {
+      jsonData['namespaceSelector'] = namespaceSelector!.toJson();
+    }
+    if (objectSelector != null) {
+      jsonData['objectSelector'] = objectSelector!.toJson();
+    }
+    if (rules != null) {
+      jsonData['rules'] = rules!.map((item) => item.toJson()).toList();
+    }
+    jsonData['sideEffects'] = sideEffects;
+    if (timeoutSeconds != null) {
+      jsonData['timeoutSeconds'] = timeoutSeconds!;
+    }
+
+    return jsonData;
+  }
+
   /// AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
   final List<String> admissionReviewVersions;
 

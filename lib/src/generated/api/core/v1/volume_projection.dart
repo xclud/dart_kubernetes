@@ -37,6 +37,26 @@ class VolumeProjection {
     return list.map((e) => VolumeProjection.fromJson(e)).toList();
   }
 
+  /// Converts a VolumeProjection instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (configMap != null) {
+      jsonData['configMap'] = configMap!.toJson();
+    }
+    if (downwardAPI != null) {
+      jsonData['downwardAPI'] = downwardAPI!.toJson();
+    }
+    if (secret != null) {
+      jsonData['secret'] = secret!.toJson();
+    }
+    if (serviceAccountToken != null) {
+      jsonData['serviceAccountToken'] = serviceAccountToken!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// Information about the configMap data to project.
   final ConfigMapProjection? configMap;
 

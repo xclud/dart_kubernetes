@@ -27,6 +27,23 @@ class HorizontalPodAutoscalerSpec {
     return list.map((e) => HorizontalPodAutoscalerSpec.fromJson(e)).toList();
   }
 
+  /// Converts a HorizontalPodAutoscalerSpec instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['maxReplicas'] = maxReplicas;
+    if (minReplicas != null) {
+      jsonData['minReplicas'] = minReplicas!;
+    }
+    jsonData['scaleTargetRef'] = scaleTargetRef.toJson();
+    if (targetCPUUtilizationPercentage != null) {
+      jsonData['targetCPUUtilizationPercentage'] =
+          targetCPUUtilizationPercentage!;
+    }
+
+    return jsonData;
+  }
+
   /// Upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
   final int maxReplicas;
 

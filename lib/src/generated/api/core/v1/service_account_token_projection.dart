@@ -21,6 +21,21 @@ class ServiceAccountTokenProjection {
     return list.map((e) => ServiceAccountTokenProjection.fromJson(e)).toList();
   }
 
+  /// Converts a ServiceAccountTokenProjection instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (audience != null) {
+      jsonData['audience'] = audience!;
+    }
+    if (expirationSeconds != null) {
+      jsonData['expirationSeconds'] = expirationSeconds!;
+    }
+    jsonData['path'] = path;
+
+    return jsonData;
+  }
+
   /// Audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
   final String? audience;
 

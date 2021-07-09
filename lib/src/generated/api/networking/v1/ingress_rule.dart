@@ -22,6 +22,20 @@ class IngressRule {
     return list.map((e) => IngressRule.fromJson(e)).toList();
   }
 
+  /// Converts a IngressRule instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (host != null) {
+      jsonData['host'] = host!;
+    }
+    if (http != null) {
+      jsonData['http'] = http!.toJson();
+    }
+
+    return jsonData;
+  }
+
   /// Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
   ///    the IP in the Spec of the parent Ingress.
   /// 2. The `:` delimiter is not respected because ports are not allowed.

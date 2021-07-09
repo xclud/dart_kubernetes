@@ -21,6 +21,19 @@ class AzureFileVolumeSource {
     return list.map((e) => AzureFileVolumeSource.fromJson(e)).toList();
   }
 
+  /// Converts a AzureFileVolumeSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
+    jsonData['secretName'] = secretName;
+    jsonData['shareName'] = shareName;
+
+    return jsonData;
+  }
+
   /// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
   final bool? readOnly;
 

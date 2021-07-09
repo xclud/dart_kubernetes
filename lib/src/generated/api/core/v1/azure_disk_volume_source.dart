@@ -27,6 +27,28 @@ class AzureDiskVolumeSource {
     return list.map((e) => AzureDiskVolumeSource.fromJson(e)).toList();
   }
 
+  /// Converts a AzureDiskVolumeSource instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (cachingMode != null) {
+      jsonData['cachingMode'] = cachingMode!;
+    }
+    jsonData['diskName'] = diskName;
+    jsonData['diskURI'] = diskURI;
+    if (fsType != null) {
+      jsonData['fsType'] = fsType!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
+
+    return jsonData;
+  }
+
   /// Host Caching mode: None, Read Only, Read Write.
   final String? cachingMode;
 

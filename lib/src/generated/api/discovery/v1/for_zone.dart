@@ -16,6 +16,15 @@ class ForZone {
     return list.map((e) => ForZone.fromJson(e)).toList();
   }
 
+  /// Converts a ForZone instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    jsonData['name'] = name;
+
+    return jsonData;
+  }
+
   /// Name represents the name of the zone.
   final String name;
 }

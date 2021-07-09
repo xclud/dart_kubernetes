@@ -25,6 +25,18 @@ class WebhookConversion {
     return list.map((e) => WebhookConversion.fromJson(e)).toList();
   }
 
+  /// Converts a WebhookConversion instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (clientConfig != null) {
+      jsonData['clientConfig'] = clientConfig!.toJson();
+    }
+    jsonData['conversionReviewVersions'] = conversionReviewVersions;
+
+    return jsonData;
+  }
+
   /// ClientConfig is the instructions for how to call the webhook if strategy is `Webhook`.
   final WebhookClientConfig? clientConfig;
 

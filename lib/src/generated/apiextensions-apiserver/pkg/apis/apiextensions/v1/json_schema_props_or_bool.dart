@@ -11,4 +11,11 @@ class JSONSchemaPropsOrBool {
       Iterable<Map<String, dynamic>> list) {
     return list.map((e) => JSONSchemaPropsOrBool.fromJson(e)).toList();
   }
+
+  /// Converts a JSONSchemaPropsOrBool instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    return jsonData;
+  }
 }

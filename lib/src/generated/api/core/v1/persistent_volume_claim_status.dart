@@ -32,6 +32,27 @@ class PersistentVolumeClaimStatus {
     return list.map((e) => PersistentVolumeClaimStatus.fromJson(e)).toList();
   }
 
+  /// Converts a PersistentVolumeClaimStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (accessModes != null) {
+      jsonData['accessModes'] = accessModes!;
+    }
+    if (capacity != null) {
+      jsonData['capacity'] = capacity!;
+    }
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
+    if (phase != null) {
+      jsonData['phase'] = phase!;
+    }
+
+    return jsonData;
+  }
+
   /// AccessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1.
   final List<String>? accessModes;
 

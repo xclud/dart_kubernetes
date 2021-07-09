@@ -21,6 +21,23 @@ class PersistentVolumeStatus {
     return list.map((e) => PersistentVolumeStatus.fromJson(e)).toList();
   }
 
+  /// Converts a PersistentVolumeStatus instance to JSON data.
+  Map<String, Object> toJson() {
+    final jsonData = <String, Object>{};
+
+    if (message != null) {
+      jsonData['message'] = message!;
+    }
+    if (phase != null) {
+      jsonData['phase'] = phase!;
+    }
+    if (reason != null) {
+      jsonData['reason'] = reason!;
+    }
+
+    return jsonData;
+  }
+
   /// A human-readable message indicating details about why the volume is in this state.
   final String? message;
 
