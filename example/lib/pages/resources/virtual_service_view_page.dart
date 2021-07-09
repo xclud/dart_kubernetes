@@ -22,7 +22,7 @@ class _VirtualServiceViewPageState extends State<VirtualServiceViewPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('VirtualService ${widget.virtualservice.metadata?.name}'),
+        title: const Text('Virtual Service'),
       ),
       body: ListView(
         padding: const EdgeInsets.all(4.0),

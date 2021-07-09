@@ -20,7 +20,7 @@ class _ReplicaSetViewPageState extends State<ReplicaSetViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ReplicaSet ${widget.replicaset.metadata?.name}'),
+        title: const Text('ReplicaSet'),
       ),
       body: ListView(
         padding: const EdgeInsets.all(4.0),

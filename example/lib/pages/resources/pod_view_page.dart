@@ -20,7 +20,7 @@ class _PodViewPageState extends State<PodViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pod ${widget.pod.metadata?.name}'),
+        title: const Text('Pod'),
       ),
       body: ListView(
         padding: const EdgeInsets.all(4.0),

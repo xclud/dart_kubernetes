@@ -20,7 +20,7 @@ class _GatewayViewPageState extends State<GatewayViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Gateway ${widget.gateway.metadata?.name}'),
+        title: const Text('Gateway'),
       ),
       body: ListView(
         padding: const EdgeInsets.all(4.0),

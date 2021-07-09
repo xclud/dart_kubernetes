@@ -20,7 +20,7 @@ class _SecretViewPageState extends State<SecretViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Secret ${widget.secret.metadata?.name}'),
+        title: const Text('Secret'),
       ),
       body: ListView(
         padding: const EdgeInsets.all(4.0),

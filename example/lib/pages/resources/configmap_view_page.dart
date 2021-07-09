@@ -20,7 +20,7 @@ class _ConfigMapViewPageState extends State<ConfigMapViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ConfigMap ${widget.configmap.metadata?.name}'),
+        title: const Text('ConfigMap'),
       ),
       body: ListView(
         padding: const EdgeInsets.all(4.0),

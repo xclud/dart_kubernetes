@@ -20,7 +20,7 @@ class _ServiceViewPageState extends State<ServiceViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Service ${widget.service.metadata?.name}'),
+        title: const Text('Service'),
       ),
       body: ListView(
         padding: const EdgeInsets.all(4.0),

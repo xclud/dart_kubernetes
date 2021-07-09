@@ -20,7 +20,7 @@ class _StatefulSetViewPageState extends State<StatefulSetViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('StatefulSet ${widget.statefulset.metadata?.name}'),
+        title: const Text('StatefulSet'),
       ),
       body: ListView(
         padding: const EdgeInsets.all(4.0),
