@@ -2,7 +2,7 @@ import 'package:kubernetes/src/generated/api/core/v1/exec_action.dart';
 import 'package:kubernetes/src/generated/api/core/v1/http_get_action.dart';
 import 'package:kubernetes/src/generated/api/core/v1/tcp_socket_action.dart';
 
-/// Handler defines a specific action that should be taken
+/// Handler defines a specific action that should be taken.
 class Handler {
   /// The main constructor.
   const Handler({
@@ -34,6 +34,6 @@ class Handler {
   /// HTTPGet specifies the http request to perform.
   final HTTPGetAction? httpGet;
 
-  /// TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported
+  /// TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported.
   final TCPSocketAction? tcpSocket;
 }

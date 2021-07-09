@@ -21,6 +21,6 @@ class CustomResourceValidation {
     return list.map((e) => CustomResourceValidation.fromJson(e)).toList();
   }
 
-  /// openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
+  /// OpenAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
   final JSONSchemaProps? openAPIV3Schema;
 }

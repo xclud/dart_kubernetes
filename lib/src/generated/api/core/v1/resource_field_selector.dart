@@ -1,4 +1,4 @@
-/// ResourceFieldSelector represents container resources (cpu, memory) and their output format
+/// ResourceFieldSelector represents container resources (cpu, memory) and their output format.
 class ResourceFieldSelector {
   /// The main constructor.
   const ResourceFieldSelector({
@@ -21,12 +21,12 @@ class ResourceFieldSelector {
     return list.map((e) => ResourceFieldSelector.fromJson(e)).toList();
   }
 
-  /// Container name: required for volumes, optional for env vars
+  /// Container name: required for volumes, optional for env vars.
   final String? containerName;
 
-  /// Specifies the output format of the exposed resources, defaults to "1"
+  /// Specifies the output format of the exposed resources, defaults to "1".
   final String? divisor;
 
-  /// Required: resource to select
+  /// Required: resource to select.
   final String resource;
 }

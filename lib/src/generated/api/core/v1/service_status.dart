@@ -26,7 +26,7 @@ class ServiceStatus {
     return list.map((e) => ServiceStatus.fromJson(e)).toList();
   }
 
-  /// Current service state
+  /// Current service state.
   final List<Condition>? conditions;
 
   /// LoadBalancer contains the current status of the load-balancer, if one is present.

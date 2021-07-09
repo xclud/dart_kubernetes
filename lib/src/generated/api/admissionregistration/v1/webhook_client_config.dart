@@ -1,6 +1,6 @@
 import 'package:kubernetes/src/generated/api/admissionregistration/v1/service_reference.dart';
 
-/// WebhookClientConfig contains the information to make a TLS connection with the webhook
+/// WebhookClientConfig contains the information to make a TLS connection with the webhook.
 class WebhookClientConfig {
   /// The main constructor.
   const WebhookClientConfig({

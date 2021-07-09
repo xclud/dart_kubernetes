@@ -14,7 +14,9 @@ class CertificateSigningRequestSpec {
   /// Creates a CertificateSigningRequestSpec from JSON data.
   CertificateSigningRequestSpec.fromJson(Map<String, dynamic> json)
       : this(
-          extra: json['extra'],
+          extra: json['extra'] != null
+              ? Map<String, List<String>>.from(json['extra'])
+              : null,
           groups:
               json['groups'] != null ? List<String>.from(json['groups']) : null,
           request: json['request'],
@@ -31,16 +33,16 @@ class CertificateSigningRequestSpec {
     return list.map((e) => CertificateSigningRequestSpec.fromJson(e)).toList();
   }
 
-  /// extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
-  final Object? extra;
+  /// Extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
+  final Map<String, List<String>>? extra;
 
-  /// groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
+  /// Groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
   final List<String>? groups;
 
-  /// request contains an x509 certificate signing request encoded in a "CERTIFICATE REQUEST" PEM block. When serialized as JSON or YAML, the data is additionally base64-encoded.
+  /// Request contains an x509 certificate signing request encoded in a "CERTIFICATE REQUEST" PEM block. When serialized as JSON or YAML, the data is additionally base64-encoded.
   final String request;
 
-  /// signerName indicates the requested signer, and is a qualified name.
+  /// SignerName indicates the requested signer, and is a qualified name.
   ///
   /// List/watch requests for CertificateSigningRequests can filter on this field using a "spec.signerName=NAME" fieldSelector.
   ///
@@ -63,10 +65,10 @@ class CertificateSigningRequestSpec {
   ///  6. Whether or not requests for CA certificates are allowed.
   final String signerName;
 
-  /// uid contains the uid of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
+  /// Uid contains the uid of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
   final String? uid;
 
-  /// usages specifies a set of key usages requested in the issued certificate.
+  /// Usages specifies a set of key usages requested in the issued certificate.
   ///
   /// Requests for TLS client certificates typically request: "digital signature", "key encipherment", "client auth".
   ///
@@ -79,9 +81,9 @@ class CertificateSigningRequestSpec {
   ///  "server auth", "client auth",
   ///  "code signing", "email protection", "s/mime",
   ///  "ipsec end system", "ipsec tunnel", "ipsec user",
-  ///  "timestamping", "ocsp signing", "microsoft sgc", "netscape sgc"
+  ///  "timestamping", "ocsp signing", "microsoft sgc", "netscape sgc".
   final List<String>? usages;
 
-  /// username contains the name of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
+  /// Username contains the name of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
   final String? username;
 }

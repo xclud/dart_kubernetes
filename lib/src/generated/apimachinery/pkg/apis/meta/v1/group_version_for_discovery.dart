@@ -19,9 +19,9 @@ class GroupVersionForDiscovery {
     return list.map((e) => GroupVersionForDiscovery.fromJson(e)).toList();
   }
 
-  /// groupVersion specifies the API group and version in the form "group/version"
+  /// GroupVersion specifies the API group and version in the form "group/version".
   final String groupVersion;
 
-  /// version specifies the version in the form of "version". This is to save the clients the trouble of splitting the GroupVersion.
+  /// Version specifies the version in the form of "version". This is to save the clients the trouble of splitting the GroupVersion.
   final String version;
 }

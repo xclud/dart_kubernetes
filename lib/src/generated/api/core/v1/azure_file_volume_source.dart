@@ -24,9 +24,9 @@ class AzureFileVolumeSource {
   /// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
   final bool? readOnly;
 
-  /// the name of secret that contains Azure Storage Account Name and Key
+  /// The name of secret that contains Azure Storage Account Name and Key.
   final String secretName;
 
-  /// Share Name
+  /// Share Name.
   final String shareName;
 }

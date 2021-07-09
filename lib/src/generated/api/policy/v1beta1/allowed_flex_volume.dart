@@ -17,6 +17,6 @@ class AllowedFlexVolume {
     return list.map((e) => AllowedFlexVolume.fromJson(e)).toList();
   }
 
-  /// driver is the name of the Flexvolume driver.
+  /// Driver is the name of the Flexvolume driver.
   final String driver;
 }

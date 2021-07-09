@@ -38,21 +38,21 @@ class HorizontalPodAutoscalerStatus {
     return list.map((e) => HorizontalPodAutoscalerStatus.fromJson(e)).toList();
   }
 
-  /// conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
+  /// Conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
   final List<HorizontalPodAutoscalerCondition> conditions;
 
-  /// currentMetrics is the last read state of the metrics used by this autoscaler.
+  /// CurrentMetrics is the last read state of the metrics used by this autoscaler.
   final List<MetricStatus>? currentMetrics;
 
-  /// currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
+  /// CurrentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
   final int currentReplicas;
 
-  /// desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.
+  /// DesiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.
   final int desiredReplicas;
 
-  /// lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods, used by the autoscaler to control how often the number of pods is changed.
+  /// LastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods, used by the autoscaler to control how often the number of pods is changed.
   final DateTime? lastScaleTime;
 
-  /// observedGeneration is the most recent generation observed by this autoscaler.
+  /// ObservedGeneration is the most recent generation observed by this autoscaler.
   final int? observedGeneration;
 }

@@ -8,7 +8,7 @@ import 'package:kubernetes/src/generated/api/core/v1/endpoint_port.dart';
 ///   }
 /// The resulting set of endpoints can be viewed as:
 ///     a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
-///     b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+///     b: [ 10.10.1.1:309, 10.10.2.2:309 ].
 class EndpointSubset {
   /// The main constructor.
   const EndpointSubset({

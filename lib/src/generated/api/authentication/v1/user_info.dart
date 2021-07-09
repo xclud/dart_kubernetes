@@ -11,7 +11,9 @@ class UserInfo {
   /// Creates a UserInfo from JSON data.
   UserInfo.fromJson(Map<String, dynamic> json)
       : this(
-          extra: json['extra'],
+          extra: json['extra'] != null
+              ? Map<String, List<String>>.from(json['extra'])
+              : null,
           groups:
               json['groups'] != null ? List<String>.from(json['groups']) : null,
           uid: json['uid'],
@@ -24,7 +26,7 @@ class UserInfo {
   }
 
   /// Any additional information provided by the authenticator.
-  final Object? extra;
+  final Map<String, List<String>>? extra;
 
   /// The names of groups this user is a part of.
   final List<String>? groups;

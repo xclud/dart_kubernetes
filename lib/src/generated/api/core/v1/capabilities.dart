@@ -18,9 +18,9 @@ class Capabilities {
     return list.map((e) => Capabilities.fromJson(e)).toList();
   }
 
-  /// Added capabilities
+  /// Added capabilities.
   final List<String>? add;
 
-  /// Removed capabilities
+  /// Removed capabilities.
   final List<String>? drop;
 }

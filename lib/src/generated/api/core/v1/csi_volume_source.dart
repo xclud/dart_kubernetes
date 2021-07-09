@@ -1,6 +1,6 @@
 import 'package:kubernetes/src/generated/api/core/v1/local_object_reference.dart';
 
-/// Represents a source location of a volume to mount, managed by an external CSI driver
+/// Represents a source location of a volume to mount, managed by an external CSI driver.
 class CSIVolumeSource {
   /// The main constructor.
   const CSIVolumeSource({
@@ -20,7 +20,9 @@ class CSIVolumeSource {
               ? LocalObjectReference.fromJson(json['nodePublishSecretRef'])
               : null,
           readOnly: json['readOnly'],
-          volumeAttributes: json['volumeAttributes'],
+          volumeAttributes: json['volumeAttributes'] != null
+              ? Map<String, String>.from(json['volumeAttributes'])
+              : null,
         );
 
   /// Creates a list of CSIVolumeSource from JSON data.
@@ -42,5 +44,5 @@ class CSIVolumeSource {
   final bool? readOnly;
 
   /// VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
-  final Object? volumeAttributes;
+  final Map<String, String>? volumeAttributes;
 }

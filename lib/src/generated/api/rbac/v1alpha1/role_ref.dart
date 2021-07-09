@@ -1,4 +1,4 @@
-/// RoleRef contains information that points to the role being used
+/// RoleRef contains information that points to the role being used.
 class RoleRef {
   /// The main constructor.
   const RoleRef({
@@ -20,12 +20,12 @@ class RoleRef {
     return list.map((e) => RoleRef.fromJson(e)).toList();
   }
 
-  /// APIGroup is the group for the resource being referenced
+  /// APIGroup is the group for the resource being referenced.
   final String apiGroup;
 
-  /// Kind is the type of resource being referenced
+  /// Kind is the type of resource being referenced.
   final String kind;
 
-  /// Name is the name of resource being referenced
+  /// Name is the name of resource being referenced.
   final String name;
 }

@@ -50,7 +50,7 @@ class SecurityContext {
     return list.map((e) => SecurityContext.fromJson(e)).toList();
   }
 
-  /// AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN
+  /// AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN.
   final bool? allowPrivilegeEscalation;
 
   /// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime.
@@ -59,7 +59,7 @@ class SecurityContext {
   /// Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false.
   final bool? privileged;
 
-  /// procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled.
+  /// ProcMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled.
   final String? procMount;
 
   /// Whether this container has a read-only root filesystem. Default is false.

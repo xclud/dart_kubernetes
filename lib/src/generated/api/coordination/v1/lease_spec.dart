@@ -30,18 +30,18 @@ class LeaseSpec {
     return list.map((e) => LeaseSpec.fromJson(e)).toList();
   }
 
-  /// acquireTime is a time when the current lease was acquired.
+  /// AcquireTime is a time when the current lease was acquired.
   final MicroTime? acquireTime;
 
-  /// holderIdentity contains the identity of the holder of a current lease.
+  /// HolderIdentity contains the identity of the holder of a current lease.
   final String? holderIdentity;
 
-  /// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
+  /// LeaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
   final int? leaseDurationSeconds;
 
-  /// leaseTransitions is the number of transitions of a lease between holders.
+  /// LeaseTransitions is the number of transitions of a lease between holders.
   final int? leaseTransitions;
 
-  /// renewTime is a time when the current holder of a lease has last updated the lease.
+  /// RenewTime is a time when the current holder of a lease has last updated the lease.
   final MicroTime? renewTime;
 }

@@ -27,15 +27,15 @@ class ExternalMetricSource {
     return list.map((e) => ExternalMetricSource.fromJson(e)).toList();
   }
 
-  /// metricName is the name of the metric in question.
+  /// MetricName is the name of the metric in question.
   final String metricName;
 
-  /// metricSelector is used to identify a specific time series within a given metric.
+  /// MetricSelector is used to identify a specific time series within a given metric.
   final LabelSelector? metricSelector;
 
-  /// targetAverageValue is the target per-pod value of global metric (as a quantity). Mutually exclusive with TargetValue.
+  /// TargetAverageValue is the target per-pod value of global metric (as a quantity). Mutually exclusive with TargetValue.
   final String? targetAverageValue;
 
-  /// targetValue is the target value of the metric (as a quantity). Mutually exclusive with TargetAverageValue.
+  /// TargetValue is the target value of the metric (as a quantity). Mutually exclusive with TargetAverageValue.
   final String? targetValue;
 }

@@ -27,6 +27,6 @@ class PortworxVolumeSource {
   /// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
   final bool? readOnly;
 
-  /// VolumeID uniquely identifies a Portworx volume
+  /// VolumeID uniquely identifies a Portworx volume.
   final String volumeID;
 }

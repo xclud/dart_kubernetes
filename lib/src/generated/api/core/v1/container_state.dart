@@ -31,12 +31,12 @@ class ContainerState {
     return list.map((e) => ContainerState.fromJson(e)).toList();
   }
 
-  /// Details about a running container
+  /// Details about a running container.
   final ContainerStateRunning? running;
 
-  /// Details about a terminated container
+  /// Details about a terminated container.
   final ContainerStateTerminated? terminated;
 
-  /// Details about a waiting container
+  /// Details about a waiting container.
   final ContainerStateWaiting? waiting;
 }

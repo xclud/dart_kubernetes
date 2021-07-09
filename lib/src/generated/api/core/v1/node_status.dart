@@ -30,8 +30,12 @@ class NodeStatus {
               ? NodeAddress.listFromJson(
                   (json['addresses'] as Iterable).cast<Map<String, dynamic>>())
               : null,
-          allocatable: json['allocatable'],
-          capacity: json['capacity'],
+          allocatable: json['allocatable'] != null
+              ? Map<String, String>.from(json['allocatable'])
+              : null,
+          capacity: json['capacity'] != null
+              ? Map<String, String>.from(json['capacity'])
+              : null,
           conditions: json['conditions'] != null
               ? NodeCondition.listFromJson(
                   (json['conditions'] as Iterable).cast<Map<String, dynamic>>())
@@ -69,12 +73,12 @@ class NodeStatus {
   final List<NodeAddress>? addresses;
 
   /// Allocatable represents the resources of a node that are available for scheduling. Defaults to Capacity.
-  final Object? allocatable;
+  final Map<String, String>? allocatable;
 
-  /// Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
-  final Object? capacity;
+  /// Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity.
+  final Map<String, String>? capacity;
 
-  /// Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition
+  /// Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition.
   final List<NodeCondition>? conditions;
 
   /// Status of the config assigned to the node via the dynamic Kubelet config feature.
@@ -83,10 +87,10 @@ class NodeStatus {
   /// Endpoints of daemons running on the Node.
   final NodeDaemonEndpoints? daemonEndpoints;
 
-  /// List of container images on this node
+  /// List of container images on this node.
   final List<ContainerImage>? images;
 
-  /// Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info
+  /// Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info.
   final NodeSystemInfo? nodeInfo;
 
   /// NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.

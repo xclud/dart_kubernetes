@@ -43,13 +43,13 @@ class ISCSIPersistentVolumeSource {
     return list.map((e) => ISCSIPersistentVolumeSource.fromJson(e)).toList();
   }
 
-  /// whether support iSCSI Discovery CHAP authentication
+  /// Whether support iSCSI Discovery CHAP authentication.
   final bool? chapAuthDiscovery;
 
-  /// whether support iSCSI Session CHAP authentication
+  /// Whether support iSCSI Session CHAP authentication.
   final bool? chapAuthSession;
 
-  /// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
+  /// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi.
   final String? fsType;
 
   /// Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
@@ -58,21 +58,21 @@ class ISCSIPersistentVolumeSource {
   /// Target iSCSI Qualified Name.
   final String iqn;
 
-  /// iSCSI Interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
+  /// ISCSI Interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
   final String? iscsiInterface;
 
-  /// iSCSI Target Lun number.
+  /// ISCSI Target Lun number.
   final int lun;
 
-  /// iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+  /// ISCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
   final List<String>? portals;
 
   /// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
   final bool? readOnly;
 
-  /// CHAP Secret for iSCSI target and initiator authentication
+  /// CHAP Secret for iSCSI target and initiator authentication.
   final SecretReference? secretRef;
 
-  /// iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+  /// ISCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
   final String targetPortal;
 }

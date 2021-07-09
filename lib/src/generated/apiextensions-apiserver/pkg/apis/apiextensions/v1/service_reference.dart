@@ -1,4 +1,4 @@
-/// ServiceReference holds a reference to Service.legacy.k8s.io
+/// ServiceReference holds a reference to Service.legacy.k8s.io.
 class ServiceReference {
   /// The main constructor.
   const ServiceReference({
@@ -23,15 +23,15 @@ class ServiceReference {
     return list.map((e) => ServiceReference.fromJson(e)).toList();
   }
 
-  /// name is the name of the service. Required
+  /// Name is the name of the service. Required.
   final String name;
 
-  /// namespace is the namespace of the service. Required
+  /// Namespace is the namespace of the service. Required.
   final String namespace;
 
-  /// path is an optional URL path at which the webhook will be contacted.
+  /// Path is an optional URL path at which the webhook will be contacted.
   final String? path;
 
-  /// port is an optional service port at which the webhook will be contacted. `port` should be a valid port number (1-65535, inclusive). Defaults to 443 for backward compatibility.
+  /// Port is an optional service port at which the webhook will be contacted. `port` should be a valid port number (1-65535, inclusive). Defaults to 443 for backward compatibility.
   final int? port;
 }

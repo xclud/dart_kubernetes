@@ -1,4 +1,4 @@
-/// NonResourceRule holds information that describes a rule for the non-resource
+/// NonResourceRule holds information that describes a rule for the non-resource.
 class NonResourceRule {
   /// The main constructor.
   const NonResourceRule({

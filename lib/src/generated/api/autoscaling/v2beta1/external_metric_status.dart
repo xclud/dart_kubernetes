@@ -27,15 +27,15 @@ class ExternalMetricStatus {
     return list.map((e) => ExternalMetricStatus.fromJson(e)).toList();
   }
 
-  /// currentAverageValue is the current value of metric averaged over autoscaled pods.
+  /// CurrentAverageValue is the current value of metric averaged over autoscaled pods.
   final String? currentAverageValue;
 
-  /// currentValue is the current value of the metric (as a quantity)
+  /// CurrentValue is the current value of the metric (as a quantity).
   final String currentValue;
 
-  /// metricName is the name of a metric used for autoscaling in metric system.
+  /// MetricName is the name of a metric used for autoscaling in metric system.
   final String metricName;
 
-  /// metricSelector is used to identify a specific time series within a given metric.
+  /// MetricSelector is used to identify a specific time series within a given metric.
   final LabelSelector? metricSelector;
 }

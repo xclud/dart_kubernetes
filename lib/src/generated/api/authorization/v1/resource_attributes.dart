@@ -1,4 +1,4 @@
-/// ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface
+/// ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface.
 class ResourceAttributes {
   /// The main constructor.
   const ResourceAttributes({
@@ -35,7 +35,7 @@ class ResourceAttributes {
   /// Name is the name of the resource being requested for a "get" or deleted for a "delete". "" (empty) means all.
   final String? name;
 
-  /// Namespace is the namespace of the action being requested.  Currently, there is no distinction between no namespace and all namespaces "" (empty) is defaulted for LocalSubjectAccessReviews "" (empty) is empty for cluster-scoped resources "" (empty) means "all" for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview
+  /// Namespace is the namespace of the action being requested.  Currently, there is no distinction between no namespace and all namespaces "" (empty) is defaulted for LocalSubjectAccessReviews "" (empty) is empty for cluster-scoped resources "" (empty) means "all" for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview.
   final String? namespace;
 
   /// Resource is one of the existing resource types.  "*" means all.

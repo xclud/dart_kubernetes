@@ -18,9 +18,9 @@ class ScaleStatus {
     return list.map((e) => ScaleStatus.fromJson(e)).toList();
   }
 
-  /// actual number of observed instances of the scaled object.
+  /// Actual number of observed instances of the scaled object.
   final int replicas;
 
-  /// label query over pods that should match the replicas count. This is same as the label selector but in the string format to avoid introspection by clients. The string will be in the same format as the query-param syntax. More info about label selectors: http://kubernetes.io/docs/user-guide/labels#label-selectors
+  /// Label query over pods that should match the replicas count. This is same as the label selector but in the string format to avoid introspection by clients. The string will be in the same format as the query-param syntax. More info about label selectors: http://kubernetes.io/docs/user-guide/labels#label-selectors.
   final String? selector;
 }

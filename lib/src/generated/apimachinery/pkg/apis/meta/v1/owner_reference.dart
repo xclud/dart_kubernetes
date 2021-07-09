@@ -36,12 +36,12 @@ class OwnerReference {
   /// If true, this reference points to the managing controller.
   final bool? controller;
 
-  /// Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  /// Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds.
   final String kind;
 
-  /// Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+  /// Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names.
   final String name;
 
-  /// UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+  /// UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids.
   final String uid;
 }

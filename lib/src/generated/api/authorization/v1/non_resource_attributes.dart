@@ -1,4 +1,4 @@
-/// NonResourceAttributes includes the authorization attributes available for non-resource requests to the Authorizer interface
+/// NonResourceAttributes includes the authorization attributes available for non-resource requests to the Authorizer interface.
 class NonResourceAttributes {
   /// The main constructor.
   const NonResourceAttributes({
@@ -19,9 +19,9 @@ class NonResourceAttributes {
     return list.map((e) => NonResourceAttributes.fromJson(e)).toList();
   }
 
-  /// Path is the URL path of the request
+  /// Path is the URL path of the request.
   final String? path;
 
-  /// Verb is the standard HTTP verb
+  /// Verb is the standard HTTP verb.
   final String? verb;
 }

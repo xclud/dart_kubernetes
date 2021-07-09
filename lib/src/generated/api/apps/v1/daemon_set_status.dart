@@ -46,27 +46,27 @@ class DaemonSetStatus {
   /// Represents the latest available observations of a DaemonSet's current state.
   final List<DaemonSetCondition>? conditions;
 
-  /// The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+  /// The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/.
   final int currentNumberScheduled;
 
-  /// The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+  /// The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/.
   final int desiredNumberScheduled;
 
-  /// The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)
+  /// The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds).
   final int? numberAvailable;
 
-  /// The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+  /// The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/.
   final int numberMisscheduled;
 
   /// The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
   final int numberReady;
 
-  /// The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)
+  /// The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds).
   final int? numberUnavailable;
 
   /// The most recent generation observed by the daemon set controller.
   final int? observedGeneration;
 
-  /// The total number of nodes that are running updated daemon pod
+  /// The total number of nodes that are running updated daemon pod.
   final int? updatedNumberScheduled;
 }

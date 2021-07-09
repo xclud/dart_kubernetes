@@ -1,7 +1,7 @@
 import 'package:kubernetes/src/generated/api/authorization/v1/non_resource_attributes.dart';
 import 'package:kubernetes/src/generated/api/authorization/v1/resource_attributes.dart';
 
-/// SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
+/// SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set.
 class SubjectAccessReviewSpec {
   /// The main constructor.
   const SubjectAccessReviewSpec({
@@ -16,7 +16,9 @@ class SubjectAccessReviewSpec {
   /// Creates a SubjectAccessReviewSpec from JSON data.
   SubjectAccessReviewSpec.fromJson(Map<String, dynamic> json)
       : this(
-          extra: json['extra'],
+          extra: json['extra'] != null
+              ? Map<String, List<String>>.from(json['extra'])
+              : null,
           groups:
               json['groups'] != null ? List<String>.from(json['groups']) : null,
           nonResourceAttributes: json['nonResourceAttributes'] != null
@@ -36,20 +38,20 @@ class SubjectAccessReviewSpec {
   }
 
   /// Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
-  final Object? extra;
+  final Map<String, List<String>>? extra;
 
   /// Groups is the groups you're testing for.
   final List<String>? groups;
 
-  /// NonResourceAttributes describes information for a non-resource access request
+  /// NonResourceAttributes describes information for a non-resource access request.
   final NonResourceAttributes? nonResourceAttributes;
 
-  /// ResourceAuthorizationAttributes describes information for a resource access request
+  /// ResourceAuthorizationAttributes describes information for a resource access request.
   final ResourceAttributes? resourceAttributes;
 
   /// UID information about the requesting user.
   final String? uid;
 
-  /// User is the user you're testing for. If you specify "User" but not "Groups", then is it interpreted as "What if User were not a member of any groups
+  /// User is the user you're testing for. If you specify "User" but not "Groups", then is it interpreted as "What if User were not a member of any groups.
   final String? user;
 }

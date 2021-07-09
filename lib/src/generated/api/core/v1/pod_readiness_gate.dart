@@ -1,4 +1,4 @@
-/// PodReadinessGate contains the reference to a pod condition
+/// PodReadinessGate contains the reference to a pod condition.
 class PodReadinessGate {
   /// The main constructor.
   const PodReadinessGate({

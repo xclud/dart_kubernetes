@@ -17,6 +17,6 @@ class PodIP {
     return list.map((e) => PodIP.fromJson(e)).toList();
   }
 
-  /// ip is an IP address (IPv4 or IPv6) assigned to the pod
+  /// Ip is an IP address (IPv4 or IPv6) assigned to the pod.
   final String? ip;
 }

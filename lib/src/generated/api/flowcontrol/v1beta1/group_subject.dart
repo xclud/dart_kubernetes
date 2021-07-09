@@ -16,6 +16,6 @@ class GroupSubject {
     return list.map((e) => GroupSubject.fromJson(e)).toList();
   }
 
-  /// name is the user group that matches, or "*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
+  /// Name is the user group that matches, or "*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
   final String name;
 }

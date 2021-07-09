@@ -19,9 +19,9 @@ class FlockerVolumeSource {
     return list.map((e) => FlockerVolumeSource.fromJson(e)).toList();
   }
 
-  /// Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated
+  /// Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated.
   final String? datasetName;
 
-  /// UUID of the dataset. This is unique identifier of a Flocker dataset
+  /// UUID of the dataset. This is unique identifier of a Flocker dataset.
   final String? datasetUUID;
 }

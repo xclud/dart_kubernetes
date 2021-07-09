@@ -1,4 +1,4 @@
-/// CertificateSigningRequestCondition describes a condition of a CertificateSigningRequest object
+/// CertificateSigningRequestCondition describes a condition of a CertificateSigningRequest object.
 class CertificateSigningRequestCondition {
   /// The main constructor.
   const CertificateSigningRequestCondition({
@@ -33,22 +33,22 @@ class CertificateSigningRequestCondition {
         .toList();
   }
 
-  /// lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
+  /// LastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
   final DateTime? lastTransitionTime;
 
-  /// lastUpdateTime is the time of the last update to this condition
+  /// LastUpdateTime is the time of the last update to this condition.
   final DateTime? lastUpdateTime;
 
-  /// message contains a human readable message with details about the request state
+  /// Message contains a human readable message with details about the request state.
   final String? message;
 
-  /// reason indicates a brief reason for the request state
+  /// Reason indicates a brief reason for the request state.
   final String? reason;
 
-  /// status of the condition, one of True, False, Unknown. Approved, Denied, and Failed conditions may not be "False" or "Unknown".
+  /// Status of the condition, one of True, False, Unknown. Approved, Denied, and Failed conditions may not be "False" or "Unknown".
   final String status;
 
-  /// type of the condition. Known conditions are "Approved", "Denied", and "Failed".
+  /// Type of the condition. Known conditions are "Approved", "Denied", and "Failed".
   ///
   /// An "Approved" condition is added via the /approval subresource, indicating the request was approved and should be issued by the signer.
   ///

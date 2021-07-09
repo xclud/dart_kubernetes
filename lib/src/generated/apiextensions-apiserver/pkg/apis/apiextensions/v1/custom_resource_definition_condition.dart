@@ -29,18 +29,18 @@ class CustomResourceDefinitionCondition {
         .toList();
   }
 
-  /// lastTransitionTime last time the condition transitioned from one status to another.
+  /// LastTransitionTime last time the condition transitioned from one status to another.
   final DateTime? lastTransitionTime;
 
-  /// message is a human-readable message indicating details about last transition.
+  /// Message is a human-readable message indicating details about last transition.
   final String? message;
 
-  /// reason is a unique, one-word, CamelCase reason for the condition's last transition.
+  /// Reason is a unique, one-word, CamelCase reason for the condition's last transition.
   final String? reason;
 
-  /// status is the status of the condition. Can be True, False, Unknown.
+  /// Status is the status of the condition. Can be True, False, Unknown.
   final String status;
 
-  /// type is the type of the condition. Types include Established, NamesAccepted and Terminating.
+  /// Type is the type of the condition. Types include Established, NamesAccepted and Terminating.
   final String type;
 }

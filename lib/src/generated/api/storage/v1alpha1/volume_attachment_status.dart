@@ -17,7 +17,9 @@ class VolumeAttachmentStatus {
               ? VolumeError.fromJson(json['attachError'])
               : null,
           attached: json['attached'],
-          attachmentMetadata: json['attachmentMetadata'],
+          attachmentMetadata: json['attachmentMetadata'] != null
+              ? Map<String, String>.from(json['attachmentMetadata'])
+              : null,
           detachError: json['detachError'] != null
               ? VolumeError.fromJson(json['detachError'])
               : null,
@@ -36,7 +38,7 @@ class VolumeAttachmentStatus {
   final bool attached;
 
   /// Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
-  final Object? attachmentMetadata;
+  final Map<String, String>? attachmentMetadata;
 
   /// The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
   final VolumeError? detachError;

@@ -1,4 +1,4 @@
-/// HTTPHeader describes a custom header to be used in HTTP probes
+/// HTTPHeader describes a custom header to be used in HTTP probes.
 class HTTPHeader {
   /// The main constructor.
   const HTTPHeader({
@@ -18,9 +18,9 @@ class HTTPHeader {
     return list.map((e) => HTTPHeader.fromJson(e)).toList();
   }
 
-  /// The header field name
+  /// The header field name.
   final String name;
 
-  /// The header field value
+  /// The header field value.
   final String value;
 }

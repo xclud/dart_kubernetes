@@ -33,18 +33,18 @@ class SubjectAccessReview {
     return list.map((e) => SubjectAccessReview.fromJson(e)).toList();
   }
 
-  /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;
 
-  /// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  /// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds.
   final String? kind;
 
-  /// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  /// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
   final ObjectMeta? metadata;
 
-  /// Spec holds information about the request being evaluated
+  /// Spec holds information about the request being evaluated.
   final SubjectAccessReviewSpec spec;
 
-  /// Status is filled in by the server and indicates whether the request is allowed or not
+  /// Status is filled in by the server and indicates whether the request is allowed or not.
   final SubjectAccessReviewStatus? status;
 }

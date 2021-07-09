@@ -1,6 +1,6 @@
 import 'package:kubernetes/src/generated/kube-aggregator/pkg/apis/apiregistration/v1/api_service_condition.dart';
 
-/// APIServiceStatus contains derived information about an API server
+/// APIServiceStatus contains derived information about an API server.
 class APIServiceStatus {
   /// The main constructor.
   const APIServiceStatus({

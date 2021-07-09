@@ -1,6 +1,6 @@
 import 'package:kubernetes/src/generated/api/core/v1/pod_affinity_term.dart';
 
-/// The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
+/// The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s).
 class WeightedPodAffinityTerm {
   /// The main constructor.
   const WeightedPodAffinityTerm({
@@ -24,6 +24,6 @@ class WeightedPodAffinityTerm {
   /// Required. A pod affinity term, associated with the corresponding weight.
   final PodAffinityTerm podAffinityTerm;
 
-  /// weight associated with matching the corresponding podAffinityTerm, in the range 1-100.
+  /// Weight associated with matching the corresponding podAffinityTerm, in the range 1-100.
   final int weight;
 }

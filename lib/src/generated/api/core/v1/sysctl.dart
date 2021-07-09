@@ -1,4 +1,4 @@
-/// Sysctl defines a kernel parameter to be set
+/// Sysctl defines a kernel parameter to be set.
 class Sysctl {
   /// The main constructor.
   const Sysctl({
@@ -18,9 +18,9 @@ class Sysctl {
     return list.map((e) => Sysctl.fromJson(e)).toList();
   }
 
-  /// Name of a property to set
+  /// Name of a property to set.
   final String name;
 
-  /// Value of a property to set
+  /// Value of a property to set.
   final String value;
 }

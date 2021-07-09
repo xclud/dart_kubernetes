@@ -1,6 +1,6 @@
 import 'package:kubernetes/src/generated/api/core/v1/secret_reference.dart';
 
-/// ScaleIOPersistentVolumeSource represents a persistent ScaleIO volume
+/// ScaleIOPersistentVolumeSource represents a persistent ScaleIO volume.
 class ScaleIOPersistentVolumeSource {
   /// The main constructor.
   const ScaleIOPersistentVolumeSource({
@@ -37,7 +37,7 @@ class ScaleIOPersistentVolumeSource {
     return list.map((e) => ScaleIOPersistentVolumeSource.fromJson(e)).toList();
   }
 
-  /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs"
+  /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
   final String? fsType;
 
   /// The host address of the ScaleIO API Gateway.
@@ -52,7 +52,7 @@ class ScaleIOPersistentVolumeSource {
   /// SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
   final SecretReference secretRef;
 
-  /// Flag to enable/disable SSL communication with Gateway, default false
+  /// Flag to enable/disable SSL communication with Gateway, default false.
   final bool? sslEnabled;
 
   /// Indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.

@@ -1,4 +1,4 @@
-/// NetworkPolicyPort describes a port to allow traffic on
+/// NetworkPolicyPort describes a port to allow traffic on.
 class NetworkPolicyPort {
   /// The main constructor.
   const NetworkPolicyPort({

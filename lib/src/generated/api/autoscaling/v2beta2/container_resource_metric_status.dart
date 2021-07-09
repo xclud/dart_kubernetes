@@ -23,10 +23,10 @@ class ContainerResourceMetricStatus {
     return list.map((e) => ContainerResourceMetricStatus.fromJson(e)).toList();
   }
 
-  /// Container is the name of the container in the pods of the scaling target
+  /// Container is the name of the container in the pods of the scaling target.
   final String container;
 
-  /// current contains the current value for the given metric
+  /// Current contains the current value for the given metric.
   final MetricValueStatus current;
 
   /// Name is the name of the resource in question.

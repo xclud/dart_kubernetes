@@ -37,7 +37,7 @@ class DeploymentSpec {
     return list.map((e) => DeploymentSpec.fromJson(e)).toList();
   }
 
-  /// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+  /// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
   final int? minReadySeconds;
 
   /// Indicates that the deployment is paused.

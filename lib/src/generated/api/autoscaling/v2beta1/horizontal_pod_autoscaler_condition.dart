@@ -29,18 +29,18 @@ class HorizontalPodAutoscalerCondition {
         .toList();
   }
 
-  /// lastTransitionTime is the last time the condition transitioned from one status to another
+  /// LastTransitionTime is the last time the condition transitioned from one status to another.
   final DateTime? lastTransitionTime;
 
-  /// message is a human-readable explanation containing details about the transition
+  /// Message is a human-readable explanation containing details about the transition.
   final String? message;
 
-  /// reason is the reason for the condition's last transition.
+  /// Reason is the reason for the condition's last transition.
   final String? reason;
 
-  /// status is the status of the condition (True, False, Unknown)
+  /// Status is the status of the condition (True, False, Unknown).
   final String status;
 
-  /// type describes the current condition
+  /// Type describes the current condition.
   final String type;
 }

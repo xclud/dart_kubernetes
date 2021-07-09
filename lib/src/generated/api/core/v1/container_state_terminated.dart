@@ -33,24 +33,24 @@ class ContainerStateTerminated {
     return list.map((e) => ContainerStateTerminated.fromJson(e)).toList();
   }
 
-  /// Container's ID in the format 'docker://<container_id>'
+  /// Container's ID in the format 'docker://<container_id>'.
   final String? containerID;
 
-  /// Exit status from the last termination of the container
+  /// Exit status from the last termination of the container.
   final int exitCode;
 
-  /// Time at which the container last terminated
+  /// Time at which the container last terminated.
   final DateTime? finishedAt;
 
-  /// Message regarding the last termination of the container
+  /// Message regarding the last termination of the container.
   final String? message;
 
-  /// (brief) reason from the last termination of the container
+  /// (brief) reason from the last termination of the container.
   final String? reason;
 
-  /// Signal from the last termination of the container
+  /// Signal from the last termination of the container.
   final int? signal;
 
-  /// Time at which previous execution of the container started
+  /// Time at which previous execution of the container started.
   final DateTime? startedAt;
 }

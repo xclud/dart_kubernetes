@@ -639,6 +639,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Namespace> createCoreV1Namespace({
+    required api_core_v1.Namespace body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -663,6 +664,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Binding> createCoreV1NamespacedBinding({
+    required api_core_v1.Binding body,
     String? dryRun,
     String? fieldManager,
     required String namespace,
@@ -738,6 +740,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.ConfigMap> createCoreV1NamespacedConfigMap({
+    required api_core_v1.ConfigMap body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -812,6 +815,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.ConfigMap> replaceCoreV1NamespacedConfigMap({
+    required api_core_v1.ConfigMap body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -837,6 +841,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.ConfigMap> patchCoreV1NamespacedConfigMap({
+    required api_core_v1.ConfigMap body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -905,6 +910,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Endpoints> createCoreV1NamespacedEndpoints({
+    required api_core_v1.Endpoints body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -979,6 +985,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Endpoints> replaceCoreV1NamespacedEndpoints({
+    required api_core_v1.Endpoints body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -1004,6 +1011,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Endpoints> patchCoreV1NamespacedEndpoints({
+    required api_core_v1.Endpoints body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -1072,6 +1080,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Event> createCoreV1NamespacedEvent({
+    required api_core_v1.Event body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -1146,6 +1155,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Event> replaceCoreV1NamespacedEvent({
+    required api_core_v1.Event body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -1171,6 +1181,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Event> patchCoreV1NamespacedEvent({
+    required api_core_v1.Event body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -1239,6 +1250,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.LimitRange> createCoreV1NamespacedLimitRange({
+    required api_core_v1.LimitRange body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -1314,6 +1326,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.LimitRange> replaceCoreV1NamespacedLimitRange({
+    required api_core_v1.LimitRange body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -1339,6 +1352,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.LimitRange> patchCoreV1NamespacedLimitRange({
+    required api_core_v1.LimitRange body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -1409,6 +1423,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.PersistentVolumeClaim>
       createCoreV1NamespacedPersistentVolumeClaim({
+    required api_core_v1.PersistentVolumeClaim body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -1486,6 +1501,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.PersistentVolumeClaim>
       replaceCoreV1NamespacedPersistentVolumeClaim({
+    required api_core_v1.PersistentVolumeClaim body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -1512,6 +1528,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.PersistentVolumeClaim>
       patchCoreV1NamespacedPersistentVolumeClaim({
+    required api_core_v1.PersistentVolumeClaim body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -1564,6 +1581,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.PersistentVolumeClaim>
       replaceCoreV1NamespacedPersistentVolumeClaimStatus({
+    required api_core_v1.PersistentVolumeClaim body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -1590,6 +1608,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.PersistentVolumeClaim>
       patchCoreV1NamespacedPersistentVolumeClaimStatus({
+    required api_core_v1.PersistentVolumeClaim body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -1658,6 +1677,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Pod> createCoreV1NamespacedPod({
+    required api_core_v1.Pod body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -1732,6 +1752,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Pod> replaceCoreV1NamespacedPod({
+    required api_core_v1.Pod body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -1757,6 +1778,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Pod> patchCoreV1NamespacedPod({
+    required api_core_v1.Pod body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -1839,6 +1861,7 @@ class KubernetesClient {
   ///
   /// [tty] TTY if true indicates that a tty will be allocated for the attach call. This is passed through the container runtime so the tty is allocated on the worker node by the container runtime. Defaults to false.
   Future<String> connectCoreV1PostNamespacedPodAttach({
+    required String body,
     String? container,
     required String name,
     required String namespace,
@@ -1884,6 +1907,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Binding> createCoreV1NamespacedPodBinding({
+    required api_core_v1.Binding body,
     String? dryRun,
     String? fieldManager,
     required String name,
@@ -1942,6 +1966,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Pod> replaceCoreV1NamespacedPodEphemeralcontainers({
+    required api_core_v1.Pod body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -1967,6 +1992,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Pod> patchCoreV1NamespacedPodEphemeralcontainers({
+    required api_core_v1.Pod body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -1996,6 +2022,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_policy_v1.Eviction> createCoreV1NamespacedPodEviction({
+    required api_policy_v1.Eviction body,
     String? dryRun,
     String? fieldManager,
     required String name,
@@ -2094,6 +2121,7 @@ class KubernetesClient {
   ///
   /// [tty] TTY if true indicates that a tty will be allocated for the exec call. Defaults to false.
   Future<String> connectCoreV1PostNamespacedPodExec({
+    required String body,
     String? command,
     String? container,
     required String name,
@@ -2238,6 +2266,7 @@ class KubernetesClient {
   ///
   /// [ports] List of ports to forward Required when using WebSockets.
   Future<String> connectCoreV1PostNamespacedPodPortforward({
+    required String body,
     required String name,
     required String namespace,
     int? ports,
@@ -2313,6 +2342,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the URL path to use for the current proxy request to pod.
   Future<String> connectCoreV1PostNamespacedPodProxy({
+    required String body,
     required String name,
     required String namespace,
     String? pathQuery,
@@ -2338,6 +2368,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the URL path to use for the current proxy request to pod.
   Future<String> connectCoreV1PutNamespacedPodProxy({
+    required String body,
     required String name,
     required String namespace,
     String? pathQuery,
@@ -2363,6 +2394,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the URL path to use for the current proxy request to pod.
   Future<String> connectCoreV1PatchNamespacedPodProxy({
+    required String body,
     required String name,
     required String namespace,
     String? pathQuery,
@@ -2388,6 +2420,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the URL path to use for the current proxy request to pod.
   Future<String> connectCoreV1HeadNamespacedPodProxy({
+    required String body,
     required String name,
     required String namespace,
     String? pathQuery,
@@ -2413,6 +2446,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the URL path to use for the current proxy request to pod.
   Future<String> connectCoreV1OptionsNamespacedPodProxy({
+    required String body,
     required String name,
     required String namespace,
     String? pathQuery,
@@ -2496,6 +2530,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the URL path to use for the current proxy request to pod.
   Future<String> connectCoreV1PostNamespacedPodProxyWithPath({
+    required String body,
     required String name,
     required String namespace,
     required String path,
@@ -2524,6 +2559,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the URL path to use for the current proxy request to pod.
   Future<String> connectCoreV1PutNamespacedPodProxyWithPath({
+    required String body,
     required String name,
     required String namespace,
     required String path,
@@ -2552,6 +2588,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the URL path to use for the current proxy request to pod.
   Future<String> connectCoreV1PatchNamespacedPodProxyWithPath({
+    required String body,
     required String name,
     required String namespace,
     required String path,
@@ -2580,6 +2617,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the URL path to use for the current proxy request to pod.
   Future<String> connectCoreV1HeadNamespacedPodProxyWithPath({
+    required String body,
     required String name,
     required String namespace,
     required String path,
@@ -2608,6 +2646,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the URL path to use for the current proxy request to pod.
   Future<String> connectCoreV1OptionsNamespacedPodProxyWithPath({
+    required String body,
     required String name,
     required String namespace,
     required String path,
@@ -2659,6 +2698,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Pod> replaceCoreV1NamespacedPodStatus({
+    required api_core_v1.Pod body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -2684,6 +2724,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Pod> patchCoreV1NamespacedPodStatus({
+    required api_core_v1.Pod body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -2752,6 +2793,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.PodTemplate> createCoreV1NamespacedPodTemplate({
+    required api_core_v1.PodTemplate body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -2826,6 +2868,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.PodTemplate> replaceCoreV1NamespacedPodTemplate({
+    required api_core_v1.PodTemplate body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -2851,6 +2894,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.PodTemplate> patchCoreV1NamespacedPodTemplate({
+    required api_core_v1.PodTemplate body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -2921,6 +2965,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.ReplicationController>
       createCoreV1NamespacedReplicationController({
+    required api_core_v1.ReplicationController body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -2998,6 +3043,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.ReplicationController>
       replaceCoreV1NamespacedReplicationController({
+    required api_core_v1.ReplicationController body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -3024,6 +3070,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.ReplicationController>
       patchCoreV1NamespacedReplicationController({
+    required api_core_v1.ReplicationController body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -3076,6 +3123,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_autoscaling_v1.Scale>
       replaceCoreV1NamespacedReplicationControllerScale({
+    required api_autoscaling_v1.Scale body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -3102,6 +3150,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_autoscaling_v1.Scale>
       patchCoreV1NamespacedReplicationControllerScale({
+    required api_autoscaling_v1.Scale body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -3154,6 +3203,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.ReplicationController>
       replaceCoreV1NamespacedReplicationControllerStatus({
+    required api_core_v1.ReplicationController body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -3180,6 +3230,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.ReplicationController>
       patchCoreV1NamespacedReplicationControllerStatus({
+    required api_core_v1.ReplicationController body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -3248,6 +3299,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.ResourceQuota> createCoreV1NamespacedResourceQuota({
+    required api_core_v1.ResourceQuota body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -3322,6 +3374,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.ResourceQuota> replaceCoreV1NamespacedResourceQuota({
+    required api_core_v1.ResourceQuota body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -3347,6 +3400,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.ResourceQuota> patchCoreV1NamespacedResourceQuota({
+    required api_core_v1.ResourceQuota body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -3397,6 +3451,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.ResourceQuota> replaceCoreV1NamespacedResourceQuotaStatus({
+    required api_core_v1.ResourceQuota body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -3422,6 +3477,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.ResourceQuota> patchCoreV1NamespacedResourceQuotaStatus({
+    required api_core_v1.ResourceQuota body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -3490,6 +3546,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Secret> createCoreV1NamespacedSecret({
+    required api_core_v1.Secret body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -3564,6 +3621,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Secret> replaceCoreV1NamespacedSecret({
+    required api_core_v1.Secret body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -3589,6 +3647,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Secret> patchCoreV1NamespacedSecret({
+    required api_core_v1.Secret body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -3657,6 +3716,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.ServiceAccount> createCoreV1NamespacedServiceAccount({
+    required api_core_v1.ServiceAccount body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -3731,6 +3791,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.ServiceAccount> replaceCoreV1NamespacedServiceAccount({
+    required api_core_v1.ServiceAccount body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -3756,6 +3817,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.ServiceAccount> patchCoreV1NamespacedServiceAccount({
+    required api_core_v1.ServiceAccount body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -3786,6 +3848,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_authentication_v1.TokenRequest>
       createCoreV1NamespacedServiceAccountToken({
+    required api_authentication_v1.TokenRequest body,
     String? dryRun,
     String? fieldManager,
     required String name,
@@ -3839,6 +3902,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Service> createCoreV1NamespacedService({
+    required api_core_v1.Service body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -3913,6 +3977,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Service> replaceCoreV1NamespacedService({
+    required api_core_v1.Service body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -3938,6 +4003,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Service> patchCoreV1NamespacedService({
+    required api_core_v1.Service body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -4013,6 +4079,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
   Future<String> connectCoreV1PostNamespacedServiceProxy({
+    required String body,
     required String name,
     required String namespace,
     String? pathQuery,
@@ -4038,6 +4105,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
   Future<String> connectCoreV1PutNamespacedServiceProxy({
+    required String body,
     required String name,
     required String namespace,
     String? pathQuery,
@@ -4063,6 +4131,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
   Future<String> connectCoreV1PatchNamespacedServiceProxy({
+    required String body,
     required String name,
     required String namespace,
     String? pathQuery,
@@ -4088,6 +4157,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
   Future<String> connectCoreV1HeadNamespacedServiceProxy({
+    required String body,
     required String name,
     required String namespace,
     String? pathQuery,
@@ -4113,6 +4183,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
   Future<String> connectCoreV1OptionsNamespacedServiceProxy({
+    required String body,
     required String name,
     required String namespace,
     String? pathQuery,
@@ -4196,6 +4267,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
   Future<String> connectCoreV1PostNamespacedServiceProxyWithPath({
+    required String body,
     required String name,
     required String namespace,
     required String path,
@@ -4224,6 +4296,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
   Future<String> connectCoreV1PutNamespacedServiceProxyWithPath({
+    required String body,
     required String name,
     required String namespace,
     required String path,
@@ -4252,6 +4325,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
   Future<String> connectCoreV1PatchNamespacedServiceProxyWithPath({
+    required String body,
     required String name,
     required String namespace,
     required String path,
@@ -4280,6 +4354,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
   Future<String> connectCoreV1HeadNamespacedServiceProxyWithPath({
+    required String body,
     required String name,
     required String namespace,
     required String path,
@@ -4308,6 +4383,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.
   Future<String> connectCoreV1OptionsNamespacedServiceProxyWithPath({
+    required String body,
     required String name,
     required String namespace,
     required String path,
@@ -4359,6 +4435,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Service> replaceCoreV1NamespacedServiceStatus({
+    required api_core_v1.Service body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -4384,6 +4461,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Service> patchCoreV1NamespacedServiceStatus({
+    required api_core_v1.Service body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -4449,6 +4527,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Namespace> replaceCoreV1Namespace({
+    required api_core_v1.Namespace body,
     required String name,
     bool? pretty,
   }) async {
@@ -4470,6 +4549,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Namespace> patchCoreV1Namespace({
+    required api_core_v1.Namespace body,
     required String name,
     bool? pretty,
   }) async {
@@ -4495,6 +4575,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Namespace> replaceCoreV1NamespaceFinalize({
+    required api_core_v1.Namespace body,
     String? dryRun,
     String? fieldManager,
     required String name,
@@ -4545,6 +4626,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Namespace> replaceCoreV1NamespaceStatus({
+    required api_core_v1.Namespace body,
     required String name,
     bool? pretty,
   }) async {
@@ -4566,6 +4648,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Namespace> patchCoreV1NamespaceStatus({
+    required api_core_v1.Namespace body,
     required String name,
     bool? pretty,
   }) async {
@@ -4621,6 +4704,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Node> createCoreV1Node({
+    required api_core_v1.Node body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -4683,6 +4767,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Node> replaceCoreV1Node({
+    required api_core_v1.Node body,
     required String name,
     bool? pretty,
   }) async {
@@ -4704,6 +4789,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Node> patchCoreV1Node({
+    required api_core_v1.Node body,
     required String name,
     bool? pretty,
   }) async {
@@ -4767,6 +4853,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the URL path to use for the current proxy request to node.
   Future<String> connectCoreV1PostNodeProxy({
+    required String body,
     required String name,
     String? pathQuery,
   }) async {
@@ -4788,6 +4875,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the URL path to use for the current proxy request to node.
   Future<String> connectCoreV1PutNodeProxy({
+    required String body,
     required String name,
     String? pathQuery,
   }) async {
@@ -4809,6 +4897,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the URL path to use for the current proxy request to node.
   Future<String> connectCoreV1PatchNodeProxy({
+    required String body,
     required String name,
     String? pathQuery,
   }) async {
@@ -4830,6 +4919,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the URL path to use for the current proxy request to node.
   Future<String> connectCoreV1HeadNodeProxy({
+    required String body,
     required String name,
     String? pathQuery,
   }) async {
@@ -4851,6 +4941,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the URL path to use for the current proxy request to node.
   Future<String> connectCoreV1OptionsNodeProxy({
+    required String body,
     required String name,
     String? pathQuery,
   }) async {
@@ -4924,6 +5015,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the URL path to use for the current proxy request to node.
   Future<String> connectCoreV1PostNodeProxyWithPath({
+    required String body,
     required String name,
     required String path,
     String? pathQuery,
@@ -4949,6 +5041,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the URL path to use for the current proxy request to node.
   Future<String> connectCoreV1PutNodeProxyWithPath({
+    required String body,
     required String name,
     required String path,
     String? pathQuery,
@@ -4974,6 +5067,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the URL path to use for the current proxy request to node.
   Future<String> connectCoreV1PatchNodeProxyWithPath({
+    required String body,
     required String name,
     required String path,
     String? pathQuery,
@@ -4999,6 +5093,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the URL path to use for the current proxy request to node.
   Future<String> connectCoreV1HeadNodeProxyWithPath({
+    required String body,
     required String name,
     required String path,
     String? pathQuery,
@@ -5024,6 +5119,7 @@ class KubernetesClient {
   ///
   /// [pathQuery] Path is the URL path to use for the current proxy request to node.
   Future<String> connectCoreV1OptionsNodeProxyWithPath({
+    required String body,
     required String name,
     required String path,
     String? pathQuery,
@@ -5068,6 +5164,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Node> replaceCoreV1NodeStatus({
+    required api_core_v1.Node body,
     required String name,
     bool? pretty,
   }) async {
@@ -5089,6 +5186,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.Node> patchCoreV1NodeStatus({
+    required api_core_v1.Node body,
     required String name,
     bool? pretty,
   }) async {
@@ -5218,6 +5316,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.PersistentVolume> createCoreV1PersistentVolume({
+    required api_core_v1.PersistentVolume body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -5281,6 +5380,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.PersistentVolume> replaceCoreV1PersistentVolume({
+    required api_core_v1.PersistentVolume body,
     required String name,
     bool? pretty,
   }) async {
@@ -5302,6 +5402,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.PersistentVolume> patchCoreV1PersistentVolume({
+    required api_core_v1.PersistentVolume body,
     required String name,
     bool? pretty,
   }) async {
@@ -5345,6 +5446,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.PersistentVolume> replaceCoreV1PersistentVolumeStatus({
+    required api_core_v1.PersistentVolume body,
     required String name,
     bool? pretty,
   }) async {
@@ -5367,6 +5469,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_core_v1.PersistentVolume> patchCoreV1PersistentVolumeStatus({
+    required api_core_v1.PersistentVolume body,
     required String name,
     bool? pretty,
   }) async {
@@ -9200,6 +9303,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_admissionregistration_v1.MutatingWebhookConfiguration>
       createAdmissionregistrationV1MutatingWebhookConfiguration({
+    required api_admissionregistration_v1.MutatingWebhookConfiguration body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -9270,6 +9374,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_admissionregistration_v1.MutatingWebhookConfiguration>
       replaceAdmissionregistrationV1MutatingWebhookConfiguration({
+    required api_admissionregistration_v1.MutatingWebhookConfiguration body,
     required String name,
     bool? pretty,
   }) async {
@@ -9294,6 +9399,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_admissionregistration_v1.MutatingWebhookConfiguration>
       patchAdmissionregistrationV1MutatingWebhookConfiguration({
+    required api_admissionregistration_v1.MutatingWebhookConfiguration body,
     required String name,
     bool? pretty,
   }) async {
@@ -9357,6 +9463,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_admissionregistration_v1.ValidatingWebhookConfiguration>
       createAdmissionregistrationV1ValidatingWebhookConfiguration({
+    required api_admissionregistration_v1.ValidatingWebhookConfiguration body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -9427,6 +9534,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_admissionregistration_v1.ValidatingWebhookConfiguration>
       replaceAdmissionregistrationV1ValidatingWebhookConfiguration({
+    required api_admissionregistration_v1.ValidatingWebhookConfiguration body,
     required String name,
     bool? pretty,
   }) async {
@@ -9451,6 +9559,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_admissionregistration_v1.ValidatingWebhookConfiguration>
       patchAdmissionregistrationV1ValidatingWebhookConfiguration({
+    required api_admissionregistration_v1.ValidatingWebhookConfiguration body,
     required String name,
     bool? pretty,
   }) async {
@@ -9838,6 +9947,9 @@ class KubernetesClient {
           apiextensions__apiserver_pkg_apis_apiextensions_v1
               .CustomResourceDefinition>
       createApiextensionsV1CustomResourceDefinition({
+    required apiextensions__apiserver_pkg_apis_apiextensions_v1
+            .CustomResourceDefinition
+        body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -9912,6 +10024,9 @@ class KubernetesClient {
           apiextensions__apiserver_pkg_apis_apiextensions_v1
               .CustomResourceDefinition>
       replaceApiextensionsV1CustomResourceDefinition({
+    required apiextensions__apiserver_pkg_apis_apiextensions_v1
+            .CustomResourceDefinition
+        body,
     required String name,
     bool? pretty,
   }) async {
@@ -9938,6 +10053,9 @@ class KubernetesClient {
           apiextensions__apiserver_pkg_apis_apiextensions_v1
               .CustomResourceDefinition>
       patchApiextensionsV1CustomResourceDefinition({
+    required apiextensions__apiserver_pkg_apis_apiextensions_v1
+            .CustomResourceDefinition
+        body,
     required String name,
     bool? pretty,
   }) async {
@@ -9990,6 +10108,9 @@ class KubernetesClient {
           apiextensions__apiserver_pkg_apis_apiextensions_v1
               .CustomResourceDefinition>
       replaceApiextensionsV1CustomResourceDefinitionStatus({
+    required apiextensions__apiserver_pkg_apis_apiextensions_v1
+            .CustomResourceDefinition
+        body,
     required String name,
     bool? pretty,
   }) async {
@@ -10016,6 +10137,9 @@ class KubernetesClient {
           apiextensions__apiserver_pkg_apis_apiextensions_v1
               .CustomResourceDefinition>
       patchApiextensionsV1CustomResourceDefinitionStatus({
+    required apiextensions__apiserver_pkg_apis_apiextensions_v1
+            .CustomResourceDefinition
+        body,
     required String name,
     bool? pretty,
   }) async {
@@ -10246,6 +10370,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<kube__aggregator_pkg_apis_apiregistration_v1.APIService>
       createApiregistrationV1APIService({
+    required kube__aggregator_pkg_apis_apiregistration_v1.APIService body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -10316,6 +10441,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<kube__aggregator_pkg_apis_apiregistration_v1.APIService>
       replaceApiregistrationV1APIService({
+    required kube__aggregator_pkg_apis_apiregistration_v1.APIService body,
     required String name,
     bool? pretty,
   }) async {
@@ -10340,6 +10466,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<kube__aggregator_pkg_apis_apiregistration_v1.APIService>
       patchApiregistrationV1APIService({
+    required kube__aggregator_pkg_apis_apiregistration_v1.APIService body,
     required String name,
     bool? pretty,
   }) async {
@@ -10388,6 +10515,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<kube__aggregator_pkg_apis_apiregistration_v1.APIService>
       replaceApiregistrationV1APIServiceStatus({
+    required kube__aggregator_pkg_apis_apiregistration_v1.APIService body,
     required String name,
     bool? pretty,
   }) async {
@@ -10412,6 +10540,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<kube__aggregator_pkg_apis_apiregistration_v1.APIService>
       patchApiregistrationV1APIServiceStatus({
+    required kube__aggregator_pkg_apis_apiregistration_v1.APIService body,
     required String name,
     bool? pretty,
   }) async {
@@ -10865,6 +10994,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apps_v1.ControllerRevision>
       createAppsV1NamespacedControllerRevision({
+    required api_apps_v1.ControllerRevision body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -10942,6 +11072,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apps_v1.ControllerRevision>
       replaceAppsV1NamespacedControllerRevision({
+    required api_apps_v1.ControllerRevision body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -10968,6 +11099,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apps_v1.ControllerRevision>
       patchAppsV1NamespacedControllerRevision({
+    required api_apps_v1.ControllerRevision body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -11036,6 +11168,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apps_v1.DaemonSet> createAppsV1NamespacedDaemonSet({
+    required api_apps_v1.DaemonSet body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -11110,6 +11243,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apps_v1.DaemonSet> replaceAppsV1NamespacedDaemonSet({
+    required api_apps_v1.DaemonSet body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -11135,6 +11269,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apps_v1.DaemonSet> patchAppsV1NamespacedDaemonSet({
+    required api_apps_v1.DaemonSet body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -11185,6 +11320,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apps_v1.DaemonSet> replaceAppsV1NamespacedDaemonSetStatus({
+    required api_apps_v1.DaemonSet body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -11210,6 +11346,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apps_v1.DaemonSet> patchAppsV1NamespacedDaemonSetStatus({
+    required api_apps_v1.DaemonSet body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -11278,6 +11415,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apps_v1.Deployment> createAppsV1NamespacedDeployment({
+    required api_apps_v1.Deployment body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -11353,6 +11491,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apps_v1.Deployment> replaceAppsV1NamespacedDeployment({
+    required api_apps_v1.Deployment body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -11378,6 +11517,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apps_v1.Deployment> patchAppsV1NamespacedDeployment({
+    required api_apps_v1.Deployment body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -11428,6 +11568,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_autoscaling_v1.Scale> replaceAppsV1NamespacedDeploymentScale({
+    required api_autoscaling_v1.Scale body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -11453,6 +11594,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_autoscaling_v1.Scale> patchAppsV1NamespacedDeploymentScale({
+    required api_autoscaling_v1.Scale body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -11503,6 +11645,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apps_v1.Deployment> replaceAppsV1NamespacedDeploymentStatus({
+    required api_apps_v1.Deployment body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -11528,6 +11671,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apps_v1.Deployment> patchAppsV1NamespacedDeploymentStatus({
+    required api_apps_v1.Deployment body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -11596,6 +11740,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apps_v1.ReplicaSet> createAppsV1NamespacedReplicaSet({
+    required api_apps_v1.ReplicaSet body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -11671,6 +11816,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apps_v1.ReplicaSet> replaceAppsV1NamespacedReplicaSet({
+    required api_apps_v1.ReplicaSet body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -11696,6 +11842,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apps_v1.ReplicaSet> patchAppsV1NamespacedReplicaSet({
+    required api_apps_v1.ReplicaSet body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -11746,6 +11893,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_autoscaling_v1.Scale> replaceAppsV1NamespacedReplicaSetScale({
+    required api_autoscaling_v1.Scale body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -11771,6 +11919,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_autoscaling_v1.Scale> patchAppsV1NamespacedReplicaSetScale({
+    required api_autoscaling_v1.Scale body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -11821,6 +11970,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apps_v1.ReplicaSet> replaceAppsV1NamespacedReplicaSetStatus({
+    required api_apps_v1.ReplicaSet body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -11846,6 +11996,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apps_v1.ReplicaSet> patchAppsV1NamespacedReplicaSetStatus({
+    required api_apps_v1.ReplicaSet body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -11914,6 +12065,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apps_v1.StatefulSet> createAppsV1NamespacedStatefulSet({
+    required api_apps_v1.StatefulSet body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -11989,6 +12141,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apps_v1.StatefulSet> replaceAppsV1NamespacedStatefulSet({
+    required api_apps_v1.StatefulSet body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -12014,6 +12167,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apps_v1.StatefulSet> patchAppsV1NamespacedStatefulSet({
+    required api_apps_v1.StatefulSet body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -12064,6 +12218,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_autoscaling_v1.Scale> replaceAppsV1NamespacedStatefulSetScale({
+    required api_autoscaling_v1.Scale body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -12089,6 +12244,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_autoscaling_v1.Scale> patchAppsV1NamespacedStatefulSetScale({
+    required api_autoscaling_v1.Scale body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -12139,6 +12295,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apps_v1.StatefulSet> replaceAppsV1NamespacedStatefulSetStatus({
+    required api_apps_v1.StatefulSet body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -12164,6 +12321,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apps_v1.StatefulSet> patchAppsV1NamespacedStatefulSetStatus({
+    required api_apps_v1.StatefulSet body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -13513,6 +13671,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_authentication_v1.TokenReview> createAuthenticationV1TokenReview({
+    required api_authentication_v1.TokenReview body,
     String? dryRun,
     String? fieldManager,
     bool? pretty,
@@ -13561,6 +13720,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_authorization_v1.LocalSubjectAccessReview>
       createAuthorizationV1NamespacedLocalSubjectAccessReview({
+    required api_authorization_v1.LocalSubjectAccessReview body,
     String? dryRun,
     String? fieldManager,
     required String namespace,
@@ -13594,6 +13754,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_authorization_v1.SelfSubjectAccessReview>
       createAuthorizationV1SelfSubjectAccessReview({
+    required api_authorization_v1.SelfSubjectAccessReview body,
     String? dryRun,
     String? fieldManager,
     bool? pretty,
@@ -13626,6 +13787,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_authorization_v1.SelfSubjectRulesReview>
       createAuthorizationV1SelfSubjectRulesReview({
+    required api_authorization_v1.SelfSubjectRulesReview body,
     String? dryRun,
     String? fieldManager,
     bool? pretty,
@@ -13658,6 +13820,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_authorization_v1.SubjectAccessReview>
       createAuthorizationV1SubjectAccessReview({
+    required api_authorization_v1.SubjectAccessReview body,
     String? dryRun,
     String? fieldManager,
     bool? pretty,
@@ -13822,6 +13985,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_autoscaling_v1.HorizontalPodAutoscaler>
       createAutoscalingV1NamespacedHorizontalPodAutoscaler({
+    required api_autoscaling_v1.HorizontalPodAutoscaler body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -13899,6 +14063,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_autoscaling_v1.HorizontalPodAutoscaler>
       replaceAutoscalingV1NamespacedHorizontalPodAutoscaler({
+    required api_autoscaling_v1.HorizontalPodAutoscaler body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -13925,6 +14090,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_autoscaling_v1.HorizontalPodAutoscaler>
       patchAutoscalingV1NamespacedHorizontalPodAutoscaler({
+    required api_autoscaling_v1.HorizontalPodAutoscaler body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -13977,6 +14143,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_autoscaling_v1.HorizontalPodAutoscaler>
       replaceAutoscalingV1NamespacedHorizontalPodAutoscalerStatus({
+    required api_autoscaling_v1.HorizontalPodAutoscaler body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -14003,6 +14170,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_autoscaling_v1.HorizontalPodAutoscaler>
       patchAutoscalingV1NamespacedHorizontalPodAutoscalerStatus({
+    required api_autoscaling_v1.HorizontalPodAutoscaler body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -14388,6 +14556,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_autoscaling_v2beta1.HorizontalPodAutoscaler>
       createAutoscalingV2beta1NamespacedHorizontalPodAutoscaler({
+    required api_autoscaling_v2beta1.HorizontalPodAutoscaler body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -14465,6 +14634,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_autoscaling_v2beta1.HorizontalPodAutoscaler>
       replaceAutoscalingV2beta1NamespacedHorizontalPodAutoscaler({
+    required api_autoscaling_v2beta1.HorizontalPodAutoscaler body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -14491,6 +14661,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_autoscaling_v2beta1.HorizontalPodAutoscaler>
       patchAutoscalingV2beta1NamespacedHorizontalPodAutoscaler({
+    required api_autoscaling_v2beta1.HorizontalPodAutoscaler body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -14543,6 +14714,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_autoscaling_v2beta1.HorizontalPodAutoscaler>
       replaceAutoscalingV2beta1NamespacedHorizontalPodAutoscalerStatus({
+    required api_autoscaling_v2beta1.HorizontalPodAutoscaler body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -14569,6 +14741,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_autoscaling_v2beta1.HorizontalPodAutoscaler>
       patchAutoscalingV2beta1NamespacedHorizontalPodAutoscalerStatus({
+    required api_autoscaling_v2beta1.HorizontalPodAutoscaler body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -14954,6 +15127,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_autoscaling_v2beta2.HorizontalPodAutoscaler>
       createAutoscalingV2beta2NamespacedHorizontalPodAutoscaler({
+    required api_autoscaling_v2beta2.HorizontalPodAutoscaler body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -15031,6 +15205,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_autoscaling_v2beta2.HorizontalPodAutoscaler>
       replaceAutoscalingV2beta2NamespacedHorizontalPodAutoscaler({
+    required api_autoscaling_v2beta2.HorizontalPodAutoscaler body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -15057,6 +15232,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_autoscaling_v2beta2.HorizontalPodAutoscaler>
       patchAutoscalingV2beta2NamespacedHorizontalPodAutoscaler({
+    required api_autoscaling_v2beta2.HorizontalPodAutoscaler body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -15109,6 +15285,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_autoscaling_v2beta2.HorizontalPodAutoscaler>
       replaceAutoscalingV2beta2NamespacedHorizontalPodAutoscalerStatus({
+    required api_autoscaling_v2beta2.HorizontalPodAutoscaler body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -15135,6 +15312,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_autoscaling_v2beta2.HorizontalPodAutoscaler>
       patchAutoscalingV2beta2NamespacedHorizontalPodAutoscalerStatus({
+    required api_autoscaling_v2beta2.HorizontalPodAutoscaler body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -15594,6 +15772,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_batch_v1.CronJob> createBatchV1NamespacedCronJob({
+    required api_batch_v1.CronJob body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -15668,6 +15847,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_batch_v1.CronJob> replaceBatchV1NamespacedCronJob({
+    required api_batch_v1.CronJob body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -15693,6 +15873,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_batch_v1.CronJob> patchBatchV1NamespacedCronJob({
+    required api_batch_v1.CronJob body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -15743,6 +15924,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_batch_v1.CronJob> replaceBatchV1NamespacedCronJobStatus({
+    required api_batch_v1.CronJob body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -15768,6 +15950,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_batch_v1.CronJob> patchBatchV1NamespacedCronJobStatus({
+    required api_batch_v1.CronJob body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -15836,6 +16019,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_batch_v1.Job> createBatchV1NamespacedJob({
+    required api_batch_v1.Job body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -15910,6 +16094,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_batch_v1.Job> replaceBatchV1NamespacedJob({
+    required api_batch_v1.Job body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -15935,6 +16120,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_batch_v1.Job> patchBatchV1NamespacedJob({
+    required api_batch_v1.Job body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -15985,6 +16171,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_batch_v1.Job> replaceBatchV1NamespacedJobStatus({
+    required api_batch_v1.Job body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -16010,6 +16197,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_batch_v1.Job> patchBatchV1NamespacedJobStatus({
+    required api_batch_v1.Job body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -16623,6 +16811,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_batch_v1beta1.CronJob> createBatchV1beta1NamespacedCronJob({
+    required api_batch_v1beta1.CronJob body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -16698,6 +16887,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_batch_v1beta1.CronJob> replaceBatchV1beta1NamespacedCronJob({
+    required api_batch_v1beta1.CronJob body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -16723,6 +16913,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_batch_v1beta1.CronJob> patchBatchV1beta1NamespacedCronJob({
+    required api_batch_v1beta1.CronJob body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -16773,6 +16964,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_batch_v1beta1.CronJob> replaceBatchV1beta1NamespacedCronJobStatus({
+    required api_batch_v1beta1.CronJob body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -16798,6 +16990,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_batch_v1beta1.CronJob> patchBatchV1beta1NamespacedCronJobStatus({
+    required api_batch_v1beta1.CronJob body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -17108,6 +17301,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_certificates_v1.CertificateSigningRequest>
       createCertificatesV1CertificateSigningRequest({
+    required api_certificates_v1.CertificateSigningRequest body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -17176,6 +17370,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_certificates_v1.CertificateSigningRequest>
       replaceCertificatesV1CertificateSigningRequest({
+    required api_certificates_v1.CertificateSigningRequest body,
     required String name,
     bool? pretty,
   }) async {
@@ -17199,6 +17394,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_certificates_v1.CertificateSigningRequest>
       patchCertificatesV1CertificateSigningRequest({
+    required api_certificates_v1.CertificateSigningRequest body,
     required String name,
     bool? pretty,
   }) async {
@@ -17245,6 +17441,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_certificates_v1.CertificateSigningRequest>
       replaceCertificatesV1CertificateSigningRequestApproval({
+    required api_certificates_v1.CertificateSigningRequest body,
     required String name,
     bool? pretty,
   }) async {
@@ -17268,6 +17465,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_certificates_v1.CertificateSigningRequest>
       patchCertificatesV1CertificateSigningRequestApproval({
+    required api_certificates_v1.CertificateSigningRequest body,
     required String name,
     bool? pretty,
   }) async {
@@ -17314,6 +17512,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_certificates_v1.CertificateSigningRequest>
       replaceCertificatesV1CertificateSigningRequestStatus({
+    required api_certificates_v1.CertificateSigningRequest body,
     required String name,
     bool? pretty,
   }) async {
@@ -17337,6 +17536,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_certificates_v1.CertificateSigningRequest>
       patchCertificatesV1CertificateSigningRequestStatus({
+    required api_certificates_v1.CertificateSigningRequest body,
     required String name,
     bool? pretty,
   }) async {
@@ -17645,6 +17845,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_coordination_v1.Lease> createCoordinationV1NamespacedLease({
+    required api_coordination_v1.Lease body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -17720,6 +17921,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_coordination_v1.Lease> replaceCoordinationV1NamespacedLease({
+    required api_coordination_v1.Lease body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -17745,6 +17947,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_coordination_v1.Lease> patchCoordinationV1NamespacedLease({
+    required api_coordination_v1.Lease body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -18136,6 +18339,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_discovery_v1.EndpointSlice>
       createDiscoveryV1NamespacedEndpointSlice({
+    required api_discovery_v1.EndpointSlice body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -18213,6 +18417,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_discovery_v1.EndpointSlice>
       replaceDiscoveryV1NamespacedEndpointSlice({
+    required api_discovery_v1.EndpointSlice body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -18239,6 +18444,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_discovery_v1.EndpointSlice>
       patchDiscoveryV1NamespacedEndpointSlice({
+    required api_discovery_v1.EndpointSlice body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -18624,6 +18830,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_discovery_v1beta1.EndpointSlice>
       createDiscoveryV1beta1NamespacedEndpointSlice({
+    required api_discovery_v1beta1.EndpointSlice body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -18701,6 +18908,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_discovery_v1beta1.EndpointSlice>
       replaceDiscoveryV1beta1NamespacedEndpointSlice({
+    required api_discovery_v1beta1.EndpointSlice body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -18727,6 +18935,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_discovery_v1beta1.EndpointSlice>
       patchDiscoveryV1beta1NamespacedEndpointSlice({
+    required api_discovery_v1beta1.EndpointSlice body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -19114,6 +19323,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_events_v1.Event> createEventsV1NamespacedEvent({
+    required api_events_v1.Event body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -19188,6 +19398,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_events_v1.Event> replaceEventsV1NamespacedEvent({
+    required api_events_v1.Event body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -19213,6 +19424,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_events_v1.Event> patchEventsV1NamespacedEvent({
+    required api_events_v1.Event body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -19595,6 +19807,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_events_v1beta1.Event> createEventsV1beta1NamespacedEvent({
+    required api_events_v1beta1.Event body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -19670,6 +19883,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_events_v1beta1.Event> replaceEventsV1beta1NamespacedEvent({
+    required api_events_v1beta1.Event body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -19695,6 +19909,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_events_v1beta1.Event> patchEventsV1beta1NamespacedEvent({
+    required api_events_v1beta1.Event body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -20006,6 +20221,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_flowcontrol_v1beta1.FlowSchema>
       createFlowcontrolApiserverV1beta1FlowSchema({
+    required api_flowcontrol_v1beta1.FlowSchema body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -20074,6 +20290,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_flowcontrol_v1beta1.FlowSchema>
       replaceFlowcontrolApiserverV1beta1FlowSchema({
+    required api_flowcontrol_v1beta1.FlowSchema body,
     required String name,
     bool? pretty,
   }) async {
@@ -20097,6 +20314,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_flowcontrol_v1beta1.FlowSchema>
       patchFlowcontrolApiserverV1beta1FlowSchema({
+    required api_flowcontrol_v1beta1.FlowSchema body,
     required String name,
     bool? pretty,
   }) async {
@@ -20143,6 +20361,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_flowcontrol_v1beta1.FlowSchema>
       replaceFlowcontrolApiserverV1beta1FlowSchemaStatus({
+    required api_flowcontrol_v1beta1.FlowSchema body,
     required String name,
     bool? pretty,
   }) async {
@@ -20166,6 +20385,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_flowcontrol_v1beta1.FlowSchema>
       patchFlowcontrolApiserverV1beta1FlowSchemaStatus({
+    required api_flowcontrol_v1beta1.FlowSchema body,
     required String name,
     bool? pretty,
   }) async {
@@ -20228,6 +20448,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_flowcontrol_v1beta1.PriorityLevelConfiguration>
       createFlowcontrolApiserverV1beta1PriorityLevelConfiguration({
+    required api_flowcontrol_v1beta1.PriorityLevelConfiguration body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -20296,6 +20517,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_flowcontrol_v1beta1.PriorityLevelConfiguration>
       replaceFlowcontrolApiserverV1beta1PriorityLevelConfiguration({
+    required api_flowcontrol_v1beta1.PriorityLevelConfiguration body,
     required String name,
     bool? pretty,
   }) async {
@@ -20319,6 +20541,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_flowcontrol_v1beta1.PriorityLevelConfiguration>
       patchFlowcontrolApiserverV1beta1PriorityLevelConfiguration({
+    required api_flowcontrol_v1beta1.PriorityLevelConfiguration body,
     required String name,
     bool? pretty,
   }) async {
@@ -20365,6 +20588,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_flowcontrol_v1beta1.PriorityLevelConfiguration>
       replaceFlowcontrolApiserverV1beta1PriorityLevelConfigurationStatus({
+    required api_flowcontrol_v1beta1.PriorityLevelConfiguration body,
     required String name,
     bool? pretty,
   }) async {
@@ -20388,6 +20612,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_flowcontrol_v1beta1.PriorityLevelConfiguration>
       patchFlowcontrolApiserverV1beta1PriorityLevelConfigurationStatus({
+    required api_flowcontrol_v1beta1.PriorityLevelConfiguration body,
     required String name,
     bool? pretty,
   }) async {
@@ -20770,6 +20995,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apiserverinternal_v1alpha1.StorageVersion>
       createInternalApiserverV1alpha1StorageVersion({
+    required api_apiserverinternal_v1alpha1.StorageVersion body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -20838,6 +21064,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apiserverinternal_v1alpha1.StorageVersion>
       replaceInternalApiserverV1alpha1StorageVersion({
+    required api_apiserverinternal_v1alpha1.StorageVersion body,
     required String name,
     bool? pretty,
   }) async {
@@ -20861,6 +21088,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apiserverinternal_v1alpha1.StorageVersion>
       patchInternalApiserverV1alpha1StorageVersion({
+    required api_apiserverinternal_v1alpha1.StorageVersion body,
     required String name,
     bool? pretty,
   }) async {
@@ -20907,6 +21135,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apiserverinternal_v1alpha1.StorageVersion>
       replaceInternalApiserverV1alpha1StorageVersionStatus({
+    required api_apiserverinternal_v1alpha1.StorageVersion body,
     required String name,
     bool? pretty,
   }) async {
@@ -20930,6 +21159,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_apiserverinternal_v1alpha1.StorageVersion>
       patchInternalApiserverV1alpha1StorageVersionStatus({
+    required api_apiserverinternal_v1alpha1.StorageVersion body,
     required String name,
     bool? pretty,
   }) async {
@@ -21155,6 +21385,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_networking_v1.IngressClass> createNetworkingV1IngressClass({
+    required api_networking_v1.IngressClass body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -21220,6 +21451,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_networking_v1.IngressClass> replaceNetworkingV1IngressClass({
+    required api_networking_v1.IngressClass body,
     required String name,
     bool? pretty,
   }) async {
@@ -21242,6 +21474,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_networking_v1.IngressClass> patchNetworkingV1IngressClass({
+    required api_networking_v1.IngressClass body,
     required String name,
     bool? pretty,
   }) async {
@@ -21383,6 +21616,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_networking_v1.Ingress> createNetworkingV1NamespacedIngress({
+    required api_networking_v1.Ingress body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -21458,6 +21692,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_networking_v1.Ingress> replaceNetworkingV1NamespacedIngress({
+    required api_networking_v1.Ingress body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -21483,6 +21718,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_networking_v1.Ingress> patchNetworkingV1NamespacedIngress({
+    required api_networking_v1.Ingress body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -21533,6 +21769,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_networking_v1.Ingress> replaceNetworkingV1NamespacedIngressStatus({
+    required api_networking_v1.Ingress body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -21558,6 +21795,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_networking_v1.Ingress> patchNetworkingV1NamespacedIngressStatus({
+    required api_networking_v1.Ingress body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -21628,6 +21866,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_networking_v1.NetworkPolicy>
       createNetworkingV1NamespacedNetworkPolicy({
+    required api_networking_v1.NetworkPolicy body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -21705,6 +21944,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_networking_v1.NetworkPolicy>
       replaceNetworkingV1NamespacedNetworkPolicy({
+    required api_networking_v1.NetworkPolicy body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -21731,6 +21971,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_networking_v1.NetworkPolicy>
       patchNetworkingV1NamespacedNetworkPolicy({
+    required api_networking_v1.NetworkPolicy body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -22499,6 +22740,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_node_v1.RuntimeClass> createNodeV1RuntimeClass({
+    required api_node_v1.RuntimeClass body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -22564,6 +22806,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_node_v1.RuntimeClass> replaceNodeV1RuntimeClass({
+    required api_node_v1.RuntimeClass body,
     required String name,
     bool? pretty,
   }) async {
@@ -22586,6 +22829,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_node_v1.RuntimeClass> patchNodeV1RuntimeClass({
+    required api_node_v1.RuntimeClass body,
     required String name,
     bool? pretty,
   }) async {
@@ -22803,6 +23047,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_node_v1alpha1.RuntimeClass> createNodeV1alpha1RuntimeClass({
+    required api_node_v1alpha1.RuntimeClass body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -22868,6 +23113,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_node_v1alpha1.RuntimeClass> replaceNodeV1alpha1RuntimeClass({
+    required api_node_v1alpha1.RuntimeClass body,
     required String name,
     bool? pretty,
   }) async {
@@ -22890,6 +23136,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_node_v1alpha1.RuntimeClass> patchNodeV1alpha1RuntimeClass({
+    required api_node_v1alpha1.RuntimeClass body,
     required String name,
     bool? pretty,
   }) async {
@@ -23109,6 +23356,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_node_v1beta1.RuntimeClass> createNodeV1beta1RuntimeClass({
+    required api_node_v1beta1.RuntimeClass body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -23174,6 +23422,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_node_v1beta1.RuntimeClass> replaceNodeV1beta1RuntimeClass({
+    required api_node_v1beta1.RuntimeClass body,
     required String name,
     bool? pretty,
   }) async {
@@ -23196,6 +23445,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_node_v1beta1.RuntimeClass> patchNodeV1beta1RuntimeClass({
+    required api_node_v1beta1.RuntimeClass body,
     required String name,
     bool? pretty,
   }) async {
@@ -23431,6 +23681,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_policy_v1.PodDisruptionBudget>
       createPolicyV1NamespacedPodDisruptionBudget({
+    required api_policy_v1.PodDisruptionBudget body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -23508,6 +23759,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_policy_v1.PodDisruptionBudget>
       replacePolicyV1NamespacedPodDisruptionBudget({
+    required api_policy_v1.PodDisruptionBudget body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -23534,6 +23786,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_policy_v1.PodDisruptionBudget>
       patchPolicyV1NamespacedPodDisruptionBudget({
+    required api_policy_v1.PodDisruptionBudget body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -23586,6 +23839,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_policy_v1.PodDisruptionBudget>
       replacePolicyV1NamespacedPodDisruptionBudgetStatus({
+    required api_policy_v1.PodDisruptionBudget body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -23612,6 +23866,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_policy_v1.PodDisruptionBudget>
       patchPolicyV1NamespacedPodDisruptionBudgetStatus({
+    required api_policy_v1.PodDisruptionBudget body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -23997,6 +24252,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_policy_v1beta1.PodDisruptionBudget>
       createPolicyV1beta1NamespacedPodDisruptionBudget({
+    required api_policy_v1beta1.PodDisruptionBudget body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -24074,6 +24330,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_policy_v1beta1.PodDisruptionBudget>
       replacePolicyV1beta1NamespacedPodDisruptionBudget({
+    required api_policy_v1beta1.PodDisruptionBudget body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -24100,6 +24357,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_policy_v1beta1.PodDisruptionBudget>
       patchPolicyV1beta1NamespacedPodDisruptionBudget({
+    required api_policy_v1beta1.PodDisruptionBudget body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -24152,6 +24410,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_policy_v1beta1.PodDisruptionBudget>
       replacePolicyV1beta1NamespacedPodDisruptionBudgetStatus({
+    required api_policy_v1beta1.PodDisruptionBudget body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -24178,6 +24437,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_policy_v1beta1.PodDisruptionBudget>
       patchPolicyV1beta1NamespacedPodDisruptionBudgetStatus({
+    required api_policy_v1beta1.PodDisruptionBudget body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -24314,6 +24574,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_policy_v1beta1.PodSecurityPolicy>
       createPolicyV1beta1PodSecurityPolicy({
+    required api_policy_v1beta1.PodSecurityPolicy body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -24382,6 +24643,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_policy_v1beta1.PodSecurityPolicy>
       replacePolicyV1beta1PodSecurityPolicy({
+    required api_policy_v1beta1.PodSecurityPolicy body,
     required String name,
     bool? pretty,
   }) async {
@@ -24405,6 +24667,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_policy_v1beta1.PodSecurityPolicy>
       patchPolicyV1beta1PodSecurityPolicy({
+    required api_policy_v1beta1.PodSecurityPolicy body,
     required String name,
     bool? pretty,
   }) async {
@@ -24867,6 +25130,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_rbac_v1.ClusterRoleBinding>
       createRbacAuthorizationV1ClusterRoleBinding({
+    required api_rbac_v1.ClusterRoleBinding body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -24935,6 +25199,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_rbac_v1.ClusterRoleBinding>
       replaceRbacAuthorizationV1ClusterRoleBinding({
+    required api_rbac_v1.ClusterRoleBinding body,
     required String name,
     bool? pretty,
   }) async {
@@ -24958,6 +25223,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_rbac_v1.ClusterRoleBinding>
       patchRbacAuthorizationV1ClusterRoleBinding({
+    required api_rbac_v1.ClusterRoleBinding body,
     required String name,
     bool? pretty,
   }) async {
@@ -25017,6 +25283,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_rbac_v1.ClusterRole> createRbacAuthorizationV1ClusterRole({
+    required api_rbac_v1.ClusterRole body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -25083,6 +25350,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_rbac_v1.ClusterRole> replaceRbacAuthorizationV1ClusterRole({
+    required api_rbac_v1.ClusterRole body,
     required String name,
     bool? pretty,
   }) async {
@@ -25105,6 +25373,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_rbac_v1.ClusterRole> patchRbacAuthorizationV1ClusterRole({
+    required api_rbac_v1.ClusterRole body,
     required String name,
     bool? pretty,
   }) async {
@@ -25174,6 +25443,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_rbac_v1.RoleBinding>
       createRbacAuthorizationV1NamespacedRoleBinding({
+    required api_rbac_v1.RoleBinding body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -25250,6 +25520,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_rbac_v1.RoleBinding>
       replaceRbacAuthorizationV1NamespacedRoleBinding({
+    required api_rbac_v1.RoleBinding body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -25276,6 +25547,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_rbac_v1.RoleBinding>
       patchRbacAuthorizationV1NamespacedRoleBinding({
+    required api_rbac_v1.RoleBinding body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -25344,6 +25616,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_rbac_v1.Role> createRbacAuthorizationV1NamespacedRole({
+    required api_rbac_v1.Role body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -25419,6 +25692,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_rbac_v1.Role> replaceRbacAuthorizationV1NamespacedRole({
+    required api_rbac_v1.Role body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -25444,6 +25718,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_rbac_v1.Role> patchRbacAuthorizationV1NamespacedRole({
+    required api_rbac_v1.Role body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -26435,6 +26710,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_rbac_v1alpha1.ClusterRoleBinding>
       createRbacAuthorizationV1alpha1ClusterRoleBinding({
+    required api_rbac_v1alpha1.ClusterRoleBinding body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -26503,6 +26779,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_rbac_v1alpha1.ClusterRoleBinding>
       replaceRbacAuthorizationV1alpha1ClusterRoleBinding({
+    required api_rbac_v1alpha1.ClusterRoleBinding body,
     required String name,
     bool? pretty,
   }) async {
@@ -26526,6 +26803,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_rbac_v1alpha1.ClusterRoleBinding>
       patchRbacAuthorizationV1alpha1ClusterRoleBinding({
+    required api_rbac_v1alpha1.ClusterRoleBinding body,
     required String name,
     bool? pretty,
   }) async {
@@ -26587,6 +26865,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_rbac_v1alpha1.ClusterRole>
       createRbacAuthorizationV1alpha1ClusterRole({
+    required api_rbac_v1alpha1.ClusterRole body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -26655,6 +26934,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_rbac_v1alpha1.ClusterRole>
       replaceRbacAuthorizationV1alpha1ClusterRole({
+    required api_rbac_v1alpha1.ClusterRole body,
     required String name,
     bool? pretty,
   }) async {
@@ -26678,6 +26958,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_rbac_v1alpha1.ClusterRole>
       patchRbacAuthorizationV1alpha1ClusterRole({
+    required api_rbac_v1alpha1.ClusterRole body,
     required String name,
     bool? pretty,
   }) async {
@@ -26747,6 +27028,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_rbac_v1alpha1.RoleBinding>
       createRbacAuthorizationV1alpha1NamespacedRoleBinding({
+    required api_rbac_v1alpha1.RoleBinding body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -26824,6 +27106,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_rbac_v1alpha1.RoleBinding>
       replaceRbacAuthorizationV1alpha1NamespacedRoleBinding({
+    required api_rbac_v1alpha1.RoleBinding body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -26850,6 +27133,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_rbac_v1alpha1.RoleBinding>
       patchRbacAuthorizationV1alpha1NamespacedRoleBinding({
+    required api_rbac_v1alpha1.RoleBinding body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -26919,6 +27203,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_rbac_v1alpha1.Role> createRbacAuthorizationV1alpha1NamespacedRole({
+    required api_rbac_v1alpha1.Role body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -26995,6 +27280,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_rbac_v1alpha1.Role>
       replaceRbacAuthorizationV1alpha1NamespacedRole({
+    required api_rbac_v1alpha1.Role body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -27020,6 +27306,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_rbac_v1alpha1.Role> patchRbacAuthorizationV1alpha1NamespacedRole({
+    required api_rbac_v1alpha1.Role body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -28015,6 +28302,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_scheduling_v1.PriorityClass> createSchedulingV1PriorityClass({
+    required api_scheduling_v1.PriorityClass body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -28080,6 +28368,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_scheduling_v1.PriorityClass> replaceSchedulingV1PriorityClass({
+    required api_scheduling_v1.PriorityClass body,
     required String name,
     bool? pretty,
   }) async {
@@ -28102,6 +28391,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_scheduling_v1.PriorityClass> patchSchedulingV1PriorityClass({
+    required api_scheduling_v1.PriorityClass body,
     required String name,
     bool? pretty,
   }) async {
@@ -28323,6 +28613,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_scheduling_v1alpha1.PriorityClass>
       createSchedulingV1alpha1PriorityClass({
+    required api_scheduling_v1alpha1.PriorityClass body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -28391,6 +28682,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_scheduling_v1alpha1.PriorityClass>
       replaceSchedulingV1alpha1PriorityClass({
+    required api_scheduling_v1alpha1.PriorityClass body,
     required String name,
     bool? pretty,
   }) async {
@@ -28414,6 +28706,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_scheduling_v1alpha1.PriorityClass>
       patchSchedulingV1alpha1PriorityClass({
+    required api_scheduling_v1alpha1.PriorityClass body,
     required String name,
     bool? pretty,
   }) async {
@@ -28639,6 +28932,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_storage_v1.CSIDriver> createStorageV1CSIDriver({
+    required api_storage_v1.CSIDriver body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -28704,6 +28998,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_storage_v1.CSIDriver> replaceStorageV1CSIDriver({
+    required api_storage_v1.CSIDriver body,
     required String name,
     bool? pretty,
   }) async {
@@ -28726,6 +29021,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_storage_v1.CSIDriver> patchStorageV1CSIDriver({
+    required api_storage_v1.CSIDriver body,
     required String name,
     bool? pretty,
   }) async {
@@ -28784,6 +29080,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_storage_v1.CSINode> createStorageV1CSINode({
+    required api_storage_v1.CSINode body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -28848,6 +29145,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_storage_v1.CSINode> replaceStorageV1CSINode({
+    required api_storage_v1.CSINode body,
     required String name,
     bool? pretty,
   }) async {
@@ -28870,6 +29168,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_storage_v1.CSINode> patchStorageV1CSINode({
+    required api_storage_v1.CSINode body,
     required String name,
     bool? pretty,
   }) async {
@@ -28929,6 +29228,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_storage_v1.StorageClass> createStorageV1StorageClass({
+    required api_storage_v1.StorageClass body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -28994,6 +29294,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_storage_v1.StorageClass> replaceStorageV1StorageClass({
+    required api_storage_v1.StorageClass body,
     required String name,
     bool? pretty,
   }) async {
@@ -29016,6 +29317,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_storage_v1.StorageClass> patchStorageV1StorageClass({
+    required api_storage_v1.StorageClass body,
     required String name,
     bool? pretty,
   }) async {
@@ -29075,6 +29377,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_storage_v1.VolumeAttachment> createStorageV1VolumeAttachment({
+    required api_storage_v1.VolumeAttachment body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -29140,6 +29443,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_storage_v1.VolumeAttachment> replaceStorageV1VolumeAttachment({
+    required api_storage_v1.VolumeAttachment body,
     required String name,
     bool? pretty,
   }) async {
@@ -29162,6 +29466,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_storage_v1.VolumeAttachment> patchStorageV1VolumeAttachment({
+    required api_storage_v1.VolumeAttachment body,
     required String name,
     bool? pretty,
   }) async {
@@ -29207,6 +29512,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_storage_v1.VolumeAttachment>
       replaceStorageV1VolumeAttachmentStatus({
+    required api_storage_v1.VolumeAttachment body,
     required String name,
     bool? pretty,
   }) async {
@@ -29229,6 +29535,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_storage_v1.VolumeAttachment> patchStorageV1VolumeAttachmentStatus({
+    required api_storage_v1.VolumeAttachment body,
     required String name,
     bool? pretty,
   }) async {
@@ -29986,6 +30293,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_storage_v1alpha1.CSIStorageCapacity>
       createStorageV1alpha1NamespacedCSIStorageCapacity({
+    required api_storage_v1alpha1.CSIStorageCapacity body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -30063,6 +30371,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_storage_v1alpha1.CSIStorageCapacity>
       replaceStorageV1alpha1NamespacedCSIStorageCapacity({
+    required api_storage_v1alpha1.CSIStorageCapacity body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -30089,6 +30398,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_storage_v1alpha1.CSIStorageCapacity>
       patchStorageV1alpha1NamespacedCSIStorageCapacity({
+    required api_storage_v1alpha1.CSIStorageCapacity body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -30151,6 +30461,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_storage_v1alpha1.VolumeAttachment>
       createStorageV1alpha1VolumeAttachment({
+    required api_storage_v1alpha1.VolumeAttachment body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -30219,6 +30530,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_storage_v1alpha1.VolumeAttachment>
       replaceStorageV1alpha1VolumeAttachment({
+    required api_storage_v1alpha1.VolumeAttachment body,
     required String name,
     bool? pretty,
   }) async {
@@ -30242,6 +30554,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_storage_v1alpha1.VolumeAttachment>
       patchStorageV1alpha1VolumeAttachment({
+    required api_storage_v1alpha1.VolumeAttachment body,
     required String name,
     bool? pretty,
   }) async {
@@ -30779,6 +31092,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_storage_v1beta1.CSIStorageCapacity>
       createStorageV1beta1NamespacedCSIStorageCapacity({
+    required api_storage_v1beta1.CSIStorageCapacity body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -30856,6 +31170,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_storage_v1beta1.CSIStorageCapacity>
       replaceStorageV1beta1NamespacedCSIStorageCapacity({
+    required api_storage_v1beta1.CSIStorageCapacity body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -30882,6 +31197,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<api_storage_v1beta1.CSIStorageCapacity>
       patchStorageV1beta1NamespacedCSIStorageCapacity({
+    required api_storage_v1beta1.CSIStorageCapacity body,
     required String name,
     required String namespace,
     bool? pretty,

@@ -17,6 +17,6 @@ class AllowedCSIDriver {
     return list.map((e) => AllowedCSIDriver.fromJson(e)).toList();
   }
 
-  /// Name is the registered name of the CSI driver
+  /// Name is the registered name of the CSI driver.
   final String name;
 }

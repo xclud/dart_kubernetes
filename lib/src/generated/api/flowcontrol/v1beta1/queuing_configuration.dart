@@ -1,4 +1,4 @@
-/// QueuingConfiguration holds the configuration parameters for queuing
+/// QueuingConfiguration holds the configuration parameters for queuing.
 class QueuingConfiguration {
   /// The main constructor.
   const QueuingConfiguration({

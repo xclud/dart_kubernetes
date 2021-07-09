@@ -23,9 +23,9 @@ class SELinuxStrategyOptions {
     return list.map((e) => SELinuxStrategyOptions.fromJson(e)).toList();
   }
 
-  /// rule is the strategy that will dictate the allowable labels that may be set.
+  /// Rule is the strategy that will dictate the allowable labels that may be set.
   final String rule;
 
-  /// seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+  /// SeLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/.
   final SELinuxOptions? seLinuxOptions;
 }

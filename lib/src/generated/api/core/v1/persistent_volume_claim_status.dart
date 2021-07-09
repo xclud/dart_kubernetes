@@ -16,7 +16,9 @@ class PersistentVolumeClaimStatus {
           accessModes: json['accessModes'] != null
               ? List<String>.from(json['accessModes'])
               : null,
-          capacity: json['capacity'],
+          capacity: json['capacity'] != null
+              ? Map<String, String>.from(json['capacity'])
+              : null,
           conditions: json['conditions'] != null
               ? PersistentVolumeClaimCondition.listFromJson(
                   (json['conditions'] as Iterable).cast<Map<String, dynamic>>())
@@ -30,11 +32,11 @@ class PersistentVolumeClaimStatus {
     return list.map((e) => PersistentVolumeClaimStatus.fromJson(e)).toList();
   }
 
-  /// AccessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+  /// AccessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1.
   final List<String>? accessModes;
 
   /// Represents the actual resources of the underlying volume.
-  final Object? capacity;
+  final Map<String, String>? capacity;
 
   /// Current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
   final List<PersistentVolumeClaimCondition>? conditions;

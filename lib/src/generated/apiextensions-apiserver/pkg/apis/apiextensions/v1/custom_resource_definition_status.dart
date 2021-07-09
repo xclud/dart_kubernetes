@@ -1,7 +1,7 @@
 import 'package:kubernetes/src/generated/apiextensions-apiserver/pkg/apis/apiextensions/v1/custom_resource_definition_names.dart';
 import 'package:kubernetes/src/generated/apiextensions-apiserver/pkg/apis/apiextensions/v1/custom_resource_definition_condition.dart';
 
-/// CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
+/// CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition.
 class CustomResourceDefinitionStatus {
   /// The main constructor.
   const CustomResourceDefinitionStatus({
@@ -31,12 +31,12 @@ class CustomResourceDefinitionStatus {
     return list.map((e) => CustomResourceDefinitionStatus.fromJson(e)).toList();
   }
 
-  /// acceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
+  /// AcceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
   final CustomResourceDefinitionNames? acceptedNames;
 
-  /// conditions indicate state for particular aspects of a CustomResourceDefinition
+  /// Conditions indicate state for particular aspects of a CustomResourceDefinition.
   final List<CustomResourceDefinitionCondition>? conditions;
 
-  /// storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
+  /// StoredVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
   final List<String>? storedVersions;
 }

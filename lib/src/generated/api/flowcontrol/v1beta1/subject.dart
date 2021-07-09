@@ -34,7 +34,7 @@ class Subject {
   /// `group` matches based on user group name.
   final GroupSubject? group;
 
-  /// `kind` indicates which one of the other fields is non-empty. Required
+  /// `kind` indicates which one of the other fields is non-empty. Required.
   final String kind;
 
   /// `serviceAccount` matches ServiceAccounts.

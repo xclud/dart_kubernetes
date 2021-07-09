@@ -17,6 +17,6 @@ class ClientIPConfig {
     return list.map((e) => ClientIPConfig.fromJson(e)).toList();
   }
 
-  /// timeoutSeconds specifies the seconds of ClientIP type session sticky time. The value must be >0 && <=86400(for 1 day) if ServiceAffinity == "ClientIP". Default value is 10800(for 3 hours).
+  /// TimeoutSeconds specifies the seconds of ClientIP type session sticky time. The value must be >0 && <=86400(for 1 day) if ServiceAffinity == "ClientIP". Default value is 10800(for 3 hours).
   final int? timeoutSeconds;
 }

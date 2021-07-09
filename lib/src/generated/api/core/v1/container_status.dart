@@ -42,7 +42,7 @@ class ContainerStatus {
   /// Container's ID in the format 'docker://<container_id>'.
   final String? containerID;
 
-  /// The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images
+  /// The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
   final String image;
 
   /// ImageID of the container's image.

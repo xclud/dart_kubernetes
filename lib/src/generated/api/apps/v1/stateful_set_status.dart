@@ -40,33 +40,33 @@ class StatefulSetStatus {
     return list.map((e) => StatefulSetStatus.fromJson(e)).toList();
   }
 
-  /// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate. Remove omitempty when graduating to beta
+  /// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate. Remove omitempty when graduating to beta.
   final int? availableReplicas;
 
-  /// collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
+  /// CollisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
   final int? collisionCount;
 
   /// Represents the latest available observations of a statefulset's current state.
   final List<StatefulSetCondition>? conditions;
 
-  /// currentReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by currentRevision.
+  /// CurrentReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by currentRevision.
   final int? currentReplicas;
 
-  /// currentRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [0,currentReplicas).
+  /// CurrentRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [0,currentReplicas).
   final String? currentRevision;
 
-  /// observedGeneration is the most recent generation observed for this StatefulSet. It corresponds to the StatefulSet's generation, which is updated on mutation by the API Server.
+  /// ObservedGeneration is the most recent generation observed for this StatefulSet. It corresponds to the StatefulSet's generation, which is updated on mutation by the API Server.
   final int? observedGeneration;
 
-  /// readyReplicas is the number of Pods created by the StatefulSet controller that have a Ready Condition.
+  /// ReadyReplicas is the number of Pods created by the StatefulSet controller that have a Ready Condition.
   final int? readyReplicas;
 
-  /// replicas is the number of Pods created by the StatefulSet controller.
+  /// Replicas is the number of Pods created by the StatefulSet controller.
   final int replicas;
 
-  /// updateRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [replicas-updatedReplicas,replicas)
+  /// UpdateRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [replicas-updatedReplicas,replicas).
   final String? updateRevision;
 
-  /// updatedReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by updateRevision.
+  /// UpdatedReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by updateRevision.
   final int? updatedReplicas;
 }

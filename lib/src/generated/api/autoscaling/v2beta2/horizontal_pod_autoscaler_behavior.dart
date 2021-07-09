@@ -27,10 +27,10 @@ class HorizontalPodAutoscalerBehavior {
         .toList();
   }
 
-  /// scaleDown is scaling policy for scaling Down. If not set, the default value is to allow to scale down to minReplicas pods, with a 300 second stabilization window (i.e., the highest recommendation for the last 300sec is used).
+  /// ScaleDown is scaling policy for scaling Down. If not set, the default value is to allow to scale down to minReplicas pods, with a 300 second stabilization window (i.e., the highest recommendation for the last 300sec is used).
   final HPAScalingRules? scaleDown;
 
-  /// scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
+  /// ScaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
   ///   * increase no more than 4 pods per 60 seconds
   ///   * double the number of pods per 60 seconds
   /// No stabilization is used.

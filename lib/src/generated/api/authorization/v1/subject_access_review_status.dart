@@ -1,4 +1,4 @@
-/// SubjectAccessReviewStatus
+/// SubjectAccessReviewStatus.
 class SubjectAccessReviewStatus {
   /// The main constructor.
   const SubjectAccessReviewStatus({

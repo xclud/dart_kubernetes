@@ -1,4 +1,4 @@
-/// current status of a horizontal pod autoscaler
+/// Current status of a horizontal pod autoscaler.
 class HorizontalPodAutoscalerStatus {
   /// The main constructor.
   const HorizontalPodAutoscalerStatus({
@@ -28,18 +28,18 @@ class HorizontalPodAutoscalerStatus {
     return list.map((e) => HorizontalPodAutoscalerStatus.fromJson(e)).toList();
   }
 
-  /// current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
+  /// Current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
   final int? currentCPUUtilizationPercentage;
 
-  /// current number of replicas of pods managed by this autoscaler.
+  /// Current number of replicas of pods managed by this autoscaler.
   final int currentReplicas;
 
-  /// desired number of replicas of pods managed by this autoscaler.
+  /// Desired number of replicas of pods managed by this autoscaler.
   final int desiredReplicas;
 
-  /// last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
+  /// Last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
   final DateTime? lastScaleTime;
 
-  /// most recent generation observed by this autoscaler.
+  /// Most recent generation observed by this autoscaler.
   final int? observedGeneration;
 }

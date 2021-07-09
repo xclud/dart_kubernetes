@@ -1,4 +1,4 @@
-/// Local represents directly-attached storage with node affinity (Beta feature)
+/// Local represents directly-attached storage with node affinity (Beta feature).
 class LocalVolumeSource {
   /// The main constructor.
   const LocalVolumeSource({

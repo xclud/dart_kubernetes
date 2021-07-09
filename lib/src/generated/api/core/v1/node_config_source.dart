@@ -21,6 +21,6 @@ class NodeConfigSource {
     return list.map((e) => NodeConfigSource.fromJson(e)).toList();
   }
 
-  /// ConfigMap is a reference to a Node's ConfigMap
+  /// ConfigMap is a reference to a Node's ConfigMap.
   final ConfigMapNodeConfigSource? configMap;
 }

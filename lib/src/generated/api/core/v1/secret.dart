@@ -17,13 +17,17 @@ class Secret {
   Secret.fromJson(Map<String, dynamic> json)
       : this(
           apiVersion: json['apiVersion'],
-          data: json['data'],
+          data: json['data'] != null
+              ? Map<String, String>.from(json['data'])
+              : null,
           immutable: json['immutable'],
           kind: json['kind'],
           metadata: json['metadata'] != null
               ? ObjectMeta.fromJson(json['metadata'])
               : null,
-          stringData: json['stringData'],
+          stringData: json['stringData'] != null
+              ? Map<String, String>.from(json['stringData'])
+              : null,
           type: json['type'],
         );
 
@@ -32,23 +36,23 @@ class Secret {
     return list.map((e) => Secret.fromJson(e)).toList();
   }
 
-  /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;
 
-  /// Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_' or '.'. The serialized form of the secret data is a base64 encoded string, representing the arbitrary (possibly non-string) data value here. Described in https://tools.ietf.org/html/rfc4648#section-4
-  final Object? data;
+  /// Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_' or '.'. The serialized form of the secret data is a base64 encoded string, representing the arbitrary (possibly non-string) data value here. Described in https://tools.ietf.org/html/rfc4648#section-4.
+  final Map<String, String>? data;
 
   /// Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
   final bool? immutable;
 
-  /// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  /// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds.
   final String? kind;
 
-  /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
   final ObjectMeta? metadata;
 
-  /// stringData allows specifying non-binary secret data in string form. It is provided as a write-only input field for convenience. All keys and values are merged into the data field on write, overwriting any existing values. The stringData field is never output when reading from the API.
-  final Object? stringData;
+  /// StringData allows specifying non-binary secret data in string form. It is provided as a write-only input field for convenience. All keys and values are merged into the data field on write, overwriting any existing values. The stringData field is never output when reading from the API.
+  final Map<String, String>? stringData;
 
   /// Used to facilitate programmatic handling of secret data.
   final String? type;

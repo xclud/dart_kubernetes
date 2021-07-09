@@ -12,7 +12,9 @@ class ResourceQuotaSpec {
   /// Creates a ResourceQuotaSpec from JSON data.
   ResourceQuotaSpec.fromJson(Map<String, dynamic> json)
       : this(
-          hard: json['hard'],
+          hard: json['hard'] != null
+              ? Map<String, String>.from(json['hard'])
+              : null,
           scopeSelector: json['scopeSelector'] != null
               ? ScopeSelector.fromJson(json['scopeSelector'])
               : null,
@@ -26,10 +28,10 @@ class ResourceQuotaSpec {
     return list.map((e) => ResourceQuotaSpec.fromJson(e)).toList();
   }
 
-  /// hard is the set of desired hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
-  final Object? hard;
+  /// Hard is the set of desired hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/.
+  final Map<String, String>? hard;
 
-  /// scopeSelector is also a collection of filters like scopes that must match each object tracked by a quota but expressed using ScopeSelectorOperator in combination with possible values. For a resource to match, both scopes AND scopeSelector (if specified in spec), must be matched.
+  /// ScopeSelector is also a collection of filters like scopes that must match each object tracked by a quota but expressed using ScopeSelectorOperator in combination with possible values. For a resource to match, both scopes AND scopeSelector (if specified in spec), must be matched.
   final ScopeSelector? scopeSelector;
 
   /// A collection of filters that must match each object tracked by a quota. If not specified, the quota matches all objects.

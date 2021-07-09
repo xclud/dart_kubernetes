@@ -2,7 +2,7 @@ import 'package:kubernetes/src/generated/apimachinery/pkg/apis/meta/v1/object_me
 import 'package:kubernetes/src/generated/api/authorization/v1/self_subject_access_review_spec.dart';
 import 'package:kubernetes/src/generated/api/authorization/v1/subject_access_review_status.dart';
 
-/// SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means "in all namespaces".  Self is a special case, because users should always be able to check whether they can perform an action
+/// SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means "in all namespaces".  Self is a special case, because users should always be able to check whether they can perform an action.
 class SelfSubjectAccessReview {
   /// The main constructor.
   const SelfSubjectAccessReview({
@@ -33,18 +33,18 @@ class SelfSubjectAccessReview {
     return list.map((e) => SelfSubjectAccessReview.fromJson(e)).toList();
   }
 
-  /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;
 
-  /// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  /// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds.
   final String? kind;
 
-  /// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  /// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
   final ObjectMeta? metadata;
 
-  /// Spec holds information about the request being evaluated.  user and groups must be empty
+  /// Spec holds information about the request being evaluated.  user and groups must be empty.
   final SelfSubjectAccessReviewSpec spec;
 
-  /// Status is filled in by the server and indicates whether the request is allowed or not
+  /// Status is filled in by the server and indicates whether the request is allowed or not.
   final SubjectAccessReviewStatus? status;
 }

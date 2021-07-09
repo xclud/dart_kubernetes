@@ -32,6 +32,6 @@ class ComponentCondition {
   /// Status of the condition for a component. Valid values for "Healthy": "True", "False", or "Unknown".
   final String status;
 
-  /// Type of condition for a component. Valid value: "Healthy"
+  /// Type of condition for a component. Valid value: "Healthy".
   final String type;
 }

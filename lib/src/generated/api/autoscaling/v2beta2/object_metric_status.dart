@@ -26,12 +26,12 @@ class ObjectMetricStatus {
     return list.map((e) => ObjectMetricStatus.fromJson(e)).toList();
   }
 
-  /// current contains the current value for the given metric
+  /// Current contains the current value for the given metric.
   final MetricValueStatus current;
 
   ///
   final CrossVersionObjectReference describedObject;
 
-  /// metric identifies the target metric by name and selector
+  /// Metric identifies the target metric by name and selector.
   final MetricIdentifier metric;
 }

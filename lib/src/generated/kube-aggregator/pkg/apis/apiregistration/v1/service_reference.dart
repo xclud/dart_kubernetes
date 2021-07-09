@@ -1,4 +1,4 @@
-/// ServiceReference holds a reference to Service.legacy.k8s.io
+/// ServiceReference holds a reference to Service.legacy.k8s.io.
 class ServiceReference {
   /// The main constructor.
   const ServiceReference({
@@ -21,10 +21,10 @@ class ServiceReference {
     return list.map((e) => ServiceReference.fromJson(e)).toList();
   }
 
-  /// Name is the name of the service
+  /// Name is the name of the service.
   final String? name;
 
-  /// Namespace is the namespace of the service
+  /// Namespace is the namespace of the service.
   final String? namespace;
 
   /// If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).

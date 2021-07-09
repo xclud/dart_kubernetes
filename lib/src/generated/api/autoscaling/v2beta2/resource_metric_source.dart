@@ -21,9 +21,9 @@ class ResourceMetricSource {
     return list.map((e) => ResourceMetricSource.fromJson(e)).toList();
   }
 
-  /// name is the name of the resource in question.
+  /// Name is the name of the resource in question.
   final String name;
 
-  /// target specifies the target value for the given metric
+  /// Target specifies the target value for the given metric.
   final MetricTarget target;
 }

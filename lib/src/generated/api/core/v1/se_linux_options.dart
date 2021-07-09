@@ -1,4 +1,4 @@
-/// SELinuxOptions are the labels to be applied to the container
+/// SELinuxOptions are the labels to be applied to the container.
 class SELinuxOptions {
   /// The main constructor.
   const SELinuxOptions({

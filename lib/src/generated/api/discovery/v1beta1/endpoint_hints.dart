@@ -21,6 +21,6 @@ class EndpointHints {
     return list.map((e) => EndpointHints.fromJson(e)).toList();
   }
 
-  /// forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing. May contain a maximum of 8 entries.
+  /// ForZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing. May contain a maximum of 8 entries.
   final List<ForZone>? forZones;
 }

@@ -1,7 +1,7 @@
 import 'package:kubernetes/src/generated/apimachinery/pkg/apis/meta/v1/object_meta.dart';
 import 'package:kubernetes/src/generated/api/core/v1/pod_spec.dart';
 
-/// PodTemplateSpec describes the data a pod should have when created from a template
+/// PodTemplateSpec describes the data a pod should have when created from a template.
 class PodTemplateSpec {
   /// The main constructor.
   const PodTemplateSpec({
@@ -24,9 +24,9 @@ class PodTemplateSpec {
     return list.map((e) => PodTemplateSpec.fromJson(e)).toList();
   }
 
-  /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
   final ObjectMeta? metadata;
 
-  /// Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+  /// Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
   final PodSpec? spec;
 }

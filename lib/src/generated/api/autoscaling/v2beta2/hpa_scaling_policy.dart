@@ -27,6 +27,6 @@ class HPAScalingPolicy {
   /// Type is used to specify the scaling policy.
   final String type;
 
-  /// Value contains the amount of change which is permitted by the policy. It must be greater than zero
+  /// Value contains the amount of change which is permitted by the policy. It must be greater than zero.
   final int value;
 }

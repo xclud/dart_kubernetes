@@ -1,6 +1,6 @@
 import 'package:kubernetes/src/generated/api/storage/v1/csi_node_driver.dart';
 
-/// CSINodeSpec holds information about the specification of all CSI drivers installed on a node
+/// CSINodeSpec holds information about the specification of all CSI drivers installed on a node.
 class CSINodeSpec {
   /// The main constructor.
   const CSINodeSpec({
@@ -21,6 +21,6 @@ class CSINodeSpec {
     return list.map((e) => CSINodeSpec.fromJson(e)).toList();
   }
 
-  /// drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
+  /// Drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
   final List<CSINodeDriver> drivers;
 }

@@ -21,7 +21,7 @@ class ResourceMetricStatus {
     return list.map((e) => ResourceMetricStatus.fromJson(e)).toList();
   }
 
-  /// current contains the current value for the given metric
+  /// Current contains the current value for the given metric.
   final MetricValueStatus current;
 
   /// Name is the name of the resource in question.

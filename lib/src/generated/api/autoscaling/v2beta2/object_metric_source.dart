@@ -29,9 +29,9 @@ class ObjectMetricSource {
   ///
   final CrossVersionObjectReference describedObject;
 
-  /// metric identifies the target metric by name and selector
+  /// Metric identifies the target metric by name and selector.
   final MetricIdentifier metric;
 
-  /// target specifies the target value for the given metric
+  /// Target specifies the target value for the given metric.
   final MetricTarget target;
 }

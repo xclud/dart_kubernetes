@@ -25,12 +25,12 @@ class PodsMetricSource {
     return list.map((e) => PodsMetricSource.fromJson(e)).toList();
   }
 
-  /// metricName is the name of the metric in question
+  /// MetricName is the name of the metric in question.
   final String metricName;
 
-  /// selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping When unset, just the metricName will be used to gather metrics.
+  /// Selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping When unset, just the metricName will be used to gather metrics.
   final LabelSelector? selector;
 
-  /// targetAverageValue is the target value of the average of the metric across all relevant pods (as a quantity)
+  /// TargetAverageValue is the target value of the average of the metric across all relevant pods (as a quantity).
   final String targetAverageValue;
 }

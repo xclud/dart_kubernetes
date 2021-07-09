@@ -16,6 +16,6 @@ class ForZone {
     return list.map((e) => ForZone.fromJson(e)).toList();
   }
 
-  /// name represents the name of the zone.
+  /// Name represents the name of the zone.
   final String name;
 }

@@ -32,6 +32,6 @@ class VsphereVirtualDiskVolumeSource {
   /// Storage Policy Based Management (SPBM) profile name.
   final String? storagePolicyName;
 
-  /// Path that identifies vSphere volume vmdk
+  /// Path that identifies vSphere volume vmdk.
   final String volumePath;
 }

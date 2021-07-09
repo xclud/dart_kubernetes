@@ -22,6 +22,6 @@ class DownwardAPIProjection {
     return list.map((e) => DownwardAPIProjection.fromJson(e)).toList();
   }
 
-  /// Items is a list of DownwardAPIVolume file
+  /// Items is a list of DownwardAPIVolume file.
   final List<DownwardAPIVolumeFile>? items;
 }

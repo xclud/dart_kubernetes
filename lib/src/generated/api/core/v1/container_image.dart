@@ -1,4 +1,4 @@
-/// Describe a container image
+/// Describe a container image.
 class ContainerImage {
   /// The main constructor.
   const ContainerImage({
@@ -20,7 +20,7 @@ class ContainerImage {
     return list.map((e) => ContainerImage.fromJson(e)).toList();
   }
 
-  /// Names by which this image is known. e.g. ["k8s.gcr.io/hyperkube:v1.0.7", "dockerhub.io/google_containers/hyperkube:v1.0.7"]
+  /// Names by which this image is known. e.g. ["k8s.gcr.io/hyperkube:v1.0.7", "dockerhub.io/google_containers/hyperkube:v1.0.7"].
   final List<String>? names;
 
   /// The size of the image in bytes.

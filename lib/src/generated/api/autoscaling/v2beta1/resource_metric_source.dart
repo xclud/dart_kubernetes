@@ -21,12 +21,12 @@ class ResourceMetricSource {
     return list.map((e) => ResourceMetricSource.fromJson(e)).toList();
   }
 
-  /// name is the name of the resource in question.
+  /// Name is the name of the resource in question.
   final String name;
 
-  /// targetAverageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+  /// TargetAverageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
   final int? targetAverageUtilization;
 
-  /// targetAverageValue is the target value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the "pods" metric source type.
+  /// TargetAverageValue is the target value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the "pods" metric source type.
   final String? targetAverageValue;
 }

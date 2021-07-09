@@ -75,7 +75,9 @@ class PersistentVolumeSpec {
           azureFile: json['azureFile'] != null
               ? AzureFilePersistentVolumeSource.fromJson(json['azureFile'])
               : null,
-          capacity: json['capacity'],
+          capacity: json['capacity'] != null
+              ? Map<String, String>.from(json['capacity'])
+              : null,
           cephfs: json['cephfs'] != null
               ? CephFSPersistentVolumeSource.fromJson(json['cephfs'])
               : null,
@@ -153,10 +155,10 @@ class PersistentVolumeSpec {
     return list.map((e) => PersistentVolumeSpec.fromJson(e)).toList();
   }
 
-  /// AccessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
+  /// AccessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes.
   final List<String>? accessModes;
 
-  /// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+  /// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore.
   final AWSElasticBlockStoreVolumeSource? awsElasticBlockStore;
 
   /// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
@@ -165,16 +167,16 @@ class PersistentVolumeSpec {
   /// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
   final AzureFilePersistentVolumeSource? azureFile;
 
-  /// A description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
-  final Object? capacity;
+  /// A description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity.
+  final Map<String, String>? capacity;
 
-  /// CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+  /// CephFS represents a Ceph FS mount on the host that shares a pod's lifetime.
   final CephFSPersistentVolumeSource? cephfs;
 
-  /// Cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+  /// Cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md.
   final CinderPersistentVolumeSource? cinder;
 
-  /// ClaimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding
+  /// ClaimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding.
   final ObjectReference? claimRef;
 
   /// CSI represents storage that is handled by an external CSI driver (Beta feature).
@@ -186,46 +188,46 @@ class PersistentVolumeSpec {
   /// FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
   final FlexPersistentVolumeSource? flexVolume;
 
-  /// Flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+  /// Flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running.
   final FlockerVolumeSource? flocker;
 
-  /// GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+  /// GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk.
   final GCEPersistentDiskVolumeSource? gcePersistentDisk;
 
-  /// Glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+  /// Glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md.
   final GlusterfsPersistentVolumeSource? glusterfs;
 
-  /// HostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+  /// HostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath.
   final HostPathVolumeSource? hostPath;
 
   /// ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.
   final ISCSIPersistentVolumeSource? iscsi;
 
-  /// Local represents directly-attached storage with node affinity
+  /// Local represents directly-attached storage with node affinity.
   final LocalVolumeSource? local;
 
-  /// A list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
+  /// A list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options.
   final List<String>? mountOptions;
 
-  /// NFS represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+  /// NFS represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs.
   final NFSVolumeSource? nfs;
 
   /// NodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
   final VolumeNodeAffinity? nodeAffinity;
 
-  /// What happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
+  /// What happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming.
   final String? persistentVolumeReclaimPolicy;
 
-  /// PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+  /// PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine.
   final PhotonPersistentDiskVolumeSource? photonPersistentDisk;
 
-  /// PortworxVolume represents a portworx volume attached and mounted on kubelets host machine
+  /// PortworxVolume represents a portworx volume attached and mounted on kubelets host machine.
   final PortworxVolumeSource? portworxVolume;
 
-  /// Quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+  /// Quobyte represents a Quobyte mount on the host that shares a pod's lifetime.
   final QuobyteVolumeSource? quobyte;
 
-  /// RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+  /// RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md.
   final RBDPersistentVolumeSource? rbd;
 
   /// ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
@@ -234,12 +236,12 @@ class PersistentVolumeSpec {
   /// Name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
   final String? storageClassName;
 
-  /// StorageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+  /// StorageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md.
   final StorageOSPersistentVolumeSource? storageos;
 
-  /// volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
+  /// VolumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
   final String? volumeMode;
 
-  /// VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+  /// VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine.
   final VsphereVirtualDiskVolumeSource? vsphereVolume;
 }

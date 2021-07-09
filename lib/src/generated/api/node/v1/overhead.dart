@@ -8,7 +8,9 @@ class Overhead {
   /// Creates a Overhead from JSON data.
   Overhead.fromJson(Map<String, dynamic> json)
       : this(
-          podFixed: json['podFixed'],
+          podFixed: json['podFixed'] != null
+              ? Map<String, String>.from(json['podFixed'])
+              : null,
         );
 
   /// Creates a list of Overhead from JSON data.
@@ -17,5 +19,5 @@ class Overhead {
   }
 
   /// PodFixed represents the fixed resource overhead associated with running a pod.
-  final Object? podFixed;
+  final Map<String, String>? podFixed;
 }

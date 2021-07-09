@@ -69,7 +69,7 @@ class Event {
   /// What action was taken/failed regarding to the Regarding object.
   final String? action;
 
-  /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;
 
   /// The number of times this event has occurred.
@@ -78,13 +78,13 @@ class Event {
   /// Time when this Event was first observed.
   final MicroTime? eventTime;
 
-  /// The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)
+  /// The time at which the event was first recorded. (Time of server receipt is in TypeMeta.).
   final DateTime? firstTimestamp;
 
   /// The object that this event is about.
   final ObjectReference involvedObject;
 
-  /// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  /// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds.
   final String? kind;
 
   /// The time at which the most recent occurrence of this event was recorded.
@@ -93,7 +93,7 @@ class Event {
   /// A human-readable description of the status of this operation.
   final String? message;
 
-  /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
   final ObjectMeta metadata;
 
   /// This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
@@ -114,6 +114,6 @@ class Event {
   /// The component reporting this event. Should be a short machine understandable string.
   final EventSource? source;
 
-  /// Type of this event (Normal, Warning), new types could be added in the future
+  /// Type of this event (Normal, Warning), new types could be added in the future.
   final String? type;
 }

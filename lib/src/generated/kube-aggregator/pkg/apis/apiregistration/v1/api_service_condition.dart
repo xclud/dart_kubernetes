@@ -1,4 +1,4 @@
-/// APIServiceCondition describes the state of an APIService at a particular point
+/// APIServiceCondition describes the state of an APIService at a particular point.
 class APIServiceCondition {
   /// The main constructor.
   const APIServiceCondition({

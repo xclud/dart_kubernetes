@@ -35,7 +35,7 @@ class NodeSystemInfo {
     return list.map((e) => NodeSystemInfo.fromJson(e)).toList();
   }
 
-  /// The Architecture reported by the node
+  /// The Architecture reported by the node.
   final String architecture;
 
   /// Boot ID reported by the node.
@@ -53,15 +53,15 @@ class NodeSystemInfo {
   /// Kubelet Version reported by the node.
   final String kubeletVersion;
 
-  /// MachineID reported by the node. For unique machine identification in the cluster this field is preferred. Learn more from man(5) machine-id: http://man7.org/linux/man-pages/man5/machine-id.5.html
+  /// MachineID reported by the node. For unique machine identification in the cluster this field is preferred. Learn more from man(5) machine-id: http://man7.org/linux/man-pages/man5/machine-id.5.html.
   final String machineID;
 
-  /// The Operating System reported by the node
+  /// The Operating System reported by the node.
   final String operatingSystem;
 
   /// OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
   final String osImage;
 
-  /// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
+  /// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid.
   final String systemUUID;
 }

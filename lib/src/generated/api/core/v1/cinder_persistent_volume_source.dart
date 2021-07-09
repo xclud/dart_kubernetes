@@ -27,15 +27,15 @@ class CinderPersistentVolumeSource {
     return list.map((e) => CinderPersistentVolumeSource.fromJson(e)).toList();
   }
 
-  /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+  /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md.
   final String? fsType;
 
-  /// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+  /// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md.
   final bool? readOnly;
 
   /// Optional: points to a secret object containing parameters used to connect to OpenStack.
   final SecretReference? secretRef;
 
-  /// volume id used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+  /// Volume id used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md.
   final String volumeID;
 }

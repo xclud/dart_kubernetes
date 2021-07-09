@@ -18,7 +18,7 @@ class Preconditions {
     return list.map((e) => Preconditions.fromJson(e)).toList();
   }
 
-  /// Specifies the target ResourceVersion
+  /// Specifies the target ResourceVersion.
   final String? resourceVersion;
 
   /// Specifies the target UID.

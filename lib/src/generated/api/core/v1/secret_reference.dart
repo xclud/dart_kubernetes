@@ -1,4 +1,4 @@
-/// SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace
+/// SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace.
 class SecretReference {
   /// The main constructor.
   const SecretReference({

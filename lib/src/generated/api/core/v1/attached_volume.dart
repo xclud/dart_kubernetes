@@ -1,4 +1,4 @@
-/// AttachedVolume describes a volume attached to a node
+/// AttachedVolume describes a volume attached to a node.
 class AttachedVolume {
   /// The main constructor.
   const AttachedVolume({
@@ -19,9 +19,9 @@ class AttachedVolume {
     return list.map((e) => AttachedVolume.fromJson(e)).toList();
   }
 
-  /// DevicePath represents the device path where the volume should be available
+  /// DevicePath represents the device path where the volume should be available.
   final String devicePath;
 
-  /// Name of the attached volume
+  /// Name of the attached volume.
   final String name;
 }

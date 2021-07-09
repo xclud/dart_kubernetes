@@ -1,7 +1,7 @@
 import 'package:kubernetes/src/generated/api/networking/v1/ip_block.dart';
 import 'package:kubernetes/src/generated/apimachinery/pkg/apis/meta/v1/label_selector.dart';
 
-/// NetworkPolicyPeer describes a peer to allow traffic to/from. Only certain combinations of fields are allowed
+/// NetworkPolicyPeer describes a peer to allow traffic to/from. Only certain combinations of fields are allowed.
 class NetworkPolicyPeer {
   /// The main constructor.
   const NetworkPolicyPeer({

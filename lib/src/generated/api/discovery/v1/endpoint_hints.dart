@@ -21,6 +21,6 @@ class EndpointHints {
     return list.map((e) => EndpointHints.fromJson(e)).toList();
   }
 
-  /// forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing.
+  /// ForZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing.
   final List<ForZone>? forZones;
 }

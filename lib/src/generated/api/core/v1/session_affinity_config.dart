@@ -21,6 +21,6 @@ class SessionAffinityConfig {
     return list.map((e) => SessionAffinityConfig.fromJson(e)).toList();
   }
 
-  /// clientIP contains the configurations of Client IP based session affinity.
+  /// ClientIP contains the configurations of Client IP based session affinity.
   final ClientIPConfig? clientIP;
 }

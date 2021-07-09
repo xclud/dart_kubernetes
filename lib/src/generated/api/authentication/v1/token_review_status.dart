@@ -33,7 +33,7 @@ class TokenReviewStatus {
   /// Authenticated indicates that the token was associated with a known user.
   final bool? authenticated;
 
-  /// Error indicates that the token couldn't be checked
+  /// Error indicates that the token couldn't be checked.
   final String? error;
 
   /// User is the UserInfo associated with the provided token.

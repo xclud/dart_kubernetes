@@ -2,7 +2,7 @@ import 'package:kubernetes/src/generated/api/flowcontrol/v1beta1/limit_response.
 
 /// LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
 ///  * How are requests for this priority level limited?
-///  * What should be done with requests that exceed the limit?
+///  * What should be done with requests that exceed the limit?.
 class LimitedPriorityLevelConfiguration {
   /// The main constructor.
   const LimitedPriorityLevelConfiguration({
@@ -34,6 +34,6 @@ class LimitedPriorityLevelConfiguration {
   /// bigger numbers of ACS mean more reserved concurrent requests (at the expense of every other PL). This field has a default value of 30.
   final int? assuredConcurrencyShares;
 
-  /// `limitResponse` indicates what to do with requests that can not be executed right now
+  /// `limitResponse` indicates what to do with requests that can not be executed right now.
   final LimitResponse? limitResponse;
 }

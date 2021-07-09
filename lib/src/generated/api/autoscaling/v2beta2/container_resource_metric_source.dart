@@ -23,12 +23,12 @@ class ContainerResourceMetricSource {
     return list.map((e) => ContainerResourceMetricSource.fromJson(e)).toList();
   }
 
-  /// container is the name of the container in the pods of the scaling target
+  /// Container is the name of the container in the pods of the scaling target.
   final String container;
 
-  /// name is the name of the resource in question.
+  /// Name is the name of the resource in question.
   final String name;
 
-  /// target specifies the target value for the given metric
+  /// Target specifies the target value for the given metric.
   final MetricTarget target;
 }

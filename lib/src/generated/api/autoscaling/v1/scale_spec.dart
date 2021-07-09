@@ -16,6 +16,6 @@ class ScaleSpec {
     return list.map((e) => ScaleSpec.fromJson(e)).toList();
   }
 
-  /// desired number of instances for the scaled object.
+  /// Desired number of instances for the scaled object.
   final int? replicas;
 }

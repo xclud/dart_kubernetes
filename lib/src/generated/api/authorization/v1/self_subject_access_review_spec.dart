@@ -1,7 +1,7 @@
 import 'package:kubernetes/src/generated/api/authorization/v1/non_resource_attributes.dart';
 import 'package:kubernetes/src/generated/api/authorization/v1/resource_attributes.dart';
 
-/// SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
+/// SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set.
 class SelfSubjectAccessReviewSpec {
   /// The main constructor.
   const SelfSubjectAccessReviewSpec({
@@ -26,9 +26,9 @@ class SelfSubjectAccessReviewSpec {
     return list.map((e) => SelfSubjectAccessReviewSpec.fromJson(e)).toList();
   }
 
-  /// NonResourceAttributes describes information for a non-resource access request
+  /// NonResourceAttributes describes information for a non-resource access request.
   final NonResourceAttributes? nonResourceAttributes;
 
-  /// ResourceAuthorizationAttributes describes information for a resource access request
+  /// ResourceAuthorizationAttributes describes information for a resource access request.
   final ResourceAttributes? resourceAttributes;
 }

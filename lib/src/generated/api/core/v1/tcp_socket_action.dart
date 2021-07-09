@@ -1,4 +1,4 @@
-/// TCPSocketAction describes an action based on opening a socket
+/// TCPSocketAction describes an action based on opening a socket.
 class TCPSocketAction {
   /// The main constructor.
   const TCPSocketAction({

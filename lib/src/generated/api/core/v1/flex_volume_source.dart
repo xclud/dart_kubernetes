@@ -16,7 +16,9 @@ class FlexVolumeSource {
       : this(
           driver: json['driver'],
           fsType: json['fsType'],
-          options: json['options'],
+          options: json['options'] != null
+              ? Map<String, String>.from(json['options'])
+              : null,
           readOnly: json['readOnly'],
           secretRef: json['secretRef'] != null
               ? LocalObjectReference.fromJson(json['secretRef'])
@@ -36,7 +38,7 @@ class FlexVolumeSource {
   final String? fsType;
 
   /// Optional: Extra command options if any.
-  final Object? options;
+  final Map<String, String>? options;
 
   /// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
   final bool? readOnly;

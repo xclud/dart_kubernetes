@@ -47,6 +47,6 @@ class ReplicaSetStatus {
   /// The number of ready replicas for this replica set.
   final int? readyReplicas;
 
-  /// Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+  /// Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller.
   final int replicas;
 }

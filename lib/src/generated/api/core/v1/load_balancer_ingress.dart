@@ -26,12 +26,12 @@ class LoadBalancerIngress {
     return list.map((e) => LoadBalancerIngress.fromJson(e)).toList();
   }
 
-  /// Hostname is set for load-balancer ingress points that are DNS based (typically AWS load-balancers)
+  /// Hostname is set for load-balancer ingress points that are DNS based (typically AWS load-balancers).
   final String? hostname;
 
-  /// IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
+  /// IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers).
   final String? ip;
 
-  /// Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
+  /// Ports is a list of records of service ports If used, every port defined in the service should have an entry in it.
   final List<PortStatus>? ports;
 }

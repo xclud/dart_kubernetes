@@ -25,15 +25,15 @@ class WebhookClientConfig {
     return list.map((e) => WebhookClientConfig.fromJson(e)).toList();
   }
 
-  /// caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
+  /// CaBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
   final String? caBundle;
 
-  /// service is a reference to the service for this webhook. Either service or url must be specified.
+  /// Service is a reference to the service for this webhook. Either service or url must be specified.
   ///
   /// If the webhook is running within the cluster, then you should use `service`.
   final ServiceReference? service;
 
-  /// url gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
+  /// Url gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
   ///
   /// The `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.
   ///

@@ -19,6 +19,6 @@ class ContainerStateRunning {
     return list.map((e) => ContainerStateRunning.fromJson(e)).toList();
   }
 
-  /// Time at which the container was last (re-)started
+  /// Time at which the container was last (re-)started.
   final DateTime? startedAt;
 }

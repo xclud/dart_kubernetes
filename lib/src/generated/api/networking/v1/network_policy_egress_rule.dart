@@ -1,7 +1,7 @@
 import 'package:kubernetes/src/generated/api/networking/v1/network_policy_port.dart';
 import 'package:kubernetes/src/generated/api/networking/v1/network_policy_peer.dart';
 
-/// NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This type is beta-level in 1.8
+/// NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This type is beta-level in 1.8.
 class NetworkPolicyEgressRule {
   /// The main constructor.
   const NetworkPolicyEgressRule({

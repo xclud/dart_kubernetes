@@ -22,9 +22,9 @@ class PodsMetricStatus {
     return list.map((e) => PodsMetricStatus.fromJson(e)).toList();
   }
 
-  /// current contains the current value for the given metric
+  /// Current contains the current value for the given metric.
   final MetricValueStatus current;
 
-  /// metric identifies the target metric by name and selector
+  /// Metric identifies the target metric by name and selector.
   final MetricIdentifier metric;
 }

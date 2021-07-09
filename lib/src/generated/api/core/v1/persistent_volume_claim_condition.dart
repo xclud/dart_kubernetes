@@ -1,4 +1,4 @@
-/// PersistentVolumeClaimCondition contails details about state of pvc
+/// PersistentVolumeClaimCondition contails details about state of pvc.
 class PersistentVolumeClaimCondition {
   /// The main constructor.
   const PersistentVolumeClaimCondition({

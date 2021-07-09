@@ -30,18 +30,18 @@ class ObjectMetricSource {
     return list.map((e) => ObjectMetricSource.fromJson(e)).toList();
   }
 
-  /// averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
+  /// AverageValue is the target value of the average of the metric across all relevant pods (as a quantity).
   final String? averageValue;
 
-  /// metricName is the name of the metric in question.
+  /// MetricName is the name of the metric in question.
   final String metricName;
 
-  /// selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping When unset, just the metricName will be used to gather metrics.
+  /// Selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping When unset, just the metricName will be used to gather metrics.
   final LabelSelector? selector;
 
-  /// target is the described Kubernetes object.
+  /// Target is the described Kubernetes object.
   final CrossVersionObjectReference target;
 
-  /// targetValue is the target value of the metric (as a quantity).
+  /// TargetValue is the target value of the metric (as a quantity).
   final String targetValue;
 }

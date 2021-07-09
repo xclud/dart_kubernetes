@@ -24,9 +24,9 @@ class ConfigMapKeySelector {
   /// The key to select.
   final String key;
 
-  /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+  /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names.
   final String? name;
 
-  /// Specify whether the ConfigMap or its key must be defined
+  /// Specify whether the ConfigMap or its key must be defined.
   final bool? optional;
 }

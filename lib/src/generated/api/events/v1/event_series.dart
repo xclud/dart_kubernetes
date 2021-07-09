@@ -20,9 +20,9 @@ class EventSeries {
     return list.map((e) => EventSeries.fromJson(e)).toList();
   }
 
-  /// count is the number of occurrences in this series up to the last heartbeat time.
+  /// Count is the number of occurrences in this series up to the last heartbeat time.
   final int count;
 
-  /// lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+  /// LastObservedTime is the time when last Event from the series was seen before last heartbeat.
   final MicroTime lastObservedTime;
 }

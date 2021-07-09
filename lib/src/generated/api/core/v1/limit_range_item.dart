@@ -13,11 +13,21 @@ class LimitRangeItem {
   /// Creates a LimitRangeItem from JSON data.
   LimitRangeItem.fromJson(Map<String, dynamic> json)
       : this(
-          $default: json['default'],
-          defaultRequest: json['defaultRequest'],
-          max: json['max'],
-          maxLimitRequestRatio: json['maxLimitRequestRatio'],
-          min: json['min'],
+          $default: json['default'] != null
+              ? Map<String, String>.from(json['default'])
+              : null,
+          defaultRequest: json['defaultRequest'] != null
+              ? Map<String, String>.from(json['defaultRequest'])
+              : null,
+          max: json['max'] != null
+              ? Map<String, String>.from(json['max'])
+              : null,
+          maxLimitRequestRatio: json['maxLimitRequestRatio'] != null
+              ? Map<String, String>.from(json['maxLimitRequestRatio'])
+              : null,
+          min: json['min'] != null
+              ? Map<String, String>.from(json['min'])
+              : null,
           type: json['type'],
         );
 
@@ -28,19 +38,19 @@ class LimitRangeItem {
   }
 
   /// Default resource requirement limit value by resource name if resource limit is omitted.
-  final Object? $default;
+  final Map<String, String>? $default;
 
   /// DefaultRequest is the default resource requirement request value by resource name if resource request is omitted.
-  final Object? defaultRequest;
+  final Map<String, String>? defaultRequest;
 
   /// Max usage constraints on this kind by resource name.
-  final Object? max;
+  final Map<String, String>? max;
 
   /// MaxLimitRequestRatio if specified, the named resource must have a request and limit that are both non-zero where limit divided by request is less than or equal to the enumerated value; this represents the max burst for the named resource.
-  final Object? maxLimitRequestRatio;
+  final Map<String, String>? maxLimitRequestRatio;
 
   /// Min usage constraints on this kind by resource name.
-  final Object? min;
+  final Map<String, String>? min;
 
   /// Type of resource that this limit applies to.
   final String type;

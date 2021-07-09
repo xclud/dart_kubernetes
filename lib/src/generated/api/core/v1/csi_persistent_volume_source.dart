@@ -1,6 +1,6 @@
 import 'package:kubernetes/src/generated/api/core/v1/secret_reference.dart';
 
-/// Represents storage that is managed by an external CSI volume driver (Beta feature)
+/// Represents storage that is managed by an external CSI volume driver (Beta feature).
 class CSIPersistentVolumeSource {
   /// The main constructor.
   const CSIPersistentVolumeSource({
@@ -33,7 +33,9 @@ class CSIPersistentVolumeSource {
               ? SecretReference.fromJson(json['nodeStageSecretRef'])
               : null,
           readOnly: json['readOnly'],
-          volumeAttributes: json['volumeAttributes'],
+          volumeAttributes: json['volumeAttributes'] != null
+              ? Map<String, String>.from(json['volumeAttributes'])
+              : null,
           volumeHandle: json['volumeHandle'],
         );
 
@@ -65,7 +67,7 @@ class CSIPersistentVolumeSource {
   final bool? readOnly;
 
   /// Attributes of the volume to publish.
-  final Object? volumeAttributes;
+  final Map<String, String>? volumeAttributes;
 
   /// VolumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
   final String volumeHandle;

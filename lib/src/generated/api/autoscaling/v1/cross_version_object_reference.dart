@@ -21,12 +21,12 @@ class CrossVersionObjectReference {
     return list.map((e) => CrossVersionObjectReference.fromJson(e)).toList();
   }
 
-  /// API version of the referent
+  /// API version of the referent.
   final String? apiVersion;
 
-  /// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+  /// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds".
   final String kind;
 
-  /// Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+  /// Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names.
   final String name;
 }

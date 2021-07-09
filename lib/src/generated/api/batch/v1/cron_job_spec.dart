@@ -30,7 +30,7 @@ class CronJobSpec {
     return list.map((e) => CronJobSpec.fromJson(e)).toList();
   }
 
-  /// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
+  /// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one.
   final String? concurrencyPolicy;
 
   /// The number of failed finished jobs to retain. Value must be non-negative integer. Defaults to 1.

@@ -1,6 +1,6 @@
 import 'package:kubernetes/src/generated/api/core/v1/local_object_reference.dart';
 
-/// ScaleIOVolumeSource represents a persistent ScaleIO volume
+/// ScaleIOVolumeSource represents a persistent ScaleIO volume.
 class ScaleIOVolumeSource {
   /// The main constructor.
   const ScaleIOVolumeSource({
@@ -52,7 +52,7 @@ class ScaleIOVolumeSource {
   /// SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
   final LocalObjectReference secretRef;
 
-  /// Flag to enable/disable SSL communication with Gateway, default false
+  /// Flag to enable/disable SSL communication with Gateway, default false.
   final bool? sslEnabled;
 
   /// Indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.

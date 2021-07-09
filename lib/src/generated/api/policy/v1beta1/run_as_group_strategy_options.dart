@@ -24,9 +24,9 @@ class RunAsGroupStrategyOptions {
     return list.map((e) => RunAsGroupStrategyOptions.fromJson(e)).toList();
   }
 
-  /// ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
+  /// Ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
   final List<IDRange>? ranges;
 
-  /// rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
+  /// Rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
   final String rule;
 }

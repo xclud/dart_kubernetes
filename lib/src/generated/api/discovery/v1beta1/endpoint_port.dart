@@ -1,4 +1,4 @@
-/// EndpointPort represents a Port used by an EndpointSlice
+/// EndpointPort represents a Port used by an EndpointSlice.
 class EndpointPort {
   /// The main constructor.
   const EndpointPort({

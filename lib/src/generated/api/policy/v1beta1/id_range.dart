@@ -18,9 +18,9 @@ class IDRange {
     return list.map((e) => IDRange.fromJson(e)).toList();
   }
 
-  /// max is the end of the range, inclusive.
+  /// Max is the end of the range, inclusive.
   final int max;
 
-  /// min is the start of the range, inclusive.
+  /// Min is the start of the range, inclusive.
   final int min;
 }

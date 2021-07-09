@@ -9,8 +9,12 @@ class ResourceQuotaStatus {
   /// Creates a ResourceQuotaStatus from JSON data.
   ResourceQuotaStatus.fromJson(Map<String, dynamic> json)
       : this(
-          hard: json['hard'],
-          used: json['used'],
+          hard: json['hard'] != null
+              ? Map<String, String>.from(json['hard'])
+              : null,
+          used: json['used'] != null
+              ? Map<String, String>.from(json['used'])
+              : null,
         );
 
   /// Creates a list of ResourceQuotaStatus from JSON data.
@@ -19,9 +23,9 @@ class ResourceQuotaStatus {
     return list.map((e) => ResourceQuotaStatus.fromJson(e)).toList();
   }
 
-  /// Hard is the set of enforced hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
-  final Object? hard;
+  /// Hard is the set of enforced hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/.
+  final Map<String, String>? hard;
 
   /// Used is the current observed total usage of the resource in the namespace.
-  final Object? used;
+  final Map<String, String>? used;
 }

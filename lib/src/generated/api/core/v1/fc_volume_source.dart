@@ -31,13 +31,13 @@ class FCVolumeSource {
   /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
   final String? fsType;
 
-  /// Optional: FC target lun number
+  /// Optional: FC target lun number.
   final int? lun;
 
   /// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
   final bool? readOnly;
 
-  /// Optional: FC target worldwide names (WWNs)
+  /// Optional: FC target worldwide names (WWNs).
   final List<String>? targetWWNs;
 
   /// Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.

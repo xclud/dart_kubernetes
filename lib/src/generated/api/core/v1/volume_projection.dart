@@ -3,7 +3,7 @@ import 'package:kubernetes/src/generated/api/core/v1/downward_api_projection.dar
 import 'package:kubernetes/src/generated/api/core/v1/secret_projection.dart';
 import 'package:kubernetes/src/generated/api/core/v1/service_account_token_projection.dart';
 
-/// Projection that may be projected along with other supported volume types
+/// Projection that may be projected along with other supported volume types.
 class VolumeProjection {
   /// The main constructor.
   const VolumeProjection({
@@ -37,15 +37,15 @@ class VolumeProjection {
     return list.map((e) => VolumeProjection.fromJson(e)).toList();
   }
 
-  /// information about the configMap data to project
+  /// Information about the configMap data to project.
   final ConfigMapProjection? configMap;
 
-  /// information about the downwardAPI data to project
+  /// Information about the downwardAPI data to project.
   final DownwardAPIProjection? downwardAPI;
 
-  /// information about the secret data to project
+  /// Information about the secret data to project.
   final SecretProjection? secret;
 
-  /// information about the serviceAccountToken data to project
+  /// Information about the serviceAccountToken data to project.
   final ServiceAccountTokenProjection? serviceAccountToken;
 }

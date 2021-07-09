@@ -29,7 +29,7 @@ class VolumeMount {
   /// Path within the container at which the volume should be mounted.  Must not contain ':'.
   final String mountPath;
 
-  /// mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
+  /// MountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
   final String? mountPropagation;
 
   /// This must match the Name of a Volume.
