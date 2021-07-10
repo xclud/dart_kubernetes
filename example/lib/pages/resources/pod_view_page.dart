@@ -21,6 +21,8 @@ class PodViewPage extends StatefulWidget {
 class _PodViewPageState extends State<PodViewPage> {
   @override
   Widget build(BuildContext context) {
+    final pod = widget.pod;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Pod'),
@@ -70,6 +72,23 @@ class _PodViewPageState extends State<PodViewPage> {
               ),
             ),
           ),
+          if (pod.spec?.initContainers != null &&
+              pod.spec!.initContainers!.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Card(
+                child: Column(
+                  children: pod.spec!.initContainers!
+                      .map(
+                        (e) => ListTile(
+                          title: Text(e.name),
+                          subtitle: Text(e.image ?? ''),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
+            ),
         ],
       ),
     );

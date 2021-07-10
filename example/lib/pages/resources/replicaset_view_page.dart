@@ -18,6 +18,8 @@ class ReplicaSetViewPage extends StatefulWidget {
 class _ReplicaSetViewPageState extends State<ReplicaSetViewPage> {
   @override
   Widget build(BuildContext context) {
+    final rs = widget.replicaset;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('ReplicaSet'),
@@ -28,11 +30,43 @@ class _ReplicaSetViewPageState extends State<ReplicaSetViewPage> {
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: Card(
-              child: Card(
-                child: ObjectMetaWidget(metadata: widget.replicaset.metadata!),
-              ),
+              child: ObjectMetaWidget(metadata: widget.replicaset.metadata!),
             ),
           ),
+          if (rs.spec?.template?.spec?.containers != null &&
+              rs.spec!.template!.spec!.containers.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Card(
+                child: Column(
+                  children: rs.spec!.template!.spec!.containers
+                      .map(
+                        (e) => ListTile(
+                          title: Text(e.name),
+                          subtitle: Text(e.image ?? ''),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
+            ),
+          if (rs.spec?.template?.spec?.initContainers != null &&
+              rs.spec!.template!.spec!.initContainers!.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Card(
+                child: Column(
+                  children: rs.spec!.template!.spec!.initContainers!
+                      .map(
+                        (e) => ListTile(
+                          title: Text(e.name),
+                          subtitle: Text(e.image ?? ''),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
+            ),
         ],
       ),
     );
