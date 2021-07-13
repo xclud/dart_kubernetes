@@ -77,37 +77,41 @@ class KubernetesClient {
     return resp.body;
   }
 
-  Future<Map<String, dynamic>> _postJsonMap(String url) async {
+  Future<Map<String, dynamic>> _postJsonMap(String url, [Object? body]) async {
     final fullurl = _getFullUrl(url);
     final headers = <String, String>{'Authorization': 'Bearer $accessToken'};
 
-    final resp = await _httpClient.post(Uri.parse(fullurl), headers: headers);
+    final resp = await _httpClient.post(Uri.parse(fullurl),
+        body: body, headers: headers);
     final map = json.decode(resp.body) as Map<String, dynamic>;
     return map;
   }
 
-  Future<String> _postJsonString(String url) async {
+  Future<String> _postJsonString(String url, [Object? body]) async {
     final fullurl = _getFullUrl(url);
     final headers = <String, String>{'Authorization': 'Bearer $accessToken'};
 
-    final resp = await _httpClient.post(Uri.parse(fullurl), headers: headers);
+    final resp = await _httpClient.post(Uri.parse(fullurl),
+        body: body, headers: headers);
     return resp.body;
   }
 
-  Future<Map<String, dynamic>> _putJsonMap(String url) async {
+  Future<Map<String, dynamic>> _putJsonMap(String url, [Object? body]) async {
     final fullurl = _getFullUrl(url);
     final headers = <String, String>{'Authorization': 'Bearer $accessToken'};
 
-    final resp = await _httpClient.put(Uri.parse(fullurl), headers: headers);
+    final resp =
+        await _httpClient.put(Uri.parse(fullurl), body: body, headers: headers);
     final map = json.decode(resp.body) as Map<String, dynamic>;
     return map;
   }
 
-  Future<String> _putJsonString(String url) async {
+  Future<String> _putJsonString(String url, [Object? body]) async {
     final fullurl = _getFullUrl(url);
     final headers = <String, String>{'Authorization': 'Bearer $accessToken'};
 
-    final resp = await _httpClient.put(Uri.parse(fullurl), headers: headers);
+    final resp =
+        await _httpClient.put(Uri.parse(fullurl), body: body, headers: headers);
     return resp.body;
   }
 
@@ -128,20 +132,22 @@ class KubernetesClient {
     return resp.body;
   }
 
-  Future<Map<String, dynamic>> _patchJsonMap(String url) async {
+  Future<Map<String, dynamic>> _patchJsonMap(String url, [Object? body]) async {
     final fullurl = _getFullUrl(url);
     final headers = <String, String>{'Authorization': 'Bearer $accessToken'};
 
-    final resp = await _httpClient.patch(Uri.parse(fullurl), headers: headers);
+    final resp = await _httpClient.patch(Uri.parse(fullurl),
+        body: body, headers: headers);
     final map = json.decode(resp.body) as Map<String, dynamic>;
     return map;
   }
 
-  Future<String> _patchJsonString(String url) async {
+  Future<String> _patchJsonString(String url, [Object? body]) async {
     final fullurl = _getFullUrl(url);
     final headers = <String, String>{'Authorization': 'Bearer $accessToken'};
 
-    final resp = await _httpClient.patch(Uri.parse(fullurl), headers: headers);
+    final resp = await _httpClient.patch(Uri.parse(fullurl),
+        body: body, headers: headers);
     return resp.body;
   }
 
