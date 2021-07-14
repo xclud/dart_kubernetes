@@ -77,9 +77,10 @@ class KubernetesClient {
     return resp.body;
   }
 
-  Future<Map<String, dynamic>> _postJsonMap(String url, [Object? body]) async {
+  Future<Map<String, dynamic>> _postJsonMap(String url, Object body) async {
     final fullurl = _getFullUrl(url);
     final headers = <String, String>{'Authorization': 'Bearer $accessToken'};
+    headers['Content-Type'] = _getHeader(body);
 
     final resp = await _httpClient.post(Uri.parse(fullurl),
         body: body, headers: headers);
@@ -87,18 +88,20 @@ class KubernetesClient {
     return map;
   }
 
-  Future<String> _postJsonString(String url, [Object? body]) async {
+  Future<String> _postJsonString(String url, Object body) async {
     final fullurl = _getFullUrl(url);
     final headers = <String, String>{'Authorization': 'Bearer $accessToken'};
+    headers['Content-Type'] = _getHeader(body);
 
     final resp = await _httpClient.post(Uri.parse(fullurl),
         body: body, headers: headers);
     return resp.body;
   }
 
-  Future<Map<String, dynamic>> _putJsonMap(String url, [Object? body]) async {
+  Future<Map<String, dynamic>> _putJsonMap(String url, Object body) async {
     final fullurl = _getFullUrl(url);
     final headers = <String, String>{'Authorization': 'Bearer $accessToken'};
+    headers['Content-Type'] = _getHeader(body);
 
     final resp =
         await _httpClient.put(Uri.parse(fullurl), body: body, headers: headers);
@@ -106,9 +109,10 @@ class KubernetesClient {
     return map;
   }
 
-  Future<String> _putJsonString(String url, [Object? body]) async {
+  Future<String> _putJsonString(String url, Object body) async {
     final fullurl = _getFullUrl(url);
     final headers = <String, String>{'Authorization': 'Bearer $accessToken'};
+    headers['Content-Type'] = _getHeader(body);
 
     final resp =
         await _httpClient.put(Uri.parse(fullurl), body: body, headers: headers);
@@ -132,9 +136,10 @@ class KubernetesClient {
     return resp.body;
   }
 
-  Future<Map<String, dynamic>> _patchJsonMap(String url, [Object? body]) async {
+  Future<Map<String, dynamic>> _patchJsonMap(String url, Object body) async {
     final fullurl = _getFullUrl(url);
     final headers = <String, String>{'Authorization': 'Bearer $accessToken'};
+    headers['Content-Type'] = _getHeader(body);
 
     final resp = await _httpClient.patch(Uri.parse(fullurl),
         body: body, headers: headers);
@@ -142,9 +147,10 @@ class KubernetesClient {
     return map;
   }
 
-  Future<String> _patchJsonString(String url, [Object? body]) async {
+  Future<String> _patchJsonString(String url, Object body) async {
     final fullurl = _getFullUrl(url);
     final headers = <String, String>{'Authorization': 'Bearer $accessToken'};
+    headers['Content-Type'] = _getHeader(body);
 
     final resp = await _httpClient.patch(Uri.parse(fullurl),
         body: body, headers: headers);
@@ -656,7 +662,8 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result = await _postJsonMap('/api/v1/namespaces$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _postJsonMap('/api/v1/namespaces$query', jsonBody);
     return api_core_v1.Namespace.fromJson(result);
   }
 
@@ -690,8 +697,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _postJsonMap('/api/v1/namespaces/$namespace/bindings$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _postJsonMap(
+        '/api/v1/namespaces/$namespace/bindings$query', jsonBody);
     return api_core_v1.Binding.fromJson(result);
   }
 
@@ -758,8 +766,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _postJsonMap('/api/v1/namespaces/$namespace/configmaps$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _postJsonMap(
+        '/api/v1/namespaces/$namespace/configmaps$query', jsonBody);
     return api_core_v1.ConfigMap.fromJson(result);
   }
 
@@ -834,8 +843,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/configmaps/$name$query');
+        '/api/v1/namespaces/$namespace/configmaps/$name$query', jsonBody);
     return api_core_v1.ConfigMap.fromJson(result);
   }
 
@@ -860,8 +870,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/configmaps/$name$query');
+        '/api/v1/namespaces/$namespace/configmaps/$name$query', jsonBody);
     return api_core_v1.ConfigMap.fromJson(result);
   }
 
@@ -928,8 +939,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _postJsonMap('/api/v1/namespaces/$namespace/endpoints$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _postJsonMap(
+        '/api/v1/namespaces/$namespace/endpoints$query', jsonBody);
     return api_core_v1.Endpoints.fromJson(result);
   }
 
@@ -1004,8 +1016,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/endpoints/$name$query');
+        '/api/v1/namespaces/$namespace/endpoints/$name$query', jsonBody);
     return api_core_v1.Endpoints.fromJson(result);
   }
 
@@ -1030,8 +1043,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/endpoints/$name$query');
+        '/api/v1/namespaces/$namespace/endpoints/$name$query', jsonBody);
     return api_core_v1.Endpoints.fromJson(result);
   }
 
@@ -1098,8 +1112,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _postJsonMap('/api/v1/namespaces/$namespace/events$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _postJsonMap(
+        '/api/v1/namespaces/$namespace/events$query', jsonBody);
     return api_core_v1.Event.fromJson(result);
   }
 
@@ -1174,8 +1189,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _putJsonMap('/api/v1/namespaces/$namespace/events/$name$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _putJsonMap(
+        '/api/v1/namespaces/$namespace/events/$name$query', jsonBody);
     return api_core_v1.Event.fromJson(result);
   }
 
@@ -1200,8 +1216,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _patchJsonMap('/api/v1/namespaces/$namespace/events/$name$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _patchJsonMap(
+        '/api/v1/namespaces/$namespace/events/$name$query', jsonBody);
     return api_core_v1.Event.fromJson(result);
   }
 
@@ -1268,8 +1285,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _postJsonMap('/api/v1/namespaces/$namespace/limitranges$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _postJsonMap(
+        '/api/v1/namespaces/$namespace/limitranges$query', jsonBody);
     return api_core_v1.LimitRange.fromJson(result);
   }
 
@@ -1345,8 +1363,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/limitranges/$name$query');
+        '/api/v1/namespaces/$namespace/limitranges/$name$query', jsonBody);
     return api_core_v1.LimitRange.fromJson(result);
   }
 
@@ -1371,8 +1390,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/limitranges/$name$query');
+        '/api/v1/namespaces/$namespace/limitranges/$name$query', jsonBody);
     return api_core_v1.LimitRange.fromJson(result);
   }
 
@@ -1441,8 +1461,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/api/v1/namespaces/$namespace/persistentvolumeclaims$query');
+        '/api/v1/namespaces/$namespace/persistentvolumeclaims$query', jsonBody);
     return api_core_v1.PersistentVolumeClaim.fromJson(result);
   }
 
@@ -1520,8 +1541,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/persistentvolumeclaims/$name$query');
+        '/api/v1/namespaces/$namespace/persistentvolumeclaims/$name$query',
+        jsonBody);
     return api_core_v1.PersistentVolumeClaim.fromJson(result);
   }
 
@@ -1547,8 +1570,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/persistentvolumeclaims/$name$query');
+        '/api/v1/namespaces/$namespace/persistentvolumeclaims/$name$query',
+        jsonBody);
     return api_core_v1.PersistentVolumeClaim.fromJson(result);
   }
 
@@ -1600,8 +1625,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/persistentvolumeclaims/$name/status$query');
+        '/api/v1/namespaces/$namespace/persistentvolumeclaims/$name/status$query',
+        jsonBody);
     return api_core_v1.PersistentVolumeClaim.fromJson(result);
   }
 
@@ -1627,8 +1654,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/persistentvolumeclaims/$name/status$query');
+        '/api/v1/namespaces/$namespace/persistentvolumeclaims/$name/status$query',
+        jsonBody);
     return api_core_v1.PersistentVolumeClaim.fromJson(result);
   }
 
@@ -1695,8 +1724,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _postJsonMap('/api/v1/namespaces/$namespace/pods$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _postJsonMap(
+        '/api/v1/namespaces/$namespace/pods$query', jsonBody);
     return api_core_v1.Pod.fromJson(result);
   }
 
@@ -1771,8 +1801,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _putJsonMap('/api/v1/namespaces/$namespace/pods/$name$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _putJsonMap(
+        '/api/v1/namespaces/$namespace/pods/$name$query', jsonBody);
     return api_core_v1.Pod.fromJson(result);
   }
 
@@ -1797,8 +1828,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _patchJsonMap('/api/v1/namespaces/$namespace/pods/$name$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _patchJsonMap(
+        '/api/v1/namespaces/$namespace/pods/$name$query', jsonBody);
     return api_core_v1.Pod.fromJson(result);
   }
 
@@ -1897,7 +1929,7 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _postJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/attach$query');
+        '/api/v1/namespaces/$namespace/pods/$name/attach$query', body);
     return result;
   }
 
@@ -1934,8 +1966,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/api/v1/namespaces/$namespace/pods/$name/binding$query');
+        '/api/v1/namespaces/$namespace/pods/$name/binding$query', jsonBody);
     return api_core_v1.Binding.fromJson(result);
   }
 
@@ -1985,8 +2018,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/pods/$name/ephemeralcontainers$query');
+        '/api/v1/namespaces/$namespace/pods/$name/ephemeralcontainers$query',
+        jsonBody);
     return api_core_v1.Pod.fromJson(result);
   }
 
@@ -2011,8 +2046,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/pods/$name/ephemeralcontainers$query');
+        '/api/v1/namespaces/$namespace/pods/$name/ephemeralcontainers$query',
+        jsonBody);
     return api_core_v1.Pod.fromJson(result);
   }
 
@@ -2049,8 +2086,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/api/v1/namespaces/$namespace/pods/$name/eviction$query');
+        '/api/v1/namespaces/$namespace/pods/$name/eviction$query', jsonBody);
     return api_policy_v1.Eviction.fromJson(result);
   }
 
@@ -2161,7 +2199,7 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _postJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/exec$query');
+        '/api/v1/namespaces/$namespace/pods/$name/exec$query', body);
     return result;
   }
 
@@ -2286,7 +2324,7 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _postJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/portforward$query');
+        '/api/v1/namespaces/$namespace/pods/$name/portforward$query', body);
     return result;
   }
 
@@ -2362,7 +2400,7 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _postJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy$query');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy$query', body);
     return result;
   }
 
@@ -2388,7 +2426,7 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _putJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy$query');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy$query', body);
     return result;
   }
 
@@ -2414,7 +2452,7 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _patchJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy$query');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy$query', body);
     return result;
   }
 
@@ -2551,7 +2589,7 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _postJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path$query');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path$query', body);
     return result;
   }
 
@@ -2580,7 +2618,7 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _putJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path$query');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path$query', body);
     return result;
   }
 
@@ -2609,7 +2647,7 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _patchJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path$query');
+        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path$query', body);
     return result;
   }
 
@@ -2717,8 +2755,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/pods/$name/status$query');
+        '/api/v1/namespaces/$namespace/pods/$name/status$query', jsonBody);
     return api_core_v1.Pod.fromJson(result);
   }
 
@@ -2743,8 +2782,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/pods/$name/status$query');
+        '/api/v1/namespaces/$namespace/pods/$name/status$query', jsonBody);
     return api_core_v1.Pod.fromJson(result);
   }
 
@@ -2811,8 +2851,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _postJsonMap('/api/v1/namespaces/$namespace/podtemplates$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _postJsonMap(
+        '/api/v1/namespaces/$namespace/podtemplates$query', jsonBody);
     return api_core_v1.PodTemplate.fromJson(result);
   }
 
@@ -2887,8 +2928,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/podtemplates/$name$query');
+        '/api/v1/namespaces/$namespace/podtemplates/$name$query', jsonBody);
     return api_core_v1.PodTemplate.fromJson(result);
   }
 
@@ -2913,8 +2955,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/podtemplates/$name$query');
+        '/api/v1/namespaces/$namespace/podtemplates/$name$query', jsonBody);
     return api_core_v1.PodTemplate.fromJson(result);
   }
 
@@ -2983,8 +3026,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/api/v1/namespaces/$namespace/replicationcontrollers$query');
+        '/api/v1/namespaces/$namespace/replicationcontrollers$query', jsonBody);
     return api_core_v1.ReplicationController.fromJson(result);
   }
 
@@ -3062,8 +3106,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/replicationcontrollers/$name$query');
+        '/api/v1/namespaces/$namespace/replicationcontrollers/$name$query',
+        jsonBody);
     return api_core_v1.ReplicationController.fromJson(result);
   }
 
@@ -3089,8 +3135,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/replicationcontrollers/$name$query');
+        '/api/v1/namespaces/$namespace/replicationcontrollers/$name$query',
+        jsonBody);
     return api_core_v1.ReplicationController.fromJson(result);
   }
 
@@ -3142,8 +3190,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/replicationcontrollers/$name/scale$query');
+        '/api/v1/namespaces/$namespace/replicationcontrollers/$name/scale$query',
+        jsonBody);
     return api_autoscaling_v1.Scale.fromJson(result);
   }
 
@@ -3169,8 +3219,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/replicationcontrollers/$name/scale$query');
+        '/api/v1/namespaces/$namespace/replicationcontrollers/$name/scale$query',
+        jsonBody);
     return api_autoscaling_v1.Scale.fromJson(result);
   }
 
@@ -3222,8 +3274,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/replicationcontrollers/$name/status$query');
+        '/api/v1/namespaces/$namespace/replicationcontrollers/$name/status$query',
+        jsonBody);
     return api_core_v1.ReplicationController.fromJson(result);
   }
 
@@ -3249,8 +3303,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/replicationcontrollers/$name/status$query');
+        '/api/v1/namespaces/$namespace/replicationcontrollers/$name/status$query',
+        jsonBody);
     return api_core_v1.ReplicationController.fromJson(result);
   }
 
@@ -3317,8 +3373,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/api/v1/namespaces/$namespace/resourcequotas$query');
+        '/api/v1/namespaces/$namespace/resourcequotas$query', jsonBody);
     return api_core_v1.ResourceQuota.fromJson(result);
   }
 
@@ -3393,8 +3450,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/resourcequotas/$name$query');
+        '/api/v1/namespaces/$namespace/resourcequotas/$name$query', jsonBody);
     return api_core_v1.ResourceQuota.fromJson(result);
   }
 
@@ -3419,8 +3477,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/resourcequotas/$name$query');
+        '/api/v1/namespaces/$namespace/resourcequotas/$name$query', jsonBody);
     return api_core_v1.ResourceQuota.fromJson(result);
   }
 
@@ -3470,8 +3529,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/resourcequotas/$name/status$query');
+        '/api/v1/namespaces/$namespace/resourcequotas/$name/status$query',
+        jsonBody);
     return api_core_v1.ResourceQuota.fromJson(result);
   }
 
@@ -3496,8 +3557,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/resourcequotas/$name/status$query');
+        '/api/v1/namespaces/$namespace/resourcequotas/$name/status$query',
+        jsonBody);
     return api_core_v1.ResourceQuota.fromJson(result);
   }
 
@@ -3564,8 +3627,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _postJsonMap('/api/v1/namespaces/$namespace/secrets$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _postJsonMap(
+        '/api/v1/namespaces/$namespace/secrets$query', jsonBody);
     return api_core_v1.Secret.fromJson(result);
   }
 
@@ -3640,8 +3704,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _putJsonMap('/api/v1/namespaces/$namespace/secrets/$name$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _putJsonMap(
+        '/api/v1/namespaces/$namespace/secrets/$name$query', jsonBody);
     return api_core_v1.Secret.fromJson(result);
   }
 
@@ -3666,8 +3731,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/secrets/$name$query');
+        '/api/v1/namespaces/$namespace/secrets/$name$query', jsonBody);
     return api_core_v1.Secret.fromJson(result);
   }
 
@@ -3734,8 +3800,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/api/v1/namespaces/$namespace/serviceaccounts$query');
+        '/api/v1/namespaces/$namespace/serviceaccounts$query', jsonBody);
     return api_core_v1.ServiceAccount.fromJson(result);
   }
 
@@ -3810,8 +3877,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/serviceaccounts/$name$query');
+        '/api/v1/namespaces/$namespace/serviceaccounts/$name$query', jsonBody);
     return api_core_v1.ServiceAccount.fromJson(result);
   }
 
@@ -3836,8 +3904,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/serviceaccounts/$name$query');
+        '/api/v1/namespaces/$namespace/serviceaccounts/$name$query', jsonBody);
     return api_core_v1.ServiceAccount.fromJson(result);
   }
 
@@ -3875,8 +3944,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/api/v1/namespaces/$namespace/serviceaccounts/$name/token$query');
+        '/api/v1/namespaces/$namespace/serviceaccounts/$name/token$query',
+        jsonBody);
     return api_authentication_v1.TokenRequest.fromJson(result);
   }
 
@@ -3920,8 +3991,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _postJsonMap('/api/v1/namespaces/$namespace/services$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _postJsonMap(
+        '/api/v1/namespaces/$namespace/services$query', jsonBody);
     return api_core_v1.Service.fromJson(result);
   }
 
@@ -3996,8 +4068,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _putJsonMap('/api/v1/namespaces/$namespace/services/$name$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _putJsonMap(
+        '/api/v1/namespaces/$namespace/services/$name$query', jsonBody);
     return api_core_v1.Service.fromJson(result);
   }
 
@@ -4022,8 +4095,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/services/$name$query');
+        '/api/v1/namespaces/$namespace/services/$name$query', jsonBody);
     return api_core_v1.Service.fromJson(result);
   }
 
@@ -4099,7 +4173,7 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _postJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy$query');
+        '/api/v1/namespaces/$namespace/services/$name/proxy$query', body);
     return result;
   }
 
@@ -4125,7 +4199,7 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _putJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy$query');
+        '/api/v1/namespaces/$namespace/services/$name/proxy$query', body);
     return result;
   }
 
@@ -4151,7 +4225,7 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _patchJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy$query');
+        '/api/v1/namespaces/$namespace/services/$name/proxy$query', body);
     return result;
   }
 
@@ -4288,7 +4362,7 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _postJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy/$path$query');
+        '/api/v1/namespaces/$namespace/services/$name/proxy/$path$query', body);
     return result;
   }
 
@@ -4317,7 +4391,7 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _putJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy/$path$query');
+        '/api/v1/namespaces/$namespace/services/$name/proxy/$path$query', body);
     return result;
   }
 
@@ -4346,7 +4420,7 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _patchJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy/$path$query');
+        '/api/v1/namespaces/$namespace/services/$name/proxy/$path$query', body);
     return result;
   }
 
@@ -4454,8 +4528,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/api/v1/namespaces/$namespace/services/$name/status$query');
+        '/api/v1/namespaces/$namespace/services/$name/status$query', jsonBody);
     return api_core_v1.Service.fromJson(result);
   }
 
@@ -4480,8 +4555,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/services/$name/status$query');
+        '/api/v1/namespaces/$namespace/services/$name/status$query', jsonBody);
     return api_core_v1.Service.fromJson(result);
   }
 
@@ -4545,7 +4621,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result = await _putJsonMap('/api/v1/namespaces/$name$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result =
+        await _putJsonMap('/api/v1/namespaces/$name$query', jsonBody);
     return api_core_v1.Namespace.fromJson(result);
   }
 
@@ -4567,7 +4645,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result = await _patchJsonMap('/api/v1/namespaces/$name$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result =
+        await _patchJsonMap('/api/v1/namespaces/$name$query', jsonBody);
     return api_core_v1.Namespace.fromJson(result);
   }
 
@@ -4601,7 +4681,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result = await _putJsonMap('/api/v1/namespaces/$name/finalize$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result =
+        await _putJsonMap('/api/v1/namespaces/$name/finalize$query', jsonBody);
     return api_core_v1.Namespace.fromJson(result);
   }
 
@@ -4644,7 +4726,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result = await _putJsonMap('/api/v1/namespaces/$name/status$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result =
+        await _putJsonMap('/api/v1/namespaces/$name/status$query', jsonBody);
     return api_core_v1.Namespace.fromJson(result);
   }
 
@@ -4666,7 +4750,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result = await _patchJsonMap('/api/v1/namespaces/$name/status$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result =
+        await _patchJsonMap('/api/v1/namespaces/$name/status$query', jsonBody);
     return api_core_v1.Namespace.fromJson(result);
   }
 
@@ -4721,7 +4807,8 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result = await _postJsonMap('/api/v1/nodes$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _postJsonMap('/api/v1/nodes$query', jsonBody);
     return api_core_v1.Node.fromJson(result);
   }
 
@@ -4785,7 +4872,8 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result = await _putJsonMap('/api/v1/nodes/$name$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _putJsonMap('/api/v1/nodes/$name$query', jsonBody);
     return api_core_v1.Node.fromJson(result);
   }
 
@@ -4807,7 +4895,8 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result = await _patchJsonMap('/api/v1/nodes/$name$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _patchJsonMap('/api/v1/nodes/$name$query', jsonBody);
     return api_core_v1.Node.fromJson(result);
   }
 
@@ -4871,7 +4960,8 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result = await _postJsonString('/api/v1/nodes/$name/proxy$query');
+    final result =
+        await _postJsonString('/api/v1/nodes/$name/proxy$query', body);
     return result;
   }
 
@@ -4893,7 +4983,8 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result = await _putJsonString('/api/v1/nodes/$name/proxy$query');
+    final result =
+        await _putJsonString('/api/v1/nodes/$name/proxy$query', body);
     return result;
   }
 
@@ -4915,7 +5006,8 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result = await _patchJsonString('/api/v1/nodes/$name/proxy$query');
+    final result =
+        await _patchJsonString('/api/v1/nodes/$name/proxy$query', body);
     return result;
   }
 
@@ -5035,7 +5127,7 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result =
-        await _postJsonString('/api/v1/nodes/$name/proxy/$path$query');
+        await _postJsonString('/api/v1/nodes/$name/proxy/$path$query', body);
     return result;
   }
 
@@ -5061,7 +5153,7 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result =
-        await _putJsonString('/api/v1/nodes/$name/proxy/$path$query');
+        await _putJsonString('/api/v1/nodes/$name/proxy/$path$query', body);
     return result;
   }
 
@@ -5087,7 +5179,7 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result =
-        await _patchJsonString('/api/v1/nodes/$name/proxy/$path$query');
+        await _patchJsonString('/api/v1/nodes/$name/proxy/$path$query', body);
     return result;
   }
 
@@ -5182,7 +5274,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result = await _putJsonMap('/api/v1/nodes/$name/status$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result =
+        await _putJsonMap('/api/v1/nodes/$name/status$query', jsonBody);
     return api_core_v1.Node.fromJson(result);
   }
 
@@ -5204,7 +5298,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result = await _patchJsonMap('/api/v1/nodes/$name/status$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result =
+        await _patchJsonMap('/api/v1/nodes/$name/status$query', jsonBody);
     return api_core_v1.Node.fromJson(result);
   }
 
@@ -5333,7 +5429,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result = await _postJsonMap('/api/v1/persistentvolumes$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result =
+        await _postJsonMap('/api/v1/persistentvolumes$query', jsonBody);
     return api_core_v1.PersistentVolume.fromJson(result);
   }
 
@@ -5398,7 +5496,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result = await _putJsonMap('/api/v1/persistentvolumes/$name$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result =
+        await _putJsonMap('/api/v1/persistentvolumes/$name$query', jsonBody);
     return api_core_v1.PersistentVolume.fromJson(result);
   }
 
@@ -5420,7 +5520,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result = await _patchJsonMap('/api/v1/persistentvolumes/$name$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result =
+        await _patchJsonMap('/api/v1/persistentvolumes/$name$query', jsonBody);
     return api_core_v1.PersistentVolume.fromJson(result);
   }
 
@@ -5464,8 +5566,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _putJsonMap('/api/v1/persistentvolumes/$name/status$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _putJsonMap(
+        '/api/v1/persistentvolumes/$name/status$query', jsonBody);
     return api_core_v1.PersistentVolume.fromJson(result);
   }
 
@@ -5487,8 +5590,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _patchJsonMap('/api/v1/persistentvolumes/$name/status$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _patchJsonMap(
+        '/api/v1/persistentvolumes/$name/status$query', jsonBody);
     return api_core_v1.PersistentVolume.fromJson(result);
   }
 
@@ -9320,8 +9424,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations$query');
+        '/apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations$query',
+        jsonBody);
     return api_admissionregistration_v1.MutatingWebhookConfiguration.fromJson(
         result);
   }
@@ -9392,8 +9498,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/$name$query');
+        '/apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/$name$query',
+        jsonBody);
     return api_admissionregistration_v1.MutatingWebhookConfiguration.fromJson(
         result);
   }
@@ -9417,8 +9525,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/$name$query');
+        '/apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/$name$query',
+        jsonBody);
     return api_admissionregistration_v1.MutatingWebhookConfiguration.fromJson(
         result);
   }
@@ -9480,8 +9590,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations$query');
+        '/apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations$query',
+        jsonBody);
     return api_admissionregistration_v1.ValidatingWebhookConfiguration.fromJson(
         result);
   }
@@ -9552,8 +9664,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/$name$query');
+        '/apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/$name$query',
+        jsonBody);
     return api_admissionregistration_v1.ValidatingWebhookConfiguration.fromJson(
         result);
   }
@@ -9577,8 +9691,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/$name$query');
+        '/apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/$name$query',
+        jsonBody);
     return api_admissionregistration_v1.ValidatingWebhookConfiguration.fromJson(
         result);
   }
@@ -9966,8 +10082,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions$query');
+        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions$query',
+        jsonBody);
     return apiextensions__apiserver_pkg_apis_apiextensions_v1
         .CustomResourceDefinition.fromJson(result);
   }
@@ -10044,8 +10162,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions/$name$query');
+        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions/$name$query',
+        jsonBody);
     return apiextensions__apiserver_pkg_apis_apiextensions_v1
         .CustomResourceDefinition.fromJson(result);
   }
@@ -10073,8 +10193,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions/$name$query');
+        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions/$name$query',
+        jsonBody);
     return apiextensions__apiserver_pkg_apis_apiextensions_v1
         .CustomResourceDefinition.fromJson(result);
   }
@@ -10128,8 +10250,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions/$name/status$query');
+        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions/$name/status$query',
+        jsonBody);
     return apiextensions__apiserver_pkg_apis_apiextensions_v1
         .CustomResourceDefinition.fromJson(result);
   }
@@ -10157,8 +10281,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions/$name/status$query');
+        '/apis/apiextensions.k8s.io/v1/customresourcedefinitions/$name/status$query',
+        jsonBody);
     return apiextensions__apiserver_pkg_apis_apiextensions_v1
         .CustomResourceDefinition.fromJson(result);
   }
@@ -10387,8 +10513,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _postJsonMap('/apis/apiregistration.k8s.io/v1/apiservices$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _postJsonMap(
+        '/apis/apiregistration.k8s.io/v1/apiservices$query', jsonBody);
     return kube__aggregator_pkg_apis_apiregistration_v1.APIService.fromJson(
         result);
   }
@@ -10459,8 +10586,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/apiregistration.k8s.io/v1/apiservices/$name$query');
+        '/apis/apiregistration.k8s.io/v1/apiservices/$name$query', jsonBody);
     return kube__aggregator_pkg_apis_apiregistration_v1.APIService.fromJson(
         result);
   }
@@ -10484,8 +10612,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/apiregistration.k8s.io/v1/apiservices/$name$query');
+        '/apis/apiregistration.k8s.io/v1/apiservices/$name$query', jsonBody);
     return kube__aggregator_pkg_apis_apiregistration_v1.APIService.fromJson(
         result);
   }
@@ -10533,8 +10662,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/apiregistration.k8s.io/v1/apiservices/$name/status$query');
+        '/apis/apiregistration.k8s.io/v1/apiservices/$name/status$query',
+        jsonBody);
     return kube__aggregator_pkg_apis_apiregistration_v1.APIService.fromJson(
         result);
   }
@@ -10558,8 +10689,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/apiregistration.k8s.io/v1/apiservices/$name/status$query');
+        '/apis/apiregistration.k8s.io/v1/apiservices/$name/status$query',
+        jsonBody);
     return kube__aggregator_pkg_apis_apiregistration_v1.APIService.fromJson(
         result);
   }
@@ -11012,8 +11145,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/controllerrevisions$query');
+        '/apis/apps/v1/namespaces/$namespace/controllerrevisions$query',
+        jsonBody);
     return api_apps_v1.ControllerRevision.fromJson(result);
   }
 
@@ -11091,8 +11226,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/controllerrevisions/$name$query');
+        '/apis/apps/v1/namespaces/$namespace/controllerrevisions/$name$query',
+        jsonBody);
     return api_apps_v1.ControllerRevision.fromJson(result);
   }
 
@@ -11118,8 +11255,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/controllerrevisions/$name$query');
+        '/apis/apps/v1/namespaces/$namespace/controllerrevisions/$name$query',
+        jsonBody);
     return api_apps_v1.ControllerRevision.fromJson(result);
   }
 
@@ -11186,8 +11325,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/daemonsets$query');
+        '/apis/apps/v1/namespaces/$namespace/daemonsets$query', jsonBody);
     return api_apps_v1.DaemonSet.fromJson(result);
   }
 
@@ -11262,8 +11402,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/daemonsets/$name$query');
+        '/apis/apps/v1/namespaces/$namespace/daemonsets/$name$query', jsonBody);
     return api_apps_v1.DaemonSet.fromJson(result);
   }
 
@@ -11288,8 +11429,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/daemonsets/$name$query');
+        '/apis/apps/v1/namespaces/$namespace/daemonsets/$name$query', jsonBody);
     return api_apps_v1.DaemonSet.fromJson(result);
   }
 
@@ -11339,8 +11481,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/daemonsets/$name/status$query');
+        '/apis/apps/v1/namespaces/$namespace/daemonsets/$name/status$query',
+        jsonBody);
     return api_apps_v1.DaemonSet.fromJson(result);
   }
 
@@ -11365,8 +11509,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/daemonsets/$name/status$query');
+        '/apis/apps/v1/namespaces/$namespace/daemonsets/$name/status$query',
+        jsonBody);
     return api_apps_v1.DaemonSet.fromJson(result);
   }
 
@@ -11433,8 +11579,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/deployments$query');
+        '/apis/apps/v1/namespaces/$namespace/deployments$query', jsonBody);
     return api_apps_v1.Deployment.fromJson(result);
   }
 
@@ -11510,8 +11657,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/deployments/$name$query');
+        '/apis/apps/v1/namespaces/$namespace/deployments/$name$query',
+        jsonBody);
     return api_apps_v1.Deployment.fromJson(result);
   }
 
@@ -11536,8 +11685,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/deployments/$name$query');
+        '/apis/apps/v1/namespaces/$namespace/deployments/$name$query',
+        jsonBody);
     return api_apps_v1.Deployment.fromJson(result);
   }
 
@@ -11587,8 +11738,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/deployments/$name/scale$query');
+        '/apis/apps/v1/namespaces/$namespace/deployments/$name/scale$query',
+        jsonBody);
     return api_autoscaling_v1.Scale.fromJson(result);
   }
 
@@ -11613,8 +11766,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/deployments/$name/scale$query');
+        '/apis/apps/v1/namespaces/$namespace/deployments/$name/scale$query',
+        jsonBody);
     return api_autoscaling_v1.Scale.fromJson(result);
   }
 
@@ -11664,8 +11819,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/deployments/$name/status$query');
+        '/apis/apps/v1/namespaces/$namespace/deployments/$name/status$query',
+        jsonBody);
     return api_apps_v1.Deployment.fromJson(result);
   }
 
@@ -11690,8 +11847,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/deployments/$name/status$query');
+        '/apis/apps/v1/namespaces/$namespace/deployments/$name/status$query',
+        jsonBody);
     return api_apps_v1.Deployment.fromJson(result);
   }
 
@@ -11758,8 +11917,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/replicasets$query');
+        '/apis/apps/v1/namespaces/$namespace/replicasets$query', jsonBody);
     return api_apps_v1.ReplicaSet.fromJson(result);
   }
 
@@ -11835,8 +11995,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/replicasets/$name$query');
+        '/apis/apps/v1/namespaces/$namespace/replicasets/$name$query',
+        jsonBody);
     return api_apps_v1.ReplicaSet.fromJson(result);
   }
 
@@ -11861,8 +12023,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/replicasets/$name$query');
+        '/apis/apps/v1/namespaces/$namespace/replicasets/$name$query',
+        jsonBody);
     return api_apps_v1.ReplicaSet.fromJson(result);
   }
 
@@ -11912,8 +12076,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/replicasets/$name/scale$query');
+        '/apis/apps/v1/namespaces/$namespace/replicasets/$name/scale$query',
+        jsonBody);
     return api_autoscaling_v1.Scale.fromJson(result);
   }
 
@@ -11938,8 +12104,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/replicasets/$name/scale$query');
+        '/apis/apps/v1/namespaces/$namespace/replicasets/$name/scale$query',
+        jsonBody);
     return api_autoscaling_v1.Scale.fromJson(result);
   }
 
@@ -11989,8 +12157,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/replicasets/$name/status$query');
+        '/apis/apps/v1/namespaces/$namespace/replicasets/$name/status$query',
+        jsonBody);
     return api_apps_v1.ReplicaSet.fromJson(result);
   }
 
@@ -12015,8 +12185,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/replicasets/$name/status$query');
+        '/apis/apps/v1/namespaces/$namespace/replicasets/$name/status$query',
+        jsonBody);
     return api_apps_v1.ReplicaSet.fromJson(result);
   }
 
@@ -12083,8 +12255,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/statefulsets$query');
+        '/apis/apps/v1/namespaces/$namespace/statefulsets$query', jsonBody);
     return api_apps_v1.StatefulSet.fromJson(result);
   }
 
@@ -12160,8 +12333,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name$query');
+        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name$query',
+        jsonBody);
     return api_apps_v1.StatefulSet.fromJson(result);
   }
 
@@ -12186,8 +12361,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name$query');
+        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name$query',
+        jsonBody);
     return api_apps_v1.StatefulSet.fromJson(result);
   }
 
@@ -12237,8 +12414,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name/scale$query');
+        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name/scale$query',
+        jsonBody);
     return api_autoscaling_v1.Scale.fromJson(result);
   }
 
@@ -12263,8 +12442,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name/scale$query');
+        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name/scale$query',
+        jsonBody);
     return api_autoscaling_v1.Scale.fromJson(result);
   }
 
@@ -12314,8 +12495,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name/status$query');
+        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name/status$query',
+        jsonBody);
     return api_apps_v1.StatefulSet.fromJson(result);
   }
 
@@ -12340,8 +12523,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name/status$query');
+        '/apis/apps/v1/namespaces/$namespace/statefulsets/$name/status$query',
+        jsonBody);
     return api_apps_v1.StatefulSet.fromJson(result);
   }
 
@@ -13696,8 +13881,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _postJsonMap('/apis/authentication.k8s.io/v1/tokenreviews$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _postJsonMap(
+        '/apis/authentication.k8s.io/v1/tokenreviews$query', jsonBody);
     return api_authentication_v1.TokenReview.fromJson(result);
   }
 
@@ -13746,8 +13932,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/authorization.k8s.io/v1/namespaces/$namespace/localsubjectaccessreviews$query');
+        '/apis/authorization.k8s.io/v1/namespaces/$namespace/localsubjectaccessreviews$query',
+        jsonBody);
     return api_authorization_v1.LocalSubjectAccessReview.fromJson(result);
   }
 
@@ -13779,8 +13967,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/authorization.k8s.io/v1/selfsubjectaccessreviews$query');
+        '/apis/authorization.k8s.io/v1/selfsubjectaccessreviews$query',
+        jsonBody);
     return api_authorization_v1.SelfSubjectAccessReview.fromJson(result);
   }
 
@@ -13812,8 +14002,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/authorization.k8s.io/v1/selfsubjectrulesreviews$query');
+        '/apis/authorization.k8s.io/v1/selfsubjectrulesreviews$query',
+        jsonBody);
     return api_authorization_v1.SelfSubjectRulesReview.fromJson(result);
   }
 
@@ -13845,8 +14037,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/authorization.k8s.io/v1/subjectaccessreviews$query');
+        '/apis/authorization.k8s.io/v1/subjectaccessreviews$query', jsonBody);
     return api_authorization_v1.SubjectAccessReview.fromJson(result);
   }
 
@@ -14003,8 +14196,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers$query');
+        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers$query',
+        jsonBody);
     return api_autoscaling_v1.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -14082,8 +14277,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers/$name$query');
+        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers/$name$query',
+        jsonBody);
     return api_autoscaling_v1.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -14109,8 +14306,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers/$name$query');
+        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers/$name$query',
+        jsonBody);
     return api_autoscaling_v1.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -14162,8 +14361,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers/$name/status$query');
+        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers/$name/status$query',
+        jsonBody);
     return api_autoscaling_v1.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -14189,8 +14390,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers/$name/status$query');
+        '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers/$name/status$query',
+        jsonBody);
     return api_autoscaling_v1.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -14574,8 +14777,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers$query');
+        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers$query',
+        jsonBody);
     return api_autoscaling_v2beta1.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -14653,8 +14858,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name$query');
+        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name$query',
+        jsonBody);
     return api_autoscaling_v2beta1.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -14680,8 +14887,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name$query');
+        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name$query',
+        jsonBody);
     return api_autoscaling_v2beta1.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -14733,8 +14942,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name/status$query');
+        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name/status$query',
+        jsonBody);
     return api_autoscaling_v2beta1.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -14760,8 +14971,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name/status$query');
+        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name/status$query',
+        jsonBody);
     return api_autoscaling_v2beta1.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -15145,8 +15358,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers$query');
+        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers$query',
+        jsonBody);
     return api_autoscaling_v2beta2.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -15224,8 +15439,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers/$name$query');
+        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers/$name$query',
+        jsonBody);
     return api_autoscaling_v2beta2.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -15251,8 +15468,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers/$name$query');
+        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers/$name$query',
+        jsonBody);
     return api_autoscaling_v2beta2.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -15304,8 +15523,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers/$name/status$query');
+        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers/$name/status$query',
+        jsonBody);
     return api_autoscaling_v2beta2.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -15331,8 +15552,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers/$name/status$query');
+        '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers/$name/status$query',
+        jsonBody);
     return api_autoscaling_v2beta2.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -15790,8 +16013,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/cronjobs$query');
+        '/apis/batch/v1/namespaces/$namespace/cronjobs$query', jsonBody);
     return api_batch_v1.CronJob.fromJson(result);
   }
 
@@ -15866,8 +16090,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/cronjobs/$name$query');
+        '/apis/batch/v1/namespaces/$namespace/cronjobs/$name$query', jsonBody);
     return api_batch_v1.CronJob.fromJson(result);
   }
 
@@ -15892,8 +16117,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/cronjobs/$name$query');
+        '/apis/batch/v1/namespaces/$namespace/cronjobs/$name$query', jsonBody);
     return api_batch_v1.CronJob.fromJson(result);
   }
 
@@ -15943,8 +16169,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/cronjobs/$name/status$query');
+        '/apis/batch/v1/namespaces/$namespace/cronjobs/$name/status$query',
+        jsonBody);
     return api_batch_v1.CronJob.fromJson(result);
   }
 
@@ -15969,8 +16197,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/cronjobs/$name/status$query');
+        '/apis/batch/v1/namespaces/$namespace/cronjobs/$name/status$query',
+        jsonBody);
     return api_batch_v1.CronJob.fromJson(result);
   }
 
@@ -16037,8 +16267,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _postJsonMap('/apis/batch/v1/namespaces/$namespace/jobs$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _postJsonMap(
+        '/apis/batch/v1/namespaces/$namespace/jobs$query', jsonBody);
     return api_batch_v1.Job.fromJson(result);
   }
 
@@ -16113,8 +16344,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/jobs/$name$query');
+        '/apis/batch/v1/namespaces/$namespace/jobs/$name$query', jsonBody);
     return api_batch_v1.Job.fromJson(result);
   }
 
@@ -16139,8 +16371,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/jobs/$name$query');
+        '/apis/batch/v1/namespaces/$namespace/jobs/$name$query', jsonBody);
     return api_batch_v1.Job.fromJson(result);
   }
 
@@ -16190,8 +16423,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/jobs/$name/status$query');
+        '/apis/batch/v1/namespaces/$namespace/jobs/$name/status$query',
+        jsonBody);
     return api_batch_v1.Job.fromJson(result);
   }
 
@@ -16216,8 +16451,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/jobs/$name/status$query');
+        '/apis/batch/v1/namespaces/$namespace/jobs/$name/status$query',
+        jsonBody);
     return api_batch_v1.Job.fromJson(result);
   }
 
@@ -16829,8 +17066,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs$query');
+        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs$query', jsonBody);
     return api_batch_v1beta1.CronJob.fromJson(result);
   }
 
@@ -16906,8 +17144,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name$query');
+        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name$query',
+        jsonBody);
     return api_batch_v1beta1.CronJob.fromJson(result);
   }
 
@@ -16932,8 +17172,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name$query');
+        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name$query',
+        jsonBody);
     return api_batch_v1beta1.CronJob.fromJson(result);
   }
 
@@ -16983,8 +17225,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name/status$query');
+        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name/status$query',
+        jsonBody);
     return api_batch_v1beta1.CronJob.fromJson(result);
   }
 
@@ -17009,8 +17253,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name/status$query');
+        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name/status$query',
+        jsonBody);
     return api_batch_v1beta1.CronJob.fromJson(result);
   }
 
@@ -17318,8 +17564,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/certificates.k8s.io/v1/certificatesigningrequests$query');
+        '/apis/certificates.k8s.io/v1/certificatesigningrequests$query',
+        jsonBody);
     return api_certificates_v1.CertificateSigningRequest.fromJson(result);
   }
 
@@ -17388,8 +17636,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name$query');
+        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name$query',
+        jsonBody);
     return api_certificates_v1.CertificateSigningRequest.fromJson(result);
   }
 
@@ -17412,8 +17662,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name$query');
+        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name$query',
+        jsonBody);
     return api_certificates_v1.CertificateSigningRequest.fromJson(result);
   }
 
@@ -17459,8 +17711,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name/approval$query');
+        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name/approval$query',
+        jsonBody);
     return api_certificates_v1.CertificateSigningRequest.fromJson(result);
   }
 
@@ -17483,8 +17737,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name/approval$query');
+        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name/approval$query',
+        jsonBody);
     return api_certificates_v1.CertificateSigningRequest.fromJson(result);
   }
 
@@ -17530,8 +17786,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name/status$query');
+        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name/status$query',
+        jsonBody);
     return api_certificates_v1.CertificateSigningRequest.fromJson(result);
   }
 
@@ -17554,8 +17812,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name/status$query');
+        '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name/status$query',
+        jsonBody);
     return api_certificates_v1.CertificateSigningRequest.fromJson(result);
   }
 
@@ -17863,8 +18123,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/coordination.k8s.io/v1/namespaces/$namespace/leases$query');
+        '/apis/coordination.k8s.io/v1/namespaces/$namespace/leases$query',
+        jsonBody);
     return api_coordination_v1.Lease.fromJson(result);
   }
 
@@ -17940,8 +18202,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/coordination.k8s.io/v1/namespaces/$namespace/leases/$name$query');
+        '/apis/coordination.k8s.io/v1/namespaces/$namespace/leases/$name$query',
+        jsonBody);
     return api_coordination_v1.Lease.fromJson(result);
   }
 
@@ -17966,8 +18230,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/coordination.k8s.io/v1/namespaces/$namespace/leases/$name$query');
+        '/apis/coordination.k8s.io/v1/namespaces/$namespace/leases/$name$query',
+        jsonBody);
     return api_coordination_v1.Lease.fromJson(result);
   }
 
@@ -18357,8 +18623,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/discovery.k8s.io/v1/namespaces/$namespace/endpointslices$query');
+        '/apis/discovery.k8s.io/v1/namespaces/$namespace/endpointslices$query',
+        jsonBody);
     return api_discovery_v1.EndpointSlice.fromJson(result);
   }
 
@@ -18436,8 +18704,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/discovery.k8s.io/v1/namespaces/$namespace/endpointslices/$name$query');
+        '/apis/discovery.k8s.io/v1/namespaces/$namespace/endpointslices/$name$query',
+        jsonBody);
     return api_discovery_v1.EndpointSlice.fromJson(result);
   }
 
@@ -18463,8 +18733,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/discovery.k8s.io/v1/namespaces/$namespace/endpointslices/$name$query');
+        '/apis/discovery.k8s.io/v1/namespaces/$namespace/endpointslices/$name$query',
+        jsonBody);
     return api_discovery_v1.EndpointSlice.fromJson(result);
   }
 
@@ -18848,8 +19120,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices$query');
+        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices$query',
+        jsonBody);
     return api_discovery_v1beta1.EndpointSlice.fromJson(result);
   }
 
@@ -18927,8 +19201,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices/$name$query');
+        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices/$name$query',
+        jsonBody);
     return api_discovery_v1beta1.EndpointSlice.fromJson(result);
   }
 
@@ -18954,8 +19230,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices/$name$query');
+        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices/$name$query',
+        jsonBody);
     return api_discovery_v1beta1.EndpointSlice.fromJson(result);
   }
 
@@ -19341,8 +19619,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/events.k8s.io/v1/namespaces/$namespace/events$query');
+        '/apis/events.k8s.io/v1/namespaces/$namespace/events$query', jsonBody);
     return api_events_v1.Event.fromJson(result);
   }
 
@@ -19417,8 +19696,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/events.k8s.io/v1/namespaces/$namespace/events/$name$query');
+        '/apis/events.k8s.io/v1/namespaces/$namespace/events/$name$query',
+        jsonBody);
     return api_events_v1.Event.fromJson(result);
   }
 
@@ -19443,8 +19724,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/events.k8s.io/v1/namespaces/$namespace/events/$name$query');
+        '/apis/events.k8s.io/v1/namespaces/$namespace/events/$name$query',
+        jsonBody);
     return api_events_v1.Event.fromJson(result);
   }
 
@@ -19825,8 +20108,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events$query');
+        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events$query',
+        jsonBody);
     return api_events_v1beta1.Event.fromJson(result);
   }
 
@@ -19902,8 +20187,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events/$name$query');
+        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events/$name$query',
+        jsonBody);
     return api_events_v1beta1.Event.fromJson(result);
   }
 
@@ -19928,8 +20215,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events/$name$query');
+        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events/$name$query',
+        jsonBody);
     return api_events_v1beta1.Event.fromJson(result);
   }
 
@@ -20238,8 +20527,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas$query');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas$query',
+        jsonBody);
     return api_flowcontrol_v1beta1.FlowSchema.fromJson(result);
   }
 
@@ -20308,8 +20599,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name$query');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name$query',
+        jsonBody);
     return api_flowcontrol_v1beta1.FlowSchema.fromJson(result);
   }
 
@@ -20332,8 +20625,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name$query');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name$query',
+        jsonBody);
     return api_flowcontrol_v1beta1.FlowSchema.fromJson(result);
   }
 
@@ -20379,8 +20674,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name/status$query');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name/status$query',
+        jsonBody);
     return api_flowcontrol_v1beta1.FlowSchema.fromJson(result);
   }
 
@@ -20403,8 +20700,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name/status$query');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name/status$query',
+        jsonBody);
     return api_flowcontrol_v1beta1.FlowSchema.fromJson(result);
   }
 
@@ -20465,8 +20764,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations$query');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations$query',
+        jsonBody);
     return api_flowcontrol_v1beta1.PriorityLevelConfiguration.fromJson(result);
   }
 
@@ -20535,8 +20836,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name$query');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name$query',
+        jsonBody);
     return api_flowcontrol_v1beta1.PriorityLevelConfiguration.fromJson(result);
   }
 
@@ -20559,8 +20862,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name$query');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name$query',
+        jsonBody);
     return api_flowcontrol_v1beta1.PriorityLevelConfiguration.fromJson(result);
   }
 
@@ -20606,8 +20911,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name/status$query');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name/status$query',
+        jsonBody);
     return api_flowcontrol_v1beta1.PriorityLevelConfiguration.fromJson(result);
   }
 
@@ -20630,8 +20937,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name/status$query');
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name/status$query',
+        jsonBody);
     return api_flowcontrol_v1beta1.PriorityLevelConfiguration.fromJson(result);
   }
 
@@ -21012,8 +21321,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions$query');
+        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions$query',
+        jsonBody);
     return api_apiserverinternal_v1alpha1.StorageVersion.fromJson(result);
   }
 
@@ -21082,8 +21393,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions/$name$query');
+        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions/$name$query',
+        jsonBody);
     return api_apiserverinternal_v1alpha1.StorageVersion.fromJson(result);
   }
 
@@ -21106,8 +21419,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions/$name$query');
+        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions/$name$query',
+        jsonBody);
     return api_apiserverinternal_v1alpha1.StorageVersion.fromJson(result);
   }
 
@@ -21153,8 +21468,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions/$name/status$query');
+        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions/$name/status$query',
+        jsonBody);
     return api_apiserverinternal_v1alpha1.StorageVersion.fromJson(result);
   }
 
@@ -21177,8 +21494,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions/$name/status$query');
+        '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions/$name/status$query',
+        jsonBody);
     return api_apiserverinternal_v1alpha1.StorageVersion.fromJson(result);
   }
 
@@ -21402,8 +21721,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _postJsonMap('/apis/networking.k8s.io/v1/ingressclasses$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _postJsonMap(
+        '/apis/networking.k8s.io/v1/ingressclasses$query', jsonBody);
     return api_networking_v1.IngressClass.fromJson(result);
   }
 
@@ -21469,8 +21789,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/networking.k8s.io/v1/ingressclasses/$name$query');
+        '/apis/networking.k8s.io/v1/ingressclasses/$name$query', jsonBody);
     return api_networking_v1.IngressClass.fromJson(result);
   }
 
@@ -21492,8 +21813,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/networking.k8s.io/v1/ingressclasses/$name$query');
+        '/apis/networking.k8s.io/v1/ingressclasses/$name$query', jsonBody);
     return api_networking_v1.IngressClass.fromJson(result);
   }
 
@@ -21634,8 +21956,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses$query');
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses$query',
+        jsonBody);
     return api_networking_v1.Ingress.fromJson(result);
   }
 
@@ -21711,8 +22035,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses/$name$query');
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses/$name$query',
+        jsonBody);
     return api_networking_v1.Ingress.fromJson(result);
   }
 
@@ -21737,8 +22063,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses/$name$query');
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses/$name$query',
+        jsonBody);
     return api_networking_v1.Ingress.fromJson(result);
   }
 
@@ -21788,8 +22116,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses/$name/status$query');
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses/$name/status$query',
+        jsonBody);
     return api_networking_v1.Ingress.fromJson(result);
   }
 
@@ -21814,8 +22144,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses/$name/status$query');
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses/$name/status$query',
+        jsonBody);
     return api_networking_v1.Ingress.fromJson(result);
   }
 
@@ -21884,8 +22216,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/networking.k8s.io/v1/namespaces/$namespace/networkpolicies$query');
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/networkpolicies$query',
+        jsonBody);
     return api_networking_v1.NetworkPolicy.fromJson(result);
   }
 
@@ -21963,8 +22297,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/networking.k8s.io/v1/namespaces/$namespace/networkpolicies/$name$query');
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/networkpolicies/$name$query',
+        jsonBody);
     return api_networking_v1.NetworkPolicy.fromJson(result);
   }
 
@@ -21990,8 +22326,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/networking.k8s.io/v1/namespaces/$namespace/networkpolicies/$name$query');
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/networkpolicies/$name$query',
+        jsonBody);
     return api_networking_v1.NetworkPolicy.fromJson(result);
   }
 
@@ -22757,8 +23095,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _postJsonMap('/apis/node.k8s.io/v1/runtimeclasses$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _postJsonMap(
+        '/apis/node.k8s.io/v1/runtimeclasses$query', jsonBody);
     return api_node_v1.RuntimeClass.fromJson(result);
   }
 
@@ -22824,8 +23163,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _putJsonMap('/apis/node.k8s.io/v1/runtimeclasses/$name$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _putJsonMap(
+        '/apis/node.k8s.io/v1/runtimeclasses/$name$query', jsonBody);
     return api_node_v1.RuntimeClass.fromJson(result);
   }
 
@@ -22847,8 +23187,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _patchJsonMap('/apis/node.k8s.io/v1/runtimeclasses/$name$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _patchJsonMap(
+        '/apis/node.k8s.io/v1/runtimeclasses/$name$query', jsonBody);
     return api_node_v1.RuntimeClass.fromJson(result);
   }
 
@@ -23064,8 +23405,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _postJsonMap('/apis/node.k8s.io/v1alpha1/runtimeclasses$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _postJsonMap(
+        '/apis/node.k8s.io/v1alpha1/runtimeclasses$query', jsonBody);
     return api_node_v1alpha1.RuntimeClass.fromJson(result);
   }
 
@@ -23131,8 +23473,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/node.k8s.io/v1alpha1/runtimeclasses/$name$query');
+        '/apis/node.k8s.io/v1alpha1/runtimeclasses/$name$query', jsonBody);
     return api_node_v1alpha1.RuntimeClass.fromJson(result);
   }
 
@@ -23154,8 +23497,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/node.k8s.io/v1alpha1/runtimeclasses/$name$query');
+        '/apis/node.k8s.io/v1alpha1/runtimeclasses/$name$query', jsonBody);
     return api_node_v1alpha1.RuntimeClass.fromJson(result);
   }
 
@@ -23373,8 +23717,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _postJsonMap('/apis/node.k8s.io/v1beta1/runtimeclasses$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _postJsonMap(
+        '/apis/node.k8s.io/v1beta1/runtimeclasses$query', jsonBody);
     return api_node_v1beta1.RuntimeClass.fromJson(result);
   }
 
@@ -23440,8 +23785,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/node.k8s.io/v1beta1/runtimeclasses/$name$query');
+        '/apis/node.k8s.io/v1beta1/runtimeclasses/$name$query', jsonBody);
     return api_node_v1beta1.RuntimeClass.fromJson(result);
   }
 
@@ -23463,8 +23809,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/node.k8s.io/v1beta1/runtimeclasses/$name$query');
+        '/apis/node.k8s.io/v1beta1/runtimeclasses/$name$query', jsonBody);
     return api_node_v1beta1.RuntimeClass.fromJson(result);
   }
 
@@ -23699,8 +24046,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets$query');
+        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets$query',
+        jsonBody);
     return api_policy_v1.PodDisruptionBudget.fromJson(result);
   }
 
@@ -23778,8 +24127,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets/$name$query');
+        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets/$name$query',
+        jsonBody);
     return api_policy_v1.PodDisruptionBudget.fromJson(result);
   }
 
@@ -23805,8 +24156,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets/$name$query');
+        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets/$name$query',
+        jsonBody);
     return api_policy_v1.PodDisruptionBudget.fromJson(result);
   }
 
@@ -23858,8 +24211,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets/$name/status$query');
+        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets/$name/status$query',
+        jsonBody);
     return api_policy_v1.PodDisruptionBudget.fromJson(result);
   }
 
@@ -23885,8 +24240,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets/$name/status$query');
+        '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets/$name/status$query',
+        jsonBody);
     return api_policy_v1.PodDisruptionBudget.fromJson(result);
   }
 
@@ -24270,8 +24627,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets$query');
+        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets$query',
+        jsonBody);
     return api_policy_v1beta1.PodDisruptionBudget.fromJson(result);
   }
 
@@ -24349,8 +24708,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name$query');
+        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name$query',
+        jsonBody);
     return api_policy_v1beta1.PodDisruptionBudget.fromJson(result);
   }
 
@@ -24376,8 +24737,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name$query');
+        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name$query',
+        jsonBody);
     return api_policy_v1beta1.PodDisruptionBudget.fromJson(result);
   }
 
@@ -24429,8 +24792,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name/status$query');
+        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name/status$query',
+        jsonBody);
     return api_policy_v1beta1.PodDisruptionBudget.fromJson(result);
   }
 
@@ -24456,8 +24821,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name/status$query');
+        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name/status$query',
+        jsonBody);
     return api_policy_v1beta1.PodDisruptionBudget.fromJson(result);
   }
 
@@ -24591,8 +24958,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _postJsonMap('/apis/policy/v1beta1/podsecuritypolicies$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _postJsonMap(
+        '/apis/policy/v1beta1/podsecuritypolicies$query', jsonBody);
     return api_policy_v1beta1.PodSecurityPolicy.fromJson(result);
   }
 
@@ -24661,8 +25029,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/policy/v1beta1/podsecuritypolicies/$name$query');
+        '/apis/policy/v1beta1/podsecuritypolicies/$name$query', jsonBody);
     return api_policy_v1beta1.PodSecurityPolicy.fromJson(result);
   }
 
@@ -24685,8 +25054,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/policy/v1beta1/podsecuritypolicies/$name$query');
+        '/apis/policy/v1beta1/podsecuritypolicies/$name$query', jsonBody);
     return api_policy_v1beta1.PodSecurityPolicy.fromJson(result);
   }
 
@@ -25147,8 +25517,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/clusterrolebindings$query');
+        '/apis/rbac.authorization.k8s.io/v1/clusterrolebindings$query',
+        jsonBody);
     return api_rbac_v1.ClusterRoleBinding.fromJson(result);
   }
 
@@ -25217,8 +25589,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/$name$query');
+        '/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/$name$query',
+        jsonBody);
     return api_rbac_v1.ClusterRoleBinding.fromJson(result);
   }
 
@@ -25241,8 +25615,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/$name$query');
+        '/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/$name$query',
+        jsonBody);
     return api_rbac_v1.ClusterRoleBinding.fromJson(result);
   }
 
@@ -25300,8 +25676,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/clusterroles$query');
+        '/apis/rbac.authorization.k8s.io/v1/clusterroles$query', jsonBody);
     return api_rbac_v1.ClusterRole.fromJson(result);
   }
 
@@ -25368,8 +25745,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/clusterroles/$name$query');
+        '/apis/rbac.authorization.k8s.io/v1/clusterroles/$name$query',
+        jsonBody);
     return api_rbac_v1.ClusterRole.fromJson(result);
   }
 
@@ -25391,8 +25770,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/clusterroles/$name$query');
+        '/apis/rbac.authorization.k8s.io/v1/clusterroles/$name$query',
+        jsonBody);
     return api_rbac_v1.ClusterRole.fromJson(result);
   }
 
@@ -25461,8 +25842,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/rolebindings$query');
+        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/rolebindings$query',
+        jsonBody);
     return api_rbac_v1.RoleBinding.fromJson(result);
   }
 
@@ -25539,8 +25922,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/rolebindings/$name$query');
+        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/rolebindings/$name$query',
+        jsonBody);
     return api_rbac_v1.RoleBinding.fromJson(result);
   }
 
@@ -25566,8 +25951,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/rolebindings/$name$query');
+        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/rolebindings/$name$query',
+        jsonBody);
     return api_rbac_v1.RoleBinding.fromJson(result);
   }
 
@@ -25634,8 +26021,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/roles$query');
+        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/roles$query',
+        jsonBody);
     return api_rbac_v1.Role.fromJson(result);
   }
 
@@ -25711,8 +26100,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/roles/$name$query');
+        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/roles/$name$query',
+        jsonBody);
     return api_rbac_v1.Role.fromJson(result);
   }
 
@@ -25737,8 +26128,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/roles/$name$query');
+        '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/roles/$name$query',
+        jsonBody);
     return api_rbac_v1.Role.fromJson(result);
   }
 
@@ -26727,8 +27120,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings$query');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings$query',
+        jsonBody);
     return api_rbac_v1alpha1.ClusterRoleBinding.fromJson(result);
   }
 
@@ -26797,8 +27192,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings/$name$query');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings/$name$query',
+        jsonBody);
     return api_rbac_v1alpha1.ClusterRoleBinding.fromJson(result);
   }
 
@@ -26821,8 +27218,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings/$name$query');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings/$name$query',
+        jsonBody);
     return api_rbac_v1alpha1.ClusterRoleBinding.fromJson(result);
   }
 
@@ -26882,8 +27281,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles$query');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles$query',
+        jsonBody);
     return api_rbac_v1alpha1.ClusterRole.fromJson(result);
   }
 
@@ -26952,8 +27353,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles/$name$query');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles/$name$query',
+        jsonBody);
     return api_rbac_v1alpha1.ClusterRole.fromJson(result);
   }
 
@@ -26976,8 +27379,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles/$name$query');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles/$name$query',
+        jsonBody);
     return api_rbac_v1alpha1.ClusterRole.fromJson(result);
   }
 
@@ -27046,8 +27451,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings$query');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings$query',
+        jsonBody);
     return api_rbac_v1alpha1.RoleBinding.fromJson(result);
   }
 
@@ -27125,8 +27532,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings/$name$query');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings/$name$query',
+        jsonBody);
     return api_rbac_v1alpha1.RoleBinding.fromJson(result);
   }
 
@@ -27152,8 +27561,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings/$name$query');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings/$name$query',
+        jsonBody);
     return api_rbac_v1alpha1.RoleBinding.fromJson(result);
   }
 
@@ -27221,8 +27632,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles$query');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles$query',
+        jsonBody);
     return api_rbac_v1alpha1.Role.fromJson(result);
   }
 
@@ -27299,8 +27712,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles/$name$query');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles/$name$query',
+        jsonBody);
     return api_rbac_v1alpha1.Role.fromJson(result);
   }
 
@@ -27325,8 +27740,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles/$name$query');
+        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles/$name$query',
+        jsonBody);
     return api_rbac_v1alpha1.Role.fromJson(result);
   }
 
@@ -28319,8 +28736,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _postJsonMap('/apis/scheduling.k8s.io/v1/priorityclasses$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _postJsonMap(
+        '/apis/scheduling.k8s.io/v1/priorityclasses$query', jsonBody);
     return api_scheduling_v1.PriorityClass.fromJson(result);
   }
 
@@ -28386,8 +28804,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/scheduling.k8s.io/v1/priorityclasses/$name$query');
+        '/apis/scheduling.k8s.io/v1/priorityclasses/$name$query', jsonBody);
     return api_scheduling_v1.PriorityClass.fromJson(result);
   }
 
@@ -28409,8 +28828,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/scheduling.k8s.io/v1/priorityclasses/$name$query');
+        '/apis/scheduling.k8s.io/v1/priorityclasses/$name$query', jsonBody);
     return api_scheduling_v1.PriorityClass.fromJson(result);
   }
 
@@ -28630,8 +29050,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses$query');
+        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses$query', jsonBody);
     return api_scheduling_v1alpha1.PriorityClass.fromJson(result);
   }
 
@@ -28700,8 +29121,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses/$name$query');
+        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses/$name$query',
+        jsonBody);
     return api_scheduling_v1alpha1.PriorityClass.fromJson(result);
   }
 
@@ -28724,8 +29147,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses/$name$query');
+        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses/$name$query',
+        jsonBody);
     return api_scheduling_v1alpha1.PriorityClass.fromJson(result);
   }
 
@@ -28949,8 +29374,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _postJsonMap('/apis/storage.k8s.io/v1/csidrivers$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _postJsonMap(
+        '/apis/storage.k8s.io/v1/csidrivers$query', jsonBody);
     return api_storage_v1.CSIDriver.fromJson(result);
   }
 
@@ -29016,8 +29442,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _putJsonMap('/apis/storage.k8s.io/v1/csidrivers/$name$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _putJsonMap(
+        '/apis/storage.k8s.io/v1/csidrivers/$name$query', jsonBody);
     return api_storage_v1.CSIDriver.fromJson(result);
   }
 
@@ -29039,8 +29466,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _patchJsonMap('/apis/storage.k8s.io/v1/csidrivers/$name$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _patchJsonMap(
+        '/apis/storage.k8s.io/v1/csidrivers/$name$query', jsonBody);
     return api_storage_v1.CSIDriver.fromJson(result);
   }
 
@@ -29097,7 +29525,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result = await _postJsonMap('/apis/storage.k8s.io/v1/csinodes$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result =
+        await _postJsonMap('/apis/storage.k8s.io/v1/csinodes$query', jsonBody);
     return api_storage_v1.CSINode.fromJson(result);
   }
 
@@ -29163,8 +29593,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _putJsonMap('/apis/storage.k8s.io/v1/csinodes/$name$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _putJsonMap(
+        '/apis/storage.k8s.io/v1/csinodes/$name$query', jsonBody);
     return api_storage_v1.CSINode.fromJson(result);
   }
 
@@ -29186,8 +29617,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _patchJsonMap('/apis/storage.k8s.io/v1/csinodes/$name$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _patchJsonMap(
+        '/apis/storage.k8s.io/v1/csinodes/$name$query', jsonBody);
     return api_storage_v1.CSINode.fromJson(result);
   }
 
@@ -29245,8 +29677,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _postJsonMap('/apis/storage.k8s.io/v1/storageclasses$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _postJsonMap(
+        '/apis/storage.k8s.io/v1/storageclasses$query', jsonBody);
     return api_storage_v1.StorageClass.fromJson(result);
   }
 
@@ -29312,8 +29745,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _putJsonMap('/apis/storage.k8s.io/v1/storageclasses/$name$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _putJsonMap(
+        '/apis/storage.k8s.io/v1/storageclasses/$name$query', jsonBody);
     return api_storage_v1.StorageClass.fromJson(result);
   }
 
@@ -29335,8 +29769,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/storage.k8s.io/v1/storageclasses/$name$query');
+        '/apis/storage.k8s.io/v1/storageclasses/$name$query', jsonBody);
     return api_storage_v1.StorageClass.fromJson(result);
   }
 
@@ -29394,8 +29829,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _postJsonMap('/apis/storage.k8s.io/v1/volumeattachments$query');
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _postJsonMap(
+        '/apis/storage.k8s.io/v1/volumeattachments$query', jsonBody);
     return api_storage_v1.VolumeAttachment.fromJson(result);
   }
 
@@ -29461,8 +29897,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/storage.k8s.io/v1/volumeattachments/$name$query');
+        '/apis/storage.k8s.io/v1/volumeattachments/$name$query', jsonBody);
     return api_storage_v1.VolumeAttachment.fromJson(result);
   }
 
@@ -29484,8 +29921,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/storage.k8s.io/v1/volumeattachments/$name$query');
+        '/apis/storage.k8s.io/v1/volumeattachments/$name$query', jsonBody);
     return api_storage_v1.VolumeAttachment.fromJson(result);
   }
 
@@ -29530,8 +29968,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/storage.k8s.io/v1/volumeattachments/$name/status$query');
+        '/apis/storage.k8s.io/v1/volumeattachments/$name/status$query',
+        jsonBody);
     return api_storage_v1.VolumeAttachment.fromJson(result);
   }
 
@@ -29553,8 +29993,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/storage.k8s.io/v1/volumeattachments/$name/status$query');
+        '/apis/storage.k8s.io/v1/volumeattachments/$name/status$query',
+        jsonBody);
     return api_storage_v1.VolumeAttachment.fromJson(result);
   }
 
@@ -30311,8 +30753,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities$query');
+        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities$query',
+        jsonBody);
     return api_storage_v1alpha1.CSIStorageCapacity.fromJson(result);
   }
 
@@ -30390,8 +30834,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities/$name$query');
+        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities/$name$query',
+        jsonBody);
     return api_storage_v1alpha1.CSIStorageCapacity.fromJson(result);
   }
 
@@ -30417,8 +30863,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities/$name$query');
+        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities/$name$query',
+        jsonBody);
     return api_storage_v1alpha1.CSIStorageCapacity.fromJson(result);
   }
 
@@ -30478,8 +30926,9 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/volumeattachments$query');
+        '/apis/storage.k8s.io/v1alpha1/volumeattachments$query', jsonBody);
     return api_storage_v1alpha1.VolumeAttachment.fromJson(result);
   }
 
@@ -30548,8 +30997,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/volumeattachments/$name$query');
+        '/apis/storage.k8s.io/v1alpha1/volumeattachments/$name$query',
+        jsonBody);
     return api_storage_v1alpha1.VolumeAttachment.fromJson(result);
   }
 
@@ -30572,8 +31023,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/volumeattachments/$name$query');
+        '/apis/storage.k8s.io/v1alpha1/volumeattachments/$name$query',
+        jsonBody);
     return api_storage_v1alpha1.VolumeAttachment.fromJson(result);
   }
 
@@ -31110,8 +31563,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/storage.k8s.io/v1beta1/namespaces/$namespace/csistoragecapacities$query');
+        '/apis/storage.k8s.io/v1beta1/namespaces/$namespace/csistoragecapacities$query',
+        jsonBody);
     return api_storage_v1beta1.CSIStorageCapacity.fromJson(result);
   }
 
@@ -31189,8 +31644,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/storage.k8s.io/v1beta1/namespaces/$namespace/csistoragecapacities/$name$query');
+        '/apis/storage.k8s.io/v1beta1/namespaces/$namespace/csistoragecapacities/$name$query',
+        jsonBody);
     return api_storage_v1beta1.CSIStorageCapacity.fromJson(result);
   }
 
@@ -31216,8 +31673,10 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
+    final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/storage.k8s.io/v1beta1/namespaces/$namespace/csistoragecapacities/$name$query');
+        '/apis/storage.k8s.io/v1beta1/namespaces/$namespace/csistoragecapacities/$name$query',
+        jsonBody);
     return api_storage_v1beta1.CSIStorageCapacity.fromJson(result);
   }
 
@@ -31468,15 +31927,15 @@ class KubernetesClient {
   }
 }
 
-// String getHeader(Object body) {
-//   if (body is Patch) {
-//     return getPatchHeader(body);
-//   }
+String _getHeader(Object body) {
+  // if (body is apimachinery_pkg_apis_meta_v1.Patch) {
+  //   return _getPatchHeader(body);
+  // }
 
-//   return 'application/json; charset=utf-8';
-// }
+  return 'application/json; charset=utf-8';
+}
 
-// String getPatchHeader(Patch body) {
+// String _getPatchHeader(apimachinery_pkg_apis_meta_v1.Patch body) {
 //   switch (body.type) {
 //     case PatchType.jsonPatch:
 //       return 'application/json-patch+json; charset=utf-8';
