@@ -1,7 +1,11 @@
+## 0.1.2
+
+* POST, PUT and PATCH with JSON body and headers.
+
 ## 0.1.1
 
 * Adds Istio `Gateway` and `Virtual Service` apis.
-* 
+
 ## 0.1.0
 
 * Implements all REST apis.

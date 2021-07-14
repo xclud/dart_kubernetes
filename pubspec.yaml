@@ -1,6 +1,6 @@
 name: kubernetes
 description: A feature-rich and fully-fledged Kubernetes client for Dart/Flutter.
-version: 0.1.1
+version: 0.1.2
 homepage: https://pwa.ir
 repository: https://github.com/xclud/dart_kubernetes
 
