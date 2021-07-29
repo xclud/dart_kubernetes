@@ -25,7 +25,7 @@ The roadmap of the package is as it follows. Please do not hesitate to suggest c
 
 
 # Compatibility
-This package is being built and tested against Kubernetes 1.21.x. Older versions will possibly work and future changes and updates will be integrated.
+This package is being built and tested against Kubernetes 1.22.x. Older versions will possibly work and future changes and updates will be integrated.
 
 # Contribution
 Any sort of contribution and support is welcome. Currently, there are no contribution guidelines and we will process them in manual way.
