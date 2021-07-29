@@ -1,3 +1,7 @@
+## 0.1.3
+
+* Support Kubernetes v1.22.0.
+
 ## 0.1.2
 
 * POST, PUT and PATCH with JSON body and headers.
