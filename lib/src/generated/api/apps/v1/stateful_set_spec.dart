@@ -1,4 +1,3 @@
-import 'package:kubernetes/src/generated/api/apps/v1/stateful_set_persistent_volume_claim_retention_policy.dart';
 import 'package:kubernetes/src/generated/apimachinery/pkg/apis/meta/v1/label_selector.dart';
 import 'package:kubernetes/src/generated/api/core/v1/pod_template_spec.dart';
 import 'package:kubernetes/src/generated/api/apps/v1/stateful_set_update_strategy.dart';
@@ -9,7 +8,6 @@ class StatefulSetSpec {
   /// The main constructor.
   const StatefulSetSpec({
     this.minReadySeconds,
-    this.persistentVolumeClaimRetentionPolicy,
     this.podManagementPolicy,
     this.replicas,
     this.revisionHistoryLimit,
@@ -24,11 +22,6 @@ class StatefulSetSpec {
   StatefulSetSpec.fromJson(Map<String, dynamic> json)
       : this(
           minReadySeconds: json['minReadySeconds'],
-          persistentVolumeClaimRetentionPolicy:
-              json['persistentVolumeClaimRetentionPolicy'] != null
-                  ? StatefulSetPersistentVolumeClaimRetentionPolicy.fromJson(
-                      json['persistentVolumeClaimRetentionPolicy'])
-                  : null,
           podManagementPolicy: json['podManagementPolicy'],
           replicas: json['replicas'],
           revisionHistoryLimit: json['revisionHistoryLimit'],
@@ -58,10 +51,6 @@ class StatefulSetSpec {
     if (minReadySeconds != null) {
       jsonData['minReadySeconds'] = minReadySeconds!;
     }
-    if (persistentVolumeClaimRetentionPolicy != null) {
-      jsonData['persistentVolumeClaimRetentionPolicy'] =
-          persistentVolumeClaimRetentionPolicy!.toJson();
-    }
     if (podManagementPolicy != null) {
       jsonData['podManagementPolicy'] = podManagementPolicy!;
     }
@@ -87,10 +76,6 @@ class StatefulSetSpec {
 
   /// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
   final int? minReadySeconds;
-
-  /// PersistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional.
-  final StatefulSetPersistentVolumeClaimRetentionPolicy?
-      persistentVolumeClaimRetentionPolicy;
 
   /// PodManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
   final String? podManagementPolicy;

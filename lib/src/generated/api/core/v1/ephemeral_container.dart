@@ -213,7 +213,7 @@ class EphemeralContainer {
   /// Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
   final ResourceRequirements? resources;
 
-  /// SecurityContext is not allowed for ephemeral containers.
+  /// Optional: SecurityContext defines the security options the ephemeral container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext.
   final SecurityContext? securityContext;
 
   /// Probes are not allowed for ephemeral containers.

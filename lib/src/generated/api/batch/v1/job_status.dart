@@ -1,4 +1,5 @@
 import 'package:kubernetes/src/generated/api/batch/v1/job_condition.dart';
+import 'package:kubernetes/src/generated/api/batch/v1/uncounted_terminated_pods.dart';
 
 /// JobStatus represents the current state of a Job.
 class JobStatus {
@@ -11,6 +12,7 @@ class JobStatus {
     this.failed,
     this.startTime,
     this.succeeded,
+    this.uncountedTerminatedPods,
   });
 
   /// Creates a JobStatus from JSON data.
@@ -30,6 +32,10 @@ class JobStatus {
               ? DateTime.tryParse(json['startTime'])
               : null,
           succeeded: json['succeeded'],
+          uncountedTerminatedPods: json['uncountedTerminatedPods'] != null
+              ? UncountedTerminatedPods.fromJson(
+                  json['uncountedTerminatedPods'])
+              : null,
         );
 
   /// Creates a list of JobStatus from JSON data.
@@ -63,6 +69,9 @@ class JobStatus {
     if (succeeded != null) {
       jsonData['succeeded'] = succeeded!;
     }
+    if (uncountedTerminatedPods != null) {
+      jsonData['uncountedTerminatedPods'] = uncountedTerminatedPods!.toJson();
+    }
 
     return jsonData;
   }
@@ -87,4 +96,12 @@ class JobStatus {
 
   /// The number of pods which reached phase Succeeded.
   final int? succeeded;
+
+  /// UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
+  ///
+  /// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
+  ///     counter.
+  ///
+  /// This field is alpha-level. The job controller only makes use of this field when the feature gate PodTrackingWithFinalizers is enabled. Old jobs might not be tracked using this field, in which case the field remains null.
+  final UncountedTerminatedPods? uncountedTerminatedPods;
 }

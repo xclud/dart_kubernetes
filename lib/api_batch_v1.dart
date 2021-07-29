@@ -8,3 +8,4 @@ export 'src/generated/api/batch/v1/job_list.dart';
 export 'src/generated/api/batch/v1/job_spec.dart';
 export 'src/generated/api/batch/v1/job_status.dart';
 export 'src/generated/api/batch/v1/job_template_spec.dart';
+export 'src/generated/api/batch/v1/uncounted_terminated_pods.dart';

@@ -69,7 +69,7 @@ class CertificateSigningRequest {
   ///
   final ObjectMeta? metadata;
 
-  /// Spec contains the certificate request, and is immutable after creation. Only the request, signerName, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
+  /// Spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
   final CertificateSigningRequestSpec spec;
 
   /// Status contains information about whether the request is approved or denied, and the certificate issued by the signer, or the failure condition indicating signer failure.
