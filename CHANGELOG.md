@@ -1,3 +1,8 @@
+## 0.1.4
+
+* Support Kubernetes v1.24.3.
+* Patch header options.
+
 ## 0.1.3
 
 * Support Kubernetes v1.22.0.
