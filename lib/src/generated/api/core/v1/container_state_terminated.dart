@@ -60,7 +60,7 @@ class ContainerStateTerminated {
     return jsonData;
   }
 
-  /// Container's ID in the format 'docker://<container_id>'.
+  /// Container's ID in the format '<type>://<container_id>'.
   final String? containerID;
 
   /// Exit status from the last termination of the container.

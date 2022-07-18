@@ -137,6 +137,8 @@ class NodeStatus {
   final NodeSystemInfo? nodeInfo;
 
   /// NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
+  ///
+  ///.
   final String? phase;
 
   /// List of volumes that are attached to the node.

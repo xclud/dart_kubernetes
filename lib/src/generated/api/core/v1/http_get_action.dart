@@ -64,5 +64,7 @@ class HTTPGetAction {
   final Object port;
 
   /// Scheme to use for connecting to the host. Defaults to HTTP.
+  ///
+  ///.
   final String? scheme;
 }

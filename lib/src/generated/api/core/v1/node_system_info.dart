@@ -59,7 +59,7 @@ class NodeSystemInfo {
   /// Boot ID reported by the node.
   final String bootID;
 
-  /// ContainerRuntime Version reported by the node through runtime remote API (e.g. docker://1.5.0).
+  /// ContainerRuntime Version reported by the node through runtime remote API (e.g. containerd://1.4.2).
   final String containerRuntimeVersion;
 
   /// Kernel Version reported by the node from 'uname -r' (e.g. 3.16.0-0.bpo.4-amd64).

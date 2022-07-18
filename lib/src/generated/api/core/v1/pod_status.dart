@@ -118,10 +118,10 @@ class PodStatus {
   /// Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions.
   final List<PodCondition>? conditions;
 
-  /// The list has one entry per container in the manifest. Each entry is currently the output of `docker inspect`. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status.
+  /// The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status.
   final List<ContainerStatus>? containerStatuses;
 
-  /// Status for any ephemeral containers that have run in this pod. This field is alpha-level and is only populated by servers that enable the EphemeralContainers feature.
+  /// Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
   final List<ContainerStatus>? ephemeralContainerStatuses;
 
   /// IP address of the host to which the pod is assigned. Empty if not yet scheduled.
@@ -140,7 +140,9 @@ class PodStatus {
   ///
   /// Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
   ///
-  /// More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase.
+  /// More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase
+  ///
+  ///.
   final String? phase;
 
   /// IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
@@ -149,7 +151,9 @@ class PodStatus {
   /// PodIPs holds the IP addresses allocated to the pod. If this field is specified, the 0th entry must match the podIP field. Pods may be allocated at most 1 value for each of IPv4 and IPv6. This list is empty if no IPs have been allocated yet.
   final List<PodIP>? podIPs;
 
-  /// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md.
+  /// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+  ///
+  ///.
   final String? qosClass;
 
   /// A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'.

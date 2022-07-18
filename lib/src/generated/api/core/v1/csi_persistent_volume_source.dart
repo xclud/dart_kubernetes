@@ -8,6 +8,7 @@ class CSIPersistentVolumeSource {
     this.controllerPublishSecretRef,
     required this.driver,
     this.fsType,
+    this.nodeExpandSecretRef,
     this.nodePublishSecretRef,
     this.nodeStageSecretRef,
     this.readOnly,
@@ -26,6 +27,9 @@ class CSIPersistentVolumeSource {
               : null,
           driver: json['driver'],
           fsType: json['fsType'],
+          nodeExpandSecretRef: json['nodeExpandSecretRef'] != null
+              ? SecretReference.fromJson(json['nodeExpandSecretRef'])
+              : null,
           nodePublishSecretRef: json['nodePublishSecretRef'] != null
               ? SecretReference.fromJson(json['nodePublishSecretRef'])
               : null,
@@ -61,6 +65,9 @@ class CSIPersistentVolumeSource {
     if (fsType != null) {
       jsonData['fsType'] = fsType!;
     }
+    if (nodeExpandSecretRef != null) {
+      jsonData['nodeExpandSecretRef'] = nodeExpandSecretRef!.toJson();
+    }
     if (nodePublishSecretRef != null) {
       jsonData['nodePublishSecretRef'] = nodePublishSecretRef!.toJson();
     }
@@ -78,7 +85,7 @@ class CSIPersistentVolumeSource {
     return jsonData;
   }
 
-  /// ControllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+  /// ControllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
   final SecretReference? controllerExpandSecretRef;
 
   /// ControllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
@@ -87,8 +94,11 @@ class CSIPersistentVolumeSource {
   /// Driver is the name of the driver to use for this volume. Required.
   final String driver;
 
-  /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
+  /// FsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
   final String? fsType;
+
+  /// NodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+  final SecretReference? nodeExpandSecretRef;
 
   /// NodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
   final SecretReference? nodePublishSecretRef;
@@ -96,10 +106,10 @@ class CSIPersistentVolumeSource {
   /// NodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
   final SecretReference? nodeStageSecretRef;
 
-  /// Optional: The value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
+  /// ReadOnly value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
   final bool? readOnly;
 
-  /// Attributes of the volume to publish.
+  /// VolumeAttributes of the volume to publish.
   final Map<String, String>? volumeAttributes;
 
   /// VolumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.

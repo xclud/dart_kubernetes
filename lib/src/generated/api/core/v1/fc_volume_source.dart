@@ -51,18 +51,18 @@ class FCVolumeSource {
     return jsonData;
   }
 
-  /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+  /// FsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
   final String? fsType;
 
-  /// Optional: FC target lun number.
+  /// Lun is Optional: FC target lun number.
   final int? lun;
 
-  /// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+  /// ReadOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
   final bool? readOnly;
 
-  /// Optional: FC target worldwide names (WWNs).
+  /// TargetWWNs is Optional: FC target worldwide names (WWNs).
   final List<String>? targetWWNs;
 
-  /// Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
+  /// Wwids Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
   final List<String>? wwids;
 }

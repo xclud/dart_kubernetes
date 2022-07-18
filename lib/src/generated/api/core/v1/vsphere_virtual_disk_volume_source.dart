@@ -41,15 +41,15 @@ class VsphereVirtualDiskVolumeSource {
     return jsonData;
   }
 
-  /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+  /// FsType is filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
   final String? fsType;
 
-  /// Storage Policy Based Management (SPBM) profile ID associated with the StoragePolicyName.
+  /// StoragePolicyID is the storage Policy Based Management (SPBM) profile ID associated with the StoragePolicyName.
   final String? storagePolicyID;
 
-  /// Storage Policy Based Management (SPBM) profile name.
+  /// StoragePolicyName is the storage Policy Based Management (SPBM) profile name.
   final String? storagePolicyName;
 
-  /// Path that identifies vSphere volume vmdk.
+  /// VolumePath is the path that identifies vSphere volume vmdk.
   final String volumePath;
 }

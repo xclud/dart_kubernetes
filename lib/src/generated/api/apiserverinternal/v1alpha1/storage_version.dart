@@ -2,7 +2,7 @@ import 'package:kubernetes/src/generated/apimachinery/pkg/apis/meta/v1/object_me
 import 'package:kubernetes/src/generated/api/apiserverinternal/v1alpha1/storage_version_spec.dart';
 import 'package:kubernetes/src/generated/api/apiserverinternal/v1alpha1/storage_version_status.dart';
 
-/// ///  Storage version of a specific resource.
+/// Storage version of a specific resource.
 class StorageVersion {
   /// The main constructor.
   const StorageVersion({

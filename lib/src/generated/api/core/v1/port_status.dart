@@ -42,6 +42,8 @@ class PortStatus {
   /// Port is the port number of the service port of which status is recorded here.
   final int port;
 
-  /// Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP".
+  /// Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
+  ///
+  ///.
   final String protocol;
 }

@@ -57,15 +57,15 @@ class VolumeProjection {
     return jsonData;
   }
 
-  /// Information about the configMap data to project.
+  /// ConfigMap information about the configMap data to project.
   final ConfigMapProjection? configMap;
 
-  /// Information about the downwardAPI data to project.
+  /// DownwardAPI information about the downwardAPI data to project.
   final DownwardAPIProjection? downwardAPI;
 
-  /// Information about the secret data to project.
+  /// Secret information about the secret data to project.
   final SecretProjection? secret;
 
-  /// Information about the serviceAccountToken data to project.
+  /// ServiceAccountToken is information about the serviceAccountToken data to project.
   final ServiceAccountTokenProjection? serviceAccountToken;
 }

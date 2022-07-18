@@ -73,8 +73,7 @@ class RuntimeClass {
   final ObjectMeta? metadata;
 
   /// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
-  ///  https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
-  /// This field is in beta starting v1.18 and is only honored by servers that enable the PodOverhead feature.
+  ///  https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/.
   final Overhead? overhead;
 
   /// Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.

@@ -51,8 +51,6 @@ class ListMeta {
   /// String that identifies the server's internal version of this object that can be used by clients to determine when objects have changed. Value must be treated as opaque by clients and passed unmodified back to the server. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency.
   final String? resourceVersion;
 
-  /// SelfLink is a URL representing this object. Populated by the system. Read-only.
-  ///
-  /// DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.
+  /// Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
   final String? selfLink;
 }

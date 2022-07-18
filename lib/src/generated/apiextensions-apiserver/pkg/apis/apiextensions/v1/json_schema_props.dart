@@ -3,6 +3,7 @@ import 'package:kubernetes/src/generated/apiextensions-apiserver/pkg/apis/apiext
 import 'package:kubernetes/src/generated/apiextensions-apiserver/pkg/apis/apiextensions/v1/json_schema_props_or_string_array.dart';
 import 'package:kubernetes/src/generated/apiextensions-apiserver/pkg/apis/apiextensions/v1/external_documentation.dart';
 import 'package:kubernetes/src/generated/apiextensions-apiserver/pkg/apis/apiextensions/v1/json_schema_props_or_array.dart';
+import 'package:kubernetes/src/generated/apiextensions-apiserver/pkg/apis/apiextensions/v1/validation_rule.dart';
 
 /// JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
 class JSONSchemaProps {
@@ -51,6 +52,7 @@ class JSONSchemaProps {
     this.xKubernetesListType,
     this.xKubernetesMapType,
     this.xKubernetesPreserveUnknownFields,
+    this.xKubernetesValidations,
   });
 
   /// Creates a JSONSchemaProps from JSON data.
@@ -164,6 +166,11 @@ class JSONSchemaProps {
           xKubernetesMapType: json['x-kubernetes-map-type'],
           xKubernetesPreserveUnknownFields:
               json['x-kubernetes-preserve-unknown-fields'],
+          xKubernetesValidations: json['x-kubernetes-validations'] != null
+              ? ValidationRule.listFromJson(
+                  (json['x-kubernetes-validations'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : null,
         );
 
   /// Creates a list of JSONSchemaProps from JSON data.
@@ -309,6 +316,10 @@ class JSONSchemaProps {
     if (xKubernetesPreserveUnknownFields != null) {
       jsonData['x-kubernetes-preserve-unknown-fields'] =
           xKubernetesPreserveUnknownFields!;
+    }
+    if (xKubernetesValidations != null) {
+      jsonData['x-kubernetes-validations'] =
+          xKubernetesValidations!.map((item) => item.toJson()).toList();
     }
 
     return jsonData;
@@ -477,4 +488,7 @@ class JSONSchemaProps {
 
   /// X-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields which are not specified in the validation schema. This affects fields recursively, but switches back to normal pruning behaviour if nested properties or additionalProperties are specified in the schema. This can either be true or undefined. False is forbidden.
   final bool? xKubernetesPreserveUnknownFields;
+
+  /// X-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+  final List<ValidationRule>? xKubernetesValidations;
 }

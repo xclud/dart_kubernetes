@@ -1,5 +1,6 @@
 import 'package:kubernetes/src/generated/apimachinery/pkg/apis/meta/v1/object_meta.dart';
 import 'package:kubernetes/src/generated/api/networking/v1/network_policy_spec.dart';
+import 'package:kubernetes/src/generated/api/networking/v1/network_policy_status.dart';
 
 /// NetworkPolicy describes what network traffic is allowed for a set of Pods.
 class NetworkPolicy {
@@ -9,6 +10,7 @@ class NetworkPolicy {
     this.kind,
     this.metadata,
     this.spec,
+    this.status,
   });
 
   /// Creates a NetworkPolicy from JSON data.
@@ -21,6 +23,9 @@ class NetworkPolicy {
               : null,
           spec: json['spec'] != null
               ? NetworkPolicySpec.fromJson(json['spec'])
+              : null,
+          status: json['status'] != null
+              ? NetworkPolicyStatus.fromJson(json['status'])
               : null,
         );
 
@@ -45,6 +50,9 @@ class NetworkPolicy {
     if (spec != null) {
       jsonData['spec'] = spec!.toJson();
     }
+    if (status != null) {
+      jsonData['status'] = status!.toJson();
+    }
 
     return jsonData;
   }
@@ -60,4 +68,7 @@ class NetworkPolicy {
 
   /// Specification of the desired behavior for this NetworkPolicy.
   final NetworkPolicySpec? spec;
+
+  /// Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+  final NetworkPolicyStatus? status;
 }

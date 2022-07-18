@@ -10,6 +10,7 @@ class JobStatus {
     this.completionTime,
     this.conditions,
     this.failed,
+    this.ready,
     this.startTime,
     this.succeeded,
     this.uncountedTerminatedPods,
@@ -28,6 +29,7 @@ class JobStatus {
                   (json['conditions'] as Iterable).cast<Map<String, dynamic>>())
               : null,
           failed: json['failed'],
+          ready: json['ready'],
           startTime: json['startTime'] != null
               ? DateTime.tryParse(json['startTime'])
               : null,
@@ -63,6 +65,9 @@ class JobStatus {
     if (failed != null) {
       jsonData['failed'] = failed!;
     }
+    if (ready != null) {
+      jsonData['ready'] = ready!;
+    }
     if (startTime != null) {
       jsonData['startTime'] = startTime!.toIso8601String();
     }
@@ -76,7 +81,7 @@ class JobStatus {
     return jsonData;
   }
 
-  /// The number of actively running pods.
+  /// The number of pending and running pods.
   final int? active;
 
   /// CompletedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
@@ -91,6 +96,11 @@ class JobStatus {
   /// The number of pods which reached phase Failed.
   final int? failed;
 
+  /// The number of pods which have a Ready condition.
+  ///
+  /// This field is beta-level. The job controller populates the field when the feature gate JobReadyPods is enabled (enabled by default).
+  final int? ready;
+
   /// Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
   final DateTime? startTime;
 
@@ -102,6 +112,6 @@ class JobStatus {
   /// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
   ///     counter.
   ///
-  /// This field is alpha-level. The job controller only makes use of this field when the feature gate PodTrackingWithFinalizers is enabled. Old jobs might not be tracked using this field, in which case the field remains null.
+  /// This field is beta-level. The job controller only makes use of this field when the feature gate JobTrackingWithFinalizers is enabled (enabled by default). Old jobs might not be tracked using this field, in which case the field remains null.
   final UncountedTerminatedPods? uncountedTerminatedPods;
 }

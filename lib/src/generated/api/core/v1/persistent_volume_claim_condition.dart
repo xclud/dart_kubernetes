@@ -53,16 +53,16 @@ class PersistentVolumeClaimCondition {
     return jsonData;
   }
 
-  /// Last time we probed the condition.
+  /// LastProbeTime is the time we probed the condition.
   final DateTime? lastProbeTime;
 
-  /// Last time the condition transitioned from one status to another.
+  /// LastTransitionTime is the time the condition transitioned from one status to another.
   final DateTime? lastTransitionTime;
 
-  /// Human-readable message indicating details about last transition.
+  /// Message is the human-readable message indicating details about last transition.
   final String? message;
 
-  /// Unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
+  /// Reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
   final String? reason;
 
   ///

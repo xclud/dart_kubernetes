@@ -83,6 +83,6 @@ class Secret {
   /// StringData allows specifying non-binary secret data in string form. It is provided as a write-only input field for convenience. All keys and values are merged into the data field on write, overwriting any existing values. The stringData field is never output when reading from the API.
   final Map<String, String>? stringData;
 
-  /// Used to facilitate programmatic handling of secret data.
+  /// Used to facilitate programmatic handling of secret data. More info: https://kubernetes.io/docs/concepts/configuration/secret/#secret-types.
   final String? type;
 }

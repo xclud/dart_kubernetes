@@ -69,7 +69,7 @@ class ReplicaSetStatus {
   /// ObservedGeneration reflects the generation of the most recently observed ReplicaSet.
   final int? observedGeneration;
 
-  /// The number of ready replicas for this replica set.
+  /// ReadyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
   final int? readyReplicas;
 
   /// Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller.

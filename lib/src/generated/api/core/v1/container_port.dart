@@ -58,5 +58,7 @@ class ContainerPort {
   final String? name;
 
   /// Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
+  ///
+  ///.
   final String? protocol;
 }

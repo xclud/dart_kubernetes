@@ -11,6 +11,7 @@ class CronJobSpec {
     this.startingDeadlineSeconds,
     this.successfulJobsHistoryLimit,
     this.suspend,
+    this.timeZone,
   });
 
   /// Creates a CronJobSpec from JSON data.
@@ -23,6 +24,7 @@ class CronJobSpec {
           startingDeadlineSeconds: json['startingDeadlineSeconds'],
           successfulJobsHistoryLimit: json['successfulJobsHistoryLimit'],
           suspend: json['suspend'],
+          timeZone: json['timeZone'],
         );
 
   /// Creates a list of CronJobSpec from JSON data.
@@ -51,11 +53,16 @@ class CronJobSpec {
     if (suspend != null) {
       jsonData['suspend'] = suspend!;
     }
+    if (timeZone != null) {
+      jsonData['timeZone'] = timeZone!;
+    }
 
     return jsonData;
   }
 
-  /// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one.
+  /// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
+  ///
+  ///.
   final String? concurrencyPolicy;
 
   /// The number of failed finished jobs to retain. Value must be non-negative integer. Defaults to 1.
@@ -75,4 +82,7 @@ class CronJobSpec {
 
   /// This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
   final bool? suspend;
+
+  /// The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
+  final String? timeZone;
 }

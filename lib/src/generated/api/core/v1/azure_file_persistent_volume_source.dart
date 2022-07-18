@@ -41,15 +41,15 @@ class AzureFilePersistentVolumeSource {
     return jsonData;
   }
 
-  /// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+  /// ReadOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
   final bool? readOnly;
 
-  /// The name of secret that contains Azure Storage Account Name and Key.
+  /// SecretName is the name of secret that contains Azure Storage Account Name and Key.
   final String secretName;
 
-  /// The namespace of the secret that contains Azure Storage Account Name and Key default is the same as the Pod.
+  /// SecretNamespace is the namespace of the secret that contains Azure Storage Account Name and Key default is the same as the Pod.
   final String? secretNamespace;
 
-  /// Share Name.
+  /// ShareName is the azure Share Name.
   final String shareName;
 }

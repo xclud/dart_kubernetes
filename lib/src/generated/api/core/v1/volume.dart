@@ -260,7 +260,7 @@ class Volume {
     return jsonData;
   }
 
-  /// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore.
+  /// AwsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore.
   final AWSElasticBlockStoreVolumeSource? awsElasticBlockStore;
 
   /// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
@@ -278,7 +278,7 @@ class Volume {
   /// ConfigMap represents a configMap that should populate this volume.
   final ConfigMapVolumeSource? configMap;
 
-  /// CSI (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+  /// Csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
   final CSIVolumeSource? csi;
 
   /// DownwardAPI represents downward API about the pod that should populate this volume.
@@ -301,11 +301,9 @@ class Volume {
   /// Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
   ///
   /// A pod can use both types of ephemeral volumes and persistent volumes at the same time.
-  ///
-  /// This is a beta feature and only available when the GenericEphemeralVolume feature gate is enabled.
   final EphemeralVolumeSource? ephemeral;
 
-  /// FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
+  /// Fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
   final FCVolumeSource? fc;
 
   /// FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
@@ -314,7 +312,7 @@ class Volume {
   /// Flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running.
   final FlockerVolumeSource? flocker;
 
-  /// GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk.
+  /// GcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk.
   final GCEPersistentDiskVolumeSource? gcePersistentDisk;
 
   /// GitRepo represents a git repository at a particular revision.  To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
@@ -326,13 +324,13 @@ class Volume {
   /// HostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath.
   final HostPathVolumeSource? hostPath;
 
-  /// ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md.
+  /// Iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md.
   final ISCSIVolumeSource? iscsi;
 
-  /// Volume's name. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names.
+  /// Name of the volume. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names.
   final String name;
 
-  /// NFS represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs.
+  /// Nfs represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs.
   final NFSVolumeSource? nfs;
 
   /// PersistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims.
@@ -344,13 +342,13 @@ class Volume {
   /// PortworxVolume represents a portworx volume attached and mounted on kubelets host machine.
   final PortworxVolumeSource? portworxVolume;
 
-  /// Items for all in one resources secrets, configmaps, and downward API.
+  /// Projected items for all in one resources secrets, configmaps, and downward API.
   final ProjectedVolumeSource? projected;
 
   /// Quobyte represents a Quobyte mount on the host that shares a pod's lifetime.
   final QuobyteVolumeSource? quobyte;
 
-  /// RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md.
+  /// Rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md.
   final RBDVolumeSource? rbd;
 
   /// ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.

@@ -41,5 +41,7 @@ class DeploymentStrategy {
   final RollingUpdateDeployment? rollingUpdate;
 
   /// Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
+  ///
+  ///.
   final String? type;
 }

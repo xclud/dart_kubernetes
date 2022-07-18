@@ -81,7 +81,7 @@ class DeploymentStatus {
   /// The generation observed by the deployment controller.
   final int? observedGeneration;
 
-  /// Total number of ready pods targeted by this deployment.
+  /// ReadyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
   final int? readyReplicas;
 
   /// Total number of non-terminated pods targeted by this deployment (their labels match the selector).

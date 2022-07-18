@@ -1,4 +1,5 @@
 import 'package:kubernetes/src/generated/api/core/v1/exec_action.dart';
+import 'package:kubernetes/src/generated/api/core/v1/grpc_action.dart';
 import 'package:kubernetes/src/generated/api/core/v1/http_get_action.dart';
 import 'package:kubernetes/src/generated/api/core/v1/tcp_socket_action.dart';
 
@@ -8,6 +9,7 @@ class Probe {
   const Probe({
     this.exec,
     this.failureThreshold,
+    this.grpc,
     this.httpGet,
     this.initialDelaySeconds,
     this.periodSeconds,
@@ -22,6 +24,7 @@ class Probe {
       : this(
           exec: json['exec'] != null ? ExecAction.fromJson(json['exec']) : null,
           failureThreshold: json['failureThreshold'],
+          grpc: json['grpc'] != null ? GRPCAction.fromJson(json['grpc']) : null,
           httpGet: json['httpGet'] != null
               ? HTTPGetAction.fromJson(json['httpGet'])
               : null,
@@ -50,6 +53,9 @@ class Probe {
     if (failureThreshold != null) {
       jsonData['failureThreshold'] = failureThreshold!;
     }
+    if (grpc != null) {
+      jsonData['grpc'] = grpc!.toJson();
+    }
     if (httpGet != null) {
       jsonData['httpGet'] = httpGet!.toJson();
     }
@@ -76,11 +82,14 @@ class Probe {
     return jsonData;
   }
 
-  /// One and only one of the following should be specified. Exec specifies the action to take.
+  /// Exec specifies the action to take.
   final ExecAction? exec;
 
   /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
   final int? failureThreshold;
+
+  /// GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
+  final GRPCAction? grpc;
 
   /// HTTPGet specifies the http request to perform.
   final HTTPGetAction? httpGet;
@@ -94,7 +103,7 @@ class Probe {
   /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
   final int? successThreshold;
 
-  /// TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported.
+  /// TCPSocket specifies an action involving a TCP port.
   final TCPSocketAction? tcpSocket;
 
   /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.

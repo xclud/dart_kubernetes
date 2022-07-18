@@ -89,7 +89,7 @@ class DaemonSetStatus {
   /// The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/.
   final int numberMisscheduled;
 
-  /// The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
+  /// NumberReady is the number of nodes that should be running the daemon pod and have one or more of the daemon pod running with a Ready Condition.
   final int numberReady;
 
   /// The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds).

@@ -41,5 +41,7 @@ class DaemonSetUpdateStrategy {
   final RollingUpdateDaemonSet? rollingUpdate;
 
   /// Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
+  ///
+  ///.
   final String? type;
 }

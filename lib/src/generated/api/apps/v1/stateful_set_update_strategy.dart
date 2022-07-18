@@ -41,5 +41,7 @@ class StatefulSetUpdateStrategy {
   final RollingUpdateStatefulSetStrategy? rollingUpdate;
 
   /// Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
+  ///
+  ///.
   final String? type;
 }

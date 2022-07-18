@@ -5,7 +5,7 @@ import 'package:kubernetes/src/generated/api/autoscaling/v2beta2/metric_status.d
 class HorizontalPodAutoscalerStatus {
   /// The main constructor.
   const HorizontalPodAutoscalerStatus({
-    required this.conditions,
+    this.conditions,
     this.currentMetrics,
     required this.currentReplicas,
     required this.desiredReplicas,
@@ -19,7 +19,7 @@ class HorizontalPodAutoscalerStatus {
           conditions: json['conditions'] != null
               ? HorizontalPodAutoscalerCondition.listFromJson(
                   (json['conditions'] as Iterable).cast<Map<String, dynamic>>())
-              : [],
+              : null,
           currentMetrics: json['currentMetrics'] != null
               ? MetricStatus.listFromJson((json['currentMetrics'] as Iterable)
                   .cast<Map<String, dynamic>>())
@@ -42,7 +42,10 @@ class HorizontalPodAutoscalerStatus {
   Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    jsonData['conditions'] = conditions.map((item) => item.toJson()).toList();
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
     if (currentMetrics != null) {
       jsonData['currentMetrics'] =
           currentMetrics!.map((item) => item.toJson()).toList();
@@ -60,7 +63,7 @@ class HorizontalPodAutoscalerStatus {
   }
 
   /// Conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
-  final List<HorizontalPodAutoscalerCondition> conditions;
+  final List<HorizontalPodAutoscalerCondition>? conditions;
 
   /// CurrentMetrics is the last read state of the metrics used by this autoscaler.
   final List<MetricStatus>? currentMetrics;

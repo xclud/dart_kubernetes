@@ -77,7 +77,7 @@ class StatefulSetStatus {
     return jsonData;
   }
 
-  /// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate. Remove omitempty when graduating to beta.
+  /// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset.
   final int? availableReplicas;
 
   /// CollisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
@@ -95,7 +95,7 @@ class StatefulSetStatus {
   /// ObservedGeneration is the most recent generation observed for this StatefulSet. It corresponds to the StatefulSet's generation, which is updated on mutation by the API Server.
   final int? observedGeneration;
 
-  /// ReadyReplicas is the number of Pods created by the StatefulSet controller that have a Ready Condition.
+  /// ReadyReplicas is the number of pods created for this StatefulSet with a Ready Condition.
   final int? readyReplicas;
 
   /// Replicas is the number of Pods created by the StatefulSet controller.

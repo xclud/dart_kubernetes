@@ -33,9 +33,9 @@ class PhotonPersistentDiskVolumeSource {
     return jsonData;
   }
 
-  /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+  /// FsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
   final String? fsType;
 
-  /// ID that identifies Photon Controller persistent disk.
+  /// PdID is the ID that identifies Photon Controller persistent disk.
   final String pdID;
 }
