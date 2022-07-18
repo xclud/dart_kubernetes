@@ -8,13 +8,13 @@ This package is in the early stages of development. This means it's not feature 
 ## Roadmap
 The roadmap of the package is as it follows. Please do not hesitate to suggest changes in the priorities or features. Contributions are welcome:
 
-- [x] Support for all Kubernetes APIs (REST).
+- [✓] Support for all Kubernetes APIs (REST).
 - [ ] Support for `Watch`ing resources.
 - [ ] Support for Metric APIs.
 - [ ] Implement a fully-fledged UI aiming towards being the best cross-platform Kubernetes client.
 - [ ] Support [Istio](https://istio.io) APIs.
-  - [x] [Gateway](https://istio.io/latest/docs/reference/config/networking/gateway/)
-  - [x] [Virtual Service](https://istio.io/latest/docs/reference/config/networking/virtual-service/)
+  - [✓] [Gateway](https://istio.io/latest/docs/reference/config/networking/gateway/)
+  - [✓] [Virtual Service](https://istio.io/latest/docs/reference/config/networking/virtual-service/)
   - [ ] [Destination Rule](https://istio.io/latest/docs/reference/config/networking/destination-rule/)
   - [ ] [Service Entry](https://istio.io/latest/docs/reference/config/networking/service-entry/)
   - [ ] [Sidecar](https://istio.io/latest/docs/reference/config/networking/sidecar/)
