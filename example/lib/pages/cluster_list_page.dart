@@ -2,7 +2,6 @@ import 'package:yakc/helpers/cluster_store.dart';
 import 'package:yakc/models.dart';
 import 'package:yakc/pages/cluster_add_page.dart';
 import 'package:yakc/pages/cluster_view_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ClusterListPage extends StatefulWidget {

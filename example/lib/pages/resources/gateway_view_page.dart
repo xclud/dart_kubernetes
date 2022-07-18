@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kubernetes/istio_v1beta1.dart';
 import 'package:yakc/views/object_meta_widget.dart';

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kubernetes/kubernetes.dart';
 import 'package:yakc/views/object_meta_widget.dart';

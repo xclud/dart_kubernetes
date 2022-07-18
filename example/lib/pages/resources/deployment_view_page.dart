@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kubernetes/kubernetes.dart';
 import 'package:yakc/dialogs/json_editor_dialog.dart';

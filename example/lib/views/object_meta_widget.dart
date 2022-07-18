@@ -33,9 +33,9 @@ class ObjectMetaWidget extends StatelessWidget {
           title: Text(metadata.uid ?? ''),
           subtitle: const Text('UID'),
         ),
-        if (metadata.clusterName != null)
+        if (metadata.name != null)
           ListTile(
-            title: Text(metadata.clusterName!),
+            title: Text(metadata.name!),
             subtitle: const Text('Cluster Name'),
           ),
         ListTile(
