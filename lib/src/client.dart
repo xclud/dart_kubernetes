@@ -7,30 +7,22 @@ import '../api_apps_v1.dart' as api_apps_v1;
 import '../api_authentication_v1.dart' as api_authentication_v1;
 import '../api_authorization_v1.dart' as api_authorization_v1;
 import '../api_autoscaling_v1.dart' as api_autoscaling_v1;
-import '../api_autoscaling_v2beta1.dart' as api_autoscaling_v2beta1;
+import '../api_autoscaling_v2.dart' as api_autoscaling_v2;
 import '../api_autoscaling_v2beta2.dart' as api_autoscaling_v2beta2;
 import '../api_batch_v1.dart' as api_batch_v1;
-import '../api_batch_v1beta1.dart' as api_batch_v1beta1;
 import '../api_certificates_v1.dart' as api_certificates_v1;
 import '../api_coordination_v1.dart' as api_coordination_v1;
 import '../api_core_v1.dart' as api_core_v1;
 import '../api_discovery_v1.dart' as api_discovery_v1;
-import '../api_discovery_v1beta1.dart' as api_discovery_v1beta1;
 import '../api_events_v1.dart' as api_events_v1;
-import '../api_events_v1beta1.dart' as api_events_v1beta1;
 import '../api_flowcontrol_v1beta1.dart' as api_flowcontrol_v1beta1;
+import '../api_flowcontrol_v1beta2.dart' as api_flowcontrol_v1beta2;
 import '../api_networking_v1.dart' as api_networking_v1;
 import '../api_node_v1.dart' as api_node_v1;
-import '../api_node_v1alpha1.dart' as api_node_v1alpha1;
-import '../api_node_v1beta1.dart' as api_node_v1beta1;
 import '../api_policy_v1.dart' as api_policy_v1;
-import '../api_policy_v1beta1.dart' as api_policy_v1beta1;
 import '../api_rbac_v1.dart' as api_rbac_v1;
-import '../api_rbac_v1alpha1.dart' as api_rbac_v1alpha1;
 import '../api_scheduling_v1.dart' as api_scheduling_v1;
-import '../api_scheduling_v1alpha1.dart' as api_scheduling_v1alpha1;
 import '../api_storage_v1.dart' as api_storage_v1;
-import '../api_storage_v1alpha1.dart' as api_storage_v1alpha1;
 import '../api_storage_v1beta1.dart' as api_storage_v1beta1;
 import '../apimachinery_pkg_version.dart' as apimachinery_pkg_version;
 import '../apiextensions__apiserver_pkg_apis_apiextensions_v1.dart'
@@ -41,6 +33,17 @@ import '../kube__aggregator_pkg_apis_apiregistration_v1.dart'
 import '../istio_v1beta1.dart' as istio_v1beta1;
 
 import 'package:http/http.dart' as http;
+
+String _getHeader(Object body) {
+  return 'application/json; charset=utf-8';
+}
+
+enum PatchType {
+  jsonPatch,
+  mergePatch,
+  strategicMergePatch,
+  applyPatch,
+}
 
 /// Kubernetes client.
 class KubernetesClient {
@@ -136,10 +139,11 @@ class KubernetesClient {
     return resp.body;
   }
 
-  Future<Map<String, dynamic>> _patchJsonMap(String url, Object body) async {
+  Future<Map<String, dynamic>> _patchJsonMap(
+      String url, Object body, PatchType patchType) async {
     final fullurl = _getFullUrl(url);
     final headers = <String, String>{'Authorization': 'Bearer $accessToken'};
-    headers['Content-Type'] = _getHeader(body);
+    headers['Content-Type'] = _getPatchHeader(patchType);
 
     final resp = await _httpClient.patch(Uri.parse(fullurl),
         body: body, headers: headers);
@@ -147,10 +151,11 @@ class KubernetesClient {
     return map;
   }
 
-  Future<String> _patchJsonString(String url, Object body) async {
+  Future<String> _patchJsonString(
+      String url, Object body, PatchType patchType) async {
     final fullurl = _getFullUrl(url);
     final headers = <String, String>{'Authorization': 'Bearer $accessToken'};
-    headers['Content-Type'] = _getHeader(body);
+    headers['Content-Type'] = _getPatchHeader(patchType);
 
     final resp = await _httpClient.patch(Uri.parse(fullurl),
         body: body, headers: headers);
@@ -673,6 +678,8 @@ class KubernetesClient {
   ///
   /// [fieldManager] FieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.
   ///
+  /// [fieldValidation] FieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields, provided that the `ServerSideFieldValidation` feature gate is also enabled. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23 and is the default behavior when the `ServerSideFieldValidation` feature gate is disabled. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default when the `ServerSideFieldValidation` feature gate is enabled. - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered.
+  ///
   /// [namespace] Object name and auth scope, such as for teams and projects.
   ///
   /// [pretty] If true, then the output is pretty printed.
@@ -680,6 +687,7 @@ class KubernetesClient {
     required api_core_v1.Binding body,
     String? dryRun,
     String? fieldManager,
+    String? fieldValidation,
     required String namespace,
     bool? pretty,
   }) async {
@@ -689,6 +697,9 @@ class KubernetesClient {
     }
     if (fieldManager != null) {
       queryStrings['fieldManager'] = fieldManager;
+    }
+    if (fieldValidation != null) {
+      queryStrings['fieldValidation'] = fieldValidation;
     }
     if (pretty != null) {
       queryStrings['pretty'] = pretty;
@@ -861,6 +872,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -872,7 +884,9 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/configmaps/$name$query', jsonBody);
+        '/api/v1/namespaces/$namespace/configmaps/$name$query',
+        jsonBody,
+        patchType);
     return api_core_v1.ConfigMap.fromJson(result);
   }
 
@@ -1034,6 +1048,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -1045,7 +1060,9 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/endpoints/$name$query', jsonBody);
+        '/api/v1/namespaces/$namespace/endpoints/$name$query',
+        jsonBody,
+        patchType);
     return api_core_v1.Endpoints.fromJson(result);
   }
 
@@ -1207,6 +1224,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -1218,7 +1236,9 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/events/$name$query', jsonBody);
+        '/api/v1/namespaces/$namespace/events/$name$query',
+        jsonBody,
+        patchType);
     return api_core_v1.Event.fromJson(result);
   }
 
@@ -1381,6 +1401,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -1392,7 +1413,9 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/limitranges/$name$query', jsonBody);
+        '/api/v1/namespaces/$namespace/limitranges/$name$query',
+        jsonBody,
+        patchType);
     return api_core_v1.LimitRange.fromJson(result);
   }
 
@@ -1561,6 +1584,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -1573,7 +1597,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/api/v1/namespaces/$namespace/persistentvolumeclaims/$name$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_core_v1.PersistentVolumeClaim.fromJson(result);
   }
 
@@ -1645,6 +1670,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -1657,7 +1683,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/api/v1/namespaces/$namespace/persistentvolumeclaims/$name/status$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_core_v1.PersistentVolumeClaim.fromJson(result);
   }
 
@@ -1819,6 +1846,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -1830,7 +1858,7 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/pods/$name$query', jsonBody);
+        '/api/v1/namespaces/$namespace/pods/$name$query', jsonBody, patchType);
     return api_core_v1.Pod.fromJson(result);
   }
 
@@ -1939,6 +1967,8 @@ class KubernetesClient {
   ///
   /// [fieldManager] FieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.
   ///
+  /// [fieldValidation] FieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields, provided that the `ServerSideFieldValidation` feature gate is also enabled. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23 and is the default behavior when the `ServerSideFieldValidation` feature gate is disabled. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default when the `ServerSideFieldValidation` feature gate is enabled. - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered.
+  ///
   /// [name] Name of the Binding.
   ///
   /// [namespace] Object name and auth scope, such as for teams and projects.
@@ -1948,6 +1978,7 @@ class KubernetesClient {
     required api_core_v1.Binding body,
     String? dryRun,
     String? fieldManager,
+    String? fieldValidation,
     required String name,
     required String namespace,
     bool? pretty,
@@ -1958,6 +1989,9 @@ class KubernetesClient {
     }
     if (fieldManager != null) {
       queryStrings['fieldManager'] = fieldManager;
+    }
+    if (fieldValidation != null) {
+      queryStrings['fieldValidation'] = fieldValidation;
     }
     if (pretty != null) {
       queryStrings['pretty'] = pretty;
@@ -2037,6 +2071,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -2049,7 +2084,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/api/v1/namespaces/$namespace/pods/$name/ephemeralcontainers$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_core_v1.Pod.fromJson(result);
   }
 
@@ -2058,6 +2094,8 @@ class KubernetesClient {
   /// [dryRun] When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed.
   ///
   /// [fieldManager] FieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.
+  ///
+  /// [fieldValidation] FieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields, provided that the `ServerSideFieldValidation` feature gate is also enabled. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23 and is the default behavior when the `ServerSideFieldValidation` feature gate is disabled. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default when the `ServerSideFieldValidation` feature gate is enabled. - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered.
   ///
   /// [name] Name of the Eviction.
   ///
@@ -2068,6 +2106,7 @@ class KubernetesClient {
     required api_policy_v1.Eviction body,
     String? dryRun,
     String? fieldManager,
+    String? fieldValidation,
     required String name,
     required String namespace,
     bool? pretty,
@@ -2078,6 +2117,9 @@ class KubernetesClient {
     }
     if (fieldManager != null) {
       queryStrings['fieldManager'] = fieldManager;
+    }
+    if (fieldValidation != null) {
+      queryStrings['fieldValidation'] = fieldValidation;
     }
     if (pretty != null) {
       queryStrings['pretty'] = pretty;
@@ -2102,11 +2144,11 @@ class KubernetesClient {
   ///
   /// [namespace] Object name and auth scope, such as for teams and projects.
   ///
-  /// [stderr] Redirect the standard error stream of the pod for this call. Defaults to true.
+  /// [stderr] Redirect the standard error stream of the pod for this call.
   ///
   /// [stdin] Redirect the standard input stream of the pod for this call. Defaults to false.
   ///
-  /// [stdout] Redirect the standard output stream of the pod for this call. Defaults to true.
+  /// [stdout] Redirect the standard output stream of the pod for this call.
   ///
   /// [tty] TTY if true indicates that a tty will be allocated for the exec call. Defaults to false.
   Future<String> connectCoreV1GetNamespacedPodExec({
@@ -2157,11 +2199,11 @@ class KubernetesClient {
   ///
   /// [namespace] Object name and auth scope, such as for teams and projects.
   ///
-  /// [stderr] Redirect the standard error stream of the pod for this call. Defaults to true.
+  /// [stderr] Redirect the standard error stream of the pod for this call.
   ///
   /// [stdin] Redirect the standard input stream of the pod for this call. Defaults to false.
   ///
-  /// [stdout] Redirect the standard output stream of the pod for this call. Defaults to true.
+  /// [stdout] Redirect the standard output stream of the pod for this call.
   ///
   /// [tty] TTY if true indicates that a tty will be allocated for the exec call. Defaults to false.
   Future<String> connectCoreV1PostNamespacedPodExec({
@@ -2442,6 +2484,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     String? pathQuery,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pathQuery != null) {
@@ -2452,7 +2495,9 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _patchJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy$query', body);
+        '/api/v1/namespaces/$namespace/pods/$name/proxy$query',
+        body,
+        patchType);
     return result;
   }
 
@@ -2637,6 +2682,7 @@ class KubernetesClient {
     required String namespace,
     required String path,
     String? pathQuery,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pathQuery != null) {
@@ -2647,7 +2693,9 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _patchJsonString(
-        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path$query', body);
+        '/api/v1/namespaces/$namespace/pods/$name/proxy/$path$query',
+        body,
+        patchType);
     return result;
   }
 
@@ -2773,6 +2821,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -2784,7 +2833,9 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/pods/$name/status$query', jsonBody);
+        '/api/v1/namespaces/$namespace/pods/$name/status$query',
+        jsonBody,
+        patchType);
     return api_core_v1.Pod.fromJson(result);
   }
 
@@ -2946,6 +2997,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -2957,7 +3009,9 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/podtemplates/$name$query', jsonBody);
+        '/api/v1/namespaces/$namespace/podtemplates/$name$query',
+        jsonBody,
+        patchType);
     return api_core_v1.PodTemplate.fromJson(result);
   }
 
@@ -3126,6 +3180,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -3138,7 +3193,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/api/v1/namespaces/$namespace/replicationcontrollers/$name$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_core_v1.ReplicationController.fromJson(result);
   }
 
@@ -3210,6 +3266,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -3222,7 +3279,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/api/v1/namespaces/$namespace/replicationcontrollers/$name/scale$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_autoscaling_v1.Scale.fromJson(result);
   }
 
@@ -3294,6 +3352,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -3306,7 +3365,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/api/v1/namespaces/$namespace/replicationcontrollers/$name/status$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_core_v1.ReplicationController.fromJson(result);
   }
 
@@ -3468,6 +3528,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -3479,7 +3540,9 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/resourcequotas/$name$query', jsonBody);
+        '/api/v1/namespaces/$namespace/resourcequotas/$name$query',
+        jsonBody,
+        patchType);
     return api_core_v1.ResourceQuota.fromJson(result);
   }
 
@@ -3548,6 +3611,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -3560,7 +3624,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/api/v1/namespaces/$namespace/resourcequotas/$name/status$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_core_v1.ResourceQuota.fromJson(result);
   }
 
@@ -3722,6 +3787,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -3733,7 +3799,9 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/secrets/$name$query', jsonBody);
+        '/api/v1/namespaces/$namespace/secrets/$name$query',
+        jsonBody,
+        patchType);
     return api_core_v1.Secret.fromJson(result);
   }
 
@@ -3895,6 +3963,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -3906,7 +3975,9 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/serviceaccounts/$name$query', jsonBody);
+        '/api/v1/namespaces/$namespace/serviceaccounts/$name$query',
+        jsonBody,
+        patchType);
     return api_core_v1.ServiceAccount.fromJson(result);
   }
 
@@ -3915,6 +3986,8 @@ class KubernetesClient {
   /// [dryRun] When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed.
   ///
   /// [fieldManager] FieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.
+  ///
+  /// [fieldValidation] FieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields, provided that the `ServerSideFieldValidation` feature gate is also enabled. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23 and is the default behavior when the `ServerSideFieldValidation` feature gate is disabled. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default when the `ServerSideFieldValidation` feature gate is enabled. - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered.
   ///
   /// [name] Name of the TokenRequest.
   ///
@@ -3926,6 +3999,7 @@ class KubernetesClient {
     required api_authentication_v1.TokenRequest body,
     String? dryRun,
     String? fieldManager,
+    String? fieldValidation,
     required String name,
     required String namespace,
     bool? pretty,
@@ -3936,6 +4010,9 @@ class KubernetesClient {
     }
     if (fieldManager != null) {
       queryStrings['fieldManager'] = fieldManager;
+    }
+    if (fieldValidation != null) {
+      queryStrings['fieldValidation'] = fieldValidation;
     }
     if (pretty != null) {
       queryStrings['pretty'] = pretty;
@@ -3971,6 +4048,29 @@ class KubernetesClient {
     final result =
         await _getJsonMap('/api/v1/namespaces/$namespace/services$query');
     return api_core_v1.ServiceList.fromJson(result);
+  }
+
+  /// Delete collection of Service.
+  ///
+  /// [namespace] Object name and auth scope, such as for teams and projects.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<apimachinery_pkg_apis_meta_v1.Status>
+      deleteCoreV1CollectionNamespacedService({
+    required String namespace,
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _deleteJsonMap('/api/v1/namespaces/$namespace/services$query');
+    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
   /// Create a Service.
@@ -4029,7 +4129,7 @@ class KubernetesClient {
   /// [namespace] Object name and auth scope, such as for teams and projects.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status> deleteCoreV1NamespacedService({
+  Future<api_core_v1.Service> deleteCoreV1NamespacedService({
     required String name,
     required String namespace,
     bool? pretty,
@@ -4044,7 +4144,7 @@ class KubernetesClient {
 
     final result = await _deleteJsonMap(
         '/api/v1/namespaces/$namespace/services/$name$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
+    return api_core_v1.Service.fromJson(result);
   }
 
   /// Replace the specified Service.
@@ -4086,6 +4186,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -4097,7 +4198,9 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/services/$name$query', jsonBody);
+        '/api/v1/namespaces/$namespace/services/$name$query',
+        jsonBody,
+        patchType);
     return api_core_v1.Service.fromJson(result);
   }
 
@@ -4215,6 +4318,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     String? pathQuery,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pathQuery != null) {
@@ -4225,7 +4329,9 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _patchJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy$query', body);
+        '/api/v1/namespaces/$namespace/services/$name/proxy$query',
+        body,
+        patchType);
     return result;
   }
 
@@ -4410,6 +4516,7 @@ class KubernetesClient {
     required String namespace,
     required String path,
     String? pathQuery,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pathQuery != null) {
@@ -4420,7 +4527,9 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _patchJsonString(
-        '/api/v1/namespaces/$namespace/services/$name/proxy/$path$query', body);
+        '/api/v1/namespaces/$namespace/services/$name/proxy/$path$query',
+        body,
+        patchType);
     return result;
   }
 
@@ -4546,6 +4655,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -4557,7 +4667,9 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/namespaces/$namespace/services/$name/status$query', jsonBody);
+        '/api/v1/namespaces/$namespace/services/$name/status$query',
+        jsonBody,
+        patchType);
     return api_core_v1.Service.fromJson(result);
   }
 
@@ -4636,6 +4748,7 @@ class KubernetesClient {
     required api_core_v1.Namespace body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -4646,8 +4759,8 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final jsonBody = jsonEncode(body.toJson());
-    final result =
-        await _patchJsonMap('/api/v1/namespaces/$name$query', jsonBody);
+    final result = await _patchJsonMap(
+        '/api/v1/namespaces/$name$query', jsonBody, patchType);
     return api_core_v1.Namespace.fromJson(result);
   }
 
@@ -4657,6 +4770,8 @@ class KubernetesClient {
   ///
   /// [fieldManager] FieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.
   ///
+  /// [fieldValidation] FieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields, provided that the `ServerSideFieldValidation` feature gate is also enabled. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23 and is the default behavior when the `ServerSideFieldValidation` feature gate is disabled. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default when the `ServerSideFieldValidation` feature gate is enabled. - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered.
+  ///
   /// [name] Name of the Namespace.
   ///
   /// [pretty] If true, then the output is pretty printed.
@@ -4664,6 +4779,7 @@ class KubernetesClient {
     required api_core_v1.Namespace body,
     String? dryRun,
     String? fieldManager,
+    String? fieldValidation,
     required String name,
     bool? pretty,
   }) async {
@@ -4673,6 +4789,9 @@ class KubernetesClient {
     }
     if (fieldManager != null) {
       queryStrings['fieldManager'] = fieldManager;
+    }
+    if (fieldValidation != null) {
+      queryStrings['fieldValidation'] = fieldValidation;
     }
     if (pretty != null) {
       queryStrings['pretty'] = pretty;
@@ -4741,6 +4860,7 @@ class KubernetesClient {
     required api_core_v1.Namespace body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -4751,8 +4871,8 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final jsonBody = jsonEncode(body.toJson());
-    final result =
-        await _patchJsonMap('/api/v1/namespaces/$name/status$query', jsonBody);
+    final result = await _patchJsonMap(
+        '/api/v1/namespaces/$name/status$query', jsonBody, patchType);
     return api_core_v1.Namespace.fromJson(result);
   }
 
@@ -4886,6 +5006,7 @@ class KubernetesClient {
     required api_core_v1.Node body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -4896,7 +5017,8 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final jsonBody = jsonEncode(body.toJson());
-    final result = await _patchJsonMap('/api/v1/nodes/$name$query', jsonBody);
+    final result =
+        await _patchJsonMap('/api/v1/nodes/$name$query', jsonBody, patchType);
     return api_core_v1.Node.fromJson(result);
   }
 
@@ -4997,6 +5119,7 @@ class KubernetesClient {
     required String body,
     required String name,
     String? pathQuery,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pathQuery != null) {
@@ -5006,8 +5129,8 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _patchJsonString('/api/v1/nodes/$name/proxy$query', body);
+    final result = await _patchJsonString(
+        '/api/v1/nodes/$name/proxy$query', body, patchType);
     return result;
   }
 
@@ -5169,6 +5292,7 @@ class KubernetesClient {
     required String name,
     required String path,
     String? pathQuery,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pathQuery != null) {
@@ -5178,8 +5302,8 @@ class KubernetesClient {
     final query =
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
-    final result =
-        await _patchJsonString('/api/v1/nodes/$name/proxy/$path$query', body);
+    final result = await _patchJsonString(
+        '/api/v1/nodes/$name/proxy/$path$query', body, patchType);
     return result;
   }
 
@@ -5289,6 +5413,7 @@ class KubernetesClient {
     required api_core_v1.Node body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -5299,8 +5424,8 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final jsonBody = jsonEncode(body.toJson());
-    final result =
-        await _patchJsonMap('/api/v1/nodes/$name/status$query', jsonBody);
+    final result = await _patchJsonMap(
+        '/api/v1/nodes/$name/status$query', jsonBody, patchType);
     return api_core_v1.Node.fromJson(result);
   }
 
@@ -5511,6 +5636,7 @@ class KubernetesClient {
     required api_core_v1.PersistentVolume body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -5521,8 +5647,8 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final jsonBody = jsonEncode(body.toJson());
-    final result =
-        await _patchJsonMap('/api/v1/persistentvolumes/$name$query', jsonBody);
+    final result = await _patchJsonMap(
+        '/api/v1/persistentvolumes/$name$query', jsonBody, patchType);
     return api_core_v1.PersistentVolume.fromJson(result);
   }
 
@@ -5581,6 +5707,7 @@ class KubernetesClient {
     required api_core_v1.PersistentVolume body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -5592,7 +5719,7 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/api/v1/persistentvolumes/$name/status$query', jsonBody);
+        '/api/v1/persistentvolumes/$name/status$query', jsonBody, patchType);
     return api_core_v1.PersistentVolume.fromJson(result);
   }
 
@@ -9516,6 +9643,7 @@ class KubernetesClient {
     required api_admissionregistration_v1.MutatingWebhookConfiguration body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -9528,7 +9656,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/$name$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_admissionregistration_v1.MutatingWebhookConfiguration.fromJson(
         result);
   }
@@ -9682,6 +9811,7 @@ class KubernetesClient {
     required api_admissionregistration_v1.ValidatingWebhookConfiguration body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -9694,7 +9824,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/$name$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_admissionregistration_v1.ValidatingWebhookConfiguration.fromJson(
         result);
   }
@@ -10184,6 +10315,7 @@ class KubernetesClient {
         body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -10196,7 +10328,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/apiextensions.k8s.io/v1/customresourcedefinitions/$name$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return apiextensions__apiserver_pkg_apis_apiextensions_v1
         .CustomResourceDefinition.fromJson(result);
   }
@@ -10272,6 +10405,7 @@ class KubernetesClient {
         body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -10284,7 +10418,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/apiextensions.k8s.io/v1/customresourcedefinitions/$name/status$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return apiextensions__apiserver_pkg_apis_apiextensions_v1
         .CustomResourceDefinition.fromJson(result);
   }
@@ -10603,6 +10738,7 @@ class KubernetesClient {
     required kube__aggregator_pkg_apis_apiregistration_v1.APIService body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -10614,7 +10750,9 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/apiregistration.k8s.io/v1/apiservices/$name$query', jsonBody);
+        '/apis/apiregistration.k8s.io/v1/apiservices/$name$query',
+        jsonBody,
+        patchType);
     return kube__aggregator_pkg_apis_apiregistration_v1.APIService.fromJson(
         result);
   }
@@ -10680,6 +10818,7 @@ class KubernetesClient {
     required kube__aggregator_pkg_apis_apiregistration_v1.APIService body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -10692,7 +10831,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/apiregistration.k8s.io/v1/apiservices/$name/status$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return kube__aggregator_pkg_apis_apiregistration_v1.APIService.fromJson(
         result);
   }
@@ -11246,6 +11386,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -11258,7 +11399,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/apps/v1/namespaces/$namespace/controllerrevisions/$name$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_apps_v1.ControllerRevision.fromJson(result);
   }
 
@@ -11420,6 +11562,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -11431,7 +11574,9 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/apps/v1/namespaces/$namespace/daemonsets/$name$query', jsonBody);
+        '/apis/apps/v1/namespaces/$namespace/daemonsets/$name$query',
+        jsonBody,
+        patchType);
     return api_apps_v1.DaemonSet.fromJson(result);
   }
 
@@ -11500,6 +11645,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -11512,7 +11658,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/apps/v1/namespaces/$namespace/daemonsets/$name/status$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_apps_v1.DaemonSet.fromJson(result);
   }
 
@@ -11676,6 +11823,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -11688,7 +11836,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/apps/v1/namespaces/$namespace/deployments/$name$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_apps_v1.Deployment.fromJson(result);
   }
 
@@ -11757,6 +11906,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -11769,7 +11919,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/apps/v1/namespaces/$namespace/deployments/$name/scale$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_autoscaling_v1.Scale.fromJson(result);
   }
 
@@ -11838,6 +11989,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -11850,7 +12002,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/apps/v1/namespaces/$namespace/deployments/$name/status$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_apps_v1.Deployment.fromJson(result);
   }
 
@@ -12014,6 +12167,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -12026,7 +12180,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/apps/v1/namespaces/$namespace/replicasets/$name$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_apps_v1.ReplicaSet.fromJson(result);
   }
 
@@ -12095,6 +12250,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -12107,7 +12263,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/apps/v1/namespaces/$namespace/replicasets/$name/scale$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_autoscaling_v1.Scale.fromJson(result);
   }
 
@@ -12176,6 +12333,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -12188,7 +12346,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/apps/v1/namespaces/$namespace/replicasets/$name/status$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_apps_v1.ReplicaSet.fromJson(result);
   }
 
@@ -12352,6 +12511,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -12364,7 +12524,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/apps/v1/namespaces/$namespace/statefulsets/$name$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_apps_v1.StatefulSet.fromJson(result);
   }
 
@@ -12433,6 +12594,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -12445,7 +12607,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/apps/v1/namespaces/$namespace/statefulsets/$name/scale$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_autoscaling_v1.Scale.fromJson(result);
   }
 
@@ -12514,6 +12677,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -12526,7 +12690,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/apps/v1/namespaces/$namespace/statefulsets/$name/status$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_apps_v1.StatefulSet.fromJson(result);
   }
 
@@ -13860,11 +14025,14 @@ class KubernetesClient {
   ///
   /// [fieldManager] FieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.
   ///
+  /// [fieldValidation] FieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields, provided that the `ServerSideFieldValidation` feature gate is also enabled. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23 and is the default behavior when the `ServerSideFieldValidation` feature gate is disabled. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default when the `ServerSideFieldValidation` feature gate is enabled. - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered.
+  ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_authentication_v1.TokenReview> createAuthenticationV1TokenReview({
     required api_authentication_v1.TokenReview body,
     String? dryRun,
     String? fieldManager,
+    String? fieldValidation,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -13873,6 +14041,9 @@ class KubernetesClient {
     }
     if (fieldManager != null) {
       queryStrings['fieldManager'] = fieldManager;
+    }
+    if (fieldValidation != null) {
+      queryStrings['fieldValidation'] = fieldValidation;
     }
     if (pretty != null) {
       queryStrings['pretty'] = pretty;
@@ -13907,6 +14078,8 @@ class KubernetesClient {
   ///
   /// [fieldManager] FieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.
   ///
+  /// [fieldValidation] FieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields, provided that the `ServerSideFieldValidation` feature gate is also enabled. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23 and is the default behavior when the `ServerSideFieldValidation` feature gate is disabled. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default when the `ServerSideFieldValidation` feature gate is enabled. - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered.
+  ///
   /// [namespace] Object name and auth scope, such as for teams and projects.
   ///
   /// [pretty] If true, then the output is pretty printed.
@@ -13915,6 +14088,7 @@ class KubernetesClient {
     required api_authorization_v1.LocalSubjectAccessReview body,
     String? dryRun,
     String? fieldManager,
+    String? fieldValidation,
     required String namespace,
     bool? pretty,
   }) async {
@@ -13924,6 +14098,9 @@ class KubernetesClient {
     }
     if (fieldManager != null) {
       queryStrings['fieldManager'] = fieldManager;
+    }
+    if (fieldValidation != null) {
+      queryStrings['fieldValidation'] = fieldValidation;
     }
     if (pretty != null) {
       queryStrings['pretty'] = pretty;
@@ -13945,12 +14122,15 @@ class KubernetesClient {
   ///
   /// [fieldManager] FieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.
   ///
+  /// [fieldValidation] FieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields, provided that the `ServerSideFieldValidation` feature gate is also enabled. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23 and is the default behavior when the `ServerSideFieldValidation` feature gate is disabled. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default when the `ServerSideFieldValidation` feature gate is enabled. - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered.
+  ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_authorization_v1.SelfSubjectAccessReview>
       createAuthorizationV1SelfSubjectAccessReview({
     required api_authorization_v1.SelfSubjectAccessReview body,
     String? dryRun,
     String? fieldManager,
+    String? fieldValidation,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -13959,6 +14139,9 @@ class KubernetesClient {
     }
     if (fieldManager != null) {
       queryStrings['fieldManager'] = fieldManager;
+    }
+    if (fieldValidation != null) {
+      queryStrings['fieldValidation'] = fieldValidation;
     }
     if (pretty != null) {
       queryStrings['pretty'] = pretty;
@@ -13980,12 +14163,15 @@ class KubernetesClient {
   ///
   /// [fieldManager] FieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.
   ///
+  /// [fieldValidation] FieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields, provided that the `ServerSideFieldValidation` feature gate is also enabled. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23 and is the default behavior when the `ServerSideFieldValidation` feature gate is disabled. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default when the `ServerSideFieldValidation` feature gate is enabled. - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered.
+  ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_authorization_v1.SelfSubjectRulesReview>
       createAuthorizationV1SelfSubjectRulesReview({
     required api_authorization_v1.SelfSubjectRulesReview body,
     String? dryRun,
     String? fieldManager,
+    String? fieldValidation,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -13994,6 +14180,9 @@ class KubernetesClient {
     }
     if (fieldManager != null) {
       queryStrings['fieldManager'] = fieldManager;
+    }
+    if (fieldValidation != null) {
+      queryStrings['fieldValidation'] = fieldValidation;
     }
     if (pretty != null) {
       queryStrings['pretty'] = pretty;
@@ -14015,12 +14204,15 @@ class KubernetesClient {
   ///
   /// [fieldManager] FieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.
   ///
+  /// [fieldValidation] FieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields, provided that the `ServerSideFieldValidation` feature gate is also enabled. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23 and is the default behavior when the `ServerSideFieldValidation` feature gate is disabled. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default when the `ServerSideFieldValidation` feature gate is enabled. - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered.
+  ///
   /// [pretty] If true, then the output is pretty printed.
   Future<api_authorization_v1.SubjectAccessReview>
       createAuthorizationV1SubjectAccessReview({
     required api_authorization_v1.SubjectAccessReview body,
     String? dryRun,
     String? fieldManager,
+    String? fieldValidation,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -14029,6 +14221,9 @@ class KubernetesClient {
     }
     if (fieldManager != null) {
       queryStrings['fieldManager'] = fieldManager;
+    }
+    if (fieldValidation != null) {
+      queryStrings['fieldValidation'] = fieldValidation;
     }
     if (pretty != null) {
       queryStrings['pretty'] = pretty;
@@ -14297,6 +14492,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -14309,7 +14505,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers/$name$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_autoscaling_v1.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -14381,6 +14578,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -14393,7 +14591,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/autoscaling/v1/namespaces/$namespace/horizontalpodautoscalers/$name/status$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_autoscaling_v1.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -14633,8 +14832,8 @@ class KubernetesClient {
 
   /// Get available resources.
   Future<apimachinery_pkg_apis_meta_v1.APIResourceList>
-      getAutoscalingV2beta1APIResources() async {
-    final result = await _getJsonMap('/apis/autoscaling/v2beta1/');
+      getAutoscalingV2APIResources() async {
+    final result = await _getJsonMap('/apis/autoscaling/v2/');
     return apimachinery_pkg_apis_meta_v1.APIResourceList.fromJson(result);
   }
 
@@ -14659,8 +14858,8 @@ class KubernetesClient {
   /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
   ///
   /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  Future<api_autoscaling_v2beta1.HorizontalPodAutoscalerList>
-      listAutoscalingV2beta1HorizontalPodAutoscalerForAllNamespaces({
+  Future<api_autoscaling_v2.HorizontalPodAutoscalerList>
+      listAutoscalingV2HorizontalPodAutoscalerForAllNamespaces({
     bool? allowWatchBookmarks,
     String? $continue,
     String? fieldSelector,
@@ -14708,8 +14907,8 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _getJsonMap(
-        '/apis/autoscaling/v2beta1/horizontalpodautoscalers$query');
-    return api_autoscaling_v2beta1.HorizontalPodAutoscalerList.fromJson(result);
+        '/apis/autoscaling/v2/horizontalpodautoscalers$query');
+    return api_autoscaling_v2.HorizontalPodAutoscalerList.fromJson(result);
   }
 
   /// List or watch objects of kind HorizontalPodAutoscaler.
@@ -14717,8 +14916,8 @@ class KubernetesClient {
   /// [namespace] Object name and auth scope, such as for teams and projects.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<api_autoscaling_v2beta1.HorizontalPodAutoscalerList>
-      listAutoscalingV2beta1NamespacedHorizontalPodAutoscaler({
+  Future<api_autoscaling_v2.HorizontalPodAutoscalerList>
+      listAutoscalingV2NamespacedHorizontalPodAutoscaler({
     required String namespace,
     bool? pretty,
   }) async {
@@ -14731,8 +14930,8 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _getJsonMap(
-        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers$query');
-    return api_autoscaling_v2beta1.HorizontalPodAutoscalerList.fromJson(result);
+        '/apis/autoscaling/v2/namespaces/$namespace/horizontalpodautoscalers$query');
+    return api_autoscaling_v2.HorizontalPodAutoscalerList.fromJson(result);
   }
 
   /// Delete collection of HorizontalPodAutoscaler.
@@ -14741,7 +14940,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<apimachinery_pkg_apis_meta_v1.Status>
-      deleteAutoscalingV2beta1CollectionNamespacedHorizontalPodAutoscaler({
+      deleteAutoscalingV2CollectionNamespacedHorizontalPodAutoscaler({
     required String namespace,
     bool? pretty,
   }) async {
@@ -14754,7 +14953,7 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _deleteJsonMap(
-        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers$query');
+        '/apis/autoscaling/v2/namespaces/$namespace/horizontalpodautoscalers$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -14763,9 +14962,9 @@ class KubernetesClient {
   /// [namespace] Object name and auth scope, such as for teams and projects.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<api_autoscaling_v2beta1.HorizontalPodAutoscaler>
-      createAutoscalingV2beta1NamespacedHorizontalPodAutoscaler({
-    required api_autoscaling_v2beta1.HorizontalPodAutoscaler body,
+  Future<api_autoscaling_v2.HorizontalPodAutoscaler>
+      createAutoscalingV2NamespacedHorizontalPodAutoscaler({
+    required api_autoscaling_v2.HorizontalPodAutoscaler body,
     required String namespace,
     bool? pretty,
   }) async {
@@ -14779,9 +14978,9 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _postJsonMap(
-        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers$query',
+        '/apis/autoscaling/v2/namespaces/$namespace/horizontalpodautoscalers$query',
         jsonBody);
-    return api_autoscaling_v2beta1.HorizontalPodAutoscaler.fromJson(result);
+    return api_autoscaling_v2.HorizontalPodAutoscaler.fromJson(result);
   }
 
   /// Read the specified HorizontalPodAutoscaler.
@@ -14791,8 +14990,8 @@ class KubernetesClient {
   /// [namespace] Object name and auth scope, such as for teams and projects.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<api_autoscaling_v2beta1.HorizontalPodAutoscaler>
-      readAutoscalingV2beta1NamespacedHorizontalPodAutoscaler({
+  Future<api_autoscaling_v2.HorizontalPodAutoscaler>
+      readAutoscalingV2NamespacedHorizontalPodAutoscaler({
     required String name,
     required String namespace,
     bool? pretty,
@@ -14806,8 +15005,8 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _getJsonMap(
-        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name$query');
-    return api_autoscaling_v2beta1.HorizontalPodAutoscaler.fromJson(result);
+        '/apis/autoscaling/v2/namespaces/$namespace/horizontalpodautoscalers/$name$query');
+    return api_autoscaling_v2.HorizontalPodAutoscaler.fromJson(result);
   }
 
   /// Delete a HorizontalPodAutoscaler.
@@ -14818,7 +15017,7 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<apimachinery_pkg_apis_meta_v1.Status>
-      deleteAutoscalingV2beta1NamespacedHorizontalPodAutoscaler({
+      deleteAutoscalingV2NamespacedHorizontalPodAutoscaler({
     required String name,
     required String namespace,
     bool? pretty,
@@ -14832,7 +15031,7 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _deleteJsonMap(
-        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name$query');
+        '/apis/autoscaling/v2/namespaces/$namespace/horizontalpodautoscalers/$name$query');
     return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
   }
 
@@ -14843,9 +15042,9 @@ class KubernetesClient {
   /// [namespace] Object name and auth scope, such as for teams and projects.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<api_autoscaling_v2beta1.HorizontalPodAutoscaler>
-      replaceAutoscalingV2beta1NamespacedHorizontalPodAutoscaler({
-    required api_autoscaling_v2beta1.HorizontalPodAutoscaler body,
+  Future<api_autoscaling_v2.HorizontalPodAutoscaler>
+      replaceAutoscalingV2NamespacedHorizontalPodAutoscaler({
+    required api_autoscaling_v2.HorizontalPodAutoscaler body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -14860,9 +15059,9 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name$query',
+        '/apis/autoscaling/v2/namespaces/$namespace/horizontalpodautoscalers/$name$query',
         jsonBody);
-    return api_autoscaling_v2beta1.HorizontalPodAutoscaler.fromJson(result);
+    return api_autoscaling_v2.HorizontalPodAutoscaler.fromJson(result);
   }
 
   /// Partially update the specified HorizontalPodAutoscaler.
@@ -14872,12 +15071,13 @@ class KubernetesClient {
   /// [namespace] Object name and auth scope, such as for teams and projects.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<api_autoscaling_v2beta1.HorizontalPodAutoscaler>
-      patchAutoscalingV2beta1NamespacedHorizontalPodAutoscaler({
-    required api_autoscaling_v2beta1.HorizontalPodAutoscaler body,
+  Future<api_autoscaling_v2.HorizontalPodAutoscaler>
+      patchAutoscalingV2NamespacedHorizontalPodAutoscaler({
+    required api_autoscaling_v2.HorizontalPodAutoscaler body,
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -14889,9 +15089,10 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name$query',
-        jsonBody);
-    return api_autoscaling_v2beta1.HorizontalPodAutoscaler.fromJson(result);
+        '/apis/autoscaling/v2/namespaces/$namespace/horizontalpodautoscalers/$name$query',
+        jsonBody,
+        patchType);
+    return api_autoscaling_v2.HorizontalPodAutoscaler.fromJson(result);
   }
 
   /// Read status of the specified HorizontalPodAutoscaler.
@@ -14901,8 +15102,8 @@ class KubernetesClient {
   /// [namespace] Object name and auth scope, such as for teams and projects.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<api_autoscaling_v2beta1.HorizontalPodAutoscaler>
-      readAutoscalingV2beta1NamespacedHorizontalPodAutoscalerStatus({
+  Future<api_autoscaling_v2.HorizontalPodAutoscaler>
+      readAutoscalingV2NamespacedHorizontalPodAutoscalerStatus({
     required String name,
     required String namespace,
     bool? pretty,
@@ -14916,8 +15117,8 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _getJsonMap(
-        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name/status$query');
-    return api_autoscaling_v2beta1.HorizontalPodAutoscaler.fromJson(result);
+        '/apis/autoscaling/v2/namespaces/$namespace/horizontalpodautoscalers/$name/status$query');
+    return api_autoscaling_v2.HorizontalPodAutoscaler.fromJson(result);
   }
 
   /// Replace status of the specified HorizontalPodAutoscaler.
@@ -14927,9 +15128,9 @@ class KubernetesClient {
   /// [namespace] Object name and auth scope, such as for teams and projects.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<api_autoscaling_v2beta1.HorizontalPodAutoscaler>
-      replaceAutoscalingV2beta1NamespacedHorizontalPodAutoscalerStatus({
-    required api_autoscaling_v2beta1.HorizontalPodAutoscaler body,
+  Future<api_autoscaling_v2.HorizontalPodAutoscaler>
+      replaceAutoscalingV2NamespacedHorizontalPodAutoscalerStatus({
+    required api_autoscaling_v2.HorizontalPodAutoscaler body,
     required String name,
     required String namespace,
     bool? pretty,
@@ -14944,9 +15145,9 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _putJsonMap(
-        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name/status$query',
+        '/apis/autoscaling/v2/namespaces/$namespace/horizontalpodautoscalers/$name/status$query',
         jsonBody);
-    return api_autoscaling_v2beta1.HorizontalPodAutoscaler.fromJson(result);
+    return api_autoscaling_v2.HorizontalPodAutoscaler.fromJson(result);
   }
 
   /// Partially update status of the specified HorizontalPodAutoscaler.
@@ -14956,12 +15157,13 @@ class KubernetesClient {
   /// [namespace] Object name and auth scope, such as for teams and projects.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<api_autoscaling_v2beta1.HorizontalPodAutoscaler>
-      patchAutoscalingV2beta1NamespacedHorizontalPodAutoscalerStatus({
-    required api_autoscaling_v2beta1.HorizontalPodAutoscaler body,
+  Future<api_autoscaling_v2.HorizontalPodAutoscaler>
+      patchAutoscalingV2NamespacedHorizontalPodAutoscalerStatus({
+    required api_autoscaling_v2.HorizontalPodAutoscaler body,
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -14973,9 +15175,10 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/autoscaling/v2beta1/namespaces/$namespace/horizontalpodautoscalers/$name/status$query',
-        jsonBody);
-    return api_autoscaling_v2beta1.HorizontalPodAutoscaler.fromJson(result);
+        '/apis/autoscaling/v2/namespaces/$namespace/horizontalpodautoscalers/$name/status$query',
+        jsonBody,
+        patchType);
+    return api_autoscaling_v2.HorizontalPodAutoscaler.fromJson(result);
   }
 
   /// Watch individual changes to a list of HorizontalPodAutoscaler.
@@ -15001,7 +15204,7 @@ class KubernetesClient {
   /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
   @Deprecated('Use the \'watch\' parameter with a list operation instead.')
   Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchAutoscalingV2beta1HorizontalPodAutoscalerListForAllNamespaces({
+      watchAutoscalingV2HorizontalPodAutoscalerListForAllNamespaces({
     bool? allowWatchBookmarks,
     String? $continue,
     String? fieldSelector,
@@ -15049,7 +15252,7 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _getJsonMap(
-        '/apis/autoscaling/v2beta1/watch/horizontalpodautoscalers$query');
+        '/apis/autoscaling/v2/watch/horizontalpodautoscalers$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -15078,7 +15281,7 @@ class KubernetesClient {
   /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
   @Deprecated('Use the \'watch\' parameter with a list operation instead.')
   Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchAutoscalingV2beta1NamespacedHorizontalPodAutoscalerList({
+      watchAutoscalingV2NamespacedHorizontalPodAutoscalerList({
     bool? allowWatchBookmarks,
     String? $continue,
     String? fieldSelector,
@@ -15127,7 +15330,7 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _getJsonMap(
-        '/apis/autoscaling/v2beta1/watch/namespaces/$namespace/horizontalpodautoscalers$query');
+        '/apis/autoscaling/v2/watch/namespaces/$namespace/horizontalpodautoscalers$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -15158,7 +15361,7 @@ class KubernetesClient {
   /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
   @Deprecated('Use the \'watch\' parameter with a list operation instead.')
   Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchAutoscalingV2beta1NamespacedHorizontalPodAutoscaler({
+      watchAutoscalingV2NamespacedHorizontalPodAutoscaler({
     bool? allowWatchBookmarks,
     String? $continue,
     String? fieldSelector,
@@ -15208,7 +15411,7 @@ class KubernetesClient {
         queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
 
     final result = await _getJsonMap(
-        '/apis/autoscaling/v2beta1/watch/namespaces/$namespace/horizontalpodautoscalers/$name$query');
+        '/apis/autoscaling/v2/watch/namespaces/$namespace/horizontalpodautoscalers/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -15459,6 +15662,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -15471,7 +15675,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers/$name$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_autoscaling_v2beta2.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -15543,6 +15748,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -15555,7 +15761,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/autoscaling/v2beta2/namespaces/$namespace/horizontalpodautoscalers/$name/status$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_autoscaling_v2beta2.HorizontalPodAutoscaler.fromJson(result);
   }
 
@@ -16108,6 +16315,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -16119,7 +16327,9 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/cronjobs/$name$query', jsonBody);
+        '/apis/batch/v1/namespaces/$namespace/cronjobs/$name$query',
+        jsonBody,
+        patchType);
     return api_batch_v1.CronJob.fromJson(result);
   }
 
@@ -16188,6 +16398,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -16200,7 +16411,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/batch/v1/namespaces/$namespace/cronjobs/$name/status$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_batch_v1.CronJob.fromJson(result);
   }
 
@@ -16362,6 +16574,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -16373,7 +16586,9 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/batch/v1/namespaces/$namespace/jobs/$name$query', jsonBody);
+        '/apis/batch/v1/namespaces/$namespace/jobs/$name$query',
+        jsonBody,
+        patchType);
     return api_batch_v1.Job.fromJson(result);
   }
 
@@ -16442,6 +16657,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -16454,7 +16670,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/batch/v1/namespaces/$namespace/jobs/$name/status$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_batch_v1.Job.fromJson(result);
   }
 
@@ -16923,577 +17140,6 @@ class KubernetesClient {
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
-  /// Get available resources.
-  Future<apimachinery_pkg_apis_meta_v1.APIResourceList>
-      getBatchV1beta1APIResources() async {
-    final result = await _getJsonMap('/apis/batch/v1beta1/');
-    return apimachinery_pkg_apis_meta_v1.APIResourceList.fromJson(result);
-  }
-
-  /// List or watch objects of kind CronJob.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  Future<api_batch_v1beta1.CronJobList>
-      listBatchV1beta1CronJobForAllNamespaces({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap('/apis/batch/v1beta1/cronjobs$query');
-    return api_batch_v1beta1.CronJobList.fromJson(result);
-  }
-
-  /// List or watch objects of kind CronJob.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_batch_v1beta1.CronJobList> listBatchV1beta1NamespacedCronJob({
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs$query');
-    return api_batch_v1beta1.CronJobList.fromJson(result);
-  }
-
-  /// Delete collection of CronJob.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status>
-      deleteBatchV1beta1CollectionNamespacedCronJob({
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _deleteJsonMap(
-        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
-  }
-
-  /// Create a CronJob.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_batch_v1beta1.CronJob> createBatchV1beta1NamespacedCronJob({
-    required api_batch_v1beta1.CronJob body,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _postJsonMap(
-        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs$query', jsonBody);
-    return api_batch_v1beta1.CronJob.fromJson(result);
-  }
-
-  /// Read the specified CronJob.
-  ///
-  /// [name] Name of the CronJob.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_batch_v1beta1.CronJob> readBatchV1beta1NamespacedCronJob({
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name$query');
-    return api_batch_v1beta1.CronJob.fromJson(result);
-  }
-
-  /// Delete a CronJob.
-  ///
-  /// [name] Name of the CronJob.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status>
-      deleteBatchV1beta1NamespacedCronJob({
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _deleteJsonMap(
-        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
-  }
-
-  /// Replace the specified CronJob.
-  ///
-  /// [name] Name of the CronJob.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_batch_v1beta1.CronJob> replaceBatchV1beta1NamespacedCronJob({
-    required api_batch_v1beta1.CronJob body,
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _putJsonMap(
-        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name$query',
-        jsonBody);
-    return api_batch_v1beta1.CronJob.fromJson(result);
-  }
-
-  /// Partially update the specified CronJob.
-  ///
-  /// [name] Name of the CronJob.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_batch_v1beta1.CronJob> patchBatchV1beta1NamespacedCronJob({
-    required api_batch_v1beta1.CronJob body,
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _patchJsonMap(
-        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name$query',
-        jsonBody);
-    return api_batch_v1beta1.CronJob.fromJson(result);
-  }
-
-  /// Read status of the specified CronJob.
-  ///
-  /// [name] Name of the CronJob.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_batch_v1beta1.CronJob> readBatchV1beta1NamespacedCronJobStatus({
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name/status$query');
-    return api_batch_v1beta1.CronJob.fromJson(result);
-  }
-
-  /// Replace status of the specified CronJob.
-  ///
-  /// [name] Name of the CronJob.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_batch_v1beta1.CronJob> replaceBatchV1beta1NamespacedCronJobStatus({
-    required api_batch_v1beta1.CronJob body,
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _putJsonMap(
-        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name/status$query',
-        jsonBody);
-    return api_batch_v1beta1.CronJob.fromJson(result);
-  }
-
-  /// Partially update status of the specified CronJob.
-  ///
-  /// [name] Name of the CronJob.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_batch_v1beta1.CronJob> patchBatchV1beta1NamespacedCronJobStatus({
-    required api_batch_v1beta1.CronJob body,
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _patchJsonMap(
-        '/apis/batch/v1beta1/namespaces/$namespace/cronjobs/$name/status$query',
-        jsonBody);
-    return api_batch_v1beta1.CronJob.fromJson(result);
-  }
-
-  /// Watch individual changes to a list of CronJob.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchBatchV1beta1CronJobListForAllNamespaces({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result =
-        await _getJsonMap('/apis/batch/v1beta1/watch/cronjobs$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Watch individual changes to a list of CronJob.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchBatchV1beta1NamespacedCronJobList({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    required String namespace,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/batch/v1beta1/watch/namespaces/$namespace/cronjobs$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Watch changes to an object of kind CronJob. Filtered to a single item with the 'fieldSelector' parameter.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [name] Name of the CronJob.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchBatchV1beta1NamespacedCronJob({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    required String name,
-    required String namespace,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/batch/v1beta1/watch/namespaces/$namespace/cronjobs/$name$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
   /// Get information of a group.
   Future<apimachinery_pkg_apis_meta_v1.APIGroup>
       getCertificatesAPIGroup() async {
@@ -17653,6 +17299,7 @@ class KubernetesClient {
     required api_certificates_v1.CertificateSigningRequest body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -17665,7 +17312,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_certificates_v1.CertificateSigningRequest.fromJson(result);
   }
 
@@ -17728,6 +17376,7 @@ class KubernetesClient {
     required api_certificates_v1.CertificateSigningRequest body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -17740,7 +17389,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name/approval$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_certificates_v1.CertificateSigningRequest.fromJson(result);
   }
 
@@ -17803,6 +17453,7 @@ class KubernetesClient {
     required api_certificates_v1.CertificateSigningRequest body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -17815,7 +17466,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/certificates.k8s.io/v1/certificatesigningrequests/$name/status$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_certificates_v1.CertificateSigningRequest.fromJson(result);
   }
 
@@ -18221,6 +17873,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -18233,7 +17886,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/coordination.k8s.io/v1/namespaces/$namespace/leases/$name$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_coordination_v1.Lease.fromJson(result);
   }
 
@@ -18724,6 +18378,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -18736,7 +18391,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/discovery.k8s.io/v1/namespaces/$namespace/endpointslices/$name$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_discovery_v1.EndpointSlice.fromJson(result);
   }
 
@@ -18971,503 +18627,6 @@ class KubernetesClient {
 
     final result = await _getJsonMap(
         '/apis/discovery.k8s.io/v1/watch/namespaces/$namespace/endpointslices/$name$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Get available resources.
-  Future<apimachinery_pkg_apis_meta_v1.APIResourceList>
-      getDiscoveryV1beta1APIResources() async {
-    final result = await _getJsonMap('/apis/discovery.k8s.io/v1beta1/');
-    return apimachinery_pkg_apis_meta_v1.APIResourceList.fromJson(result);
-  }
-
-  /// List or watch objects of kind EndpointSlice.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  Future<api_discovery_v1beta1.EndpointSliceList>
-      listDiscoveryV1beta1EndpointSliceForAllNamespaces({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/discovery.k8s.io/v1beta1/endpointslices$query');
-    return api_discovery_v1beta1.EndpointSliceList.fromJson(result);
-  }
-
-  /// List or watch objects of kind EndpointSlice.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_discovery_v1beta1.EndpointSliceList>
-      listDiscoveryV1beta1NamespacedEndpointSlice({
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices$query');
-    return api_discovery_v1beta1.EndpointSliceList.fromJson(result);
-  }
-
-  /// Delete collection of EndpointSlice.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status>
-      deleteDiscoveryV1beta1CollectionNamespacedEndpointSlice({
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _deleteJsonMap(
-        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
-  }
-
-  /// Create an EndpointSlice.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_discovery_v1beta1.EndpointSlice>
-      createDiscoveryV1beta1NamespacedEndpointSlice({
-    required api_discovery_v1beta1.EndpointSlice body,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _postJsonMap(
-        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices$query',
-        jsonBody);
-    return api_discovery_v1beta1.EndpointSlice.fromJson(result);
-  }
-
-  /// Read the specified EndpointSlice.
-  ///
-  /// [name] Name of the EndpointSlice.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_discovery_v1beta1.EndpointSlice>
-      readDiscoveryV1beta1NamespacedEndpointSlice({
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices/$name$query');
-    return api_discovery_v1beta1.EndpointSlice.fromJson(result);
-  }
-
-  /// Delete an EndpointSlice.
-  ///
-  /// [name] Name of the EndpointSlice.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status>
-      deleteDiscoveryV1beta1NamespacedEndpointSlice({
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _deleteJsonMap(
-        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices/$name$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
-  }
-
-  /// Replace the specified EndpointSlice.
-  ///
-  /// [name] Name of the EndpointSlice.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_discovery_v1beta1.EndpointSlice>
-      replaceDiscoveryV1beta1NamespacedEndpointSlice({
-    required api_discovery_v1beta1.EndpointSlice body,
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _putJsonMap(
-        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices/$name$query',
-        jsonBody);
-    return api_discovery_v1beta1.EndpointSlice.fromJson(result);
-  }
-
-  /// Partially update the specified EndpointSlice.
-  ///
-  /// [name] Name of the EndpointSlice.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_discovery_v1beta1.EndpointSlice>
-      patchDiscoveryV1beta1NamespacedEndpointSlice({
-    required api_discovery_v1beta1.EndpointSlice body,
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _patchJsonMap(
-        '/apis/discovery.k8s.io/v1beta1/namespaces/$namespace/endpointslices/$name$query',
-        jsonBody);
-    return api_discovery_v1beta1.EndpointSlice.fromJson(result);
-  }
-
-  /// Watch individual changes to a list of EndpointSlice.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchDiscoveryV1beta1EndpointSliceListForAllNamespaces({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/discovery.k8s.io/v1beta1/watch/endpointslices$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Watch individual changes to a list of EndpointSlice.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchDiscoveryV1beta1NamespacedEndpointSliceList({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    required String namespace,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/discovery.k8s.io/v1beta1/watch/namespaces/$namespace/endpointslices$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Watch changes to an object of kind EndpointSlice. Filtered to a single item with the 'fieldSelector' parameter.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [name] Name of the EndpointSlice.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchDiscoveryV1beta1NamespacedEndpointSlice({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    required String name,
-    required String namespace,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/discovery.k8s.io/v1beta1/watch/namespaces/$namespace/endpointslices/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -19715,6 +18874,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -19727,7 +18887,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/events.k8s.io/v1/namespaces/$namespace/events/$name$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_events_v1.Event.fromJson(result);
   }
 
@@ -19965,497 +19126,6 @@ class KubernetesClient {
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
-  /// Get available resources.
-  Future<apimachinery_pkg_apis_meta_v1.APIResourceList>
-      getEventsV1beta1APIResources() async {
-    final result = await _getJsonMap('/apis/events.k8s.io/v1beta1/');
-    return apimachinery_pkg_apis_meta_v1.APIResourceList.fromJson(result);
-  }
-
-  /// List or watch objects of kind Event.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  Future<api_events_v1beta1.EventList> listEventsV1beta1EventForAllNamespaces({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result =
-        await _getJsonMap('/apis/events.k8s.io/v1beta1/events$query');
-    return api_events_v1beta1.EventList.fromJson(result);
-  }
-
-  /// List or watch objects of kind Event.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_events_v1beta1.EventList> listEventsV1beta1NamespacedEvent({
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events$query');
-    return api_events_v1beta1.EventList.fromJson(result);
-  }
-
-  /// Delete collection of Event.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status>
-      deleteEventsV1beta1CollectionNamespacedEvent({
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _deleteJsonMap(
-        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
-  }
-
-  /// Create an Event.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_events_v1beta1.Event> createEventsV1beta1NamespacedEvent({
-    required api_events_v1beta1.Event body,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _postJsonMap(
-        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events$query',
-        jsonBody);
-    return api_events_v1beta1.Event.fromJson(result);
-  }
-
-  /// Read the specified Event.
-  ///
-  /// [name] Name of the Event.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_events_v1beta1.Event> readEventsV1beta1NamespacedEvent({
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events/$name$query');
-    return api_events_v1beta1.Event.fromJson(result);
-  }
-
-  /// Delete an Event.
-  ///
-  /// [name] Name of the Event.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status>
-      deleteEventsV1beta1NamespacedEvent({
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _deleteJsonMap(
-        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events/$name$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
-  }
-
-  /// Replace the specified Event.
-  ///
-  /// [name] Name of the Event.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_events_v1beta1.Event> replaceEventsV1beta1NamespacedEvent({
-    required api_events_v1beta1.Event body,
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _putJsonMap(
-        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events/$name$query',
-        jsonBody);
-    return api_events_v1beta1.Event.fromJson(result);
-  }
-
-  /// Partially update the specified Event.
-  ///
-  /// [name] Name of the Event.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_events_v1beta1.Event> patchEventsV1beta1NamespacedEvent({
-    required api_events_v1beta1.Event body,
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _patchJsonMap(
-        '/apis/events.k8s.io/v1beta1/namespaces/$namespace/events/$name$query',
-        jsonBody);
-    return api_events_v1beta1.Event.fromJson(result);
-  }
-
-  /// Watch individual changes to a list of Event.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchEventsV1beta1EventListForAllNamespaces({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result =
-        await _getJsonMap('/apis/events.k8s.io/v1beta1/watch/events$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Watch individual changes to a list of Event.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchEventsV1beta1NamespacedEventList({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    required String namespace,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/events.k8s.io/v1beta1/watch/namespaces/$namespace/events$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Watch changes to an object of kind Event. Filtered to a single item with the 'fieldSelector' parameter.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [name] Name of the Event.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchEventsV1beta1NamespacedEvent({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    required String name,
-    required String namespace,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/events.k8s.io/v1beta1/watch/namespaces/$namespace/events/$name$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
   /// Get information of a group.
   Future<apimachinery_pkg_apis_meta_v1.APIGroup>
       getFlowcontrolApiserverAPIGroup() async {
@@ -20616,6 +19286,7 @@ class KubernetesClient {
     required api_flowcontrol_v1beta1.FlowSchema body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -20628,7 +19299,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_flowcontrol_v1beta1.FlowSchema.fromJson(result);
   }
 
@@ -20691,6 +19363,7 @@ class KubernetesClient {
     required api_flowcontrol_v1beta1.FlowSchema body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -20703,7 +19376,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name/status$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_flowcontrol_v1beta1.FlowSchema.fromJson(result);
   }
 
@@ -20853,6 +19527,7 @@ class KubernetesClient {
     required api_flowcontrol_v1beta1.PriorityLevelConfiguration body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -20865,7 +19540,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_flowcontrol_v1beta1.PriorityLevelConfiguration.fromJson(result);
   }
 
@@ -20928,6 +19604,7 @@ class KubernetesClient {
     required api_flowcontrol_v1beta1.PriorityLevelConfiguration body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -20940,7 +19617,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name/status$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_flowcontrol_v1beta1.PriorityLevelConfiguration.fromJson(result);
   }
 
@@ -21250,6 +19928,801 @@ class KubernetesClient {
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
+  /// Get available resources.
+  Future<apimachinery_pkg_apis_meta_v1.APIResourceList>
+      getFlowcontrolApiserverV1beta2APIResources() async {
+    final result =
+        await _getJsonMap('/apis/flowcontrol.apiserver.k8s.io/v1beta2/');
+    return apimachinery_pkg_apis_meta_v1.APIResourceList.fromJson(result);
+  }
+
+  /// List or watch objects of kind FlowSchema.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<api_flowcontrol_v1beta2.FlowSchemaList>
+      listFlowcontrolApiserverV1beta2FlowSchema({
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap(
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas$query');
+    return api_flowcontrol_v1beta2.FlowSchemaList.fromJson(result);
+  }
+
+  /// Delete collection of FlowSchema.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<apimachinery_pkg_apis_meta_v1.Status>
+      deleteFlowcontrolApiserverV1beta2CollectionFlowSchema({
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _deleteJsonMap(
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas$query');
+    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
+  }
+
+  /// Create a FlowSchema.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<api_flowcontrol_v1beta2.FlowSchema>
+      createFlowcontrolApiserverV1beta2FlowSchema({
+    required api_flowcontrol_v1beta2.FlowSchema body,
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _postJsonMap(
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas$query',
+        jsonBody);
+    return api_flowcontrol_v1beta2.FlowSchema.fromJson(result);
+  }
+
+  /// Read the specified FlowSchema.
+  ///
+  /// [name] Name of the FlowSchema.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<api_flowcontrol_v1beta2.FlowSchema>
+      readFlowcontrolApiserverV1beta2FlowSchema({
+    required String name,
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap(
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/$name$query');
+    return api_flowcontrol_v1beta2.FlowSchema.fromJson(result);
+  }
+
+  /// Delete a FlowSchema.
+  ///
+  /// [name] Name of the FlowSchema.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<apimachinery_pkg_apis_meta_v1.Status>
+      deleteFlowcontrolApiserverV1beta2FlowSchema({
+    required String name,
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _deleteJsonMap(
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/$name$query');
+    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
+  }
+
+  /// Replace the specified FlowSchema.
+  ///
+  /// [name] Name of the FlowSchema.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<api_flowcontrol_v1beta2.FlowSchema>
+      replaceFlowcontrolApiserverV1beta2FlowSchema({
+    required api_flowcontrol_v1beta2.FlowSchema body,
+    required String name,
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _putJsonMap(
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/$name$query',
+        jsonBody);
+    return api_flowcontrol_v1beta2.FlowSchema.fromJson(result);
+  }
+
+  /// Partially update the specified FlowSchema.
+  ///
+  /// [name] Name of the FlowSchema.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<api_flowcontrol_v1beta2.FlowSchema>
+      patchFlowcontrolApiserverV1beta2FlowSchema({
+    required api_flowcontrol_v1beta2.FlowSchema body,
+    required String name,
+    bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _patchJsonMap(
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/$name$query',
+        jsonBody,
+        patchType);
+    return api_flowcontrol_v1beta2.FlowSchema.fromJson(result);
+  }
+
+  /// Read status of the specified FlowSchema.
+  ///
+  /// [name] Name of the FlowSchema.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<api_flowcontrol_v1beta2.FlowSchema>
+      readFlowcontrolApiserverV1beta2FlowSchemaStatus({
+    required String name,
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap(
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/$name/status$query');
+    return api_flowcontrol_v1beta2.FlowSchema.fromJson(result);
+  }
+
+  /// Replace status of the specified FlowSchema.
+  ///
+  /// [name] Name of the FlowSchema.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<api_flowcontrol_v1beta2.FlowSchema>
+      replaceFlowcontrolApiserverV1beta2FlowSchemaStatus({
+    required api_flowcontrol_v1beta2.FlowSchema body,
+    required String name,
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _putJsonMap(
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/$name/status$query',
+        jsonBody);
+    return api_flowcontrol_v1beta2.FlowSchema.fromJson(result);
+  }
+
+  /// Partially update status of the specified FlowSchema.
+  ///
+  /// [name] Name of the FlowSchema.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<api_flowcontrol_v1beta2.FlowSchema>
+      patchFlowcontrolApiserverV1beta2FlowSchemaStatus({
+    required api_flowcontrol_v1beta2.FlowSchema body,
+    required String name,
+    bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _patchJsonMap(
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/$name/status$query',
+        jsonBody,
+        patchType);
+    return api_flowcontrol_v1beta2.FlowSchema.fromJson(result);
+  }
+
+  /// List or watch objects of kind PriorityLevelConfiguration.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<api_flowcontrol_v1beta2.PriorityLevelConfigurationList>
+      listFlowcontrolApiserverV1beta2PriorityLevelConfiguration({
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap(
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations$query');
+    return api_flowcontrol_v1beta2.PriorityLevelConfigurationList.fromJson(
+        result);
+  }
+
+  /// Delete collection of PriorityLevelConfiguration.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<apimachinery_pkg_apis_meta_v1.Status>
+      deleteFlowcontrolApiserverV1beta2CollectionPriorityLevelConfiguration({
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _deleteJsonMap(
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations$query');
+    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
+  }
+
+  /// Create a PriorityLevelConfiguration.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<api_flowcontrol_v1beta2.PriorityLevelConfiguration>
+      createFlowcontrolApiserverV1beta2PriorityLevelConfiguration({
+    required api_flowcontrol_v1beta2.PriorityLevelConfiguration body,
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _postJsonMap(
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations$query',
+        jsonBody);
+    return api_flowcontrol_v1beta2.PriorityLevelConfiguration.fromJson(result);
+  }
+
+  /// Read the specified PriorityLevelConfiguration.
+  ///
+  /// [name] Name of the PriorityLevelConfiguration.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<api_flowcontrol_v1beta2.PriorityLevelConfiguration>
+      readFlowcontrolApiserverV1beta2PriorityLevelConfiguration({
+    required String name,
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap(
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/$name$query');
+    return api_flowcontrol_v1beta2.PriorityLevelConfiguration.fromJson(result);
+  }
+
+  /// Delete a PriorityLevelConfiguration.
+  ///
+  /// [name] Name of the PriorityLevelConfiguration.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<apimachinery_pkg_apis_meta_v1.Status>
+      deleteFlowcontrolApiserverV1beta2PriorityLevelConfiguration({
+    required String name,
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _deleteJsonMap(
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/$name$query');
+    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
+  }
+
+  /// Replace the specified PriorityLevelConfiguration.
+  ///
+  /// [name] Name of the PriorityLevelConfiguration.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<api_flowcontrol_v1beta2.PriorityLevelConfiguration>
+      replaceFlowcontrolApiserverV1beta2PriorityLevelConfiguration({
+    required api_flowcontrol_v1beta2.PriorityLevelConfiguration body,
+    required String name,
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _putJsonMap(
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/$name$query',
+        jsonBody);
+    return api_flowcontrol_v1beta2.PriorityLevelConfiguration.fromJson(result);
+  }
+
+  /// Partially update the specified PriorityLevelConfiguration.
+  ///
+  /// [name] Name of the PriorityLevelConfiguration.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<api_flowcontrol_v1beta2.PriorityLevelConfiguration>
+      patchFlowcontrolApiserverV1beta2PriorityLevelConfiguration({
+    required api_flowcontrol_v1beta2.PriorityLevelConfiguration body,
+    required String name,
+    bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _patchJsonMap(
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/$name$query',
+        jsonBody,
+        patchType);
+    return api_flowcontrol_v1beta2.PriorityLevelConfiguration.fromJson(result);
+  }
+
+  /// Read status of the specified PriorityLevelConfiguration.
+  ///
+  /// [name] Name of the PriorityLevelConfiguration.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<api_flowcontrol_v1beta2.PriorityLevelConfiguration>
+      readFlowcontrolApiserverV1beta2PriorityLevelConfigurationStatus({
+    required String name,
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap(
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/$name/status$query');
+    return api_flowcontrol_v1beta2.PriorityLevelConfiguration.fromJson(result);
+  }
+
+  /// Replace status of the specified PriorityLevelConfiguration.
+  ///
+  /// [name] Name of the PriorityLevelConfiguration.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<api_flowcontrol_v1beta2.PriorityLevelConfiguration>
+      replaceFlowcontrolApiserverV1beta2PriorityLevelConfigurationStatus({
+    required api_flowcontrol_v1beta2.PriorityLevelConfiguration body,
+    required String name,
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _putJsonMap(
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/$name/status$query',
+        jsonBody);
+    return api_flowcontrol_v1beta2.PriorityLevelConfiguration.fromJson(result);
+  }
+
+  /// Partially update status of the specified PriorityLevelConfiguration.
+  ///
+  /// [name] Name of the PriorityLevelConfiguration.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<api_flowcontrol_v1beta2.PriorityLevelConfiguration>
+      patchFlowcontrolApiserverV1beta2PriorityLevelConfigurationStatus({
+    required api_flowcontrol_v1beta2.PriorityLevelConfiguration body,
+    required String name,
+    bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _patchJsonMap(
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/$name/status$query',
+        jsonBody,
+        patchType);
+    return api_flowcontrol_v1beta2.PriorityLevelConfiguration.fromJson(result);
+  }
+
+  /// Watch individual changes to a list of FlowSchema.
+  ///
+  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
+  ///
+  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+  ///
+  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
+  ///
+  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
+  ///
+  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  ///
+  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
+  ///
+  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
+  ///
+  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
+  ///
+  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
+  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
+  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
+      watchFlowcontrolApiserverV1beta2FlowSchemaList({
+    bool? allowWatchBookmarks,
+    String? $continue,
+    String? fieldSelector,
+    String? labelSelector,
+    int? limit,
+    bool? pretty,
+    String? resourceVersion,
+    String? resourceVersionMatch,
+    int? timeoutSeconds,
+    bool? watch,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap(
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta2/watch/flowschemas$query');
+    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
+  }
+
+  /// Watch changes to an object of kind FlowSchema. Filtered to a single item with the 'fieldSelector' parameter.
+  ///
+  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
+  ///
+  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+  ///
+  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
+  ///
+  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
+  ///
+  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
+  ///
+  /// [name] Name of the FlowSchema.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  ///
+  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
+  ///
+  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
+  ///
+  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
+  ///
+  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
+  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
+  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
+      watchFlowcontrolApiserverV1beta2FlowSchema({
+    bool? allowWatchBookmarks,
+    String? $continue,
+    String? fieldSelector,
+    String? labelSelector,
+    int? limit,
+    required String name,
+    bool? pretty,
+    String? resourceVersion,
+    String? resourceVersionMatch,
+    int? timeoutSeconds,
+    bool? watch,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap(
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta2/watch/flowschemas/$name$query');
+    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
+  }
+
+  /// Watch individual changes to a list of PriorityLevelConfiguration.
+  ///
+  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
+  ///
+  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+  ///
+  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
+  ///
+  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
+  ///
+  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  ///
+  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
+  ///
+  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
+  ///
+  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
+  ///
+  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
+  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
+  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
+      watchFlowcontrolApiserverV1beta2PriorityLevelConfigurationList({
+    bool? allowWatchBookmarks,
+    String? $continue,
+    String? fieldSelector,
+    String? labelSelector,
+    int? limit,
+    bool? pretty,
+    String? resourceVersion,
+    String? resourceVersionMatch,
+    int? timeoutSeconds,
+    bool? watch,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap(
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta2/watch/prioritylevelconfigurations$query');
+    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
+  }
+
+  /// Watch changes to an object of kind PriorityLevelConfiguration. Filtered to a single item with the 'fieldSelector' parameter.
+  ///
+  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
+  ///
+  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+  ///
+  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
+  ///
+  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
+  ///
+  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
+  ///
+  /// [name] Name of the PriorityLevelConfiguration.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  ///
+  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
+  ///
+  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
+  ///
+  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
+  ///
+  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
+  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
+  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
+      watchFlowcontrolApiserverV1beta2PriorityLevelConfiguration({
+    bool? allowWatchBookmarks,
+    String? $continue,
+    String? fieldSelector,
+    String? labelSelector,
+    int? limit,
+    required String name,
+    bool? pretty,
+    String? resourceVersion,
+    String? resourceVersionMatch,
+    int? timeoutSeconds,
+    bool? watch,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap(
+        '/apis/flowcontrol.apiserver.k8s.io/v1beta2/watch/prioritylevelconfigurations/$name$query');
+    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
+  }
+
   /// Get information of a group.
   Future<apimachinery_pkg_apis_meta_v1.APIGroup>
       getInternalApiserverAPIGroup() async {
@@ -21410,6 +20883,7 @@ class KubernetesClient {
     required api_apiserverinternal_v1alpha1.StorageVersion body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -21422,7 +20896,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions/$name$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_apiserverinternal_v1alpha1.StorageVersion.fromJson(result);
   }
 
@@ -21485,6 +20960,7 @@ class KubernetesClient {
     required api_apiserverinternal_v1alpha1.StorageVersion body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -21497,7 +20973,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/internal.apiserver.k8s.io/v1alpha1/storageversions/$name/status$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_apiserverinternal_v1alpha1.StorageVersion.fromJson(result);
   }
 
@@ -21804,6 +21281,7 @@ class KubernetesClient {
     required api_networking_v1.IngressClass body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -21815,7 +21293,9 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/networking.k8s.io/v1/ingressclasses/$name$query', jsonBody);
+        '/apis/networking.k8s.io/v1/ingressclasses/$name$query',
+        jsonBody,
+        patchType);
     return api_networking_v1.IngressClass.fromJson(result);
   }
 
@@ -22054,6 +21534,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -22066,7 +21547,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses/$name$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_networking_v1.Ingress.fromJson(result);
   }
 
@@ -22135,6 +21617,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -22147,7 +21630,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/networking.k8s.io/v1/namespaces/$namespace/ingresses/$name/status$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_networking_v1.Ingress.fromJson(result);
   }
 
@@ -22317,6 +21801,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -22329,7 +21814,94 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/networking.k8s.io/v1/namespaces/$namespace/networkpolicies/$name$query',
+        jsonBody,
+        patchType);
+    return api_networking_v1.NetworkPolicy.fromJson(result);
+  }
+
+  /// Read status of the specified NetworkPolicy.
+  ///
+  /// [name] Name of the NetworkPolicy.
+  ///
+  /// [namespace] Object name and auth scope, such as for teams and projects.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<api_networking_v1.NetworkPolicy>
+      readNetworkingV1NamespacedNetworkPolicyStatus({
+    required String name,
+    required String namespace,
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap(
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/networkpolicies/$name/status$query');
+    return api_networking_v1.NetworkPolicy.fromJson(result);
+  }
+
+  /// Replace status of the specified NetworkPolicy.
+  ///
+  /// [name] Name of the NetworkPolicy.
+  ///
+  /// [namespace] Object name and auth scope, such as for teams and projects.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<api_networking_v1.NetworkPolicy>
+      replaceNetworkingV1NamespacedNetworkPolicyStatus({
+    required api_networking_v1.NetworkPolicy body,
+    required String name,
+    required String namespace,
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _putJsonMap(
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/networkpolicies/$name/status$query',
         jsonBody);
+    return api_networking_v1.NetworkPolicy.fromJson(result);
+  }
+
+  /// Partially update status of the specified NetworkPolicy.
+  ///
+  /// [name] Name of the NetworkPolicy.
+  ///
+  /// [namespace] Object name and auth scope, such as for teams and projects.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<api_networking_v1.NetworkPolicy>
+      patchNetworkingV1NamespacedNetworkPolicyStatus({
+    required api_networking_v1.NetworkPolicy body,
+    required String name,
+    required String namespace,
+    bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _patchJsonMap(
+        '/apis/networking.k8s.io/v1/namespaces/$namespace/networkpolicies/$name/status$query',
+        jsonBody,
+        patchType);
     return api_networking_v1.NetworkPolicy.fromJson(result);
   }
 
@@ -23178,6 +22750,7 @@ class KubernetesClient {
     required api_node_v1.RuntimeClass body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -23189,7 +22762,7 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/node.k8s.io/v1/runtimeclasses/$name$query', jsonBody);
+        '/apis/node.k8s.io/v1/runtimeclasses/$name$query', jsonBody, patchType);
     return api_node_v1.RuntimeClass.fromJson(result);
   }
 
@@ -23341,630 +22914,6 @@ class KubernetesClient {
 
     final result = await _getJsonMap(
         '/apis/node.k8s.io/v1/watch/runtimeclasses/$name$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Get available resources.
-  Future<apimachinery_pkg_apis_meta_v1.APIResourceList>
-      getNodeV1alpha1APIResources() async {
-    final result = await _getJsonMap('/apis/node.k8s.io/v1alpha1/');
-    return apimachinery_pkg_apis_meta_v1.APIResourceList.fromJson(result);
-  }
-
-  /// List or watch objects of kind RuntimeClass.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_node_v1alpha1.RuntimeClassList> listNodeV1alpha1RuntimeClass({
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result =
-        await _getJsonMap('/apis/node.k8s.io/v1alpha1/runtimeclasses$query');
-    return api_node_v1alpha1.RuntimeClassList.fromJson(result);
-  }
-
-  /// Delete collection of RuntimeClass.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status>
-      deleteNodeV1alpha1CollectionRuntimeClass({
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result =
-        await _deleteJsonMap('/apis/node.k8s.io/v1alpha1/runtimeclasses$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
-  }
-
-  /// Create a RuntimeClass.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_node_v1alpha1.RuntimeClass> createNodeV1alpha1RuntimeClass({
-    required api_node_v1alpha1.RuntimeClass body,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _postJsonMap(
-        '/apis/node.k8s.io/v1alpha1/runtimeclasses$query', jsonBody);
-    return api_node_v1alpha1.RuntimeClass.fromJson(result);
-  }
-
-  /// Read the specified RuntimeClass.
-  ///
-  /// [name] Name of the RuntimeClass.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_node_v1alpha1.RuntimeClass> readNodeV1alpha1RuntimeClass({
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/node.k8s.io/v1alpha1/runtimeclasses/$name$query');
-    return api_node_v1alpha1.RuntimeClass.fromJson(result);
-  }
-
-  /// Delete a RuntimeClass.
-  ///
-  /// [name] Name of the RuntimeClass.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status> deleteNodeV1alpha1RuntimeClass({
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _deleteJsonMap(
-        '/apis/node.k8s.io/v1alpha1/runtimeclasses/$name$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
-  }
-
-  /// Replace the specified RuntimeClass.
-  ///
-  /// [name] Name of the RuntimeClass.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_node_v1alpha1.RuntimeClass> replaceNodeV1alpha1RuntimeClass({
-    required api_node_v1alpha1.RuntimeClass body,
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _putJsonMap(
-        '/apis/node.k8s.io/v1alpha1/runtimeclasses/$name$query', jsonBody);
-    return api_node_v1alpha1.RuntimeClass.fromJson(result);
-  }
-
-  /// Partially update the specified RuntimeClass.
-  ///
-  /// [name] Name of the RuntimeClass.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_node_v1alpha1.RuntimeClass> patchNodeV1alpha1RuntimeClass({
-    required api_node_v1alpha1.RuntimeClass body,
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _patchJsonMap(
-        '/apis/node.k8s.io/v1alpha1/runtimeclasses/$name$query', jsonBody);
-    return api_node_v1alpha1.RuntimeClass.fromJson(result);
-  }
-
-  /// Watch individual changes to a list of RuntimeClass.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchNodeV1alpha1RuntimeClassList({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/node.k8s.io/v1alpha1/watch/runtimeclasses$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Watch changes to an object of kind RuntimeClass. Filtered to a single item with the 'fieldSelector' parameter.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [name] Name of the RuntimeClass.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchNodeV1alpha1RuntimeClass({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    required String name,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/node.k8s.io/v1alpha1/watch/runtimeclasses/$name$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Get available resources.
-  Future<apimachinery_pkg_apis_meta_v1.APIResourceList>
-      getNodeV1beta1APIResources() async {
-    final result = await _getJsonMap('/apis/node.k8s.io/v1beta1/');
-    return apimachinery_pkg_apis_meta_v1.APIResourceList.fromJson(result);
-  }
-
-  /// List or watch objects of kind RuntimeClass.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_node_v1beta1.RuntimeClassList> listNodeV1beta1RuntimeClass({
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result =
-        await _getJsonMap('/apis/node.k8s.io/v1beta1/runtimeclasses$query');
-    return api_node_v1beta1.RuntimeClassList.fromJson(result);
-  }
-
-  /// Delete collection of RuntimeClass.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status>
-      deleteNodeV1beta1CollectionRuntimeClass({
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result =
-        await _deleteJsonMap('/apis/node.k8s.io/v1beta1/runtimeclasses$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
-  }
-
-  /// Create a RuntimeClass.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_node_v1beta1.RuntimeClass> createNodeV1beta1RuntimeClass({
-    required api_node_v1beta1.RuntimeClass body,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _postJsonMap(
-        '/apis/node.k8s.io/v1beta1/runtimeclasses$query', jsonBody);
-    return api_node_v1beta1.RuntimeClass.fromJson(result);
-  }
-
-  /// Read the specified RuntimeClass.
-  ///
-  /// [name] Name of the RuntimeClass.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_node_v1beta1.RuntimeClass> readNodeV1beta1RuntimeClass({
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/node.k8s.io/v1beta1/runtimeclasses/$name$query');
-    return api_node_v1beta1.RuntimeClass.fromJson(result);
-  }
-
-  /// Delete a RuntimeClass.
-  ///
-  /// [name] Name of the RuntimeClass.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status> deleteNodeV1beta1RuntimeClass({
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _deleteJsonMap(
-        '/apis/node.k8s.io/v1beta1/runtimeclasses/$name$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
-  }
-
-  /// Replace the specified RuntimeClass.
-  ///
-  /// [name] Name of the RuntimeClass.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_node_v1beta1.RuntimeClass> replaceNodeV1beta1RuntimeClass({
-    required api_node_v1beta1.RuntimeClass body,
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _putJsonMap(
-        '/apis/node.k8s.io/v1beta1/runtimeclasses/$name$query', jsonBody);
-    return api_node_v1beta1.RuntimeClass.fromJson(result);
-  }
-
-  /// Partially update the specified RuntimeClass.
-  ///
-  /// [name] Name of the RuntimeClass.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_node_v1beta1.RuntimeClass> patchNodeV1beta1RuntimeClass({
-    required api_node_v1beta1.RuntimeClass body,
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _patchJsonMap(
-        '/apis/node.k8s.io/v1beta1/runtimeclasses/$name$query', jsonBody);
-    return api_node_v1beta1.RuntimeClass.fromJson(result);
-  }
-
-  /// Watch individual changes to a list of RuntimeClass.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchNodeV1beta1RuntimeClassList({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/node.k8s.io/v1beta1/watch/runtimeclasses$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Watch changes to an object of kind RuntimeClass. Filtered to a single item with the 'fieldSelector' parameter.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [name] Name of the RuntimeClass.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchNodeV1beta1RuntimeClass({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    required String name,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/node.k8s.io/v1beta1/watch/runtimeclasses/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -24147,6 +23096,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -24159,7 +23109,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets/$name$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_policy_v1.PodDisruptionBudget.fromJson(result);
   }
 
@@ -24231,6 +23182,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -24243,7 +23195,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/policy/v1/namespaces/$namespace/poddisruptionbudgets/$name/status$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_policy_v1.PodDisruptionBudget.fromJson(result);
   }
 
@@ -24555,898 +23508,6 @@ class KubernetesClient {
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
-  /// Get available resources.
-  Future<apimachinery_pkg_apis_meta_v1.APIResourceList>
-      getPolicyV1beta1APIResources() async {
-    final result = await _getJsonMap('/apis/policy/v1beta1/');
-    return apimachinery_pkg_apis_meta_v1.APIResourceList.fromJson(result);
-  }
-
-  /// List or watch objects of kind PodDisruptionBudget.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_policy_v1beta1.PodDisruptionBudgetList>
-      listPolicyV1beta1NamespacedPodDisruptionBudget({
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets$query');
-    return api_policy_v1beta1.PodDisruptionBudgetList.fromJson(result);
-  }
-
-  /// Delete collection of PodDisruptionBudget.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status>
-      deletePolicyV1beta1CollectionNamespacedPodDisruptionBudget({
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _deleteJsonMap(
-        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
-  }
-
-  /// Create a PodDisruptionBudget.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_policy_v1beta1.PodDisruptionBudget>
-      createPolicyV1beta1NamespacedPodDisruptionBudget({
-    required api_policy_v1beta1.PodDisruptionBudget body,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _postJsonMap(
-        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets$query',
-        jsonBody);
-    return api_policy_v1beta1.PodDisruptionBudget.fromJson(result);
-  }
-
-  /// Read the specified PodDisruptionBudget.
-  ///
-  /// [name] Name of the PodDisruptionBudget.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_policy_v1beta1.PodDisruptionBudget>
-      readPolicyV1beta1NamespacedPodDisruptionBudget({
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name$query');
-    return api_policy_v1beta1.PodDisruptionBudget.fromJson(result);
-  }
-
-  /// Delete a PodDisruptionBudget.
-  ///
-  /// [name] Name of the PodDisruptionBudget.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status>
-      deletePolicyV1beta1NamespacedPodDisruptionBudget({
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _deleteJsonMap(
-        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
-  }
-
-  /// Replace the specified PodDisruptionBudget.
-  ///
-  /// [name] Name of the PodDisruptionBudget.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_policy_v1beta1.PodDisruptionBudget>
-      replacePolicyV1beta1NamespacedPodDisruptionBudget({
-    required api_policy_v1beta1.PodDisruptionBudget body,
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _putJsonMap(
-        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name$query',
-        jsonBody);
-    return api_policy_v1beta1.PodDisruptionBudget.fromJson(result);
-  }
-
-  /// Partially update the specified PodDisruptionBudget.
-  ///
-  /// [name] Name of the PodDisruptionBudget.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_policy_v1beta1.PodDisruptionBudget>
-      patchPolicyV1beta1NamespacedPodDisruptionBudget({
-    required api_policy_v1beta1.PodDisruptionBudget body,
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _patchJsonMap(
-        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name$query',
-        jsonBody);
-    return api_policy_v1beta1.PodDisruptionBudget.fromJson(result);
-  }
-
-  /// Read status of the specified PodDisruptionBudget.
-  ///
-  /// [name] Name of the PodDisruptionBudget.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_policy_v1beta1.PodDisruptionBudget>
-      readPolicyV1beta1NamespacedPodDisruptionBudgetStatus({
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name/status$query');
-    return api_policy_v1beta1.PodDisruptionBudget.fromJson(result);
-  }
-
-  /// Replace status of the specified PodDisruptionBudget.
-  ///
-  /// [name] Name of the PodDisruptionBudget.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_policy_v1beta1.PodDisruptionBudget>
-      replacePolicyV1beta1NamespacedPodDisruptionBudgetStatus({
-    required api_policy_v1beta1.PodDisruptionBudget body,
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _putJsonMap(
-        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name/status$query',
-        jsonBody);
-    return api_policy_v1beta1.PodDisruptionBudget.fromJson(result);
-  }
-
-  /// Partially update status of the specified PodDisruptionBudget.
-  ///
-  /// [name] Name of the PodDisruptionBudget.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_policy_v1beta1.PodDisruptionBudget>
-      patchPolicyV1beta1NamespacedPodDisruptionBudgetStatus({
-    required api_policy_v1beta1.PodDisruptionBudget body,
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _patchJsonMap(
-        '/apis/policy/v1beta1/namespaces/$namespace/poddisruptionbudgets/$name/status$query',
-        jsonBody);
-    return api_policy_v1beta1.PodDisruptionBudget.fromJson(result);
-  }
-
-  /// List or watch objects of kind PodDisruptionBudget.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  Future<api_policy_v1beta1.PodDisruptionBudgetList>
-      listPolicyV1beta1PodDisruptionBudgetForAllNamespaces({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result =
-        await _getJsonMap('/apis/policy/v1beta1/poddisruptionbudgets$query');
-    return api_policy_v1beta1.PodDisruptionBudgetList.fromJson(result);
-  }
-
-  /// List or watch objects of kind PodSecurityPolicy.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_policy_v1beta1.PodSecurityPolicyList>
-      listPolicyV1beta1PodSecurityPolicy({
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result =
-        await _getJsonMap('/apis/policy/v1beta1/podsecuritypolicies$query');
-    return api_policy_v1beta1.PodSecurityPolicyList.fromJson(result);
-  }
-
-  /// Delete collection of PodSecurityPolicy.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status>
-      deletePolicyV1beta1CollectionPodSecurityPolicy({
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result =
-        await _deleteJsonMap('/apis/policy/v1beta1/podsecuritypolicies$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
-  }
-
-  /// Create a PodSecurityPolicy.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_policy_v1beta1.PodSecurityPolicy>
-      createPolicyV1beta1PodSecurityPolicy({
-    required api_policy_v1beta1.PodSecurityPolicy body,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _postJsonMap(
-        '/apis/policy/v1beta1/podsecuritypolicies$query', jsonBody);
-    return api_policy_v1beta1.PodSecurityPolicy.fromJson(result);
-  }
-
-  /// Read the specified PodSecurityPolicy.
-  ///
-  /// [name] Name of the PodSecurityPolicy.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_policy_v1beta1.PodSecurityPolicy>
-      readPolicyV1beta1PodSecurityPolicy({
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/policy/v1beta1/podsecuritypolicies/$name$query');
-    return api_policy_v1beta1.PodSecurityPolicy.fromJson(result);
-  }
-
-  /// Delete a PodSecurityPolicy.
-  ///
-  /// [name] Name of the PodSecurityPolicy.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_policy_v1beta1.PodSecurityPolicy>
-      deletePolicyV1beta1PodSecurityPolicy({
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _deleteJsonMap(
-        '/apis/policy/v1beta1/podsecuritypolicies/$name$query');
-    return api_policy_v1beta1.PodSecurityPolicy.fromJson(result);
-  }
-
-  /// Replace the specified PodSecurityPolicy.
-  ///
-  /// [name] Name of the PodSecurityPolicy.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_policy_v1beta1.PodSecurityPolicy>
-      replacePolicyV1beta1PodSecurityPolicy({
-    required api_policy_v1beta1.PodSecurityPolicy body,
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _putJsonMap(
-        '/apis/policy/v1beta1/podsecuritypolicies/$name$query', jsonBody);
-    return api_policy_v1beta1.PodSecurityPolicy.fromJson(result);
-  }
-
-  /// Partially update the specified PodSecurityPolicy.
-  ///
-  /// [name] Name of the PodSecurityPolicy.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_policy_v1beta1.PodSecurityPolicy>
-      patchPolicyV1beta1PodSecurityPolicy({
-    required api_policy_v1beta1.PodSecurityPolicy body,
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _patchJsonMap(
-        '/apis/policy/v1beta1/podsecuritypolicies/$name$query', jsonBody);
-    return api_policy_v1beta1.PodSecurityPolicy.fromJson(result);
-  }
-
-  /// Watch individual changes to a list of PodDisruptionBudget.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchPolicyV1beta1NamespacedPodDisruptionBudgetList({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    required String namespace,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/policy/v1beta1/watch/namespaces/$namespace/poddisruptionbudgets$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Watch changes to an object of kind PodDisruptionBudget. Filtered to a single item with the 'fieldSelector' parameter.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [name] Name of the PodDisruptionBudget.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchPolicyV1beta1NamespacedPodDisruptionBudget({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    required String name,
-    required String namespace,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/policy/v1beta1/watch/namespaces/$namespace/poddisruptionbudgets/$name$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Watch individual changes to a list of PodDisruptionBudget.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchPolicyV1beta1PodDisruptionBudgetListForAllNamespaces({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/policy/v1beta1/watch/poddisruptionbudgets$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Watch individual changes to a list of PodSecurityPolicy.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchPolicyV1beta1PodSecurityPolicyList({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/policy/v1beta1/watch/podsecuritypolicies$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Watch changes to an object of kind PodSecurityPolicy. Filtered to a single item with the 'fieldSelector' parameter.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [name] Name of the PodSecurityPolicy.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchPolicyV1beta1PodSecurityPolicy({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    required String name,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/policy/v1beta1/watch/podsecuritypolicies/$name$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
   /// Get information of a group.
   Future<apimachinery_pkg_apis_meta_v1.APIGroup>
       getRbacAuthorizationAPIGroup() async {
@@ -25606,6 +23667,7 @@ class KubernetesClient {
     required api_rbac_v1.ClusterRoleBinding body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -25618,7 +23680,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/$name$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_rbac_v1.ClusterRoleBinding.fromJson(result);
   }
 
@@ -25761,6 +23824,7 @@ class KubernetesClient {
     required api_rbac_v1.ClusterRole body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -25773,7 +23837,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/rbac.authorization.k8s.io/v1/clusterroles/$name$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_rbac_v1.ClusterRole.fromJson(result);
   }
 
@@ -25942,6 +24007,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -25954,7 +24020,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/rolebindings/$name$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_rbac_v1.RoleBinding.fromJson(result);
   }
 
@@ -26119,6 +24186,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -26131,7 +24199,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/rbac.authorization.k8s.io/v1/namespaces/$namespace/roles/$name$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_rbac_v1.Role.fromJson(result);
   }
 
@@ -27056,1619 +25125,6 @@ class KubernetesClient {
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
-  /// Get available resources.
-  Future<apimachinery_pkg_apis_meta_v1.APIResourceList>
-      getRbacAuthorizationV1alpha1APIResources() async {
-    final result =
-        await _getJsonMap('/apis/rbac.authorization.k8s.io/v1alpha1/');
-    return apimachinery_pkg_apis_meta_v1.APIResourceList.fromJson(result);
-  }
-
-  /// List or watch objects of kind ClusterRoleBinding.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_rbac_v1alpha1.ClusterRoleBindingList>
-      listRbacAuthorizationV1alpha1ClusterRoleBinding({
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings$query');
-    return api_rbac_v1alpha1.ClusterRoleBindingList.fromJson(result);
-  }
-
-  /// Delete collection of ClusterRoleBinding.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status>
-      deleteRbacAuthorizationV1alpha1CollectionClusterRoleBinding({
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _deleteJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
-  }
-
-  /// Create a ClusterRoleBinding.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_rbac_v1alpha1.ClusterRoleBinding>
-      createRbacAuthorizationV1alpha1ClusterRoleBinding({
-    required api_rbac_v1alpha1.ClusterRoleBinding body,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _postJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings$query',
-        jsonBody);
-    return api_rbac_v1alpha1.ClusterRoleBinding.fromJson(result);
-  }
-
-  /// Read the specified ClusterRoleBinding.
-  ///
-  /// [name] Name of the ClusterRoleBinding.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_rbac_v1alpha1.ClusterRoleBinding>
-      readRbacAuthorizationV1alpha1ClusterRoleBinding({
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings/$name$query');
-    return api_rbac_v1alpha1.ClusterRoleBinding.fromJson(result);
-  }
-
-  /// Delete a ClusterRoleBinding.
-  ///
-  /// [name] Name of the ClusterRoleBinding.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status>
-      deleteRbacAuthorizationV1alpha1ClusterRoleBinding({
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _deleteJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings/$name$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
-  }
-
-  /// Replace the specified ClusterRoleBinding.
-  ///
-  /// [name] Name of the ClusterRoleBinding.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_rbac_v1alpha1.ClusterRoleBinding>
-      replaceRbacAuthorizationV1alpha1ClusterRoleBinding({
-    required api_rbac_v1alpha1.ClusterRoleBinding body,
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _putJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings/$name$query',
-        jsonBody);
-    return api_rbac_v1alpha1.ClusterRoleBinding.fromJson(result);
-  }
-
-  /// Partially update the specified ClusterRoleBinding.
-  ///
-  /// [name] Name of the ClusterRoleBinding.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_rbac_v1alpha1.ClusterRoleBinding>
-      patchRbacAuthorizationV1alpha1ClusterRoleBinding({
-    required api_rbac_v1alpha1.ClusterRoleBinding body,
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _patchJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings/$name$query',
-        jsonBody);
-    return api_rbac_v1alpha1.ClusterRoleBinding.fromJson(result);
-  }
-
-  /// List or watch objects of kind ClusterRole.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_rbac_v1alpha1.ClusterRoleList>
-      listRbacAuthorizationV1alpha1ClusterRole({
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles$query');
-    return api_rbac_v1alpha1.ClusterRoleList.fromJson(result);
-  }
-
-  /// Delete collection of ClusterRole.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status>
-      deleteRbacAuthorizationV1alpha1CollectionClusterRole({
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _deleteJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
-  }
-
-  /// Create a ClusterRole.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_rbac_v1alpha1.ClusterRole>
-      createRbacAuthorizationV1alpha1ClusterRole({
-    required api_rbac_v1alpha1.ClusterRole body,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _postJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles$query',
-        jsonBody);
-    return api_rbac_v1alpha1.ClusterRole.fromJson(result);
-  }
-
-  /// Read the specified ClusterRole.
-  ///
-  /// [name] Name of the ClusterRole.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_rbac_v1alpha1.ClusterRole>
-      readRbacAuthorizationV1alpha1ClusterRole({
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles/$name$query');
-    return api_rbac_v1alpha1.ClusterRole.fromJson(result);
-  }
-
-  /// Delete a ClusterRole.
-  ///
-  /// [name] Name of the ClusterRole.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status>
-      deleteRbacAuthorizationV1alpha1ClusterRole({
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _deleteJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles/$name$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
-  }
-
-  /// Replace the specified ClusterRole.
-  ///
-  /// [name] Name of the ClusterRole.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_rbac_v1alpha1.ClusterRole>
-      replaceRbacAuthorizationV1alpha1ClusterRole({
-    required api_rbac_v1alpha1.ClusterRole body,
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _putJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles/$name$query',
-        jsonBody);
-    return api_rbac_v1alpha1.ClusterRole.fromJson(result);
-  }
-
-  /// Partially update the specified ClusterRole.
-  ///
-  /// [name] Name of the ClusterRole.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_rbac_v1alpha1.ClusterRole>
-      patchRbacAuthorizationV1alpha1ClusterRole({
-    required api_rbac_v1alpha1.ClusterRole body,
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _patchJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles/$name$query',
-        jsonBody);
-    return api_rbac_v1alpha1.ClusterRole.fromJson(result);
-  }
-
-  /// List or watch objects of kind RoleBinding.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_rbac_v1alpha1.RoleBindingList>
-      listRbacAuthorizationV1alpha1NamespacedRoleBinding({
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings$query');
-    return api_rbac_v1alpha1.RoleBindingList.fromJson(result);
-  }
-
-  /// Delete collection of RoleBinding.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status>
-      deleteRbacAuthorizationV1alpha1CollectionNamespacedRoleBinding({
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _deleteJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
-  }
-
-  /// Create a RoleBinding.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_rbac_v1alpha1.RoleBinding>
-      createRbacAuthorizationV1alpha1NamespacedRoleBinding({
-    required api_rbac_v1alpha1.RoleBinding body,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _postJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings$query',
-        jsonBody);
-    return api_rbac_v1alpha1.RoleBinding.fromJson(result);
-  }
-
-  /// Read the specified RoleBinding.
-  ///
-  /// [name] Name of the RoleBinding.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_rbac_v1alpha1.RoleBinding>
-      readRbacAuthorizationV1alpha1NamespacedRoleBinding({
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings/$name$query');
-    return api_rbac_v1alpha1.RoleBinding.fromJson(result);
-  }
-
-  /// Delete a RoleBinding.
-  ///
-  /// [name] Name of the RoleBinding.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status>
-      deleteRbacAuthorizationV1alpha1NamespacedRoleBinding({
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _deleteJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings/$name$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
-  }
-
-  /// Replace the specified RoleBinding.
-  ///
-  /// [name] Name of the RoleBinding.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_rbac_v1alpha1.RoleBinding>
-      replaceRbacAuthorizationV1alpha1NamespacedRoleBinding({
-    required api_rbac_v1alpha1.RoleBinding body,
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _putJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings/$name$query',
-        jsonBody);
-    return api_rbac_v1alpha1.RoleBinding.fromJson(result);
-  }
-
-  /// Partially update the specified RoleBinding.
-  ///
-  /// [name] Name of the RoleBinding.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_rbac_v1alpha1.RoleBinding>
-      patchRbacAuthorizationV1alpha1NamespacedRoleBinding({
-    required api_rbac_v1alpha1.RoleBinding body,
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _patchJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/rolebindings/$name$query',
-        jsonBody);
-    return api_rbac_v1alpha1.RoleBinding.fromJson(result);
-  }
-
-  /// List or watch objects of kind Role.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_rbac_v1alpha1.RoleList>
-      listRbacAuthorizationV1alpha1NamespacedRole({
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles$query');
-    return api_rbac_v1alpha1.RoleList.fromJson(result);
-  }
-
-  /// Delete collection of Role.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status>
-      deleteRbacAuthorizationV1alpha1CollectionNamespacedRole({
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _deleteJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
-  }
-
-  /// Create a Role.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_rbac_v1alpha1.Role> createRbacAuthorizationV1alpha1NamespacedRole({
-    required api_rbac_v1alpha1.Role body,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _postJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles$query',
-        jsonBody);
-    return api_rbac_v1alpha1.Role.fromJson(result);
-  }
-
-  /// Read the specified Role.
-  ///
-  /// [name] Name of the Role.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_rbac_v1alpha1.Role> readRbacAuthorizationV1alpha1NamespacedRole({
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles/$name$query');
-    return api_rbac_v1alpha1.Role.fromJson(result);
-  }
-
-  /// Delete a Role.
-  ///
-  /// [name] Name of the Role.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status>
-      deleteRbacAuthorizationV1alpha1NamespacedRole({
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _deleteJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles/$name$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
-  }
-
-  /// Replace the specified Role.
-  ///
-  /// [name] Name of the Role.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_rbac_v1alpha1.Role>
-      replaceRbacAuthorizationV1alpha1NamespacedRole({
-    required api_rbac_v1alpha1.Role body,
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _putJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles/$name$query',
-        jsonBody);
-    return api_rbac_v1alpha1.Role.fromJson(result);
-  }
-
-  /// Partially update the specified Role.
-  ///
-  /// [name] Name of the Role.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_rbac_v1alpha1.Role> patchRbacAuthorizationV1alpha1NamespacedRole({
-    required api_rbac_v1alpha1.Role body,
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _patchJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/namespaces/$namespace/roles/$name$query',
-        jsonBody);
-    return api_rbac_v1alpha1.Role.fromJson(result);
-  }
-
-  /// List or watch objects of kind RoleBinding.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  Future<api_rbac_v1alpha1.RoleBindingList>
-      listRbacAuthorizationV1alpha1RoleBindingForAllNamespaces({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/rolebindings$query');
-    return api_rbac_v1alpha1.RoleBindingList.fromJson(result);
-  }
-
-  /// List or watch objects of kind Role.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  Future<api_rbac_v1alpha1.RoleList>
-      listRbacAuthorizationV1alpha1RoleForAllNamespaces({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/roles$query');
-    return api_rbac_v1alpha1.RoleList.fromJson(result);
-  }
-
-  /// Watch individual changes to a list of ClusterRoleBinding.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchRbacAuthorizationV1alpha1ClusterRoleBindingList({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/clusterrolebindings$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Watch changes to an object of kind ClusterRoleBinding. Filtered to a single item with the 'fieldSelector' parameter.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [name] Name of the ClusterRoleBinding.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchRbacAuthorizationV1alpha1ClusterRoleBinding({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    required String name,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/clusterrolebindings/$name$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Watch individual changes to a list of ClusterRole.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchRbacAuthorizationV1alpha1ClusterRoleList({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/clusterroles$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Watch changes to an object of kind ClusterRole. Filtered to a single item with the 'fieldSelector' parameter.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [name] Name of the ClusterRole.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchRbacAuthorizationV1alpha1ClusterRole({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    required String name,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/clusterroles/$name$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Watch individual changes to a list of RoleBinding.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchRbacAuthorizationV1alpha1NamespacedRoleBindingList({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    required String namespace,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/namespaces/$namespace/rolebindings$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Watch changes to an object of kind RoleBinding. Filtered to a single item with the 'fieldSelector' parameter.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [name] Name of the RoleBinding.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchRbacAuthorizationV1alpha1NamespacedRoleBinding({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    required String name,
-    required String namespace,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/namespaces/$namespace/rolebindings/$name$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Watch individual changes to a list of Role.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchRbacAuthorizationV1alpha1NamespacedRoleList({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    required String namespace,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/namespaces/$namespace/roles$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Watch changes to an object of kind Role. Filtered to a single item with the 'fieldSelector' parameter.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [name] Name of the Role.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchRbacAuthorizationV1alpha1NamespacedRole({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    required String name,
-    required String namespace,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/namespaces/$namespace/roles/$name$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Watch individual changes to a list of RoleBinding.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchRbacAuthorizationV1alpha1RoleBindingListForAllNamespaces({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/rolebindings$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Watch individual changes to a list of Role.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchRbacAuthorizationV1alpha1RoleListForAllNamespaces({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/rbac.authorization.k8s.io/v1alpha1/watch/roles$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
   /// Get information of a group.
   Future<apimachinery_pkg_apis_meta_v1.APIGroup> getSchedulingAPIGroup() async {
     final result = await _getJsonMap('/apis/scheduling.k8s.io/');
@@ -28819,6 +25275,7 @@ class KubernetesClient {
     required api_scheduling_v1.PriorityClass body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -28830,7 +25287,9 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/scheduling.k8s.io/v1/priorityclasses/$name$query', jsonBody);
+        '/apis/scheduling.k8s.io/v1/priorityclasses/$name$query',
+        jsonBody,
+        patchType);
     return api_scheduling_v1.PriorityClass.fromJson(result);
   }
 
@@ -28987,326 +25446,6 @@ class KubernetesClient {
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
-  /// Get available resources.
-  Future<apimachinery_pkg_apis_meta_v1.APIResourceList>
-      getSchedulingV1alpha1APIResources() async {
-    final result = await _getJsonMap('/apis/scheduling.k8s.io/v1alpha1/');
-    return apimachinery_pkg_apis_meta_v1.APIResourceList.fromJson(result);
-  }
-
-  /// List or watch objects of kind PriorityClass.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_scheduling_v1alpha1.PriorityClassList>
-      listSchedulingV1alpha1PriorityClass({
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses$query');
-    return api_scheduling_v1alpha1.PriorityClassList.fromJson(result);
-  }
-
-  /// Delete collection of PriorityClass.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status>
-      deleteSchedulingV1alpha1CollectionPriorityClass({
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _deleteJsonMap(
-        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
-  }
-
-  /// Create a PriorityClass.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_scheduling_v1alpha1.PriorityClass>
-      createSchedulingV1alpha1PriorityClass({
-    required api_scheduling_v1alpha1.PriorityClass body,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _postJsonMap(
-        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses$query', jsonBody);
-    return api_scheduling_v1alpha1.PriorityClass.fromJson(result);
-  }
-
-  /// Read the specified PriorityClass.
-  ///
-  /// [name] Name of the PriorityClass.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_scheduling_v1alpha1.PriorityClass>
-      readSchedulingV1alpha1PriorityClass({
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses/$name$query');
-    return api_scheduling_v1alpha1.PriorityClass.fromJson(result);
-  }
-
-  /// Delete a PriorityClass.
-  ///
-  /// [name] Name of the PriorityClass.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status>
-      deleteSchedulingV1alpha1PriorityClass({
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _deleteJsonMap(
-        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses/$name$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
-  }
-
-  /// Replace the specified PriorityClass.
-  ///
-  /// [name] Name of the PriorityClass.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_scheduling_v1alpha1.PriorityClass>
-      replaceSchedulingV1alpha1PriorityClass({
-    required api_scheduling_v1alpha1.PriorityClass body,
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _putJsonMap(
-        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses/$name$query',
-        jsonBody);
-    return api_scheduling_v1alpha1.PriorityClass.fromJson(result);
-  }
-
-  /// Partially update the specified PriorityClass.
-  ///
-  /// [name] Name of the PriorityClass.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_scheduling_v1alpha1.PriorityClass>
-      patchSchedulingV1alpha1PriorityClass({
-    required api_scheduling_v1alpha1.PriorityClass body,
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _patchJsonMap(
-        '/apis/scheduling.k8s.io/v1alpha1/priorityclasses/$name$query',
-        jsonBody);
-    return api_scheduling_v1alpha1.PriorityClass.fromJson(result);
-  }
-
-  /// Watch individual changes to a list of PriorityClass.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchSchedulingV1alpha1PriorityClassList({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/scheduling.k8s.io/v1alpha1/watch/priorityclasses$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Watch changes to an object of kind PriorityClass. Filtered to a single item with the 'fieldSelector' parameter.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [name] Name of the PriorityClass.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchSchedulingV1alpha1PriorityClass({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    required String name,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/scheduling.k8s.io/v1alpha1/watch/priorityclasses/$name$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
   /// Get information of a group.
   Future<apimachinery_pkg_apis_meta_v1.APIGroup> getStorageAPIGroup() async {
     final result = await _getJsonMap('/apis/storage.k8s.io/');
@@ -29457,6 +25596,7 @@ class KubernetesClient {
     required api_storage_v1.CSIDriver body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -29468,7 +25608,7 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/storage.k8s.io/v1/csidrivers/$name$query', jsonBody);
+        '/apis/storage.k8s.io/v1/csidrivers/$name$query', jsonBody, patchType);
     return api_storage_v1.CSIDriver.fromJson(result);
   }
 
@@ -29608,6 +25748,7 @@ class KubernetesClient {
     required api_storage_v1.CSINode body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -29619,8 +25760,266 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/storage.k8s.io/v1/csinodes/$name$query', jsonBody);
+        '/apis/storage.k8s.io/v1/csinodes/$name$query', jsonBody, patchType);
     return api_storage_v1.CSINode.fromJson(result);
+  }
+
+  /// List or watch objects of kind CSIStorageCapacity.
+  ///
+  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
+  ///
+  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+  ///
+  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
+  ///
+  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
+  ///
+  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  ///
+  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
+  ///
+  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
+  ///
+  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
+  ///
+  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
+  Future<api_storage_v1.CSIStorageCapacityList>
+      listStorageV1CSIStorageCapacityForAllNamespaces({
+    bool? allowWatchBookmarks,
+    String? $continue,
+    String? fieldSelector,
+    String? labelSelector,
+    int? limit,
+    bool? pretty,
+    String? resourceVersion,
+    String? resourceVersionMatch,
+    int? timeoutSeconds,
+    bool? watch,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result =
+        await _getJsonMap('/apis/storage.k8s.io/v1/csistoragecapacities$query');
+    return api_storage_v1.CSIStorageCapacityList.fromJson(result);
+  }
+
+  /// List or watch objects of kind CSIStorageCapacity.
+  ///
+  /// [namespace] Object name and auth scope, such as for teams and projects.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<api_storage_v1.CSIStorageCapacityList>
+      listStorageV1NamespacedCSIStorageCapacity({
+    required String namespace,
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap(
+        '/apis/storage.k8s.io/v1/namespaces/$namespace/csistoragecapacities$query');
+    return api_storage_v1.CSIStorageCapacityList.fromJson(result);
+  }
+
+  /// Delete collection of CSIStorageCapacity.
+  ///
+  /// [namespace] Object name and auth scope, such as for teams and projects.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<apimachinery_pkg_apis_meta_v1.Status>
+      deleteStorageV1CollectionNamespacedCSIStorageCapacity({
+    required String namespace,
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _deleteJsonMap(
+        '/apis/storage.k8s.io/v1/namespaces/$namespace/csistoragecapacities$query');
+    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
+  }
+
+  /// Create a CSIStorageCapacity.
+  ///
+  /// [namespace] Object name and auth scope, such as for teams and projects.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<api_storage_v1.CSIStorageCapacity>
+      createStorageV1NamespacedCSIStorageCapacity({
+    required api_storage_v1.CSIStorageCapacity body,
+    required String namespace,
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _postJsonMap(
+        '/apis/storage.k8s.io/v1/namespaces/$namespace/csistoragecapacities$query',
+        jsonBody);
+    return api_storage_v1.CSIStorageCapacity.fromJson(result);
+  }
+
+  /// Read the specified CSIStorageCapacity.
+  ///
+  /// [name] Name of the CSIStorageCapacity.
+  ///
+  /// [namespace] Object name and auth scope, such as for teams and projects.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<api_storage_v1.CSIStorageCapacity>
+      readStorageV1NamespacedCSIStorageCapacity({
+    required String name,
+    required String namespace,
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap(
+        '/apis/storage.k8s.io/v1/namespaces/$namespace/csistoragecapacities/$name$query');
+    return api_storage_v1.CSIStorageCapacity.fromJson(result);
+  }
+
+  /// Delete a CSIStorageCapacity.
+  ///
+  /// [name] Name of the CSIStorageCapacity.
+  ///
+  /// [namespace] Object name and auth scope, such as for teams and projects.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<apimachinery_pkg_apis_meta_v1.Status>
+      deleteStorageV1NamespacedCSIStorageCapacity({
+    required String name,
+    required String namespace,
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _deleteJsonMap(
+        '/apis/storage.k8s.io/v1/namespaces/$namespace/csistoragecapacities/$name$query');
+    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
+  }
+
+  /// Replace the specified CSIStorageCapacity.
+  ///
+  /// [name] Name of the CSIStorageCapacity.
+  ///
+  /// [namespace] Object name and auth scope, such as for teams and projects.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<api_storage_v1.CSIStorageCapacity>
+      replaceStorageV1NamespacedCSIStorageCapacity({
+    required api_storage_v1.CSIStorageCapacity body,
+    required String name,
+    required String namespace,
+    bool? pretty,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _putJsonMap(
+        '/apis/storage.k8s.io/v1/namespaces/$namespace/csistoragecapacities/$name$query',
+        jsonBody);
+    return api_storage_v1.CSIStorageCapacity.fromJson(result);
+  }
+
+  /// Partially update the specified CSIStorageCapacity.
+  ///
+  /// [name] Name of the CSIStorageCapacity.
+  ///
+  /// [namespace] Object name and auth scope, such as for teams and projects.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  Future<api_storage_v1.CSIStorageCapacity>
+      patchStorageV1NamespacedCSIStorageCapacity({
+    required api_storage_v1.CSIStorageCapacity body,
+    required String name,
+    required String namespace,
+    bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final jsonBody = jsonEncode(body.toJson());
+    final result = await _patchJsonMap(
+        '/apis/storage.k8s.io/v1/namespaces/$namespace/csistoragecapacities/$name$query',
+        jsonBody,
+        patchType);
+    return api_storage_v1.CSIStorageCapacity.fromJson(result);
   }
 
   /// List or watch objects of kind StorageClass.
@@ -29760,6 +26159,7 @@ class KubernetesClient {
     required api_storage_v1.StorageClass body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -29771,7 +26171,9 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/storage.k8s.io/v1/storageclasses/$name$query', jsonBody);
+        '/apis/storage.k8s.io/v1/storageclasses/$name$query',
+        jsonBody,
+        patchType);
     return api_storage_v1.StorageClass.fromJson(result);
   }
 
@@ -29912,6 +26314,7 @@ class KubernetesClient {
     required api_storage_v1.VolumeAttachment body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -29923,7 +26326,9 @@ class KubernetesClient {
 
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
-        '/apis/storage.k8s.io/v1/volumeattachments/$name$query', jsonBody);
+        '/apis/storage.k8s.io/v1/volumeattachments/$name$query',
+        jsonBody,
+        patchType);
     return api_storage_v1.VolumeAttachment.fromJson(result);
   }
 
@@ -29984,6 +26389,7 @@ class KubernetesClient {
     required api_storage_v1.VolumeAttachment body,
     required String name,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -29996,7 +26402,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/storage.k8s.io/v1/volumeattachments/$name/status$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_storage_v1.VolumeAttachment.fromJson(result);
   }
 
@@ -30299,6 +26706,240 @@ class KubernetesClient {
 
     final result =
         await _getJsonMap('/apis/storage.k8s.io/v1/watch/csinodes/$name$query');
+    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
+  }
+
+  /// Watch individual changes to a list of CSIStorageCapacity.
+  ///
+  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
+  ///
+  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+  ///
+  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
+  ///
+  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
+  ///
+  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  ///
+  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
+  ///
+  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
+  ///
+  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
+  ///
+  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
+  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
+  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
+      watchStorageV1CSIStorageCapacityListForAllNamespaces({
+    bool? allowWatchBookmarks,
+    String? $continue,
+    String? fieldSelector,
+    String? labelSelector,
+    int? limit,
+    bool? pretty,
+    String? resourceVersion,
+    String? resourceVersionMatch,
+    int? timeoutSeconds,
+    bool? watch,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap(
+        '/apis/storage.k8s.io/v1/watch/csistoragecapacities$query');
+    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
+  }
+
+  /// Watch individual changes to a list of CSIStorageCapacity.
+  ///
+  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
+  ///
+  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+  ///
+  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
+  ///
+  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
+  ///
+  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
+  ///
+  /// [namespace] Object name and auth scope, such as for teams and projects.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  ///
+  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
+  ///
+  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
+  ///
+  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
+  ///
+  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
+  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
+  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
+      watchStorageV1NamespacedCSIStorageCapacityList({
+    bool? allowWatchBookmarks,
+    String? $continue,
+    String? fieldSelector,
+    String? labelSelector,
+    int? limit,
+    required String namespace,
+    bool? pretty,
+    String? resourceVersion,
+    String? resourceVersionMatch,
+    int? timeoutSeconds,
+    bool? watch,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap(
+        '/apis/storage.k8s.io/v1/watch/namespaces/$namespace/csistoragecapacities$query');
+    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
+  }
+
+  /// Watch changes to an object of kind CSIStorageCapacity. Filtered to a single item with the 'fieldSelector' parameter.
+  ///
+  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
+  ///
+  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+  ///
+  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
+  ///
+  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
+  ///
+  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
+  ///
+  /// [name] Name of the CSIStorageCapacity.
+  ///
+  /// [namespace] Object name and auth scope, such as for teams and projects.
+  ///
+  /// [pretty] If true, then the output is pretty printed.
+  ///
+  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
+  ///
+  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
+  ///
+  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
+  ///
+  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
+  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
+  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
+      watchStorageV1NamespacedCSIStorageCapacity({
+    bool? allowWatchBookmarks,
+    String? $continue,
+    String? fieldSelector,
+    String? labelSelector,
+    int? limit,
+    required String name,
+    required String namespace,
+    bool? pretty,
+    String? resourceVersion,
+    String? resourceVersionMatch,
+    int? timeoutSeconds,
+    bool? watch,
+  }) async {
+    final queryStrings = <String, Object>{};
+    if (allowWatchBookmarks != null) {
+      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
+    }
+    if ($continue != null) {
+      queryStrings['continue'] = $continue;
+    }
+    if (fieldSelector != null) {
+      queryStrings['fieldSelector'] = fieldSelector;
+    }
+    if (labelSelector != null) {
+      queryStrings['labelSelector'] = labelSelector;
+    }
+    if (limit != null) {
+      queryStrings['limit'] = limit;
+    }
+    if (pretty != null) {
+      queryStrings['pretty'] = pretty;
+    }
+    if (resourceVersion != null) {
+      queryStrings['resourceVersion'] = resourceVersion;
+    }
+    if (resourceVersionMatch != null) {
+      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
+    }
+    if (timeoutSeconds != null) {
+      queryStrings['timeoutSeconds'] = timeoutSeconds;
+    }
+    if (watch != null) {
+      queryStrings['watch'] = watch;
+    }
+
+    final query =
+        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
+
+    final result = await _getJsonMap(
+        '/apis/storage.k8s.io/v1/watch/namespaces/$namespace/csistoragecapacities/$name$query');
     return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
   }
 
@@ -30609,816 +27250,6 @@ class KubernetesClient {
 
   /// Get available resources.
   Future<apimachinery_pkg_apis_meta_v1.APIResourceList>
-      getStorageV1alpha1APIResources() async {
-    final result = await _getJsonMap('/apis/storage.k8s.io/v1alpha1/');
-    return apimachinery_pkg_apis_meta_v1.APIResourceList.fromJson(result);
-  }
-
-  /// List or watch objects of kind CSIStorageCapacity.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  Future<api_storage_v1alpha1.CSIStorageCapacityList>
-      listStorageV1alpha1CSIStorageCapacityForAllNamespaces({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/csistoragecapacities$query');
-    return api_storage_v1alpha1.CSIStorageCapacityList.fromJson(result);
-  }
-
-  /// List or watch objects of kind CSIStorageCapacity.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_storage_v1alpha1.CSIStorageCapacityList>
-      listStorageV1alpha1NamespacedCSIStorageCapacity({
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities$query');
-    return api_storage_v1alpha1.CSIStorageCapacityList.fromJson(result);
-  }
-
-  /// Delete collection of CSIStorageCapacity.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status>
-      deleteStorageV1alpha1CollectionNamespacedCSIStorageCapacity({
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _deleteJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
-  }
-
-  /// Create a CSIStorageCapacity.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_storage_v1alpha1.CSIStorageCapacity>
-      createStorageV1alpha1NamespacedCSIStorageCapacity({
-    required api_storage_v1alpha1.CSIStorageCapacity body,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _postJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities$query',
-        jsonBody);
-    return api_storage_v1alpha1.CSIStorageCapacity.fromJson(result);
-  }
-
-  /// Read the specified CSIStorageCapacity.
-  ///
-  /// [name] Name of the CSIStorageCapacity.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_storage_v1alpha1.CSIStorageCapacity>
-      readStorageV1alpha1NamespacedCSIStorageCapacity({
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities/$name$query');
-    return api_storage_v1alpha1.CSIStorageCapacity.fromJson(result);
-  }
-
-  /// Delete a CSIStorageCapacity.
-  ///
-  /// [name] Name of the CSIStorageCapacity.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status>
-      deleteStorageV1alpha1NamespacedCSIStorageCapacity({
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _deleteJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities/$name$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
-  }
-
-  /// Replace the specified CSIStorageCapacity.
-  ///
-  /// [name] Name of the CSIStorageCapacity.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_storage_v1alpha1.CSIStorageCapacity>
-      replaceStorageV1alpha1NamespacedCSIStorageCapacity({
-    required api_storage_v1alpha1.CSIStorageCapacity body,
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _putJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities/$name$query',
-        jsonBody);
-    return api_storage_v1alpha1.CSIStorageCapacity.fromJson(result);
-  }
-
-  /// Partially update the specified CSIStorageCapacity.
-  ///
-  /// [name] Name of the CSIStorageCapacity.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_storage_v1alpha1.CSIStorageCapacity>
-      patchStorageV1alpha1NamespacedCSIStorageCapacity({
-    required api_storage_v1alpha1.CSIStorageCapacity body,
-    required String name,
-    required String namespace,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _patchJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/namespaces/$namespace/csistoragecapacities/$name$query',
-        jsonBody);
-    return api_storage_v1alpha1.CSIStorageCapacity.fromJson(result);
-  }
-
-  /// List or watch objects of kind VolumeAttachment.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_storage_v1alpha1.VolumeAttachmentList>
-      listStorageV1alpha1VolumeAttachment({
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/volumeattachments$query');
-    return api_storage_v1alpha1.VolumeAttachmentList.fromJson(result);
-  }
-
-  /// Delete collection of VolumeAttachment.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<apimachinery_pkg_apis_meta_v1.Status>
-      deleteStorageV1alpha1CollectionVolumeAttachment({
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _deleteJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/volumeattachments$query');
-    return apimachinery_pkg_apis_meta_v1.Status.fromJson(result);
-  }
-
-  /// Create a VolumeAttachment.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_storage_v1alpha1.VolumeAttachment>
-      createStorageV1alpha1VolumeAttachment({
-    required api_storage_v1alpha1.VolumeAttachment body,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _postJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/volumeattachments$query', jsonBody);
-    return api_storage_v1alpha1.VolumeAttachment.fromJson(result);
-  }
-
-  /// Read the specified VolumeAttachment.
-  ///
-  /// [name] Name of the VolumeAttachment.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_storage_v1alpha1.VolumeAttachment>
-      readStorageV1alpha1VolumeAttachment({
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/volumeattachments/$name$query');
-    return api_storage_v1alpha1.VolumeAttachment.fromJson(result);
-  }
-
-  /// Delete a VolumeAttachment.
-  ///
-  /// [name] Name of the VolumeAttachment.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_storage_v1alpha1.VolumeAttachment>
-      deleteStorageV1alpha1VolumeAttachment({
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _deleteJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/volumeattachments/$name$query');
-    return api_storage_v1alpha1.VolumeAttachment.fromJson(result);
-  }
-
-  /// Replace the specified VolumeAttachment.
-  ///
-  /// [name] Name of the VolumeAttachment.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_storage_v1alpha1.VolumeAttachment>
-      replaceStorageV1alpha1VolumeAttachment({
-    required api_storage_v1alpha1.VolumeAttachment body,
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _putJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/volumeattachments/$name$query',
-        jsonBody);
-    return api_storage_v1alpha1.VolumeAttachment.fromJson(result);
-  }
-
-  /// Partially update the specified VolumeAttachment.
-  ///
-  /// [name] Name of the VolumeAttachment.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  Future<api_storage_v1alpha1.VolumeAttachment>
-      patchStorageV1alpha1VolumeAttachment({
-    required api_storage_v1alpha1.VolumeAttachment body,
-    required String name,
-    bool? pretty,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final jsonBody = jsonEncode(body.toJson());
-    final result = await _patchJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/volumeattachments/$name$query',
-        jsonBody);
-    return api_storage_v1alpha1.VolumeAttachment.fromJson(result);
-  }
-
-  /// Watch individual changes to a list of CSIStorageCapacity.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchStorageV1alpha1CSIStorageCapacityListForAllNamespaces({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/watch/csistoragecapacities$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Watch individual changes to a list of CSIStorageCapacity.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchStorageV1alpha1NamespacedCSIStorageCapacityList({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    required String namespace,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/watch/namespaces/$namespace/csistoragecapacities$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Watch changes to an object of kind CSIStorageCapacity. Filtered to a single item with the 'fieldSelector' parameter.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [name] Name of the CSIStorageCapacity.
-  ///
-  /// [namespace] Object name and auth scope, such as for teams and projects.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchStorageV1alpha1NamespacedCSIStorageCapacity({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    required String name,
-    required String namespace,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/watch/namespaces/$namespace/csistoragecapacities/$name$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Watch individual changes to a list of VolumeAttachment.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchStorageV1alpha1VolumeAttachmentList({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/watch/volumeattachments$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Watch changes to an object of kind VolumeAttachment. Filtered to a single item with the 'fieldSelector' parameter.
-  ///
-  /// [allowWatchBookmarks] AllowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
-  ///
-  /// [$continue] The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key". This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-  ///
-  /// [fieldSelector] A selector to restrict the list of returned objects by their fields. Defaults to everything.
-  ///
-  /// [labelSelector] A selector to restrict the list of returned objects by their labels. Defaults to everything.
-  ///
-  /// [limit] Limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true. The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-  ///
-  /// [name] Name of the VolumeAttachment.
-  ///
-  /// [pretty] If true, then the output is pretty printed.
-  ///
-  /// [resourceVersion] ResourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [resourceVersionMatch] ResourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details. Defaults to unset.
-  ///
-  /// [timeoutSeconds] Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-  ///
-  /// [watch] Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-  @Deprecated('Use the \'watch\' parameter with a list operation instead.')
-  Future<apimachinery_pkg_apis_meta_v1.WatchEvent>
-      watchStorageV1alpha1VolumeAttachment({
-    bool? allowWatchBookmarks,
-    String? $continue,
-    String? fieldSelector,
-    String? labelSelector,
-    int? limit,
-    required String name,
-    bool? pretty,
-    String? resourceVersion,
-    String? resourceVersionMatch,
-    int? timeoutSeconds,
-    bool? watch,
-  }) async {
-    final queryStrings = <String, Object>{};
-    if (allowWatchBookmarks != null) {
-      queryStrings['allowWatchBookmarks'] = allowWatchBookmarks;
-    }
-    if ($continue != null) {
-      queryStrings['continue'] = $continue;
-    }
-    if (fieldSelector != null) {
-      queryStrings['fieldSelector'] = fieldSelector;
-    }
-    if (labelSelector != null) {
-      queryStrings['labelSelector'] = labelSelector;
-    }
-    if (limit != null) {
-      queryStrings['limit'] = limit;
-    }
-    if (pretty != null) {
-      queryStrings['pretty'] = pretty;
-    }
-    if (resourceVersion != null) {
-      queryStrings['resourceVersion'] = resourceVersion;
-    }
-    if (resourceVersionMatch != null) {
-      queryStrings['resourceVersionMatch'] = resourceVersionMatch;
-    }
-    if (timeoutSeconds != null) {
-      queryStrings['timeoutSeconds'] = timeoutSeconds;
-    }
-    if (watch != null) {
-      queryStrings['watch'] = watch;
-    }
-
-    final query =
-        queryStrings.isEmpty ? '' : '?${_joinQueryStrings(queryStrings)}';
-
-    final result = await _getJsonMap(
-        '/apis/storage.k8s.io/v1alpha1/watch/volumeattachments/$name$query');
-    return apimachinery_pkg_apis_meta_v1.WatchEvent.fromJson(result);
-  }
-
-  /// Get available resources.
-  Future<apimachinery_pkg_apis_meta_v1.APIResourceList>
       getStorageV1beta1APIResources() async {
     final result = await _getJsonMap('/apis/storage.k8s.io/v1beta1/');
     return apimachinery_pkg_apis_meta_v1.APIResourceList.fromJson(result);
@@ -31664,6 +27495,7 @@ class KubernetesClient {
     required String name,
     required String namespace,
     bool? pretty,
+    PatchType patchType = PatchType.mergePatch,
   }) async {
     final queryStrings = <String, Object>{};
     if (pretty != null) {
@@ -31676,7 +27508,8 @@ class KubernetesClient {
     final jsonBody = jsonEncode(body.toJson());
     final result = await _patchJsonMap(
         '/apis/storage.k8s.io/v1beta1/namespaces/$namespace/csistoragecapacities/$name$query',
-        jsonBody);
+        jsonBody,
+        patchType);
     return api_storage_v1beta1.CSIStorageCapacity.fromJson(result);
   }
 
@@ -31927,25 +27760,15 @@ class KubernetesClient {
   }
 }
 
-String _getHeader(Object body) {
-  // if (body is apimachinery_pkg_apis_meta_v1.Patch) {
-  //   return _getPatchHeader(body);
-  // }
-
-  return 'application/json; charset=utf-8';
+String _getPatchHeader(PatchType type) {
+  switch (type) {
+    case PatchType.jsonPatch:
+      return 'application/json-patch+json; charset=utf-8';
+    case PatchType.mergePatch:
+      return 'application/merge-patch+json; charset=utf-8';
+    case PatchType.strategicMergePatch:
+      return 'application/strategic-merge-patch+json; charset=utf-8';
+    case PatchType.applyPatch:
+      return 'application/apply-patch+yaml; charset=utf-8';
+  }
 }
-
-// String _getPatchHeader(apimachinery_pkg_apis_meta_v1.Patch body) {
-//   switch (body.type) {
-//     case PatchType.jsonPatch:
-//       return 'application/json-patch+json; charset=utf-8';
-//     case PatchType.mergePatch:
-//       return 'application/merge-patch+json; charset=utf-8';
-//     case PatchType.strategicMergePatch:
-//       return 'application/strategic-merge-patch+json; charset=utf-8';
-//     case PatchType.applyPatch:
-//       return 'application/apply-patch+yaml; charset=utf-8';
-//     default:
-//       throw Exception(body.type);
-//   }
-// }

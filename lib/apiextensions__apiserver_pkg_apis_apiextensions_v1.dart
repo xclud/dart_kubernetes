@@ -18,5 +18,6 @@ export 'src/generated/apiextensions-apiserver/pkg/apis/apiextensions/v1/json_sch
 export 'src/generated/apiextensions-apiserver/pkg/apis/apiextensions/v1/json_schema_props_or_bool.dart';
 export 'src/generated/apiextensions-apiserver/pkg/apis/apiextensions/v1/json_schema_props_or_string_array.dart';
 export 'src/generated/apiextensions-apiserver/pkg/apis/apiextensions/v1/service_reference.dart';
+export 'src/generated/apiextensions-apiserver/pkg/apis/apiextensions/v1/validation_rule.dart';
 export 'src/generated/apiextensions-apiserver/pkg/apis/apiextensions/v1/webhook_client_config.dart';
 export 'src/generated/apiextensions-apiserver/pkg/apis/apiextensions/v1/webhook_conversion.dart';

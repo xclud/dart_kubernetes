@@ -23,6 +23,7 @@ export 'src/generated/api/apps/v1/rolling_update_stateful_set_strategy.dart';
 export 'src/generated/api/apps/v1/stateful_set.dart';
 export 'src/generated/api/apps/v1/stateful_set_condition.dart';
 export 'src/generated/api/apps/v1/stateful_set_list.dart';
+export 'src/generated/api/apps/v1/stateful_set_persistent_volume_claim_retention_policy.dart';
 export 'src/generated/api/apps/v1/stateful_set_spec.dart';
 export 'src/generated/api/apps/v1/stateful_set_status.dart';
 export 'src/generated/api/apps/v1/stateful_set_update_strategy.dart';

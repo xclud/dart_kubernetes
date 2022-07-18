@@ -5,6 +5,8 @@ export 'src/generated/api/storage/v1/csi_node.dart';
 export 'src/generated/api/storage/v1/csi_node_driver.dart';
 export 'src/generated/api/storage/v1/csi_node_list.dart';
 export 'src/generated/api/storage/v1/csi_node_spec.dart';
+export 'src/generated/api/storage/v1/csi_storage_capacity.dart';
+export 'src/generated/api/storage/v1/csi_storage_capacity_list.dart';
 export 'src/generated/api/storage/v1/storage_class.dart';
 export 'src/generated/api/storage/v1/storage_class_list.dart';
 export 'src/generated/api/storage/v1/token_request.dart';

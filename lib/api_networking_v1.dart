@@ -20,4 +20,5 @@ export 'src/generated/api/networking/v1/network_policy_list.dart';
 export 'src/generated/api/networking/v1/network_policy_peer.dart';
 export 'src/generated/api/networking/v1/network_policy_port.dart';
 export 'src/generated/api/networking/v1/network_policy_spec.dart';
+export 'src/generated/api/networking/v1/network_policy_status.dart';
 export 'src/generated/api/networking/v1/service_backend_port.dart';
