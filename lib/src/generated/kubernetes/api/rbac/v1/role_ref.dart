@@ -1,4 +1,3 @@
-
 /// RoleRef contains information that points to the role being used.
 class RoleRef {
   /// The main constructor.
@@ -22,18 +21,15 @@ class RoleRef {
   }
 
   /// Converts a RoleRef instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['apiGroup'] = apiGroup;
     jsonData['kind'] = kind;
     jsonData['name'] = name;
-    
 
     return jsonData;
   }
-
 
   /// APIGroup is the group for the resource being referenced.
   final String apiGroup;

@@ -12,26 +12,28 @@ class IngressServiceBackend {
   IngressServiceBackend.fromJson(Map<String, dynamic> json)
       : this(
           name: json['name'],
-          port: json['port'] != null ? ServiceBackendPort.fromJson(json['port']): null,
+          port: json['port'] != null
+              ? ServiceBackendPort.fromJson(json['port'])
+              : null,
         );
 
   /// Creates a list of IngressServiceBackend from JSON data.
-  static List<IngressServiceBackend> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<IngressServiceBackend> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => IngressServiceBackend.fromJson(e)).toList();
   }
 
   /// Converts a IngressServiceBackend instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['name'] = name;
-    if(port != null) { jsonData['port'] = port!.toJson(); }
-    
+    if (port != null) {
+      jsonData['port'] = port!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// Name is the referenced service. The service must exist in the same namespace as the Ingress object.
   final String name;

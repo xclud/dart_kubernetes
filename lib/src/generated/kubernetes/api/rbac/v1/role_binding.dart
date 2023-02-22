@@ -18,9 +18,14 @@ class RoleBinding {
       : this(
           apiVersion: json['apiVersion'],
           kind: json['kind'],
-          metadata: json['metadata'] != null ? ObjectMeta.fromJson(json['metadata']): null,
+          metadata: json['metadata'] != null
+              ? ObjectMeta.fromJson(json['metadata'])
+              : null,
           roleRef: RoleRef.fromJson(json['roleRef']),
-          subjects: json['subjects'] != null ? Subject.listFromJson((json['subjects'] as Iterable).cast<Map<String, dynamic>>()): null,
+          subjects: json['subjects'] != null
+              ? Subject.listFromJson(
+                  (json['subjects'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
         );
 
   /// Creates a list of RoleBinding from JSON data.
@@ -29,20 +34,25 @@ class RoleBinding {
   }
 
   /// Converts a RoleBinding instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiVersion != null) { jsonData['apiVersion'] = apiVersion!; }
-    if(kind != null) { jsonData['kind'] = kind!; }
-    if(metadata != null) { jsonData['metadata'] = metadata!.toJson(); }
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
     jsonData['roleRef'] = roleRef.toJson();
-    if(subjects != null) { jsonData['subjects'] = subjects!.map((item) => item.toJson()).toList(); }
-    
+    if (subjects != null) {
+      jsonData['subjects'] = subjects!.map((item) => item.toJson()).toList();
+    }
 
     return jsonData;
   }
-
 
   /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;

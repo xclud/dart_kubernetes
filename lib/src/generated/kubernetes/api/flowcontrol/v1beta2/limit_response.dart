@@ -11,7 +11,9 @@ class LimitResponse {
   /// Creates a LimitResponse from JSON data.
   LimitResponse.fromJson(Map<String, dynamic> json)
       : this(
-          queuing: json['queuing'] != null ? QueuingConfiguration.fromJson(json['queuing']): null,
+          queuing: json['queuing'] != null
+              ? QueuingConfiguration.fromJson(json['queuing'])
+              : null,
           type: json['type'],
         );
 
@@ -21,17 +23,16 @@ class LimitResponse {
   }
 
   /// Converts a LimitResponse instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(queuing != null) { jsonData['queuing'] = queuing!.toJson(); }
+    if (queuing != null) {
+      jsonData['queuing'] = queuing!.toJson();
+    }
     jsonData['type'] = type;
-    
 
     return jsonData;
   }
-
 
   /// `queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `"Queue"`.
   final QueuingConfiguration? queuing;

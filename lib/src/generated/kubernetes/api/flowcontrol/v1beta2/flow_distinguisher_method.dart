@@ -1,4 +1,3 @@
-
 /// FlowDistinguisherMethod specifies the method of a flow distinguisher.
 class FlowDistinguisherMethod {
   /// The main constructor.
@@ -13,21 +12,19 @@ class FlowDistinguisherMethod {
         );
 
   /// Creates a list of FlowDistinguisherMethod from JSON data.
-  static List<FlowDistinguisherMethod> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<FlowDistinguisherMethod> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => FlowDistinguisherMethod.fromJson(e)).toList();
   }
 
   /// Converts a FlowDistinguisherMethod instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['type'] = type;
-    
 
     return jsonData;
   }
-
 
   /// `type` is the type of flow distinguisher method The supported types are "ByUser" and "ByNamespace". Required.
   final String type;

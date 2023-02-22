@@ -32,30 +32,42 @@ class ScaleIOVolumeSource {
         );
 
   /// Creates a list of ScaleIOVolumeSource from JSON data.
-  static List<ScaleIOVolumeSource> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ScaleIOVolumeSource> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ScaleIOVolumeSource.fromJson(e)).toList();
   }
 
   /// Converts a ScaleIOVolumeSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(fsType != null) { jsonData['fsType'] = fsType!; }
+    if (fsType != null) {
+      jsonData['fsType'] = fsType!;
+    }
     jsonData['gateway'] = gateway;
-    if(protectionDomain != null) { jsonData['protectionDomain'] = protectionDomain!; }
-    if(readOnly != null) { jsonData['readOnly'] = readOnly!; }
+    if (protectionDomain != null) {
+      jsonData['protectionDomain'] = protectionDomain!;
+    }
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
     jsonData['secretRef'] = secretRef.toJson();
-    if(sslEnabled != null) { jsonData['sslEnabled'] = sslEnabled!; }
-    if(storageMode != null) { jsonData['storageMode'] = storageMode!; }
-    if(storagePool != null) { jsonData['storagePool'] = storagePool!; }
+    if (sslEnabled != null) {
+      jsonData['sslEnabled'] = sslEnabled!;
+    }
+    if (storageMode != null) {
+      jsonData['storageMode'] = storageMode!;
+    }
+    if (storagePool != null) {
+      jsonData['storagePool'] = storagePool!;
+    }
     jsonData['system'] = system;
-    if(volumeName != null) { jsonData['volumeName'] = volumeName!; }
-    
+    if (volumeName != null) {
+      jsonData['volumeName'] = volumeName!;
+    }
 
     return jsonData;
   }
-
 
   /// FsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
   final String? fsType;

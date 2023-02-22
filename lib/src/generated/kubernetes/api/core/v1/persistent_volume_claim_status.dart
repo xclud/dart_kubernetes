@@ -15,35 +15,55 @@ class PersistentVolumeClaimStatus {
   /// Creates a PersistentVolumeClaimStatus from JSON data.
   PersistentVolumeClaimStatus.fromJson(Map<String, dynamic> json)
       : this(
-          accessModes: json['accessModes'] != null ? List<String>.from(json['accessModes']) : null,
-          allocatedResources: json['allocatedResources'] != null ? Map<String, String>.from(json['allocatedResources']) : null,
-          capacity: json['capacity'] != null ? Map<String, String>.from(json['capacity']) : null,
-          conditions: json['conditions'] != null ? PersistentVolumeClaimCondition.listFromJson((json['conditions'] as Iterable).cast<Map<String, dynamic>>()): null,
+          accessModes: json['accessModes'] != null
+              ? List<String>.from(json['accessModes'])
+              : null,
+          allocatedResources: json['allocatedResources'] != null
+              ? Map<String, String>.from(json['allocatedResources'])
+              : null,
+          capacity: json['capacity'] != null
+              ? Map<String, String>.from(json['capacity'])
+              : null,
+          conditions: json['conditions'] != null
+              ? PersistentVolumeClaimCondition.listFromJson(
+                  (json['conditions'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
           phase: json['phase'],
           resizeStatus: json['resizeStatus'],
         );
 
   /// Creates a list of PersistentVolumeClaimStatus from JSON data.
-  static List<PersistentVolumeClaimStatus> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<PersistentVolumeClaimStatus> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => PersistentVolumeClaimStatus.fromJson(e)).toList();
   }
 
   /// Converts a PersistentVolumeClaimStatus instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(accessModes != null) { jsonData['accessModes'] = accessModes!; }
-    if(allocatedResources != null) { jsonData['allocatedResources'] = allocatedResources!; }
-    if(capacity != null) { jsonData['capacity'] = capacity!; }
-    if(conditions != null) { jsonData['conditions'] = conditions!.map((item) => item.toJson()).toList(); }
-    if(phase != null) { jsonData['phase'] = phase!; }
-    if(resizeStatus != null) { jsonData['resizeStatus'] = resizeStatus!; }
-    
+    if (accessModes != null) {
+      jsonData['accessModes'] = accessModes!;
+    }
+    if (allocatedResources != null) {
+      jsonData['allocatedResources'] = allocatedResources!;
+    }
+    if (capacity != null) {
+      jsonData['capacity'] = capacity!;
+    }
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
+    if (phase != null) {
+      jsonData['phase'] = phase!;
+    }
+    if (resizeStatus != null) {
+      jsonData['resizeStatus'] = resizeStatus!;
+    }
 
     return jsonData;
   }
-
 
   /// AccessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1.
   final List<String>? accessModes;

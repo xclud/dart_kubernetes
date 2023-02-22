@@ -1,4 +1,3 @@
-
 /// Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.
 class GlusterfsPersistentVolumeSource {
   /// The main constructor.
@@ -19,24 +18,28 @@ class GlusterfsPersistentVolumeSource {
         );
 
   /// Creates a list of GlusterfsPersistentVolumeSource from JSON data.
-  static List<GlusterfsPersistentVolumeSource> listFromJson(Iterable<Map<String, dynamic>> list) {
-    return list.map((e) => GlusterfsPersistentVolumeSource.fromJson(e)).toList();
+  static List<GlusterfsPersistentVolumeSource> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
+    return list
+        .map((e) => GlusterfsPersistentVolumeSource.fromJson(e))
+        .toList();
   }
 
   /// Converts a GlusterfsPersistentVolumeSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['endpoints'] = endpoints;
-    if(endpointsNamespace != null) { jsonData['endpointsNamespace'] = endpointsNamespace!; }
+    if (endpointsNamespace != null) {
+      jsonData['endpointsNamespace'] = endpointsNamespace!;
+    }
     jsonData['path'] = path;
-    if(readOnly != null) { jsonData['readOnly'] = readOnly!; }
-    
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
 
     return jsonData;
   }
-
 
   /// Endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod.
   final String endpoints;

@@ -1,4 +1,3 @@
-
 /// EndpointPort is a tuple that describes a single port.
 class EndpointPort {
   /// The main constructor.
@@ -24,19 +23,22 @@ class EndpointPort {
   }
 
   /// Converts a EndpointPort instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(appProtocol != null) { jsonData['appProtocol'] = appProtocol!; }
-    if(name != null) { jsonData['name'] = name!; }
+    if (appProtocol != null) {
+      jsonData['appProtocol'] = appProtocol!;
+    }
+    if (name != null) {
+      jsonData['name'] = name!;
+    }
     jsonData['port'] = port;
-    if(protocol != null) { jsonData['protocol'] = protocol!; }
-    
+    if (protocol != null) {
+      jsonData['protocol'] = protocol!;
+    }
 
     return jsonData;
   }
-
 
   /// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
   final String? appProtocol;

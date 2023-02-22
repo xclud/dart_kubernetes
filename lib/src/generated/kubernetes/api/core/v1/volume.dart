@@ -67,36 +67,96 @@ class Volume {
   /// Creates a Volume from JSON data.
   Volume.fromJson(Map<String, dynamic> json)
       : this(
-          awsElasticBlockStore: json['awsElasticBlockStore'] != null ? AWSElasticBlockStoreVolumeSource.fromJson(json['awsElasticBlockStore']): null,
-          azureDisk: json['azureDisk'] != null ? AzureDiskVolumeSource.fromJson(json['azureDisk']): null,
-          azureFile: json['azureFile'] != null ? AzureFileVolumeSource.fromJson(json['azureFile']): null,
-          cephfs: json['cephfs'] != null ? CephFSVolumeSource.fromJson(json['cephfs']): null,
-          cinder: json['cinder'] != null ? CinderVolumeSource.fromJson(json['cinder']): null,
-          configMap: json['configMap'] != null ? ConfigMapVolumeSource.fromJson(json['configMap']): null,
-          csi: json['csi'] != null ? CSIVolumeSource.fromJson(json['csi']): null,
-          downwardAPI: json['downwardAPI'] != null ? DownwardAPIVolumeSource.fromJson(json['downwardAPI']): null,
-          emptyDir: json['emptyDir'] != null ? EmptyDirVolumeSource.fromJson(json['emptyDir']): null,
-          ephemeral: json['ephemeral'] != null ? EphemeralVolumeSource.fromJson(json['ephemeral']): null,
-          fc: json['fc'] != null ? FCVolumeSource.fromJson(json['fc']): null,
-          flexVolume: json['flexVolume'] != null ? FlexVolumeSource.fromJson(json['flexVolume']): null,
-          flocker: json['flocker'] != null ? FlockerVolumeSource.fromJson(json['flocker']): null,
-          gcePersistentDisk: json['gcePersistentDisk'] != null ? GCEPersistentDiskVolumeSource.fromJson(json['gcePersistentDisk']): null,
-          gitRepo: json['gitRepo'] != null ? GitRepoVolumeSource.fromJson(json['gitRepo']): null,
-          glusterfs: json['glusterfs'] != null ? GlusterfsVolumeSource.fromJson(json['glusterfs']): null,
-          hostPath: json['hostPath'] != null ? HostPathVolumeSource.fromJson(json['hostPath']): null,
-          iscsi: json['iscsi'] != null ? ISCSIVolumeSource.fromJson(json['iscsi']): null,
+          awsElasticBlockStore: json['awsElasticBlockStore'] != null
+              ? AWSElasticBlockStoreVolumeSource.fromJson(
+                  json['awsElasticBlockStore'])
+              : null,
+          azureDisk: json['azureDisk'] != null
+              ? AzureDiskVolumeSource.fromJson(json['azureDisk'])
+              : null,
+          azureFile: json['azureFile'] != null
+              ? AzureFileVolumeSource.fromJson(json['azureFile'])
+              : null,
+          cephfs: json['cephfs'] != null
+              ? CephFSVolumeSource.fromJson(json['cephfs'])
+              : null,
+          cinder: json['cinder'] != null
+              ? CinderVolumeSource.fromJson(json['cinder'])
+              : null,
+          configMap: json['configMap'] != null
+              ? ConfigMapVolumeSource.fromJson(json['configMap'])
+              : null,
+          csi: json['csi'] != null
+              ? CSIVolumeSource.fromJson(json['csi'])
+              : null,
+          downwardAPI: json['downwardAPI'] != null
+              ? DownwardAPIVolumeSource.fromJson(json['downwardAPI'])
+              : null,
+          emptyDir: json['emptyDir'] != null
+              ? EmptyDirVolumeSource.fromJson(json['emptyDir'])
+              : null,
+          ephemeral: json['ephemeral'] != null
+              ? EphemeralVolumeSource.fromJson(json['ephemeral'])
+              : null,
+          fc: json['fc'] != null ? FCVolumeSource.fromJson(json['fc']) : null,
+          flexVolume: json['flexVolume'] != null
+              ? FlexVolumeSource.fromJson(json['flexVolume'])
+              : null,
+          flocker: json['flocker'] != null
+              ? FlockerVolumeSource.fromJson(json['flocker'])
+              : null,
+          gcePersistentDisk: json['gcePersistentDisk'] != null
+              ? GCEPersistentDiskVolumeSource.fromJson(
+                  json['gcePersistentDisk'])
+              : null,
+          gitRepo: json['gitRepo'] != null
+              ? GitRepoVolumeSource.fromJson(json['gitRepo'])
+              : null,
+          glusterfs: json['glusterfs'] != null
+              ? GlusterfsVolumeSource.fromJson(json['glusterfs'])
+              : null,
+          hostPath: json['hostPath'] != null
+              ? HostPathVolumeSource.fromJson(json['hostPath'])
+              : null,
+          iscsi: json['iscsi'] != null
+              ? ISCSIVolumeSource.fromJson(json['iscsi'])
+              : null,
           name: json['name'],
-          nfs: json['nfs'] != null ? NFSVolumeSource.fromJson(json['nfs']): null,
-          persistentVolumeClaim: json['persistentVolumeClaim'] != null ? PersistentVolumeClaimVolumeSource.fromJson(json['persistentVolumeClaim']): null,
-          photonPersistentDisk: json['photonPersistentDisk'] != null ? PhotonPersistentDiskVolumeSource.fromJson(json['photonPersistentDisk']): null,
-          portworxVolume: json['portworxVolume'] != null ? PortworxVolumeSource.fromJson(json['portworxVolume']): null,
-          projected: json['projected'] != null ? ProjectedVolumeSource.fromJson(json['projected']): null,
-          quobyte: json['quobyte'] != null ? QuobyteVolumeSource.fromJson(json['quobyte']): null,
-          rbd: json['rbd'] != null ? RBDVolumeSource.fromJson(json['rbd']): null,
-          scaleIO: json['scaleIO'] != null ? ScaleIOVolumeSource.fromJson(json['scaleIO']): null,
-          secret: json['secret'] != null ? SecretVolumeSource.fromJson(json['secret']): null,
-          storageos: json['storageos'] != null ? StorageOSVolumeSource.fromJson(json['storageos']): null,
-          vsphereVolume: json['vsphereVolume'] != null ? VsphereVirtualDiskVolumeSource.fromJson(json['vsphereVolume']): null,
+          nfs: json['nfs'] != null
+              ? NFSVolumeSource.fromJson(json['nfs'])
+              : null,
+          persistentVolumeClaim: json['persistentVolumeClaim'] != null
+              ? PersistentVolumeClaimVolumeSource.fromJson(
+                  json['persistentVolumeClaim'])
+              : null,
+          photonPersistentDisk: json['photonPersistentDisk'] != null
+              ? PhotonPersistentDiskVolumeSource.fromJson(
+                  json['photonPersistentDisk'])
+              : null,
+          portworxVolume: json['portworxVolume'] != null
+              ? PortworxVolumeSource.fromJson(json['portworxVolume'])
+              : null,
+          projected: json['projected'] != null
+              ? ProjectedVolumeSource.fromJson(json['projected'])
+              : null,
+          quobyte: json['quobyte'] != null
+              ? QuobyteVolumeSource.fromJson(json['quobyte'])
+              : null,
+          rbd: json['rbd'] != null
+              ? RBDVolumeSource.fromJson(json['rbd'])
+              : null,
+          scaleIO: json['scaleIO'] != null
+              ? ScaleIOVolumeSource.fromJson(json['scaleIO'])
+              : null,
+          secret: json['secret'] != null
+              ? SecretVolumeSource.fromJson(json['secret'])
+              : null,
+          storageos: json['storageos'] != null
+              ? StorageOSVolumeSource.fromJson(json['storageos'])
+              : null,
+          vsphereVolume: json['vsphereVolume'] != null
+              ? VsphereVirtualDiskVolumeSource.fromJson(json['vsphereVolume'])
+              : null,
         );
 
   /// Creates a list of Volume from JSON data.
@@ -105,45 +165,100 @@ class Volume {
   }
 
   /// Converts a Volume instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(awsElasticBlockStore != null) { jsonData['awsElasticBlockStore'] = awsElasticBlockStore!.toJson(); }
-    if(azureDisk != null) { jsonData['azureDisk'] = azureDisk!.toJson(); }
-    if(azureFile != null) { jsonData['azureFile'] = azureFile!.toJson(); }
-    if(cephfs != null) { jsonData['cephfs'] = cephfs!.toJson(); }
-    if(cinder != null) { jsonData['cinder'] = cinder!.toJson(); }
-    if(configMap != null) { jsonData['configMap'] = configMap!.toJson(); }
-    if(csi != null) { jsonData['csi'] = csi!.toJson(); }
-    if(downwardAPI != null) { jsonData['downwardAPI'] = downwardAPI!.toJson(); }
-    if(emptyDir != null) { jsonData['emptyDir'] = emptyDir!.toJson(); }
-    if(ephemeral != null) { jsonData['ephemeral'] = ephemeral!.toJson(); }
-    if(fc != null) { jsonData['fc'] = fc!.toJson(); }
-    if(flexVolume != null) { jsonData['flexVolume'] = flexVolume!.toJson(); }
-    if(flocker != null) { jsonData['flocker'] = flocker!.toJson(); }
-    if(gcePersistentDisk != null) { jsonData['gcePersistentDisk'] = gcePersistentDisk!.toJson(); }
-    if(gitRepo != null) { jsonData['gitRepo'] = gitRepo!.toJson(); }
-    if(glusterfs != null) { jsonData['glusterfs'] = glusterfs!.toJson(); }
-    if(hostPath != null) { jsonData['hostPath'] = hostPath!.toJson(); }
-    if(iscsi != null) { jsonData['iscsi'] = iscsi!.toJson(); }
+    if (awsElasticBlockStore != null) {
+      jsonData['awsElasticBlockStore'] = awsElasticBlockStore!.toJson();
+    }
+    if (azureDisk != null) {
+      jsonData['azureDisk'] = azureDisk!.toJson();
+    }
+    if (azureFile != null) {
+      jsonData['azureFile'] = azureFile!.toJson();
+    }
+    if (cephfs != null) {
+      jsonData['cephfs'] = cephfs!.toJson();
+    }
+    if (cinder != null) {
+      jsonData['cinder'] = cinder!.toJson();
+    }
+    if (configMap != null) {
+      jsonData['configMap'] = configMap!.toJson();
+    }
+    if (csi != null) {
+      jsonData['csi'] = csi!.toJson();
+    }
+    if (downwardAPI != null) {
+      jsonData['downwardAPI'] = downwardAPI!.toJson();
+    }
+    if (emptyDir != null) {
+      jsonData['emptyDir'] = emptyDir!.toJson();
+    }
+    if (ephemeral != null) {
+      jsonData['ephemeral'] = ephemeral!.toJson();
+    }
+    if (fc != null) {
+      jsonData['fc'] = fc!.toJson();
+    }
+    if (flexVolume != null) {
+      jsonData['flexVolume'] = flexVolume!.toJson();
+    }
+    if (flocker != null) {
+      jsonData['flocker'] = flocker!.toJson();
+    }
+    if (gcePersistentDisk != null) {
+      jsonData['gcePersistentDisk'] = gcePersistentDisk!.toJson();
+    }
+    if (gitRepo != null) {
+      jsonData['gitRepo'] = gitRepo!.toJson();
+    }
+    if (glusterfs != null) {
+      jsonData['glusterfs'] = glusterfs!.toJson();
+    }
+    if (hostPath != null) {
+      jsonData['hostPath'] = hostPath!.toJson();
+    }
+    if (iscsi != null) {
+      jsonData['iscsi'] = iscsi!.toJson();
+    }
     jsonData['name'] = name;
-    if(nfs != null) { jsonData['nfs'] = nfs!.toJson(); }
-    if(persistentVolumeClaim != null) { jsonData['persistentVolumeClaim'] = persistentVolumeClaim!.toJson(); }
-    if(photonPersistentDisk != null) { jsonData['photonPersistentDisk'] = photonPersistentDisk!.toJson(); }
-    if(portworxVolume != null) { jsonData['portworxVolume'] = portworxVolume!.toJson(); }
-    if(projected != null) { jsonData['projected'] = projected!.toJson(); }
-    if(quobyte != null) { jsonData['quobyte'] = quobyte!.toJson(); }
-    if(rbd != null) { jsonData['rbd'] = rbd!.toJson(); }
-    if(scaleIO != null) { jsonData['scaleIO'] = scaleIO!.toJson(); }
-    if(secret != null) { jsonData['secret'] = secret!.toJson(); }
-    if(storageos != null) { jsonData['storageos'] = storageos!.toJson(); }
-    if(vsphereVolume != null) { jsonData['vsphereVolume'] = vsphereVolume!.toJson(); }
-    
+    if (nfs != null) {
+      jsonData['nfs'] = nfs!.toJson();
+    }
+    if (persistentVolumeClaim != null) {
+      jsonData['persistentVolumeClaim'] = persistentVolumeClaim!.toJson();
+    }
+    if (photonPersistentDisk != null) {
+      jsonData['photonPersistentDisk'] = photonPersistentDisk!.toJson();
+    }
+    if (portworxVolume != null) {
+      jsonData['portworxVolume'] = portworxVolume!.toJson();
+    }
+    if (projected != null) {
+      jsonData['projected'] = projected!.toJson();
+    }
+    if (quobyte != null) {
+      jsonData['quobyte'] = quobyte!.toJson();
+    }
+    if (rbd != null) {
+      jsonData['rbd'] = rbd!.toJson();
+    }
+    if (scaleIO != null) {
+      jsonData['scaleIO'] = scaleIO!.toJson();
+    }
+    if (secret != null) {
+      jsonData['secret'] = secret!.toJson();
+    }
+    if (storageos != null) {
+      jsonData['storageos'] = storageos!.toJson();
+    }
+    if (vsphereVolume != null) {
+      jsonData['vsphereVolume'] = vsphereVolume!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// AwsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore.
   final AWSElasticBlockStoreVolumeSource? awsElasticBlockStore;
@@ -173,19 +288,19 @@ class Volume {
   final EmptyDirVolumeSource? emptyDir;
 
   /// Ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
-/// 
-/// Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity
-///    tracking are needed,
-/// c) the storage driver is specified through a storage class, and d) the storage driver supports dynamic volume provisioning through
-///    a PersistentVolumeClaim (see EphemeralVolumeSource for more
-///    information on the connection between this volume type
-///    and PersistentVolumeClaim).
-/// 
-/// Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
-/// 
-/// Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
-/// 
-/// A pod can use both types of ephemeral volumes and persistent volumes at the same time.
+  ///
+  /// Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity
+  ///    tracking are needed,
+  /// c) the storage driver is specified through a storage class, and d) the storage driver supports dynamic volume provisioning through
+  ///    a PersistentVolumeClaim (see EphemeralVolumeSource for more
+  ///    information on the connection between this volume type
+  ///    and PersistentVolumeClaim).
+  ///
+  /// Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
+  ///
+  /// Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
+  ///
+  /// A pod can use both types of ephemeral volumes and persistent volumes at the same time.
   final EphemeralVolumeSource? ephemeral;
 
   /// Fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.

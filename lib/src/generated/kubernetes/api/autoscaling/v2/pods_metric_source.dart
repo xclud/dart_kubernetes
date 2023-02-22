@@ -17,22 +17,20 @@ class PodsMetricSource {
         );
 
   /// Creates a list of PodsMetricSource from JSON data.
-  static List<PodsMetricSource> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<PodsMetricSource> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => PodsMetricSource.fromJson(e)).toList();
   }
 
   /// Converts a PodsMetricSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['metric'] = metric.toJson();
     jsonData['target'] = target.toJson();
-    
 
     return jsonData;
   }
-
 
   /// Metric identifies the target metric by name and selector.
   final MetricIdentifier metric;

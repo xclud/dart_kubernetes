@@ -1,4 +1,3 @@
-
 /// NodeSystemInfo is a set of ids/uuids to uniquely identify the node.
 class NodeSystemInfo {
   /// The main constructor.
@@ -31,13 +30,13 @@ class NodeSystemInfo {
         );
 
   /// Creates a list of NodeSystemInfo from JSON data.
-  static List<NodeSystemInfo> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<NodeSystemInfo> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => NodeSystemInfo.fromJson(e)).toList();
   }
 
   /// Converts a NodeSystemInfo instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['architecture'] = architecture;
@@ -50,11 +49,9 @@ class NodeSystemInfo {
     jsonData['operatingSystem'] = operatingSystem;
     jsonData['osImage'] = osImage;
     jsonData['systemUUID'] = systemUUID;
-    
 
     return jsonData;
   }
-
 
   /// The Architecture reported by the node.
   final String architecture;

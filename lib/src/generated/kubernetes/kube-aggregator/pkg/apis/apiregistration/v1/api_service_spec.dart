@@ -20,33 +20,43 @@ class APIServiceSpec {
           group: json['group'],
           groupPriorityMinimum: json['groupPriorityMinimum'],
           insecureSkipTLSVerify: json['insecureSkipTLSVerify'],
-          service: json['service'] != null ? ServiceReference.fromJson(json['service']): null,
+          service: json['service'] != null
+              ? ServiceReference.fromJson(json['service'])
+              : null,
           version: json['version'],
           versionPriority: json['versionPriority'],
         );
 
   /// Creates a list of APIServiceSpec from JSON data.
-  static List<APIServiceSpec> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<APIServiceSpec> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => APIServiceSpec.fromJson(e)).toList();
   }
 
   /// Converts a APIServiceSpec instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(caBundle != null) { jsonData['caBundle'] = caBundle!; }
-    if(group != null) { jsonData['group'] = group!; }
+    if (caBundle != null) {
+      jsonData['caBundle'] = caBundle!;
+    }
+    if (group != null) {
+      jsonData['group'] = group!;
+    }
     jsonData['groupPriorityMinimum'] = groupPriorityMinimum;
-    if(insecureSkipTLSVerify != null) { jsonData['insecureSkipTLSVerify'] = insecureSkipTLSVerify!; }
-    if(service != null) { jsonData['service'] = service!.toJson(); }
-    if(version != null) { jsonData['version'] = version!; }
+    if (insecureSkipTLSVerify != null) {
+      jsonData['insecureSkipTLSVerify'] = insecureSkipTLSVerify!;
+    }
+    if (service != null) {
+      jsonData['service'] = service!.toJson();
+    }
+    if (version != null) {
+      jsonData['version'] = version!;
+    }
     jsonData['versionPriority'] = versionPriority;
-    
 
     return jsonData;
   }
-
 
   /// CABundle is a PEM encoded CA bundle which will be used to validate an API server's serving certificate. If unspecified, system trust roots on the apiserver are used.
   final String? caBundle;

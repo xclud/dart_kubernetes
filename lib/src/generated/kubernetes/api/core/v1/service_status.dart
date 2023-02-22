@@ -12,8 +12,13 @@ class ServiceStatus {
   /// Creates a ServiceStatus from JSON data.
   ServiceStatus.fromJson(Map<String, dynamic> json)
       : this(
-          conditions: json['conditions'] != null ? Condition.listFromJson((json['conditions'] as Iterable).cast<Map<String, dynamic>>()): null,
-          loadBalancer: json['loadBalancer'] != null ? LoadBalancerStatus.fromJson(json['loadBalancer']): null,
+          conditions: json['conditions'] != null
+              ? Condition.listFromJson(
+                  (json['conditions'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
+          loadBalancer: json['loadBalancer'] != null
+              ? LoadBalancerStatus.fromJson(json['loadBalancer'])
+              : null,
         );
 
   /// Creates a list of ServiceStatus from JSON data.
@@ -22,17 +27,19 @@ class ServiceStatus {
   }
 
   /// Converts a ServiceStatus instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(conditions != null) { jsonData['conditions'] = conditions!.map((item) => item.toJson()).toList(); }
-    if(loadBalancer != null) { jsonData['loadBalancer'] = loadBalancer!.toJson(); }
-    
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
+    if (loadBalancer != null) {
+      jsonData['loadBalancer'] = loadBalancer!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// Current service state.
   final List<Condition>? conditions;

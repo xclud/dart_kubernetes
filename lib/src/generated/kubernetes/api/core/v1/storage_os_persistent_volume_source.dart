@@ -16,31 +16,43 @@ class StorageOSPersistentVolumeSource {
       : this(
           fsType: json['fsType'],
           readOnly: json['readOnly'],
-          secretRef: json['secretRef'] != null ? ObjectReference.fromJson(json['secretRef']): null,
+          secretRef: json['secretRef'] != null
+              ? ObjectReference.fromJson(json['secretRef'])
+              : null,
           volumeName: json['volumeName'],
           volumeNamespace: json['volumeNamespace'],
         );
 
   /// Creates a list of StorageOSPersistentVolumeSource from JSON data.
-  static List<StorageOSPersistentVolumeSource> listFromJson(Iterable<Map<String, dynamic>> list) {
-    return list.map((e) => StorageOSPersistentVolumeSource.fromJson(e)).toList();
+  static List<StorageOSPersistentVolumeSource> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
+    return list
+        .map((e) => StorageOSPersistentVolumeSource.fromJson(e))
+        .toList();
   }
 
   /// Converts a StorageOSPersistentVolumeSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(fsType != null) { jsonData['fsType'] = fsType!; }
-    if(readOnly != null) { jsonData['readOnly'] = readOnly!; }
-    if(secretRef != null) { jsonData['secretRef'] = secretRef!.toJson(); }
-    if(volumeName != null) { jsonData['volumeName'] = volumeName!; }
-    if(volumeNamespace != null) { jsonData['volumeNamespace'] = volumeNamespace!; }
-    
+    if (fsType != null) {
+      jsonData['fsType'] = fsType!;
+    }
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
+    if (secretRef != null) {
+      jsonData['secretRef'] = secretRef!.toJson();
+    }
+    if (volumeName != null) {
+      jsonData['volumeName'] = volumeName!;
+    }
+    if (volumeNamespace != null) {
+      jsonData['volumeNamespace'] = volumeNamespace!;
+    }
 
     return jsonData;
   }
-
 
   /// FsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
   final String? fsType;

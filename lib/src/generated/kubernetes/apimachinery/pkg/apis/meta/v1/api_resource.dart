@@ -1,4 +1,3 @@
-
 /// APIResource specifies the name of a resource and whether it is namespaced.
 class APIResource {
   /// The main constructor.
@@ -18,12 +17,16 @@ class APIResource {
   /// Creates a APIResource from JSON data.
   APIResource.fromJson(Map<String, dynamic> json)
       : this(
-          categories: json['categories'] != null ? List<String>.from(json['categories']) : null,
+          categories: json['categories'] != null
+              ? List<String>.from(json['categories'])
+              : null,
           group: json['group'],
           kind: json['kind'],
           name: json['name'],
           namespaced: json['namespaced'],
-          shortNames: json['shortNames'] != null ? List<String>.from(json['shortNames']) : null,
+          shortNames: json['shortNames'] != null
+              ? List<String>.from(json['shortNames'])
+              : null,
           singularName: json['singularName'],
           storageVersionHash: json['storageVersionHash'],
           verbs: json['verbs'] != null ? List<String>.from(json['verbs']) : [],
@@ -36,25 +39,32 @@ class APIResource {
   }
 
   /// Converts a APIResource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(categories != null) { jsonData['categories'] = categories!; }
-    if(group != null) { jsonData['group'] = group!; }
+    if (categories != null) {
+      jsonData['categories'] = categories!;
+    }
+    if (group != null) {
+      jsonData['group'] = group!;
+    }
     jsonData['kind'] = kind;
     jsonData['name'] = name;
     jsonData['namespaced'] = namespaced;
-    if(shortNames != null) { jsonData['shortNames'] = shortNames!; }
+    if (shortNames != null) {
+      jsonData['shortNames'] = shortNames!;
+    }
     jsonData['singularName'] = singularName;
-    if(storageVersionHash != null) { jsonData['storageVersionHash'] = storageVersionHash!; }
+    if (storageVersionHash != null) {
+      jsonData['storageVersionHash'] = storageVersionHash!;
+    }
     jsonData['verbs'] = verbs;
-    if(version != null) { jsonData['version'] = version!; }
-    
+    if (version != null) {
+      jsonData['version'] = version!;
+    }
 
     return jsonData;
   }
-
 
   /// Categories is a list of the grouped resources this resource belongs to (e.g. 'all').
   final List<String>? categories;

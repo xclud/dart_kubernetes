@@ -1,4 +1,3 @@
-
 /// Preconditions must be fulfilled before an operation (update, delete, etc.) is carried out.
 class Preconditions {
   /// The main constructor.
@@ -20,17 +19,18 @@ class Preconditions {
   }
 
   /// Converts a Preconditions instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(resourceVersion != null) { jsonData['resourceVersion'] = resourceVersion!; }
-    if(uid != null) { jsonData['uid'] = uid!; }
-    
+    if (resourceVersion != null) {
+      jsonData['resourceVersion'] = resourceVersion!;
+    }
+    if (uid != null) {
+      jsonData['uid'] = uid!;
+    }
 
     return jsonData;
   }
-
 
   /// Specifies the target ResourceVersion.
   final String? resourceVersion;

@@ -27,38 +27,56 @@ class ISCSIVolumeSource {
           iqn: json['iqn'],
           iscsiInterface: json['iscsiInterface'],
           lun: json['lun'],
-          portals: json['portals'] != null ? List<String>.from(json['portals']) : null,
+          portals: json['portals'] != null
+              ? List<String>.from(json['portals'])
+              : null,
           readOnly: json['readOnly'],
-          secretRef: json['secretRef'] != null ? LocalObjectReference.fromJson(json['secretRef']): null,
+          secretRef: json['secretRef'] != null
+              ? LocalObjectReference.fromJson(json['secretRef'])
+              : null,
           targetPortal: json['targetPortal'],
         );
 
   /// Creates a list of ISCSIVolumeSource from JSON data.
-  static List<ISCSIVolumeSource> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ISCSIVolumeSource> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ISCSIVolumeSource.fromJson(e)).toList();
   }
 
   /// Converts a ISCSIVolumeSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(chapAuthDiscovery != null) { jsonData['chapAuthDiscovery'] = chapAuthDiscovery!; }
-    if(chapAuthSession != null) { jsonData['chapAuthSession'] = chapAuthSession!; }
-    if(fsType != null) { jsonData['fsType'] = fsType!; }
-    if(initiatorName != null) { jsonData['initiatorName'] = initiatorName!; }
+    if (chapAuthDiscovery != null) {
+      jsonData['chapAuthDiscovery'] = chapAuthDiscovery!;
+    }
+    if (chapAuthSession != null) {
+      jsonData['chapAuthSession'] = chapAuthSession!;
+    }
+    if (fsType != null) {
+      jsonData['fsType'] = fsType!;
+    }
+    if (initiatorName != null) {
+      jsonData['initiatorName'] = initiatorName!;
+    }
     jsonData['iqn'] = iqn;
-    if(iscsiInterface != null) { jsonData['iscsiInterface'] = iscsiInterface!; }
+    if (iscsiInterface != null) {
+      jsonData['iscsiInterface'] = iscsiInterface!;
+    }
     jsonData['lun'] = lun;
-    if(portals != null) { jsonData['portals'] = portals!; }
-    if(readOnly != null) { jsonData['readOnly'] = readOnly!; }
-    if(secretRef != null) { jsonData['secretRef'] = secretRef!.toJson(); }
+    if (portals != null) {
+      jsonData['portals'] = portals!;
+    }
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
+    if (secretRef != null) {
+      jsonData['secretRef'] = secretRef!.toJson();
+    }
     jsonData['targetPortal'] = targetPortal;
-    
 
     return jsonData;
   }
-
 
   /// ChapAuthDiscovery defines whether support iSCSI Discovery CHAP authentication.
   final bool? chapAuthDiscovery;

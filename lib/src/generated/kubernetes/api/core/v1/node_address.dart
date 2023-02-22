@@ -1,4 +1,3 @@
-
 /// NodeAddress contains information for the node's address.
 class NodeAddress {
   /// The main constructor.
@@ -20,17 +19,14 @@ class NodeAddress {
   }
 
   /// Converts a NodeAddress instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['address'] = address;
     jsonData['type'] = type;
-    
 
     return jsonData;
   }
-
 
   /// The node address.
   final String address;

@@ -10,25 +10,30 @@ class TopologySelectorTerm {
   /// Creates a TopologySelectorTerm from JSON data.
   TopologySelectorTerm.fromJson(Map<String, dynamic> json)
       : this(
-          matchLabelExpressions: json['matchLabelExpressions'] != null ? TopologySelectorLabelRequirement.listFromJson((json['matchLabelExpressions'] as Iterable).cast<Map<String, dynamic>>()): null,
+          matchLabelExpressions: json['matchLabelExpressions'] != null
+              ? TopologySelectorLabelRequirement.listFromJson(
+                  (json['matchLabelExpressions'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : null,
         );
 
   /// Creates a list of TopologySelectorTerm from JSON data.
-  static List<TopologySelectorTerm> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<TopologySelectorTerm> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => TopologySelectorTerm.fromJson(e)).toList();
   }
 
   /// Converts a TopologySelectorTerm instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(matchLabelExpressions != null) { jsonData['matchLabelExpressions'] = matchLabelExpressions!.map((item) => item.toJson()).toList(); }
-    
+    if (matchLabelExpressions != null) {
+      jsonData['matchLabelExpressions'] =
+          matchLabelExpressions!.map((item) => item.toJson()).toList();
+    }
 
     return jsonData;
   }
-
 
   /// A list of topology selector requirements by labels.
   final List<TopologySelectorLabelRequirement>? matchLabelExpressions;

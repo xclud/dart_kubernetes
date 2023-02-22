@@ -1,4 +1,3 @@
-
 /// ResourceClaim references one entry in PodSpec.ResourceClaims.
 class ResourceClaim {
   /// The main constructor.
@@ -18,16 +17,13 @@ class ResourceClaim {
   }
 
   /// Converts a ResourceClaim instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['name'] = name;
-    
 
     return jsonData;
   }
-
 
   /// Name must match the name of one entry in pod.spec.resourceClaims of the Pod where this field is used. It makes that resource available inside a container.
   final String name;

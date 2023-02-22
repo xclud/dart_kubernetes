@@ -1,4 +1,3 @@
-
 /// ResourceClassParametersReference contains enough information to let you locate the parameters for a ResourceClass.
 class ResourceClassParametersReference {
   /// The main constructor.
@@ -19,24 +18,28 @@ class ResourceClassParametersReference {
         );
 
   /// Creates a list of ResourceClassParametersReference from JSON data.
-  static List<ResourceClassParametersReference> listFromJson(Iterable<Map<String, dynamic>> list) {
-    return list.map((e) => ResourceClassParametersReference.fromJson(e)).toList();
+  static List<ResourceClassParametersReference> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
+    return list
+        .map((e) => ResourceClassParametersReference.fromJson(e))
+        .toList();
   }
 
   /// Converts a ResourceClassParametersReference instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiGroup != null) { jsonData['apiGroup'] = apiGroup!; }
+    if (apiGroup != null) {
+      jsonData['apiGroup'] = apiGroup!;
+    }
     jsonData['kind'] = kind;
     jsonData['name'] = name;
-    if(namespace != null) { jsonData['namespace'] = namespace!; }
-    
+    if (namespace != null) {
+      jsonData['namespace'] = namespace!;
+    }
 
     return jsonData;
   }
-
 
   /// APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
   final String? apiGroup;

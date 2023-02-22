@@ -22,14 +22,18 @@ class Probe {
   /// Creates a Probe from JSON data.
   Probe.fromJson(Map<String, dynamic> json)
       : this(
-          exec: json['exec'] != null ? ExecAction.fromJson(json['exec']): null,
+          exec: json['exec'] != null ? ExecAction.fromJson(json['exec']) : null,
           failureThreshold: json['failureThreshold'],
-          grpc: json['grpc'] != null ? GRPCAction.fromJson(json['grpc']): null,
-          httpGet: json['httpGet'] != null ? HTTPGetAction.fromJson(json['httpGet']): null,
+          grpc: json['grpc'] != null ? GRPCAction.fromJson(json['grpc']) : null,
+          httpGet: json['httpGet'] != null
+              ? HTTPGetAction.fromJson(json['httpGet'])
+              : null,
           initialDelaySeconds: json['initialDelaySeconds'],
           periodSeconds: json['periodSeconds'],
           successThreshold: json['successThreshold'],
-          tcpSocket: json['tcpSocket'] != null ? TCPSocketAction.fromJson(json['tcpSocket']): null,
+          tcpSocket: json['tcpSocket'] != null
+              ? TCPSocketAction.fromJson(json['tcpSocket'])
+              : null,
           terminationGracePeriodSeconds: json['terminationGracePeriodSeconds'],
           timeoutSeconds: json['timeoutSeconds'],
         );
@@ -40,25 +44,43 @@ class Probe {
   }
 
   /// Converts a Probe instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(exec != null) { jsonData['exec'] = exec!.toJson(); }
-    if(failureThreshold != null) { jsonData['failureThreshold'] = failureThreshold!; }
-    if(grpc != null) { jsonData['grpc'] = grpc!.toJson(); }
-    if(httpGet != null) { jsonData['httpGet'] = httpGet!.toJson(); }
-    if(initialDelaySeconds != null) { jsonData['initialDelaySeconds'] = initialDelaySeconds!; }
-    if(periodSeconds != null) { jsonData['periodSeconds'] = periodSeconds!; }
-    if(successThreshold != null) { jsonData['successThreshold'] = successThreshold!; }
-    if(tcpSocket != null) { jsonData['tcpSocket'] = tcpSocket!.toJson(); }
-    if(terminationGracePeriodSeconds != null) { jsonData['terminationGracePeriodSeconds'] = terminationGracePeriodSeconds!; }
-    if(timeoutSeconds != null) { jsonData['timeoutSeconds'] = timeoutSeconds!; }
-    
+    if (exec != null) {
+      jsonData['exec'] = exec!.toJson();
+    }
+    if (failureThreshold != null) {
+      jsonData['failureThreshold'] = failureThreshold!;
+    }
+    if (grpc != null) {
+      jsonData['grpc'] = grpc!.toJson();
+    }
+    if (httpGet != null) {
+      jsonData['httpGet'] = httpGet!.toJson();
+    }
+    if (initialDelaySeconds != null) {
+      jsonData['initialDelaySeconds'] = initialDelaySeconds!;
+    }
+    if (periodSeconds != null) {
+      jsonData['periodSeconds'] = periodSeconds!;
+    }
+    if (successThreshold != null) {
+      jsonData['successThreshold'] = successThreshold!;
+    }
+    if (tcpSocket != null) {
+      jsonData['tcpSocket'] = tcpSocket!.toJson();
+    }
+    if (terminationGracePeriodSeconds != null) {
+      jsonData['terminationGracePeriodSeconds'] =
+          terminationGracePeriodSeconds!;
+    }
+    if (timeoutSeconds != null) {
+      jsonData['timeoutSeconds'] = timeoutSeconds!;
+    }
 
     return jsonData;
   }
-
 
   /// Exec specifies the action to take.
   final ExecAction? exec;

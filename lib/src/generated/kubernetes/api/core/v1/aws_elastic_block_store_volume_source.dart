@@ -1,6 +1,5 @@
-
 /// Represents a Persistent Disk resource in AWS.
-/// 
+///
 /// An AWS EBS disk must exist before mounting to a container. The disk must also be in the same AWS zone as the kubelet. An AWS EBS disk can only be mounted as read/write once. AWS EBS volumes support ownership management and SELinux relabeling.
 class AWSElasticBlockStoreVolumeSource {
   /// The main constructor.
@@ -21,24 +20,30 @@ class AWSElasticBlockStoreVolumeSource {
         );
 
   /// Creates a list of AWSElasticBlockStoreVolumeSource from JSON data.
-  static List<AWSElasticBlockStoreVolumeSource> listFromJson(Iterable<Map<String, dynamic>> list) {
-    return list.map((e) => AWSElasticBlockStoreVolumeSource.fromJson(e)).toList();
+  static List<AWSElasticBlockStoreVolumeSource> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
+    return list
+        .map((e) => AWSElasticBlockStoreVolumeSource.fromJson(e))
+        .toList();
   }
 
   /// Converts a AWSElasticBlockStoreVolumeSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(fsType != null) { jsonData['fsType'] = fsType!; }
-    if(partition != null) { jsonData['partition'] = partition!; }
-    if(readOnly != null) { jsonData['readOnly'] = readOnly!; }
+    if (fsType != null) {
+      jsonData['fsType'] = fsType!;
+    }
+    if (partition != null) {
+      jsonData['partition'] = partition!;
+    }
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
     jsonData['volumeID'] = volumeID;
-    
 
     return jsonData;
   }
-
 
   /// FsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore.
   final String? fsType;

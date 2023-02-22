@@ -15,31 +15,43 @@ class NetworkPolicySpec {
   /// Creates a NetworkPolicySpec from JSON data.
   NetworkPolicySpec.fromJson(Map<String, dynamic> json)
       : this(
-          egress: json['egress'] != null ? NetworkPolicyEgressRule.listFromJson((json['egress'] as Iterable).cast<Map<String, dynamic>>()): null,
-          ingress: json['ingress'] != null ? NetworkPolicyIngressRule.listFromJson((json['ingress'] as Iterable).cast<Map<String, dynamic>>()): null,
+          egress: json['egress'] != null
+              ? NetworkPolicyEgressRule.listFromJson(
+                  (json['egress'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
+          ingress: json['ingress'] != null
+              ? NetworkPolicyIngressRule.listFromJson(
+                  (json['ingress'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
           podSelector: LabelSelector.fromJson(json['podSelector']),
-          policyTypes: json['policyTypes'] != null ? List<String>.from(json['policyTypes']) : null,
+          policyTypes: json['policyTypes'] != null
+              ? List<String>.from(json['policyTypes'])
+              : null,
         );
 
   /// Creates a list of NetworkPolicySpec from JSON data.
-  static List<NetworkPolicySpec> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<NetworkPolicySpec> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => NetworkPolicySpec.fromJson(e)).toList();
   }
 
   /// Converts a NetworkPolicySpec instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(egress != null) { jsonData['egress'] = egress!.map((item) => item.toJson()).toList(); }
-    if(ingress != null) { jsonData['ingress'] = ingress!.map((item) => item.toJson()).toList(); }
+    if (egress != null) {
+      jsonData['egress'] = egress!.map((item) => item.toJson()).toList();
+    }
+    if (ingress != null) {
+      jsonData['ingress'] = ingress!.map((item) => item.toJson()).toList();
+    }
     jsonData['podSelector'] = podSelector.toJson();
-    if(policyTypes != null) { jsonData['policyTypes'] = policyTypes!; }
-    
+    if (policyTypes != null) {
+      jsonData['policyTypes'] = policyTypes!;
+    }
 
     return jsonData;
   }
-
 
   /// Egress is a list of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8.
   final List<NetworkPolicyEgressRule>? egress;

@@ -16,32 +16,41 @@ class ControllerRevision {
   ControllerRevision.fromJson(Map<String, dynamic> json)
       : this(
           apiVersion: json['apiVersion'],
-          data: json['data'] != null ? RawExtension.fromJson(json['data']): null,
+          data:
+              json['data'] != null ? RawExtension.fromJson(json['data']) : null,
           kind: json['kind'],
-          metadata: json['metadata'] != null ? ObjectMeta.fromJson(json['metadata']): null,
+          metadata: json['metadata'] != null
+              ? ObjectMeta.fromJson(json['metadata'])
+              : null,
           revision: json['revision'],
         );
 
   /// Creates a list of ControllerRevision from JSON data.
-  static List<ControllerRevision> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ControllerRevision> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ControllerRevision.fromJson(e)).toList();
   }
 
   /// Converts a ControllerRevision instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiVersion != null) { jsonData['apiVersion'] = apiVersion!; }
-    if(data != null) { jsonData['data'] = data!.toJson(); }
-    if(kind != null) { jsonData['kind'] = kind!; }
-    if(metadata != null) { jsonData['metadata'] = metadata!.toJson(); }
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (data != null) {
+      jsonData['data'] = data!.toJson();
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
     jsonData['revision'] = revision;
-    
 
     return jsonData;
   }
-
 
   /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;

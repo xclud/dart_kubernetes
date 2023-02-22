@@ -1,4 +1,3 @@
-
 /// HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file.
 class HostAlias {
   /// The main constructor.
@@ -10,7 +9,9 @@ class HostAlias {
   /// Creates a HostAlias from JSON data.
   HostAlias.fromJson(Map<String, dynamic> json)
       : this(
-          hostnames: json['hostnames'] != null ? List<String>.from(json['hostnames']) : null,
+          hostnames: json['hostnames'] != null
+              ? List<String>.from(json['hostnames'])
+              : null,
           ip: json['ip'],
         );
 
@@ -20,17 +21,18 @@ class HostAlias {
   }
 
   /// Converts a HostAlias instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(hostnames != null) { jsonData['hostnames'] = hostnames!; }
-    if(ip != null) { jsonData['ip'] = ip!; }
-    
+    if (hostnames != null) {
+      jsonData['hostnames'] = hostnames!;
+    }
+    if (ip != null) {
+      jsonData['ip'] = ip!;
+    }
 
     return jsonData;
   }
-
 
   /// Hostnames for the above IP address.
   final List<String>? hostnames;

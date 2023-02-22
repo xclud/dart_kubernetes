@@ -12,29 +12,36 @@ class HPAScalingRules {
   /// Creates a HPAScalingRules from JSON data.
   HPAScalingRules.fromJson(Map<String, dynamic> json)
       : this(
-          policies: json['policies'] != null ? HPAScalingPolicy.listFromJson((json['policies'] as Iterable).cast<Map<String, dynamic>>()): null,
+          policies: json['policies'] != null
+              ? HPAScalingPolicy.listFromJson(
+                  (json['policies'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
           selectPolicy: json['selectPolicy'],
           stabilizationWindowSeconds: json['stabilizationWindowSeconds'],
         );
 
   /// Creates a list of HPAScalingRules from JSON data.
-  static List<HPAScalingRules> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<HPAScalingRules> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => HPAScalingRules.fromJson(e)).toList();
   }
 
   /// Converts a HPAScalingRules instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(policies != null) { jsonData['policies'] = policies!.map((item) => item.toJson()).toList(); }
-    if(selectPolicy != null) { jsonData['selectPolicy'] = selectPolicy!; }
-    if(stabilizationWindowSeconds != null) { jsonData['stabilizationWindowSeconds'] = stabilizationWindowSeconds!; }
-    
+    if (policies != null) {
+      jsonData['policies'] = policies!.map((item) => item.toJson()).toList();
+    }
+    if (selectPolicy != null) {
+      jsonData['selectPolicy'] = selectPolicy!;
+    }
+    if (stabilizationWindowSeconds != null) {
+      jsonData['stabilizationWindowSeconds'] = stabilizationWindowSeconds!;
+    }
 
     return jsonData;
   }
-
 
   /// Policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid.
   final List<HPAScalingPolicy>? policies;

@@ -1,4 +1,3 @@
-
 /// Overhead structure represents the resource overhead associated with running a pod.
 class Overhead {
   /// The main constructor.
@@ -9,7 +8,9 @@ class Overhead {
   /// Creates a Overhead from JSON data.
   Overhead.fromJson(Map<String, dynamic> json)
       : this(
-          podFixed: json['podFixed'] != null ? Map<String, String>.from(json['podFixed']) : null,
+          podFixed: json['podFixed'] != null
+              ? Map<String, String>.from(json['podFixed'])
+              : null,
         );
 
   /// Creates a list of Overhead from JSON data.
@@ -18,16 +19,15 @@ class Overhead {
   }
 
   /// Converts a Overhead instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(podFixed != null) { jsonData['podFixed'] = podFixed!; }
-    
+    if (podFixed != null) {
+      jsonData['podFixed'] = podFixed!;
+    }
 
     return jsonData;
   }
-
 
   /// PodFixed represents the fixed resource overhead associated with running a pod.
   final Map<String, String>? podFixed;

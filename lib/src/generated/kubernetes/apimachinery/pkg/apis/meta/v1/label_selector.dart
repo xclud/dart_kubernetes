@@ -11,8 +11,14 @@ class LabelSelector {
   /// Creates a LabelSelector from JSON data.
   LabelSelector.fromJson(Map<String, dynamic> json)
       : this(
-          matchExpressions: json['matchExpressions'] != null ? LabelSelectorRequirement.listFromJson((json['matchExpressions'] as Iterable).cast<Map<String, dynamic>>()): null,
-          matchLabels: json['matchLabels'] != null ? Map<String, String>.from(json['matchLabels']) : null,
+          matchExpressions: json['matchExpressions'] != null
+              ? LabelSelectorRequirement.listFromJson(
+                  (json['matchExpressions'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : null,
+          matchLabels: json['matchLabels'] != null
+              ? Map<String, String>.from(json['matchLabels'])
+              : null,
         );
 
   /// Creates a list of LabelSelector from JSON data.
@@ -21,17 +27,19 @@ class LabelSelector {
   }
 
   /// Converts a LabelSelector instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(matchExpressions != null) { jsonData['matchExpressions'] = matchExpressions!.map((item) => item.toJson()).toList(); }
-    if(matchLabels != null) { jsonData['matchLabels'] = matchLabels!; }
-    
+    if (matchExpressions != null) {
+      jsonData['matchExpressions'] =
+          matchExpressions!.map((item) => item.toJson()).toList();
+    }
+    if (matchLabels != null) {
+      jsonData['matchLabels'] = matchLabels!;
+    }
 
     return jsonData;
   }
-
 
   /// MatchExpressions is a list of label selector requirements. The requirements are ANDed.
   final List<LabelSelectorRequirement>? matchExpressions;

@@ -12,27 +12,31 @@ class PodTemplateSpec {
   /// Creates a PodTemplateSpec from JSON data.
   PodTemplateSpec.fromJson(Map<String, dynamic> json)
       : this(
-          metadata: json['metadata'] != null ? ObjectMeta.fromJson(json['metadata']): null,
-          spec: json['spec'] != null ? PodSpec.fromJson(json['spec']): null,
+          metadata: json['metadata'] != null
+              ? ObjectMeta.fromJson(json['metadata'])
+              : null,
+          spec: json['spec'] != null ? PodSpec.fromJson(json['spec']) : null,
         );
 
   /// Creates a list of PodTemplateSpec from JSON data.
-  static List<PodTemplateSpec> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<PodTemplateSpec> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => PodTemplateSpec.fromJson(e)).toList();
   }
 
   /// Converts a PodTemplateSpec instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(metadata != null) { jsonData['metadata'] = metadata!.toJson(); }
-    if(spec != null) { jsonData['spec'] = spec!.toJson(); }
-    
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
+    if (spec != null) {
+      jsonData['spec'] = spec!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
   final ObjectMeta? metadata;

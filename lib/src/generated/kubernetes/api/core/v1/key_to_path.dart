@@ -1,4 +1,3 @@
-
 /// Maps a string key to a path within a volume.
 class KeyToPath {
   /// The main constructor.
@@ -22,18 +21,17 @@ class KeyToPath {
   }
 
   /// Converts a KeyToPath instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['key'] = key;
-    if(mode != null) { jsonData['mode'] = mode!; }
+    if (mode != null) {
+      jsonData['mode'] = mode!;
+    }
     jsonData['path'] = path;
-    
 
     return jsonData;
   }
-
 
   /// Key is the key to project.
   final String key;

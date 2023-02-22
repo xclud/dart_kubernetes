@@ -1,4 +1,3 @@
-
 /// PolicyRule holds information that describes a policy rule, but does not contain information about who the rule applies to or which namespace the rule applies to.
 class PolicyRule {
   /// The main constructor.
@@ -13,10 +12,18 @@ class PolicyRule {
   /// Creates a PolicyRule from JSON data.
   PolicyRule.fromJson(Map<String, dynamic> json)
       : this(
-          apiGroups: json['apiGroups'] != null ? List<String>.from(json['apiGroups']) : null,
-          nonResourceURLs: json['nonResourceURLs'] != null ? List<String>.from(json['nonResourceURLs']) : null,
-          resourceNames: json['resourceNames'] != null ? List<String>.from(json['resourceNames']) : null,
-          resources: json['resources'] != null ? List<String>.from(json['resources']) : null,
+          apiGroups: json['apiGroups'] != null
+              ? List<String>.from(json['apiGroups'])
+              : null,
+          nonResourceURLs: json['nonResourceURLs'] != null
+              ? List<String>.from(json['nonResourceURLs'])
+              : null,
+          resourceNames: json['resourceNames'] != null
+              ? List<String>.from(json['resourceNames'])
+              : null,
+          resources: json['resources'] != null
+              ? List<String>.from(json['resources'])
+              : null,
           verbs: json['verbs'] != null ? List<String>.from(json['verbs']) : [],
         );
 
@@ -26,20 +33,25 @@ class PolicyRule {
   }
 
   /// Converts a PolicyRule instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiGroups != null) { jsonData['apiGroups'] = apiGroups!; }
-    if(nonResourceURLs != null) { jsonData['nonResourceURLs'] = nonResourceURLs!; }
-    if(resourceNames != null) { jsonData['resourceNames'] = resourceNames!; }
-    if(resources != null) { jsonData['resources'] = resources!; }
+    if (apiGroups != null) {
+      jsonData['apiGroups'] = apiGroups!;
+    }
+    if (nonResourceURLs != null) {
+      jsonData['nonResourceURLs'] = nonResourceURLs!;
+    }
+    if (resourceNames != null) {
+      jsonData['resourceNames'] = resourceNames!;
+    }
+    if (resources != null) {
+      jsonData['resources'] = resources!;
+    }
     jsonData['verbs'] = verbs;
-    
 
     return jsonData;
   }
-
 
   /// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
   final List<String>? apiGroups;

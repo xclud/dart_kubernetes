@@ -13,31 +13,41 @@ class PodAffinityTerm {
   /// Creates a PodAffinityTerm from JSON data.
   PodAffinityTerm.fromJson(Map<String, dynamic> json)
       : this(
-          labelSelector: json['labelSelector'] != null ? LabelSelector.fromJson(json['labelSelector']): null,
-          namespaceSelector: json['namespaceSelector'] != null ? LabelSelector.fromJson(json['namespaceSelector']): null,
-          namespaces: json['namespaces'] != null ? List<String>.from(json['namespaces']) : null,
+          labelSelector: json['labelSelector'] != null
+              ? LabelSelector.fromJson(json['labelSelector'])
+              : null,
+          namespaceSelector: json['namespaceSelector'] != null
+              ? LabelSelector.fromJson(json['namespaceSelector'])
+              : null,
+          namespaces: json['namespaces'] != null
+              ? List<String>.from(json['namespaces'])
+              : null,
           topologyKey: json['topologyKey'],
         );
 
   /// Creates a list of PodAffinityTerm from JSON data.
-  static List<PodAffinityTerm> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<PodAffinityTerm> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => PodAffinityTerm.fromJson(e)).toList();
   }
 
   /// Converts a PodAffinityTerm instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(labelSelector != null) { jsonData['labelSelector'] = labelSelector!.toJson(); }
-    if(namespaceSelector != null) { jsonData['namespaceSelector'] = namespaceSelector!.toJson(); }
-    if(namespaces != null) { jsonData['namespaces'] = namespaces!; }
+    if (labelSelector != null) {
+      jsonData['labelSelector'] = labelSelector!.toJson();
+    }
+    if (namespaceSelector != null) {
+      jsonData['namespaceSelector'] = namespaceSelector!.toJson();
+    }
+    if (namespaces != null) {
+      jsonData['namespaces'] = namespaces!;
+    }
     jsonData['topologyKey'] = topologyKey;
-    
 
     return jsonData;
   }
-
 
   /// A label query over a set of resources, in this case pods.
   final LabelSelector? labelSelector;

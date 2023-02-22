@@ -16,22 +16,20 @@ class ResourceMetricSource {
         );
 
   /// Creates a list of ResourceMetricSource from JSON data.
-  static List<ResourceMetricSource> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ResourceMetricSource> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ResourceMetricSource.fromJson(e)).toList();
   }
 
   /// Converts a ResourceMetricSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['name'] = name;
     jsonData['target'] = target.toJson();
-    
 
     return jsonData;
   }
-
 
   /// Name is the name of the resource in question.
   final String name;

@@ -16,35 +16,53 @@ class HorizontalPodAutoscalerStatus {
   /// Creates a HorizontalPodAutoscalerStatus from JSON data.
   HorizontalPodAutoscalerStatus.fromJson(Map<String, dynamic> json)
       : this(
-          conditions: json['conditions'] != null ? HorizontalPodAutoscalerCondition.listFromJson((json['conditions'] as Iterable).cast<Map<String, dynamic>>()): null,
-          currentMetrics: json['currentMetrics'] != null ? MetricStatus.listFromJson((json['currentMetrics'] as Iterable).cast<Map<String, dynamic>>()): null,
+          conditions: json['conditions'] != null
+              ? HorizontalPodAutoscalerCondition.listFromJson(
+                  (json['conditions'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
+          currentMetrics: json['currentMetrics'] != null
+              ? MetricStatus.listFromJson((json['currentMetrics'] as Iterable)
+                  .cast<Map<String, dynamic>>())
+              : null,
           currentReplicas: json['currentReplicas'],
           desiredReplicas: json['desiredReplicas'],
-          lastScaleTime: json['lastScaleTime'] != null ? DateTime.tryParse(json['lastScaleTime']): null,
+          lastScaleTime: json['lastScaleTime'] != null
+              ? DateTime.tryParse(json['lastScaleTime'])
+              : null,
           observedGeneration: json['observedGeneration'],
         );
 
   /// Creates a list of HorizontalPodAutoscalerStatus from JSON data.
-  static List<HorizontalPodAutoscalerStatus> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<HorizontalPodAutoscalerStatus> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => HorizontalPodAutoscalerStatus.fromJson(e)).toList();
   }
 
   /// Converts a HorizontalPodAutoscalerStatus instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(conditions != null) { jsonData['conditions'] = conditions!.map((item) => item.toJson()).toList(); }
-    if(currentMetrics != null) { jsonData['currentMetrics'] = currentMetrics!.map((item) => item.toJson()).toList(); }
-    if(currentReplicas != null) { jsonData['currentReplicas'] = currentReplicas!; }
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
+    if (currentMetrics != null) {
+      jsonData['currentMetrics'] =
+          currentMetrics!.map((item) => item.toJson()).toList();
+    }
+    if (currentReplicas != null) {
+      jsonData['currentReplicas'] = currentReplicas!;
+    }
     jsonData['desiredReplicas'] = desiredReplicas;
-    if(lastScaleTime != null) { jsonData['lastScaleTime'] = lastScaleTime!.toIso8601String(); }
-    if(observedGeneration != null) { jsonData['observedGeneration'] = observedGeneration!; }
-    
+    if (lastScaleTime != null) {
+      jsonData['lastScaleTime'] = lastScaleTime!.toIso8601String();
+    }
+    if (observedGeneration != null) {
+      jsonData['observedGeneration'] = observedGeneration!;
+    }
 
     return jsonData;
   }
-
 
   /// Conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
   final List<HorizontalPodAutoscalerCondition>? conditions;

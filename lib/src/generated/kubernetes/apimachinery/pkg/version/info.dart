@@ -1,4 +1,3 @@
-
 /// Info contains versioning information. how we'll want to distribute that information.
 class Info {
   /// The main constructor.
@@ -34,8 +33,7 @@ class Info {
   }
 
   /// Converts a Info instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['buildDate'] = buildDate;
@@ -47,36 +45,34 @@ class Info {
     jsonData['major'] = major;
     jsonData['minor'] = minor;
     jsonData['platform'] = platform;
-    
 
     return jsonData;
   }
 
-
-  /// 
+  ///
   final String buildDate;
 
-  /// 
+  ///
   final String compiler;
 
-  /// 
+  ///
   final String gitCommit;
 
-  /// 
+  ///
   final String gitTreeState;
 
-  /// 
+  ///
   final String gitVersion;
 
-  /// 
+  ///
   final String goVersion;
 
-  /// 
+  ///
   final String major;
 
-  /// 
+  ///
   final String minor;
 
-  /// 
+  ///
   final String platform;
 }

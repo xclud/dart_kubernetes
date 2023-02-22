@@ -1,6 +1,5 @@
-
 /// SecretEnvSource selects a Secret to populate the environment variables with.
-/// 
+///
 /// The contents of the target Secret's Data field will represent the key-value pairs as environment variables.
 class SecretEnvSource {
   /// The main constructor.
@@ -17,22 +16,24 @@ class SecretEnvSource {
         );
 
   /// Creates a list of SecretEnvSource from JSON data.
-  static List<SecretEnvSource> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<SecretEnvSource> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => SecretEnvSource.fromJson(e)).toList();
   }
 
   /// Converts a SecretEnvSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(name != null) { jsonData['name'] = name!; }
-    if(optional != null) { jsonData['optional'] = optional!; }
-    
+    if (name != null) {
+      jsonData['name'] = name!;
+    }
+    if (optional != null) {
+      jsonData['optional'] = optional!;
+    }
 
     return jsonData;
   }
-
 
   /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names.
   final String? name;

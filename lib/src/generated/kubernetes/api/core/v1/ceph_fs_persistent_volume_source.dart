@@ -15,35 +15,47 @@ class CephFSPersistentVolumeSource {
   /// Creates a CephFSPersistentVolumeSource from JSON data.
   CephFSPersistentVolumeSource.fromJson(Map<String, dynamic> json)
       : this(
-          monitors: json['monitors'] != null ? List<String>.from(json['monitors']) : [],
+          monitors: json['monitors'] != null
+              ? List<String>.from(json['monitors'])
+              : [],
           path: json['path'],
           readOnly: json['readOnly'],
           secretFile: json['secretFile'],
-          secretRef: json['secretRef'] != null ? SecretReference.fromJson(json['secretRef']): null,
+          secretRef: json['secretRef'] != null
+              ? SecretReference.fromJson(json['secretRef'])
+              : null,
           user: json['user'],
         );
 
   /// Creates a list of CephFSPersistentVolumeSource from JSON data.
-  static List<CephFSPersistentVolumeSource> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<CephFSPersistentVolumeSource> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => CephFSPersistentVolumeSource.fromJson(e)).toList();
   }
 
   /// Converts a CephFSPersistentVolumeSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['monitors'] = monitors;
-    if(path != null) { jsonData['path'] = path!; }
-    if(readOnly != null) { jsonData['readOnly'] = readOnly!; }
-    if(secretFile != null) { jsonData['secretFile'] = secretFile!; }
-    if(secretRef != null) { jsonData['secretRef'] = secretRef!.toJson(); }
-    if(user != null) { jsonData['user'] = user!; }
-    
+    if (path != null) {
+      jsonData['path'] = path!;
+    }
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
+    if (secretFile != null) {
+      jsonData['secretFile'] = secretFile!;
+    }
+    if (secretRef != null) {
+      jsonData['secretRef'] = secretRef!.toJson();
+    }
+    if (user != null) {
+      jsonData['user'] = user!;
+    }
 
     return jsonData;
   }
-
 
   /// Monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it.
   final List<String> monitors;

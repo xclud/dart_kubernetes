@@ -1,4 +1,3 @@
-
 /// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
 class AzureFilePersistentVolumeSource {
   /// The main constructor.
@@ -19,24 +18,28 @@ class AzureFilePersistentVolumeSource {
         );
 
   /// Creates a list of AzureFilePersistentVolumeSource from JSON data.
-  static List<AzureFilePersistentVolumeSource> listFromJson(Iterable<Map<String, dynamic>> list) {
-    return list.map((e) => AzureFilePersistentVolumeSource.fromJson(e)).toList();
+  static List<AzureFilePersistentVolumeSource> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
+    return list
+        .map((e) => AzureFilePersistentVolumeSource.fromJson(e))
+        .toList();
   }
 
   /// Converts a AzureFilePersistentVolumeSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(readOnly != null) { jsonData['readOnly'] = readOnly!; }
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
     jsonData['secretName'] = secretName;
-    if(secretNamespace != null) { jsonData['secretNamespace'] = secretNamespace!; }
+    if (secretNamespace != null) {
+      jsonData['secretNamespace'] = secretNamespace!;
+    }
     jsonData['shareName'] = shareName;
-    
 
     return jsonData;
   }
-
 
   /// ReadOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
   final bool? readOnly;

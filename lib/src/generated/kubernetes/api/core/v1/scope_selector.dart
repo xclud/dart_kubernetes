@@ -10,7 +10,11 @@ class ScopeSelector {
   /// Creates a ScopeSelector from JSON data.
   ScopeSelector.fromJson(Map<String, dynamic> json)
       : this(
-          matchExpressions: json['matchExpressions'] != null ? ScopedResourceSelectorRequirement.listFromJson((json['matchExpressions'] as Iterable).cast<Map<String, dynamic>>()): null,
+          matchExpressions: json['matchExpressions'] != null
+              ? ScopedResourceSelectorRequirement.listFromJson(
+                  (json['matchExpressions'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : null,
         );
 
   /// Creates a list of ScopeSelector from JSON data.
@@ -19,16 +23,16 @@ class ScopeSelector {
   }
 
   /// Converts a ScopeSelector instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(matchExpressions != null) { jsonData['matchExpressions'] = matchExpressions!.map((item) => item.toJson()).toList(); }
-    
+    if (matchExpressions != null) {
+      jsonData['matchExpressions'] =
+          matchExpressions!.map((item) => item.toJson()).toList();
+    }
 
     return jsonData;
   }
-
 
   /// A list of scope selector requirements by scope of the resources.
   final List<ScopedResourceSelectorRequirement>? matchExpressions;

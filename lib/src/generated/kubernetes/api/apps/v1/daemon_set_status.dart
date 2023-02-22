@@ -20,7 +20,10 @@ class DaemonSetStatus {
   DaemonSetStatus.fromJson(Map<String, dynamic> json)
       : this(
           collisionCount: json['collisionCount'],
-          conditions: json['conditions'] != null ? DaemonSetCondition.listFromJson((json['conditions'] as Iterable).cast<Map<String, dynamic>>()): null,
+          conditions: json['conditions'] != null
+              ? DaemonSetCondition.listFromJson(
+                  (json['conditions'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
           currentNumberScheduled: json['currentNumberScheduled'],
           desiredNumberScheduled: json['desiredNumberScheduled'],
           numberAvailable: json['numberAvailable'],
@@ -32,30 +35,41 @@ class DaemonSetStatus {
         );
 
   /// Creates a list of DaemonSetStatus from JSON data.
-  static List<DaemonSetStatus> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<DaemonSetStatus> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => DaemonSetStatus.fromJson(e)).toList();
   }
 
   /// Converts a DaemonSetStatus instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(collisionCount != null) { jsonData['collisionCount'] = collisionCount!; }
-    if(conditions != null) { jsonData['conditions'] = conditions!.map((item) => item.toJson()).toList(); }
+    if (collisionCount != null) {
+      jsonData['collisionCount'] = collisionCount!;
+    }
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
     jsonData['currentNumberScheduled'] = currentNumberScheduled;
     jsonData['desiredNumberScheduled'] = desiredNumberScheduled;
-    if(numberAvailable != null) { jsonData['numberAvailable'] = numberAvailable!; }
+    if (numberAvailable != null) {
+      jsonData['numberAvailable'] = numberAvailable!;
+    }
     jsonData['numberMisscheduled'] = numberMisscheduled;
     jsonData['numberReady'] = numberReady;
-    if(numberUnavailable != null) { jsonData['numberUnavailable'] = numberUnavailable!; }
-    if(observedGeneration != null) { jsonData['observedGeneration'] = observedGeneration!; }
-    if(updatedNumberScheduled != null) { jsonData['updatedNumberScheduled'] = updatedNumberScheduled!; }
-    
+    if (numberUnavailable != null) {
+      jsonData['numberUnavailable'] = numberUnavailable!;
+    }
+    if (observedGeneration != null) {
+      jsonData['observedGeneration'] = observedGeneration!;
+    }
+    if (updatedNumberScheduled != null) {
+      jsonData['updatedNumberScheduled'] = updatedNumberScheduled!;
+    }
 
     return jsonData;
   }
-
 
   /// Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
   final int? collisionCount;

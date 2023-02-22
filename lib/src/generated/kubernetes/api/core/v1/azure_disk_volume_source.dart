@@ -1,4 +1,3 @@
-
 /// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
 class AzureDiskVolumeSource {
   /// The main constructor.
@@ -23,26 +22,32 @@ class AzureDiskVolumeSource {
         );
 
   /// Creates a list of AzureDiskVolumeSource from JSON data.
-  static List<AzureDiskVolumeSource> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<AzureDiskVolumeSource> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => AzureDiskVolumeSource.fromJson(e)).toList();
   }
 
   /// Converts a AzureDiskVolumeSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(cachingMode != null) { jsonData['cachingMode'] = cachingMode!; }
+    if (cachingMode != null) {
+      jsonData['cachingMode'] = cachingMode!;
+    }
     jsonData['diskName'] = diskName;
     jsonData['diskURI'] = diskURI;
-    if(fsType != null) { jsonData['fsType'] = fsType!; }
-    if(kind != null) { jsonData['kind'] = kind!; }
-    if(readOnly != null) { jsonData['readOnly'] = readOnly!; }
-    
+    if (fsType != null) {
+      jsonData['fsType'] = fsType!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
 
     return jsonData;
   }
-
 
   /// CachingMode is the Host Caching mode: None, Read Only, Read Write.
   final String? cachingMode;

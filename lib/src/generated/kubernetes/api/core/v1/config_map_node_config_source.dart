@@ -1,4 +1,3 @@
-
 /// ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration.
 class ConfigMapNodeConfigSource {
   /// The main constructor.
@@ -21,25 +20,27 @@ class ConfigMapNodeConfigSource {
         );
 
   /// Creates a list of ConfigMapNodeConfigSource from JSON data.
-  static List<ConfigMapNodeConfigSource> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ConfigMapNodeConfigSource> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ConfigMapNodeConfigSource.fromJson(e)).toList();
   }
 
   /// Converts a ConfigMapNodeConfigSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['kubeletConfigKey'] = kubeletConfigKey;
     jsonData['name'] = name;
     jsonData['namespace'] = namespace;
-    if(resourceVersion != null) { jsonData['resourceVersion'] = resourceVersion!; }
-    if(uid != null) { jsonData['uid'] = uid!; }
-    
+    if (resourceVersion != null) {
+      jsonData['resourceVersion'] = resourceVersion!;
+    }
+    if (uid != null) {
+      jsonData['uid'] = uid!;
+    }
 
     return jsonData;
   }
-
 
   /// KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
   final String kubeletConfigKey;

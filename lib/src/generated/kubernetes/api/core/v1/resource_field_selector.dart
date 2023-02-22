@@ -1,4 +1,3 @@
-
 /// ResourceFieldSelector represents container resources (cpu, memory) and their output format.
 class ResourceFieldSelector {
   /// The main constructor.
@@ -17,23 +16,25 @@ class ResourceFieldSelector {
         );
 
   /// Creates a list of ResourceFieldSelector from JSON data.
-  static List<ResourceFieldSelector> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ResourceFieldSelector> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ResourceFieldSelector.fromJson(e)).toList();
   }
 
   /// Converts a ResourceFieldSelector instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(containerName != null) { jsonData['containerName'] = containerName!; }
-    if(divisor != null) { jsonData['divisor'] = divisor!; }
+    if (containerName != null) {
+      jsonData['containerName'] = containerName!;
+    }
+    if (divisor != null) {
+      jsonData['divisor'] = divisor!;
+    }
     jsonData['resource'] = resource;
-    
 
     return jsonData;
   }
-
 
   /// Container name: required for volumes, optional for env vars.
   final String? containerName;

@@ -2,7 +2,7 @@ import 'package:kubernetes/src/generated/kubernetes/apimachinery/pkg/apis/meta/v
 import 'package:kubernetes/src/generated/kubernetes/api/core/v1/endpoint_subset.dart';
 
 /// Endpoints is a collection of endpoints that implement the actual service. Example:
-/// 
+///
 /// 	 Name: "mysvc",
 /// 	 Subsets: [
 /// 	   {
@@ -28,8 +28,13 @@ class Endpoints {
       : this(
           apiVersion: json['apiVersion'],
           kind: json['kind'],
-          metadata: json['metadata'] != null ? ObjectMeta.fromJson(json['metadata']): null,
-          subsets: json['subsets'] != null ? EndpointSubset.listFromJson((json['subsets'] as Iterable).cast<Map<String, dynamic>>()): null,
+          metadata: json['metadata'] != null
+              ? ObjectMeta.fromJson(json['metadata'])
+              : null,
+          subsets: json['subsets'] != null
+              ? EndpointSubset.listFromJson(
+                  (json['subsets'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
         );
 
   /// Creates a list of Endpoints from JSON data.
@@ -38,19 +43,24 @@ class Endpoints {
   }
 
   /// Converts a Endpoints instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiVersion != null) { jsonData['apiVersion'] = apiVersion!; }
-    if(kind != null) { jsonData['kind'] = kind!; }
-    if(metadata != null) { jsonData['metadata'] = metadata!.toJson(); }
-    if(subsets != null) { jsonData['subsets'] = subsets!.map((item) => item.toJson()).toList(); }
-    
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
+    if (subsets != null) {
+      jsonData['subsets'] = subsets!.map((item) => item.toJson()).toList();
+    }
 
     return jsonData;
   }
-
 
   /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;

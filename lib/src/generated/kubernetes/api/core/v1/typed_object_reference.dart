@@ -1,5 +1,4 @@
-
-/// 
+///
 class TypedObjectReference {
   /// The main constructor.
   const TypedObjectReference({
@@ -19,24 +18,26 @@ class TypedObjectReference {
         );
 
   /// Creates a list of TypedObjectReference from JSON data.
-  static List<TypedObjectReference> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<TypedObjectReference> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => TypedObjectReference.fromJson(e)).toList();
   }
 
   /// Converts a TypedObjectReference instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiGroup != null) { jsonData['apiGroup'] = apiGroup!; }
+    if (apiGroup != null) {
+      jsonData['apiGroup'] = apiGroup!;
+    }
     jsonData['kind'] = kind;
     jsonData['name'] = name;
-    if(namespace != null) { jsonData['namespace'] = namespace!; }
-    
+    if (namespace != null) {
+      jsonData['namespace'] = namespace!;
+    }
 
     return jsonData;
   }
-
 
   /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
   final String? apiGroup;

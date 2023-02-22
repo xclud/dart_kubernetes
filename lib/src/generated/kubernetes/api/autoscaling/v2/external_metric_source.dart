@@ -17,22 +17,20 @@ class ExternalMetricSource {
         );
 
   /// Creates a list of ExternalMetricSource from JSON data.
-  static List<ExternalMetricSource> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ExternalMetricSource> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ExternalMetricSource.fromJson(e)).toList();
   }
 
   /// Converts a ExternalMetricSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['metric'] = metric.toJson();
     jsonData['target'] = target.toJson();
-    
 
     return jsonData;
   }
-
 
   /// Metric identifies the target metric by name and selector.
   final MetricIdentifier metric;

@@ -16,31 +16,41 @@ class CSIVolumeSource {
       : this(
           driver: json['driver'],
           fsType: json['fsType'],
-          nodePublishSecretRef: json['nodePublishSecretRef'] != null ? LocalObjectReference.fromJson(json['nodePublishSecretRef']): null,
+          nodePublishSecretRef: json['nodePublishSecretRef'] != null
+              ? LocalObjectReference.fromJson(json['nodePublishSecretRef'])
+              : null,
           readOnly: json['readOnly'],
-          volumeAttributes: json['volumeAttributes'] != null ? Map<String, String>.from(json['volumeAttributes']) : null,
+          volumeAttributes: json['volumeAttributes'] != null
+              ? Map<String, String>.from(json['volumeAttributes'])
+              : null,
         );
 
   /// Creates a list of CSIVolumeSource from JSON data.
-  static List<CSIVolumeSource> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<CSIVolumeSource> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => CSIVolumeSource.fromJson(e)).toList();
   }
 
   /// Converts a CSIVolumeSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['driver'] = driver;
-    if(fsType != null) { jsonData['fsType'] = fsType!; }
-    if(nodePublishSecretRef != null) { jsonData['nodePublishSecretRef'] = nodePublishSecretRef!.toJson(); }
-    if(readOnly != null) { jsonData['readOnly'] = readOnly!; }
-    if(volumeAttributes != null) { jsonData['volumeAttributes'] = volumeAttributes!; }
-    
+    if (fsType != null) {
+      jsonData['fsType'] = fsType!;
+    }
+    if (nodePublishSecretRef != null) {
+      jsonData['nodePublishSecretRef'] = nodePublishSecretRef!.toJson();
+    }
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
+    if (volumeAttributes != null) {
+      jsonData['volumeAttributes'] = volumeAttributes!;
+    }
 
     return jsonData;
   }
-
 
   /// Driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
   final String driver;

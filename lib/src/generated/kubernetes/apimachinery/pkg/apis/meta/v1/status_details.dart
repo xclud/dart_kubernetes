@@ -15,7 +15,10 @@ class StatusDetails {
   /// Creates a StatusDetails from JSON data.
   StatusDetails.fromJson(Map<String, dynamic> json)
       : this(
-          causes: json['causes'] != null ? StatusCause.listFromJson((json['causes'] as Iterable).cast<Map<String, dynamic>>()): null,
+          causes: json['causes'] != null
+              ? StatusCause.listFromJson(
+                  (json['causes'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
           group: json['group'],
           kind: json['kind'],
           name: json['name'],
@@ -29,21 +32,30 @@ class StatusDetails {
   }
 
   /// Converts a StatusDetails instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(causes != null) { jsonData['causes'] = causes!.map((item) => item.toJson()).toList(); }
-    if(group != null) { jsonData['group'] = group!; }
-    if(kind != null) { jsonData['kind'] = kind!; }
-    if(name != null) { jsonData['name'] = name!; }
-    if(retryAfterSeconds != null) { jsonData['retryAfterSeconds'] = retryAfterSeconds!; }
-    if(uid != null) { jsonData['uid'] = uid!; }
-    
+    if (causes != null) {
+      jsonData['causes'] = causes!.map((item) => item.toJson()).toList();
+    }
+    if (group != null) {
+      jsonData['group'] = group!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (name != null) {
+      jsonData['name'] = name!;
+    }
+    if (retryAfterSeconds != null) {
+      jsonData['retryAfterSeconds'] = retryAfterSeconds!;
+    }
+    if (uid != null) {
+      jsonData['uid'] = uid!;
+    }
 
     return jsonData;
   }
-
 
   /// The Causes array includes more details associated with the StatusReason failure. Not all StatusReasons may provide detailed causes.
   final List<StatusCause>? causes;

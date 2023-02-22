@@ -1,4 +1,3 @@
-
 /// UserInfo holds the information about the user needed to implement the user.Info interface.
 class UserInfo {
   /// The main constructor.
@@ -12,8 +11,11 @@ class UserInfo {
   /// Creates a UserInfo from JSON data.
   UserInfo.fromJson(Map<String, dynamic> json)
       : this(
-          extra: json['extra'] != null ? Map<String, List<String>>.from(json['extra']) : null,
-          groups: json['groups'] != null ? List<String>.from(json['groups']) : null,
+          extra: json['extra'] != null
+              ? Map<String, List<String>>.from(json['extra'])
+              : null,
+          groups:
+              json['groups'] != null ? List<String>.from(json['groups']) : null,
           uid: json['uid'],
           username: json['username'],
         );
@@ -24,19 +26,24 @@ class UserInfo {
   }
 
   /// Converts a UserInfo instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(extra != null) { jsonData['extra'] = extra!; }
-    if(groups != null) { jsonData['groups'] = groups!; }
-    if(uid != null) { jsonData['uid'] = uid!; }
-    if(username != null) { jsonData['username'] = username!; }
-    
+    if (extra != null) {
+      jsonData['extra'] = extra!;
+    }
+    if (groups != null) {
+      jsonData['groups'] = groups!;
+    }
+    if (uid != null) {
+      jsonData['uid'] = uid!;
+    }
+    if (username != null) {
+      jsonData['username'] = username!;
+    }
 
     return jsonData;
   }
-
 
   /// Any additional information provided by the authenticator.
   final Map<String, List<String>>? extra;

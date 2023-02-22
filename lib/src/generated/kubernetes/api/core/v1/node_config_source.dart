@@ -10,25 +10,27 @@ class NodeConfigSource {
   /// Creates a NodeConfigSource from JSON data.
   NodeConfigSource.fromJson(Map<String, dynamic> json)
       : this(
-          configMap: json['configMap'] != null ? ConfigMapNodeConfigSource.fromJson(json['configMap']): null,
+          configMap: json['configMap'] != null
+              ? ConfigMapNodeConfigSource.fromJson(json['configMap'])
+              : null,
         );
 
   /// Creates a list of NodeConfigSource from JSON data.
-  static List<NodeConfigSource> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<NodeConfigSource> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => NodeConfigSource.fromJson(e)).toList();
   }
 
   /// Converts a NodeConfigSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(configMap != null) { jsonData['configMap'] = configMap!.toJson(); }
-    
+    if (configMap != null) {
+      jsonData['configMap'] = configMap!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// ConfigMap is a reference to a Node's ConfigMap.
   final ConfigMapNodeConfigSource? configMap;

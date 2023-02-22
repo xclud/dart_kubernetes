@@ -14,38 +14,46 @@ class PodFailurePolicyRule {
   PodFailurePolicyRule.fromJson(Map<String, dynamic> json)
       : this(
           action: json['action'],
-          onExitCodes: json['onExitCodes'] != null ? PodFailurePolicyOnExitCodesRequirement.fromJson(json['onExitCodes']): null,
-          onPodConditions: json['onPodConditions'] != null ? PodFailurePolicyOnPodConditionsPattern.listFromJson((json['onPodConditions'] as Iterable).cast<Map<String, dynamic>>()): [],
+          onExitCodes: json['onExitCodes'] != null
+              ? PodFailurePolicyOnExitCodesRequirement.fromJson(
+                  json['onExitCodes'])
+              : null,
+          onPodConditions: json['onPodConditions'] != null
+              ? PodFailurePolicyOnPodConditionsPattern.listFromJson(
+                  (json['onPodConditions'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : [],
         );
 
   /// Creates a list of PodFailurePolicyRule from JSON data.
-  static List<PodFailurePolicyRule> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<PodFailurePolicyRule> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => PodFailurePolicyRule.fromJson(e)).toList();
   }
 
   /// Converts a PodFailurePolicyRule instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['action'] = action;
-    if(onExitCodes != null) { jsonData['onExitCodes'] = onExitCodes!.toJson(); }
-    jsonData['onPodConditions'] = onPodConditions.map((item) => item.toJson()).toList();
-    
+    if (onExitCodes != null) {
+      jsonData['onExitCodes'] = onExitCodes!.toJson();
+    }
+    jsonData['onPodConditions'] =
+        onPodConditions.map((item) => item.toJson()).toList();
 
     return jsonData;
   }
 
-
   /// Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:
-/// 
-/// - FailJob: indicates that the pod's job is marked as Failed and all
-///   running pods are terminated.
-/// - Ignore: indicates that the counter towards the .backoffLimit is not
-///   incremented and a replacement pod is created.
-/// - Count: indicates that the pod is handled in the default way - the
-///   counter towards the .backoffLimit is incremented.
-/// Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+  ///
+  /// - FailJob: indicates that the pod's job is marked as Failed and all
+  ///   running pods are terminated.
+  /// - Ignore: indicates that the counter towards the .backoffLimit is not
+  ///   incremented and a replacement pod is created.
+  /// - Count: indicates that the pod is handled in the default way - the
+  ///   counter towards the .backoffLimit is incremented.
+  /// Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
   final String action;
 
   /// Represents the requirement on the container exit codes.

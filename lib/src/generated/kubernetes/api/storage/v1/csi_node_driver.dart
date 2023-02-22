@@ -13,10 +13,14 @@ class CSINodeDriver {
   /// Creates a CSINodeDriver from JSON data.
   CSINodeDriver.fromJson(Map<String, dynamic> json)
       : this(
-          allocatable: json['allocatable'] != null ? VolumeNodeResources.fromJson(json['allocatable']): null,
+          allocatable: json['allocatable'] != null
+              ? VolumeNodeResources.fromJson(json['allocatable'])
+              : null,
           name: json['name'],
           nodeID: json['nodeID'],
-          topologyKeys: json['topologyKeys'] != null ? List<String>.from(json['topologyKeys']) : null,
+          topologyKeys: json['topologyKeys'] != null
+              ? List<String>.from(json['topologyKeys'])
+              : null,
         );
 
   /// Creates a list of CSINodeDriver from JSON data.
@@ -25,19 +29,20 @@ class CSINodeDriver {
   }
 
   /// Converts a CSINodeDriver instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(allocatable != null) { jsonData['allocatable'] = allocatable!.toJson(); }
+    if (allocatable != null) {
+      jsonData['allocatable'] = allocatable!.toJson();
+    }
     jsonData['name'] = name;
     jsonData['nodeID'] = nodeID;
-    if(topologyKeys != null) { jsonData['topologyKeys'] = topologyKeys!; }
-    
+    if (topologyKeys != null) {
+      jsonData['topologyKeys'] = topologyKeys!;
+    }
 
     return jsonData;
   }
-
 
   /// Allocatable represents the volume resources of a node that are available for scheduling. This field is beta.
   final VolumeNodeResources? allocatable;

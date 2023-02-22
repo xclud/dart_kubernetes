@@ -1,4 +1,3 @@
-
 /// NamespaceSpec describes the attributes on a Namespace.
 class NamespaceSpec {
   /// The main constructor.
@@ -9,7 +8,9 @@ class NamespaceSpec {
   /// Creates a NamespaceSpec from JSON data.
   NamespaceSpec.fromJson(Map<String, dynamic> json)
       : this(
-          finalizers: json['finalizers'] != null ? List<String>.from(json['finalizers']) : null,
+          finalizers: json['finalizers'] != null
+              ? List<String>.from(json['finalizers'])
+              : null,
         );
 
   /// Creates a list of NamespaceSpec from JSON data.
@@ -18,16 +19,15 @@ class NamespaceSpec {
   }
 
   /// Converts a NamespaceSpec instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(finalizers != null) { jsonData['finalizers'] = finalizers!; }
-    
+    if (finalizers != null) {
+      jsonData['finalizers'] = finalizers!;
+    }
 
     return jsonData;
   }
-
 
   /// Finalizers is an opaque list of values that must be empty to permanently remove object from storage. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/.
   final List<String>? finalizers;

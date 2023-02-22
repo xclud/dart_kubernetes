@@ -16,31 +16,41 @@ class FlexVolumeSource {
       : this(
           driver: json['driver'],
           fsType: json['fsType'],
-          options: json['options'] != null ? Map<String, String>.from(json['options']) : null,
+          options: json['options'] != null
+              ? Map<String, String>.from(json['options'])
+              : null,
           readOnly: json['readOnly'],
-          secretRef: json['secretRef'] != null ? LocalObjectReference.fromJson(json['secretRef']): null,
+          secretRef: json['secretRef'] != null
+              ? LocalObjectReference.fromJson(json['secretRef'])
+              : null,
         );
 
   /// Creates a list of FlexVolumeSource from JSON data.
-  static List<FlexVolumeSource> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<FlexVolumeSource> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => FlexVolumeSource.fromJson(e)).toList();
   }
 
   /// Converts a FlexVolumeSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['driver'] = driver;
-    if(fsType != null) { jsonData['fsType'] = fsType!; }
-    if(options != null) { jsonData['options'] = options!; }
-    if(readOnly != null) { jsonData['readOnly'] = readOnly!; }
-    if(secretRef != null) { jsonData['secretRef'] = secretRef!.toJson(); }
-    
+    if (fsType != null) {
+      jsonData['fsType'] = fsType!;
+    }
+    if (options != null) {
+      jsonData['options'] = options!;
+    }
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
+    if (secretRef != null) {
+      jsonData['secretRef'] = secretRef!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// Driver is the name of the driver to use for this volume.
   final String driver;

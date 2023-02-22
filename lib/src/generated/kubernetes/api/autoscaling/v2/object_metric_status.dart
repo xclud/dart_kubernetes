@@ -15,28 +15,27 @@ class ObjectMetricStatus {
   ObjectMetricStatus.fromJson(Map<String, dynamic> json)
       : this(
           current: MetricValueStatus.fromJson(json['current']),
-          describedObject: CrossVersionObjectReference.fromJson(json['describedObject']),
+          describedObject:
+              CrossVersionObjectReference.fromJson(json['describedObject']),
           metric: MetricIdentifier.fromJson(json['metric']),
         );
 
   /// Creates a list of ObjectMetricStatus from JSON data.
-  static List<ObjectMetricStatus> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ObjectMetricStatus> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ObjectMetricStatus.fromJson(e)).toList();
   }
 
   /// Converts a ObjectMetricStatus instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['current'] = current.toJson();
     jsonData['describedObject'] = describedObject.toJson();
     jsonData['metric'] = metric.toJson();
-    
 
     return jsonData;
   }
-
 
   /// Current contains the current value for the given metric.
   final MetricValueStatus current;

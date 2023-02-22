@@ -12,27 +12,29 @@ class PersistentVolumeClaimTemplate {
   /// Creates a PersistentVolumeClaimTemplate from JSON data.
   PersistentVolumeClaimTemplate.fromJson(Map<String, dynamic> json)
       : this(
-          metadata: json['metadata'] != null ? ObjectMeta.fromJson(json['metadata']): null,
+          metadata: json['metadata'] != null
+              ? ObjectMeta.fromJson(json['metadata'])
+              : null,
           spec: PersistentVolumeClaimSpec.fromJson(json['spec']),
         );
 
   /// Creates a list of PersistentVolumeClaimTemplate from JSON data.
-  static List<PersistentVolumeClaimTemplate> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<PersistentVolumeClaimTemplate> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => PersistentVolumeClaimTemplate.fromJson(e)).toList();
   }
 
   /// Converts a PersistentVolumeClaimTemplate instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(metadata != null) { jsonData['metadata'] = metadata!.toJson(); }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
     jsonData['spec'] = spec.toJson();
-    
 
     return jsonData;
   }
-
 
   /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
   final ObjectMeta? metadata;

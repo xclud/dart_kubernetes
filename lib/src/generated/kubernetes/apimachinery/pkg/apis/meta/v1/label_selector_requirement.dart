@@ -1,4 +1,3 @@
-
 /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
 class LabelSelectorRequirement {
   /// The main constructor.
@@ -13,27 +12,28 @@ class LabelSelectorRequirement {
       : this(
           key: json['key'],
           operator: json['operator'],
-          values: json['values'] != null ? List<String>.from(json['values']) : null,
+          values:
+              json['values'] != null ? List<String>.from(json['values']) : null,
         );
 
   /// Creates a list of LabelSelectorRequirement from JSON data.
-  static List<LabelSelectorRequirement> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<LabelSelectorRequirement> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => LabelSelectorRequirement.fromJson(e)).toList();
   }
 
   /// Converts a LabelSelectorRequirement instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['key'] = key;
     jsonData['operator'] = operator;
-    if(values != null) { jsonData['values'] = values!; }
-    
+    if (values != null) {
+      jsonData['values'] = values!;
+    }
 
     return jsonData;
   }
-
 
   /// Key is the label key that the selector applies to.
   final String key;

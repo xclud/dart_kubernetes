@@ -1,4 +1,3 @@
-
 /// AttachedVolume describes a volume attached to a node.
 class AttachedVolume {
   /// The main constructor.
@@ -15,22 +14,20 @@ class AttachedVolume {
         );
 
   /// Creates a list of AttachedVolume from JSON data.
-  static List<AttachedVolume> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<AttachedVolume> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => AttachedVolume.fromJson(e)).toList();
   }
 
   /// Converts a AttachedVolume instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['devicePath'] = devicePath;
     jsonData['name'] = name;
-    
 
     return jsonData;
   }
-
 
   /// DevicePath represents the device path where the volume should be available.
   final String devicePath;

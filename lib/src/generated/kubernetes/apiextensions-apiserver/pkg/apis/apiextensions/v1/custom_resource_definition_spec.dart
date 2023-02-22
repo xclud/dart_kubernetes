@@ -17,35 +17,42 @@ class CustomResourceDefinitionSpec {
   /// Creates a CustomResourceDefinitionSpec from JSON data.
   CustomResourceDefinitionSpec.fromJson(Map<String, dynamic> json)
       : this(
-          conversion: json['conversion'] != null ? CustomResourceConversion.fromJson(json['conversion']): null,
+          conversion: json['conversion'] != null
+              ? CustomResourceConversion.fromJson(json['conversion'])
+              : null,
           group: json['group'],
           names: CustomResourceDefinitionNames.fromJson(json['names']),
           preserveUnknownFields: json['preserveUnknownFields'],
           scope: json['scope'],
-          versions: json['versions'] != null ? CustomResourceDefinitionVersion.listFromJson((json['versions'] as Iterable).cast<Map<String, dynamic>>()): [],
+          versions: json['versions'] != null
+              ? CustomResourceDefinitionVersion.listFromJson(
+                  (json['versions'] as Iterable).cast<Map<String, dynamic>>())
+              : [],
         );
 
   /// Creates a list of CustomResourceDefinitionSpec from JSON data.
-  static List<CustomResourceDefinitionSpec> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<CustomResourceDefinitionSpec> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => CustomResourceDefinitionSpec.fromJson(e)).toList();
   }
 
   /// Converts a CustomResourceDefinitionSpec instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(conversion != null) { jsonData['conversion'] = conversion!.toJson(); }
+    if (conversion != null) {
+      jsonData['conversion'] = conversion!.toJson();
+    }
     jsonData['group'] = group;
     jsonData['names'] = names.toJson();
-    if(preserveUnknownFields != null) { jsonData['preserveUnknownFields'] = preserveUnknownFields!; }
+    if (preserveUnknownFields != null) {
+      jsonData['preserveUnknownFields'] = preserveUnknownFields!;
+    }
     jsonData['scope'] = scope;
     jsonData['versions'] = versions.map((item) => item.toJson()).toList();
-    
 
     return jsonData;
   }
-
 
   /// Conversion defines conversion settings for the CRD.
   final CustomResourceConversion? conversion;

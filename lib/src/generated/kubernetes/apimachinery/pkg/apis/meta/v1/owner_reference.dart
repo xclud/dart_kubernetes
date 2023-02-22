@@ -1,4 +1,3 @@
-
 /// OwnerReference contains enough information to let you identify an owning object. An owning object must be in the same namespace as the dependent, or be cluster-scoped, so there is no namespace field.
 class OwnerReference {
   /// The main constructor.
@@ -23,26 +22,28 @@ class OwnerReference {
         );
 
   /// Creates a list of OwnerReference from JSON data.
-  static List<OwnerReference> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<OwnerReference> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => OwnerReference.fromJson(e)).toList();
   }
 
   /// Converts a OwnerReference instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['apiVersion'] = apiVersion;
-    if(blockOwnerDeletion != null) { jsonData['blockOwnerDeletion'] = blockOwnerDeletion!; }
-    if(controller != null) { jsonData['controller'] = controller!; }
+    if (blockOwnerDeletion != null) {
+      jsonData['blockOwnerDeletion'] = blockOwnerDeletion!;
+    }
+    if (controller != null) {
+      jsonData['controller'] = controller!;
+    }
     jsonData['kind'] = kind;
     jsonData['name'] = name;
     jsonData['uid'] = uid;
-    
 
     return jsonData;
   }
-
 
   /// API version of the referent.
   final String apiVersion;

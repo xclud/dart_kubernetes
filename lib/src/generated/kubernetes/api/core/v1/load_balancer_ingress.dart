@@ -14,27 +14,34 @@ class LoadBalancerIngress {
       : this(
           hostname: json['hostname'],
           ip: json['ip'],
-          ports: json['ports'] != null ? PortStatus.listFromJson((json['ports'] as Iterable).cast<Map<String, dynamic>>()): null,
+          ports: json['ports'] != null
+              ? PortStatus.listFromJson(
+                  (json['ports'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
         );
 
   /// Creates a list of LoadBalancerIngress from JSON data.
-  static List<LoadBalancerIngress> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<LoadBalancerIngress> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => LoadBalancerIngress.fromJson(e)).toList();
   }
 
   /// Converts a LoadBalancerIngress instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(hostname != null) { jsonData['hostname'] = hostname!; }
-    if(ip != null) { jsonData['ip'] = ip!; }
-    if(ports != null) { jsonData['ports'] = ports!.map((item) => item.toJson()).toList(); }
-    
+    if (hostname != null) {
+      jsonData['hostname'] = hostname!;
+    }
+    if (ip != null) {
+      jsonData['ip'] = ip!;
+    }
+    if (ports != null) {
+      jsonData['ports'] = ports!.map((item) => item.toJson()).toList();
+    }
 
     return jsonData;
   }
-
 
   /// Hostname is set for load-balancer ingress points that are DNS based (typically AWS load-balancers).
   final String? hostname;

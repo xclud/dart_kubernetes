@@ -14,31 +14,39 @@ class DownwardAPIVolumeFile {
   /// Creates a DownwardAPIVolumeFile from JSON data.
   DownwardAPIVolumeFile.fromJson(Map<String, dynamic> json)
       : this(
-          fieldRef: json['fieldRef'] != null ? ObjectFieldSelector.fromJson(json['fieldRef']): null,
+          fieldRef: json['fieldRef'] != null
+              ? ObjectFieldSelector.fromJson(json['fieldRef'])
+              : null,
           mode: json['mode'],
           path: json['path'],
-          resourceFieldRef: json['resourceFieldRef'] != null ? ResourceFieldSelector.fromJson(json['resourceFieldRef']): null,
+          resourceFieldRef: json['resourceFieldRef'] != null
+              ? ResourceFieldSelector.fromJson(json['resourceFieldRef'])
+              : null,
         );
 
   /// Creates a list of DownwardAPIVolumeFile from JSON data.
-  static List<DownwardAPIVolumeFile> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<DownwardAPIVolumeFile> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => DownwardAPIVolumeFile.fromJson(e)).toList();
   }
 
   /// Converts a DownwardAPIVolumeFile instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(fieldRef != null) { jsonData['fieldRef'] = fieldRef!.toJson(); }
-    if(mode != null) { jsonData['mode'] = mode!; }
+    if (fieldRef != null) {
+      jsonData['fieldRef'] = fieldRef!.toJson();
+    }
+    if (mode != null) {
+      jsonData['mode'] = mode!;
+    }
     jsonData['path'] = path;
-    if(resourceFieldRef != null) { jsonData['resourceFieldRef'] = resourceFieldRef!.toJson(); }
-    
+    if (resourceFieldRef != null) {
+      jsonData['resourceFieldRef'] = resourceFieldRef!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
   final ObjectFieldSelector? fieldRef;

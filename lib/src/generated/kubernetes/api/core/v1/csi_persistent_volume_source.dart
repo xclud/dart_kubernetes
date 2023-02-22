@@ -19,43 +19,71 @@ class CSIPersistentVolumeSource {
   /// Creates a CSIPersistentVolumeSource from JSON data.
   CSIPersistentVolumeSource.fromJson(Map<String, dynamic> json)
       : this(
-          controllerExpandSecretRef: json['controllerExpandSecretRef'] != null ? SecretReference.fromJson(json['controllerExpandSecretRef']): null,
-          controllerPublishSecretRef: json['controllerPublishSecretRef'] != null ? SecretReference.fromJson(json['controllerPublishSecretRef']): null,
+          controllerExpandSecretRef: json['controllerExpandSecretRef'] != null
+              ? SecretReference.fromJson(json['controllerExpandSecretRef'])
+              : null,
+          controllerPublishSecretRef: json['controllerPublishSecretRef'] != null
+              ? SecretReference.fromJson(json['controllerPublishSecretRef'])
+              : null,
           driver: json['driver'],
           fsType: json['fsType'],
-          nodeExpandSecretRef: json['nodeExpandSecretRef'] != null ? SecretReference.fromJson(json['nodeExpandSecretRef']): null,
-          nodePublishSecretRef: json['nodePublishSecretRef'] != null ? SecretReference.fromJson(json['nodePublishSecretRef']): null,
-          nodeStageSecretRef: json['nodeStageSecretRef'] != null ? SecretReference.fromJson(json['nodeStageSecretRef']): null,
+          nodeExpandSecretRef: json['nodeExpandSecretRef'] != null
+              ? SecretReference.fromJson(json['nodeExpandSecretRef'])
+              : null,
+          nodePublishSecretRef: json['nodePublishSecretRef'] != null
+              ? SecretReference.fromJson(json['nodePublishSecretRef'])
+              : null,
+          nodeStageSecretRef: json['nodeStageSecretRef'] != null
+              ? SecretReference.fromJson(json['nodeStageSecretRef'])
+              : null,
           readOnly: json['readOnly'],
-          volumeAttributes: json['volumeAttributes'] != null ? Map<String, String>.from(json['volumeAttributes']) : null,
+          volumeAttributes: json['volumeAttributes'] != null
+              ? Map<String, String>.from(json['volumeAttributes'])
+              : null,
           volumeHandle: json['volumeHandle'],
         );
 
   /// Creates a list of CSIPersistentVolumeSource from JSON data.
-  static List<CSIPersistentVolumeSource> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<CSIPersistentVolumeSource> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => CSIPersistentVolumeSource.fromJson(e)).toList();
   }
 
   /// Converts a CSIPersistentVolumeSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(controllerExpandSecretRef != null) { jsonData['controllerExpandSecretRef'] = controllerExpandSecretRef!.toJson(); }
-    if(controllerPublishSecretRef != null) { jsonData['controllerPublishSecretRef'] = controllerPublishSecretRef!.toJson(); }
+    if (controllerExpandSecretRef != null) {
+      jsonData['controllerExpandSecretRef'] =
+          controllerExpandSecretRef!.toJson();
+    }
+    if (controllerPublishSecretRef != null) {
+      jsonData['controllerPublishSecretRef'] =
+          controllerPublishSecretRef!.toJson();
+    }
     jsonData['driver'] = driver;
-    if(fsType != null) { jsonData['fsType'] = fsType!; }
-    if(nodeExpandSecretRef != null) { jsonData['nodeExpandSecretRef'] = nodeExpandSecretRef!.toJson(); }
-    if(nodePublishSecretRef != null) { jsonData['nodePublishSecretRef'] = nodePublishSecretRef!.toJson(); }
-    if(nodeStageSecretRef != null) { jsonData['nodeStageSecretRef'] = nodeStageSecretRef!.toJson(); }
-    if(readOnly != null) { jsonData['readOnly'] = readOnly!; }
-    if(volumeAttributes != null) { jsonData['volumeAttributes'] = volumeAttributes!; }
+    if (fsType != null) {
+      jsonData['fsType'] = fsType!;
+    }
+    if (nodeExpandSecretRef != null) {
+      jsonData['nodeExpandSecretRef'] = nodeExpandSecretRef!.toJson();
+    }
+    if (nodePublishSecretRef != null) {
+      jsonData['nodePublishSecretRef'] = nodePublishSecretRef!.toJson();
+    }
+    if (nodeStageSecretRef != null) {
+      jsonData['nodeStageSecretRef'] = nodeStageSecretRef!.toJson();
+    }
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
+    if (volumeAttributes != null) {
+      jsonData['volumeAttributes'] = volumeAttributes!;
+    }
     jsonData['volumeHandle'] = volumeHandle;
-    
 
     return jsonData;
   }
-
 
   /// ControllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
   final SecretReference? controllerExpandSecretRef;

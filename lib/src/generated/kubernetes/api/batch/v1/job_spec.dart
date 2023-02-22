@@ -28,8 +28,12 @@ class JobSpec {
           completions: json['completions'],
           manualSelector: json['manualSelector'],
           parallelism: json['parallelism'],
-          podFailurePolicy: json['podFailurePolicy'] != null ? PodFailurePolicy.fromJson(json['podFailurePolicy']): null,
-          selector: json['selector'] != null ? LabelSelector.fromJson(json['selector']): null,
+          podFailurePolicy: json['podFailurePolicy'] != null
+              ? PodFailurePolicy.fromJson(json['podFailurePolicy'])
+              : null,
+          selector: json['selector'] != null
+              ? LabelSelector.fromJson(json['selector'])
+              : null,
           suspend: json['suspend'],
           template: PodTemplateSpec.fromJson(json['template']),
           ttlSecondsAfterFinished: json['ttlSecondsAfterFinished'],
@@ -41,26 +45,43 @@ class JobSpec {
   }
 
   /// Converts a JobSpec instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(activeDeadlineSeconds != null) { jsonData['activeDeadlineSeconds'] = activeDeadlineSeconds!; }
-    if(backoffLimit != null) { jsonData['backoffLimit'] = backoffLimit!; }
-    if(completionMode != null) { jsonData['completionMode'] = completionMode!; }
-    if(completions != null) { jsonData['completions'] = completions!; }
-    if(manualSelector != null) { jsonData['manualSelector'] = manualSelector!; }
-    if(parallelism != null) { jsonData['parallelism'] = parallelism!; }
-    if(podFailurePolicy != null) { jsonData['podFailurePolicy'] = podFailurePolicy!.toJson(); }
-    if(selector != null) { jsonData['selector'] = selector!.toJson(); }
-    if(suspend != null) { jsonData['suspend'] = suspend!; }
+    if (activeDeadlineSeconds != null) {
+      jsonData['activeDeadlineSeconds'] = activeDeadlineSeconds!;
+    }
+    if (backoffLimit != null) {
+      jsonData['backoffLimit'] = backoffLimit!;
+    }
+    if (completionMode != null) {
+      jsonData['completionMode'] = completionMode!;
+    }
+    if (completions != null) {
+      jsonData['completions'] = completions!;
+    }
+    if (manualSelector != null) {
+      jsonData['manualSelector'] = manualSelector!;
+    }
+    if (parallelism != null) {
+      jsonData['parallelism'] = parallelism!;
+    }
+    if (podFailurePolicy != null) {
+      jsonData['podFailurePolicy'] = podFailurePolicy!.toJson();
+    }
+    if (selector != null) {
+      jsonData['selector'] = selector!.toJson();
+    }
+    if (suspend != null) {
+      jsonData['suspend'] = suspend!;
+    }
     jsonData['template'] = template.toJson();
-    if(ttlSecondsAfterFinished != null) { jsonData['ttlSecondsAfterFinished'] = ttlSecondsAfterFinished!; }
-    
+    if (ttlSecondsAfterFinished != null) {
+      jsonData['ttlSecondsAfterFinished'] = ttlSecondsAfterFinished!;
+    }
 
     return jsonData;
   }
-
 
   /// Specifies the duration in seconds relative to the startTime that the job may be continuously active before the system tries to terminate it; value must be positive integer. If a Job is suspended (at creation or through an update), this timer will effectively be stopped and reset when the Job is resumed again.
   final int? activeDeadlineSeconds;
@@ -69,12 +90,12 @@ class JobSpec {
   final int? backoffLimit;
 
   /// CompletionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
-/// 
-/// `NonIndexed` means that the Job is considered complete when there have been .spec.completions successfully completed Pods. Each Pod completion is homologous to each other.
-/// 
-/// `Indexed` means that the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1), available in the annotation batch.kubernetes.io/job-completion-index. The Job is considered complete when there is one successfully completed Pod for each index. When value is `Indexed`, .spec.completions must be specified and `.spec.parallelism` must be less than or equal to 10^5. In addition, The Pod name takes the form `$(job-name)-$(index)-$(random-string)`, the Pod hostname takes the form `$(job-name)-$(index)`.
-/// 
-/// More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, which is possible during upgrades due to version skew, the controller skips updates for the Job.
+  ///
+  /// `NonIndexed` means that the Job is considered complete when there have been .spec.completions successfully completed Pods. Each Pod completion is homologous to each other.
+  ///
+  /// `Indexed` means that the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1), available in the annotation batch.kubernetes.io/job-completion-index. The Job is considered complete when there is one successfully completed Pod for each index. When value is `Indexed`, .spec.completions must be specified and `.spec.parallelism` must be less than or equal to 10^5. In addition, The Pod name takes the form `$(job-name)-$(index)-$(random-string)`, the Pod hostname takes the form `$(job-name)-$(index)`.
+  ///
+  /// More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, which is possible during upgrades due to version skew, the controller skips updates for the Job.
   final String? completionMode;
 
   /// Specifies the desired number of successfully finished pods the job should be run with.  Setting to null means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/.
@@ -87,8 +108,8 @@ class JobSpec {
   final int? parallelism;
 
   /// Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
-/// 
-/// This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+  ///
+  /// This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
   final PodFailurePolicy? podFailurePolicy;
 
   /// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors.

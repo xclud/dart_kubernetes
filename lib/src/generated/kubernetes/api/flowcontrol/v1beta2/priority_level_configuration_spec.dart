@@ -11,27 +11,29 @@ class PriorityLevelConfigurationSpec {
   /// Creates a PriorityLevelConfigurationSpec from JSON data.
   PriorityLevelConfigurationSpec.fromJson(Map<String, dynamic> json)
       : this(
-          limited: json['limited'] != null ? LimitedPriorityLevelConfiguration.fromJson(json['limited']): null,
+          limited: json['limited'] != null
+              ? LimitedPriorityLevelConfiguration.fromJson(json['limited'])
+              : null,
           type: json['type'],
         );
 
   /// Creates a list of PriorityLevelConfigurationSpec from JSON data.
-  static List<PriorityLevelConfigurationSpec> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<PriorityLevelConfigurationSpec> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => PriorityLevelConfigurationSpec.fromJson(e)).toList();
   }
 
   /// Converts a PriorityLevelConfigurationSpec instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(limited != null) { jsonData['limited'] = limited!.toJson(); }
+    if (limited != null) {
+      jsonData['limited'] = limited!.toJson();
+    }
     jsonData['type'] = type;
-    
 
     return jsonData;
   }
-
 
   /// `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
   final LimitedPriorityLevelConfiguration? limited;

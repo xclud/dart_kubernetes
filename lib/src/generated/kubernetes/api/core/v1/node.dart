@@ -18,9 +18,13 @@ class Node {
       : this(
           apiVersion: json['apiVersion'],
           kind: json['kind'],
-          metadata: json['metadata'] != null ? ObjectMeta.fromJson(json['metadata']): null,
-          spec: json['spec'] != null ? NodeSpec.fromJson(json['spec']): null,
-          status: json['status'] != null ? NodeStatus.fromJson(json['status']): null,
+          metadata: json['metadata'] != null
+              ? ObjectMeta.fromJson(json['metadata'])
+              : null,
+          spec: json['spec'] != null ? NodeSpec.fromJson(json['spec']) : null,
+          status: json['status'] != null
+              ? NodeStatus.fromJson(json['status'])
+              : null,
         );
 
   /// Creates a list of Node from JSON data.
@@ -29,20 +33,27 @@ class Node {
   }
 
   /// Converts a Node instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiVersion != null) { jsonData['apiVersion'] = apiVersion!; }
-    if(kind != null) { jsonData['kind'] = kind!; }
-    if(metadata != null) { jsonData['metadata'] = metadata!.toJson(); }
-    if(spec != null) { jsonData['spec'] = spec!.toJson(); }
-    if(status != null) { jsonData['status'] = status!.toJson(); }
-    
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
+    if (spec != null) {
+      jsonData['spec'] = spec!.toJson();
+    }
+    if (status != null) {
+      jsonData['status'] = status!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;

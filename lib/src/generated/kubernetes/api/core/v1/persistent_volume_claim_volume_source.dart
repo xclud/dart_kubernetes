@@ -1,4 +1,3 @@
-
 /// PersistentVolumeClaimVolumeSource references the user's PVC in the same namespace. This volume finds the bound PV and mounts that volume for the pod. A PersistentVolumeClaimVolumeSource is, essentially, a wrapper around another type of volume that is owned by someone else (the system).
 class PersistentVolumeClaimVolumeSource {
   /// The main constructor.
@@ -15,22 +14,24 @@ class PersistentVolumeClaimVolumeSource {
         );
 
   /// Creates a list of PersistentVolumeClaimVolumeSource from JSON data.
-  static List<PersistentVolumeClaimVolumeSource> listFromJson(Iterable<Map<String, dynamic>> list) {
-    return list.map((e) => PersistentVolumeClaimVolumeSource.fromJson(e)).toList();
+  static List<PersistentVolumeClaimVolumeSource> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
+    return list
+        .map((e) => PersistentVolumeClaimVolumeSource.fromJson(e))
+        .toList();
   }
 
   /// Converts a PersistentVolumeClaimVolumeSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['claimName'] = claimName;
-    if(readOnly != null) { jsonData['readOnly'] = readOnly!; }
-    
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
 
     return jsonData;
   }
-
 
   /// ClaimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims.
   final String claimName;

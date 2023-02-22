@@ -17,11 +17,17 @@ class Secret {
   Secret.fromJson(Map<String, dynamic> json)
       : this(
           apiVersion: json['apiVersion'],
-          data: json['data'] != null ? Map<String, String>.from(json['data']) : null,
+          data: json['data'] != null
+              ? Map<String, String>.from(json['data'])
+              : null,
           immutable: json['immutable'],
           kind: json['kind'],
-          metadata: json['metadata'] != null ? ObjectMeta.fromJson(json['metadata']): null,
-          stringData: json['stringData'] != null ? Map<String, String>.from(json['stringData']) : null,
+          metadata: json['metadata'] != null
+              ? ObjectMeta.fromJson(json['metadata'])
+              : null,
+          stringData: json['stringData'] != null
+              ? Map<String, String>.from(json['stringData'])
+              : null,
           type: json['type'],
         );
 
@@ -31,22 +37,33 @@ class Secret {
   }
 
   /// Converts a Secret instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiVersion != null) { jsonData['apiVersion'] = apiVersion!; }
-    if(data != null) { jsonData['data'] = data!; }
-    if(immutable != null) { jsonData['immutable'] = immutable!; }
-    if(kind != null) { jsonData['kind'] = kind!; }
-    if(metadata != null) { jsonData['metadata'] = metadata!.toJson(); }
-    if(stringData != null) { jsonData['stringData'] = stringData!; }
-    if(type != null) { jsonData['type'] = type!; }
-    
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (data != null) {
+      jsonData['data'] = data!;
+    }
+    if (immutable != null) {
+      jsonData['immutable'] = immutable!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
+    if (stringData != null) {
+      jsonData['stringData'] = stringData!;
+    }
+    if (type != null) {
+      jsonData['type'] = type!;
+    }
 
     return jsonData;
   }
-
 
   /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;

@@ -13,31 +13,39 @@ class TokenReviewStatus {
   /// Creates a TokenReviewStatus from JSON data.
   TokenReviewStatus.fromJson(Map<String, dynamic> json)
       : this(
-          audiences: json['audiences'] != null ? List<String>.from(json['audiences']) : null,
+          audiences: json['audiences'] != null
+              ? List<String>.from(json['audiences'])
+              : null,
           authenticated: json['authenticated'],
           error: json['error'],
-          user: json['user'] != null ? UserInfo.fromJson(json['user']): null,
+          user: json['user'] != null ? UserInfo.fromJson(json['user']) : null,
         );
 
   /// Creates a list of TokenReviewStatus from JSON data.
-  static List<TokenReviewStatus> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<TokenReviewStatus> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => TokenReviewStatus.fromJson(e)).toList();
   }
 
   /// Converts a TokenReviewStatus instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(audiences != null) { jsonData['audiences'] = audiences!; }
-    if(authenticated != null) { jsonData['authenticated'] = authenticated!; }
-    if(error != null) { jsonData['error'] = error!; }
-    if(user != null) { jsonData['user'] = user!.toJson(); }
-    
+    if (audiences != null) {
+      jsonData['audiences'] = audiences!;
+    }
+    if (authenticated != null) {
+      jsonData['authenticated'] = authenticated!;
+    }
+    if (error != null) {
+      jsonData['error'] = error!;
+    }
+    if (user != null) {
+      jsonData['user'] = user!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is "true", the token is valid against the audience of the Kubernetes API server.
   final List<String>? audiences;

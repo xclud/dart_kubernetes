@@ -62,44 +62,93 @@ class PodSpec {
   PodSpec.fromJson(Map<String, dynamic> json)
       : this(
           activeDeadlineSeconds: json['activeDeadlineSeconds'],
-          affinity: json['affinity'] != null ? Affinity.fromJson(json['affinity']): null,
+          affinity: json['affinity'] != null
+              ? Affinity.fromJson(json['affinity'])
+              : null,
           automountServiceAccountToken: json['automountServiceAccountToken'],
-          containers: json['containers'] != null ? Container.listFromJson((json['containers'] as Iterable).cast<Map<String, dynamic>>()): [],
-          dnsConfig: json['dnsConfig'] != null ? PodDNSConfig.fromJson(json['dnsConfig']): null,
+          containers: json['containers'] != null
+              ? Container.listFromJson(
+                  (json['containers'] as Iterable).cast<Map<String, dynamic>>())
+              : [],
+          dnsConfig: json['dnsConfig'] != null
+              ? PodDNSConfig.fromJson(json['dnsConfig'])
+              : null,
           dnsPolicy: json['dnsPolicy'],
           enableServiceLinks: json['enableServiceLinks'],
-          ephemeralContainers: json['ephemeralContainers'] != null ? EphemeralContainer.listFromJson((json['ephemeralContainers'] as Iterable).cast<Map<String, dynamic>>()): null,
-          hostAliases: json['hostAliases'] != null ? HostAlias.listFromJson((json['hostAliases'] as Iterable).cast<Map<String, dynamic>>()): null,
+          ephemeralContainers: json['ephemeralContainers'] != null
+              ? EphemeralContainer.listFromJson(
+                  (json['ephemeralContainers'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : null,
+          hostAliases: json['hostAliases'] != null
+              ? HostAlias.listFromJson((json['hostAliases'] as Iterable)
+                  .cast<Map<String, dynamic>>())
+              : null,
           hostIPC: json['hostIPC'],
           hostNetwork: json['hostNetwork'],
           hostPID: json['hostPID'],
           hostUsers: json['hostUsers'],
           hostname: json['hostname'],
-          imagePullSecrets: json['imagePullSecrets'] != null ? LocalObjectReference.listFromJson((json['imagePullSecrets'] as Iterable).cast<Map<String, dynamic>>()): null,
-          initContainers: json['initContainers'] != null ? Container.listFromJson((json['initContainers'] as Iterable).cast<Map<String, dynamic>>()): null,
+          imagePullSecrets: json['imagePullSecrets'] != null
+              ? LocalObjectReference.listFromJson(
+                  (json['imagePullSecrets'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : null,
+          initContainers: json['initContainers'] != null
+              ? Container.listFromJson((json['initContainers'] as Iterable)
+                  .cast<Map<String, dynamic>>())
+              : null,
           nodeName: json['nodeName'],
-          nodeSelector: json['nodeSelector'] != null ? Map<String, String>.from(json['nodeSelector']) : null,
-          os: json['os'] != null ? PodOS.fromJson(json['os']): null,
-          overhead: json['overhead'] != null ? Map<String, String>.from(json['overhead']) : null,
+          nodeSelector: json['nodeSelector'] != null
+              ? Map<String, String>.from(json['nodeSelector'])
+              : null,
+          os: json['os'] != null ? PodOS.fromJson(json['os']) : null,
+          overhead: json['overhead'] != null
+              ? Map<String, String>.from(json['overhead'])
+              : null,
           preemptionPolicy: json['preemptionPolicy'],
           priority: json['priority'],
           priorityClassName: json['priorityClassName'],
-          readinessGates: json['readinessGates'] != null ? PodReadinessGate.listFromJson((json['readinessGates'] as Iterable).cast<Map<String, dynamic>>()): null,
-          resourceClaims: json['resourceClaims'] != null ? PodResourceClaim.listFromJson((json['resourceClaims'] as Iterable).cast<Map<String, dynamic>>()): null,
+          readinessGates: json['readinessGates'] != null
+              ? PodReadinessGate.listFromJson(
+                  (json['readinessGates'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : null,
+          resourceClaims: json['resourceClaims'] != null
+              ? PodResourceClaim.listFromJson(
+                  (json['resourceClaims'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : null,
           restartPolicy: json['restartPolicy'],
           runtimeClassName: json['runtimeClassName'],
           schedulerName: json['schedulerName'],
-          schedulingGates: json['schedulingGates'] != null ? PodSchedulingGate.listFromJson((json['schedulingGates'] as Iterable).cast<Map<String, dynamic>>()): null,
-          securityContext: json['securityContext'] != null ? PodSecurityContext.fromJson(json['securityContext']): null,
+          schedulingGates: json['schedulingGates'] != null
+              ? PodSchedulingGate.listFromJson(
+                  (json['schedulingGates'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : null,
+          securityContext: json['securityContext'] != null
+              ? PodSecurityContext.fromJson(json['securityContext'])
+              : null,
           serviceAccount: json['serviceAccount'],
           serviceAccountName: json['serviceAccountName'],
           setHostnameAsFQDN: json['setHostnameAsFQDN'],
           shareProcessNamespace: json['shareProcessNamespace'],
           subdomain: json['subdomain'],
           terminationGracePeriodSeconds: json['terminationGracePeriodSeconds'],
-          tolerations: json['tolerations'] != null ? Toleration.listFromJson((json['tolerations'] as Iterable).cast<Map<String, dynamic>>()): null,
-          topologySpreadConstraints: json['topologySpreadConstraints'] != null ? TopologySpreadConstraint.listFromJson((json['topologySpreadConstraints'] as Iterable).cast<Map<String, dynamic>>()): null,
-          volumes: json['volumes'] != null ? Volume.listFromJson((json['volumes'] as Iterable).cast<Map<String, dynamic>>()): null,
+          tolerations: json['tolerations'] != null
+              ? Toleration.listFromJson((json['tolerations'] as Iterable)
+                  .cast<Map<String, dynamic>>())
+              : null,
+          topologySpreadConstraints: json['topologySpreadConstraints'] != null
+              ? TopologySpreadConstraint.listFromJson(
+                  (json['topologySpreadConstraints'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : null,
+          volumes: json['volumes'] != null
+              ? Volume.listFromJson(
+                  (json['volumes'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
         );
 
   /// Creates a list of PodSpec from JSON data.
@@ -108,54 +157,137 @@ class PodSpec {
   }
 
   /// Converts a PodSpec instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(activeDeadlineSeconds != null) { jsonData['activeDeadlineSeconds'] = activeDeadlineSeconds!; }
-    if(affinity != null) { jsonData['affinity'] = affinity!.toJson(); }
-    if(automountServiceAccountToken != null) { jsonData['automountServiceAccountToken'] = automountServiceAccountToken!; }
+    if (activeDeadlineSeconds != null) {
+      jsonData['activeDeadlineSeconds'] = activeDeadlineSeconds!;
+    }
+    if (affinity != null) {
+      jsonData['affinity'] = affinity!.toJson();
+    }
+    if (automountServiceAccountToken != null) {
+      jsonData['automountServiceAccountToken'] = automountServiceAccountToken!;
+    }
     jsonData['containers'] = containers.map((item) => item.toJson()).toList();
-    if(dnsConfig != null) { jsonData['dnsConfig'] = dnsConfig!.toJson(); }
-    if(dnsPolicy != null) { jsonData['dnsPolicy'] = dnsPolicy!; }
-    if(enableServiceLinks != null) { jsonData['enableServiceLinks'] = enableServiceLinks!; }
-    if(ephemeralContainers != null) { jsonData['ephemeralContainers'] = ephemeralContainers!.map((item) => item.toJson()).toList(); }
-    if(hostAliases != null) { jsonData['hostAliases'] = hostAliases!.map((item) => item.toJson()).toList(); }
-    if(hostIPC != null) { jsonData['hostIPC'] = hostIPC!; }
-    if(hostNetwork != null) { jsonData['hostNetwork'] = hostNetwork!; }
-    if(hostPID != null) { jsonData['hostPID'] = hostPID!; }
-    if(hostUsers != null) { jsonData['hostUsers'] = hostUsers!; }
-    if(hostname != null) { jsonData['hostname'] = hostname!; }
-    if(imagePullSecrets != null) { jsonData['imagePullSecrets'] = imagePullSecrets!.map((item) => item.toJson()).toList(); }
-    if(initContainers != null) { jsonData['initContainers'] = initContainers!.map((item) => item.toJson()).toList(); }
-    if(nodeName != null) { jsonData['nodeName'] = nodeName!; }
-    if(nodeSelector != null) { jsonData['nodeSelector'] = nodeSelector!; }
-    if(os != null) { jsonData['os'] = os!.toJson(); }
-    if(overhead != null) { jsonData['overhead'] = overhead!; }
-    if(preemptionPolicy != null) { jsonData['preemptionPolicy'] = preemptionPolicy!; }
-    if(priority != null) { jsonData['priority'] = priority!; }
-    if(priorityClassName != null) { jsonData['priorityClassName'] = priorityClassName!; }
-    if(readinessGates != null) { jsonData['readinessGates'] = readinessGates!.map((item) => item.toJson()).toList(); }
-    if(resourceClaims != null) { jsonData['resourceClaims'] = resourceClaims!.map((item) => item.toJson()).toList(); }
-    if(restartPolicy != null) { jsonData['restartPolicy'] = restartPolicy!; }
-    if(runtimeClassName != null) { jsonData['runtimeClassName'] = runtimeClassName!; }
-    if(schedulerName != null) { jsonData['schedulerName'] = schedulerName!; }
-    if(schedulingGates != null) { jsonData['schedulingGates'] = schedulingGates!.map((item) => item.toJson()).toList(); }
-    if(securityContext != null) { jsonData['securityContext'] = securityContext!.toJson(); }
-    if(serviceAccount != null) { jsonData['serviceAccount'] = serviceAccount!; }
-    if(serviceAccountName != null) { jsonData['serviceAccountName'] = serviceAccountName!; }
-    if(setHostnameAsFQDN != null) { jsonData['setHostnameAsFQDN'] = setHostnameAsFQDN!; }
-    if(shareProcessNamespace != null) { jsonData['shareProcessNamespace'] = shareProcessNamespace!; }
-    if(subdomain != null) { jsonData['subdomain'] = subdomain!; }
-    if(terminationGracePeriodSeconds != null) { jsonData['terminationGracePeriodSeconds'] = terminationGracePeriodSeconds!; }
-    if(tolerations != null) { jsonData['tolerations'] = tolerations!.map((item) => item.toJson()).toList(); }
-    if(topologySpreadConstraints != null) { jsonData['topologySpreadConstraints'] = topologySpreadConstraints!.map((item) => item.toJson()).toList(); }
-    if(volumes != null) { jsonData['volumes'] = volumes!.map((item) => item.toJson()).toList(); }
-    
+    if (dnsConfig != null) {
+      jsonData['dnsConfig'] = dnsConfig!.toJson();
+    }
+    if (dnsPolicy != null) {
+      jsonData['dnsPolicy'] = dnsPolicy!;
+    }
+    if (enableServiceLinks != null) {
+      jsonData['enableServiceLinks'] = enableServiceLinks!;
+    }
+    if (ephemeralContainers != null) {
+      jsonData['ephemeralContainers'] =
+          ephemeralContainers!.map((item) => item.toJson()).toList();
+    }
+    if (hostAliases != null) {
+      jsonData['hostAliases'] =
+          hostAliases!.map((item) => item.toJson()).toList();
+    }
+    if (hostIPC != null) {
+      jsonData['hostIPC'] = hostIPC!;
+    }
+    if (hostNetwork != null) {
+      jsonData['hostNetwork'] = hostNetwork!;
+    }
+    if (hostPID != null) {
+      jsonData['hostPID'] = hostPID!;
+    }
+    if (hostUsers != null) {
+      jsonData['hostUsers'] = hostUsers!;
+    }
+    if (hostname != null) {
+      jsonData['hostname'] = hostname!;
+    }
+    if (imagePullSecrets != null) {
+      jsonData['imagePullSecrets'] =
+          imagePullSecrets!.map((item) => item.toJson()).toList();
+    }
+    if (initContainers != null) {
+      jsonData['initContainers'] =
+          initContainers!.map((item) => item.toJson()).toList();
+    }
+    if (nodeName != null) {
+      jsonData['nodeName'] = nodeName!;
+    }
+    if (nodeSelector != null) {
+      jsonData['nodeSelector'] = nodeSelector!;
+    }
+    if (os != null) {
+      jsonData['os'] = os!.toJson();
+    }
+    if (overhead != null) {
+      jsonData['overhead'] = overhead!;
+    }
+    if (preemptionPolicy != null) {
+      jsonData['preemptionPolicy'] = preemptionPolicy!;
+    }
+    if (priority != null) {
+      jsonData['priority'] = priority!;
+    }
+    if (priorityClassName != null) {
+      jsonData['priorityClassName'] = priorityClassName!;
+    }
+    if (readinessGates != null) {
+      jsonData['readinessGates'] =
+          readinessGates!.map((item) => item.toJson()).toList();
+    }
+    if (resourceClaims != null) {
+      jsonData['resourceClaims'] =
+          resourceClaims!.map((item) => item.toJson()).toList();
+    }
+    if (restartPolicy != null) {
+      jsonData['restartPolicy'] = restartPolicy!;
+    }
+    if (runtimeClassName != null) {
+      jsonData['runtimeClassName'] = runtimeClassName!;
+    }
+    if (schedulerName != null) {
+      jsonData['schedulerName'] = schedulerName!;
+    }
+    if (schedulingGates != null) {
+      jsonData['schedulingGates'] =
+          schedulingGates!.map((item) => item.toJson()).toList();
+    }
+    if (securityContext != null) {
+      jsonData['securityContext'] = securityContext!.toJson();
+    }
+    if (serviceAccount != null) {
+      jsonData['serviceAccount'] = serviceAccount!;
+    }
+    if (serviceAccountName != null) {
+      jsonData['serviceAccountName'] = serviceAccountName!;
+    }
+    if (setHostnameAsFQDN != null) {
+      jsonData['setHostnameAsFQDN'] = setHostnameAsFQDN!;
+    }
+    if (shareProcessNamespace != null) {
+      jsonData['shareProcessNamespace'] = shareProcessNamespace!;
+    }
+    if (subdomain != null) {
+      jsonData['subdomain'] = subdomain!;
+    }
+    if (terminationGracePeriodSeconds != null) {
+      jsonData['terminationGracePeriodSeconds'] =
+          terminationGracePeriodSeconds!;
+    }
+    if (tolerations != null) {
+      jsonData['tolerations'] =
+          tolerations!.map((item) => item.toJson()).toList();
+    }
+    if (topologySpreadConstraints != null) {
+      jsonData['topologySpreadConstraints'] =
+          topologySpreadConstraints!.map((item) => item.toJson()).toList();
+    }
+    if (volumes != null) {
+      jsonData['volumes'] = volumes!.map((item) => item.toJson()).toList();
+    }
 
     return jsonData;
   }
-
 
   /// Optional duration in seconds the pod may be active on the node relative to StartTime before the system will actively try to mark it failed and kill associated containers. Value must be a positive integer.
   final int? activeDeadlineSeconds;
@@ -212,10 +344,10 @@ class PodSpec {
   final Map<String, String>? nodeSelector;
 
   /// Specifies the OS of the containers in the pod. Some pod and container fields are restricted if this is set.
-/// 
-/// If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
-/// 
-/// If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup.
+  ///
+  /// If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
+  ///
+  /// If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup.
   final PodOS? os;
 
   /// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md.
@@ -234,10 +366,10 @@ class PodSpec {
   final List<PodReadinessGate>? readinessGates;
 
   /// ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
-/// 
-/// This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
-/// 
-/// This field is immutable.
+  ///
+  /// This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+  ///
+  /// This field is immutable.
   final List<PodResourceClaim>? resourceClaims;
 
   /// Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy.
@@ -250,10 +382,10 @@ class PodSpec {
   final String? schedulerName;
 
   /// SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
-/// 
-/// SchedulingGates can only be set at pod creation time, and be removed only afterwards.
-/// 
-/// This is a beta feature enabled by the PodSchedulingReadiness feature gate.
+  ///
+  /// SchedulingGates can only be set at pod creation time, and be removed only afterwards.
+  ///
+  /// This is a beta feature enabled by the PodSchedulingReadiness feature gate.
   final List<PodSchedulingGate>? schedulingGates;
 
   /// SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.

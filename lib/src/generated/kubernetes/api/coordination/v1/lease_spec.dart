@@ -14,11 +14,15 @@ class LeaseSpec {
   /// Creates a LeaseSpec from JSON data.
   LeaseSpec.fromJson(Map<String, dynamic> json)
       : this(
-          acquireTime: json['acquireTime'] != null ? MicroTime.fromJson(json['acquireTime']): null,
+          acquireTime: json['acquireTime'] != null
+              ? MicroTime.fromJson(json['acquireTime'])
+              : null,
           holderIdentity: json['holderIdentity'],
           leaseDurationSeconds: json['leaseDurationSeconds'],
           leaseTransitions: json['leaseTransitions'],
-          renewTime: json['renewTime'] != null ? MicroTime.fromJson(json['renewTime']): null,
+          renewTime: json['renewTime'] != null
+              ? MicroTime.fromJson(json['renewTime'])
+              : null,
         );
 
   /// Creates a list of LeaseSpec from JSON data.
@@ -27,20 +31,27 @@ class LeaseSpec {
   }
 
   /// Converts a LeaseSpec instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(acquireTime != null) { jsonData['acquireTime'] = acquireTime!.toJson(); }
-    if(holderIdentity != null) { jsonData['holderIdentity'] = holderIdentity!; }
-    if(leaseDurationSeconds != null) { jsonData['leaseDurationSeconds'] = leaseDurationSeconds!; }
-    if(leaseTransitions != null) { jsonData['leaseTransitions'] = leaseTransitions!; }
-    if(renewTime != null) { jsonData['renewTime'] = renewTime!.toJson(); }
-    
+    if (acquireTime != null) {
+      jsonData['acquireTime'] = acquireTime!.toJson();
+    }
+    if (holderIdentity != null) {
+      jsonData['holderIdentity'] = holderIdentity!;
+    }
+    if (leaseDurationSeconds != null) {
+      jsonData['leaseDurationSeconds'] = leaseDurationSeconds!;
+    }
+    if (leaseTransitions != null) {
+      jsonData['leaseTransitions'] = leaseTransitions!;
+    }
+    if (renewTime != null) {
+      jsonData['renewTime'] = renewTime!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// AcquireTime is a time when the current lease was acquired.
   final MicroTime? acquireTime;

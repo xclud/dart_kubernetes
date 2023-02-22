@@ -12,7 +12,9 @@ class EventSeries {
   EventSeries.fromJson(Map<String, dynamic> json)
       : this(
           count: json['count'],
-          lastObservedTime: json['lastObservedTime'] != null ? MicroTime.fromJson(json['lastObservedTime']): null,
+          lastObservedTime: json['lastObservedTime'] != null
+              ? MicroTime.fromJson(json['lastObservedTime'])
+              : null,
         );
 
   /// Creates a list of EventSeries from JSON data.
@@ -21,17 +23,18 @@ class EventSeries {
   }
 
   /// Converts a EventSeries instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(count != null) { jsonData['count'] = count!; }
-    if(lastObservedTime != null) { jsonData['lastObservedTime'] = lastObservedTime!.toJson(); }
-    
+    if (count != null) {
+      jsonData['count'] = count!;
+    }
+    if (lastObservedTime != null) {
+      jsonData['lastObservedTime'] = lastObservedTime!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// Number of occurrences in this series up to the last heartbeat time.
   final int? count;

@@ -19,11 +19,22 @@ class MetricStatus {
   /// Creates a MetricStatus from JSON data.
   MetricStatus.fromJson(Map<String, dynamic> json)
       : this(
-          containerResource: json['containerResource'] != null ? ContainerResourceMetricStatus.fromJson(json['containerResource']): null,
-          external: json['external'] != null ? ExternalMetricStatus.fromJson(json['external']): null,
-          object: json['object'] != null ? ObjectMetricStatus.fromJson(json['object']): null,
-          pods: json['pods'] != null ? PodsMetricStatus.fromJson(json['pods']): null,
-          resource: json['resource'] != null ? ResourceMetricStatus.fromJson(json['resource']): null,
+          containerResource: json['containerResource'] != null
+              ? ContainerResourceMetricStatus.fromJson(
+                  json['containerResource'])
+              : null,
+          external: json['external'] != null
+              ? ExternalMetricStatus.fromJson(json['external'])
+              : null,
+          object: json['object'] != null
+              ? ObjectMetricStatus.fromJson(json['object'])
+              : null,
+          pods: json['pods'] != null
+              ? PodsMetricStatus.fromJson(json['pods'])
+              : null,
+          resource: json['resource'] != null
+              ? ResourceMetricStatus.fromJson(json['resource'])
+              : null,
           type: json['type'],
         );
 
@@ -33,21 +44,28 @@ class MetricStatus {
   }
 
   /// Converts a MetricStatus instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(containerResource != null) { jsonData['containerResource'] = containerResource!.toJson(); }
-    if(external != null) { jsonData['external'] = external!.toJson(); }
-    if(object != null) { jsonData['object'] = object!.toJson(); }
-    if(pods != null) { jsonData['pods'] = pods!.toJson(); }
-    if(resource != null) { jsonData['resource'] = resource!.toJson(); }
+    if (containerResource != null) {
+      jsonData['containerResource'] = containerResource!.toJson();
+    }
+    if (external != null) {
+      jsonData['external'] = external!.toJson();
+    }
+    if (object != null) {
+      jsonData['object'] = object!.toJson();
+    }
+    if (pods != null) {
+      jsonData['pods'] = pods!.toJson();
+    }
+    if (resource != null) {
+      jsonData['resource'] = resource!.toJson();
+    }
     jsonData['type'] = type;
-    
 
     return jsonData;
   }
-
 
   /// Container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
   final ContainerResourceMetricStatus? containerResource;

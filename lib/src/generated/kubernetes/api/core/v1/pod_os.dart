@@ -1,4 +1,3 @@
-
 /// PodOS defines the OS parameters of a pod.
 class PodOS {
   /// The main constructor.
@@ -18,16 +17,13 @@ class PodOS {
   }
 
   /// Converts a PodOS instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['name'] = name;
-    
 
     return jsonData;
   }
-
 
   /// Name is the name of the operating system. The currently supported values are linux and windows. Additional value may be defined in future and can be one of: https://github.com/opencontainers/runtime-spec/blob/master/config.md#platform-specific-configuration Clients should expect to handle additional values and treat unrecognized values in this field as os: null.
   final String name;

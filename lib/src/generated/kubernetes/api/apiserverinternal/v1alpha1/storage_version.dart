@@ -18,31 +18,37 @@ class StorageVersion {
       : this(
           apiVersion: json['apiVersion'],
           kind: json['kind'],
-          metadata: json['metadata'] != null ? ObjectMeta.fromJson(json['metadata']): null,
+          metadata: json['metadata'] != null
+              ? ObjectMeta.fromJson(json['metadata'])
+              : null,
           spec: StorageVersionSpec.fromJson(json['spec']),
           status: StorageVersionStatus.fromJson(json['status']),
         );
 
   /// Creates a list of StorageVersion from JSON data.
-  static List<StorageVersion> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<StorageVersion> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => StorageVersion.fromJson(e)).toList();
   }
 
   /// Converts a StorageVersion instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiVersion != null) { jsonData['apiVersion'] = apiVersion!; }
-    if(kind != null) { jsonData['kind'] = kind!; }
-    if(metadata != null) { jsonData['metadata'] = metadata!.toJson(); }
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
     jsonData['spec'] = spec.toJson();
     jsonData['status'] = status.toJson();
-    
 
     return jsonData;
   }
-
 
   /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;

@@ -13,31 +13,43 @@ class NodeConfigStatus {
   /// Creates a NodeConfigStatus from JSON data.
   NodeConfigStatus.fromJson(Map<String, dynamic> json)
       : this(
-          active: json['active'] != null ? NodeConfigSource.fromJson(json['active']): null,
-          assigned: json['assigned'] != null ? NodeConfigSource.fromJson(json['assigned']): null,
+          active: json['active'] != null
+              ? NodeConfigSource.fromJson(json['active'])
+              : null,
+          assigned: json['assigned'] != null
+              ? NodeConfigSource.fromJson(json['assigned'])
+              : null,
           error: json['error'],
-          lastKnownGood: json['lastKnownGood'] != null ? NodeConfigSource.fromJson(json['lastKnownGood']): null,
+          lastKnownGood: json['lastKnownGood'] != null
+              ? NodeConfigSource.fromJson(json['lastKnownGood'])
+              : null,
         );
 
   /// Creates a list of NodeConfigStatus from JSON data.
-  static List<NodeConfigStatus> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<NodeConfigStatus> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => NodeConfigStatus.fromJson(e)).toList();
   }
 
   /// Converts a NodeConfigStatus instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(active != null) { jsonData['active'] = active!.toJson(); }
-    if(assigned != null) { jsonData['assigned'] = assigned!.toJson(); }
-    if(error != null) { jsonData['error'] = error!; }
-    if(lastKnownGood != null) { jsonData['lastKnownGood'] = lastKnownGood!.toJson(); }
-    
+    if (active != null) {
+      jsonData['active'] = active!.toJson();
+    }
+    if (assigned != null) {
+      jsonData['assigned'] = assigned!.toJson();
+    }
+    if (error != null) {
+      jsonData['error'] = error!;
+    }
+    if (lastKnownGood != null) {
+      jsonData['lastKnownGood'] = lastKnownGood!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// Active reports the checkpointed config the node is actively using. Active will represent either the current version of the Assigned config, or the current LastKnownGood config, depending on whether attempting to use the Assigned config results in an error.
   final NodeConfigSource? active;

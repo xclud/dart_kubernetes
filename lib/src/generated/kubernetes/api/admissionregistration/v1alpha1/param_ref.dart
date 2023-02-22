@@ -1,4 +1,3 @@
-
 /// ParamRef references a parameter resource.
 class ParamRef {
   /// The main constructor.
@@ -20,17 +19,18 @@ class ParamRef {
   }
 
   /// Converts a ParamRef instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(name != null) { jsonData['name'] = name!; }
-    if(namespace != null) { jsonData['namespace'] = namespace!; }
-    
+    if (name != null) {
+      jsonData['name'] = name!;
+    }
+    if (namespace != null) {
+      jsonData['namespace'] = namespace!;
+    }
 
     return jsonData;
   }
-
 
   /// Name of the resource being referenced.
   final String? name;

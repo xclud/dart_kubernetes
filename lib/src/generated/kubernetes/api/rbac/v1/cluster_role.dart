@@ -16,11 +16,18 @@ class ClusterRole {
   /// Creates a ClusterRole from JSON data.
   ClusterRole.fromJson(Map<String, dynamic> json)
       : this(
-          aggregationRule: json['aggregationRule'] != null ? AggregationRule.fromJson(json['aggregationRule']): null,
+          aggregationRule: json['aggregationRule'] != null
+              ? AggregationRule.fromJson(json['aggregationRule'])
+              : null,
           apiVersion: json['apiVersion'],
           kind: json['kind'],
-          metadata: json['metadata'] != null ? ObjectMeta.fromJson(json['metadata']): null,
-          rules: json['rules'] != null ? PolicyRule.listFromJson((json['rules'] as Iterable).cast<Map<String, dynamic>>()): null,
+          metadata: json['metadata'] != null
+              ? ObjectMeta.fromJson(json['metadata'])
+              : null,
+          rules: json['rules'] != null
+              ? PolicyRule.listFromJson(
+                  (json['rules'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
         );
 
   /// Creates a list of ClusterRole from JSON data.
@@ -29,20 +36,27 @@ class ClusterRole {
   }
 
   /// Converts a ClusterRole instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(aggregationRule != null) { jsonData['aggregationRule'] = aggregationRule!.toJson(); }
-    if(apiVersion != null) { jsonData['apiVersion'] = apiVersion!; }
-    if(kind != null) { jsonData['kind'] = kind!; }
-    if(metadata != null) { jsonData['metadata'] = metadata!.toJson(); }
-    if(rules != null) { jsonData['rules'] = rules!.map((item) => item.toJson()).toList(); }
-    
+    if (aggregationRule != null) {
+      jsonData['aggregationRule'] = aggregationRule!.toJson();
+    }
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
+    if (rules != null) {
+      jsonData['rules'] = rules!.map((item) => item.toJson()).toList();
+    }
 
     return jsonData;
   }
-
 
   /// AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
   final AggregationRule? aggregationRule;

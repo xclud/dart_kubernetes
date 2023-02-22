@@ -19,39 +19,58 @@ class CustomResourceDefinitionVersion {
   /// Creates a CustomResourceDefinitionVersion from JSON data.
   CustomResourceDefinitionVersion.fromJson(Map<String, dynamic> json)
       : this(
-          additionalPrinterColumns: json['additionalPrinterColumns'] != null ? CustomResourceColumnDefinition.listFromJson((json['additionalPrinterColumns'] as Iterable).cast<Map<String, dynamic>>()): null,
+          additionalPrinterColumns: json['additionalPrinterColumns'] != null
+              ? CustomResourceColumnDefinition.listFromJson(
+                  (json['additionalPrinterColumns'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : null,
           deprecated: json['deprecated'],
           deprecationWarning: json['deprecationWarning'],
           name: json['name'],
-          schema: json['schema'] != null ? CustomResourceValidation.fromJson(json['schema']): null,
+          schema: json['schema'] != null
+              ? CustomResourceValidation.fromJson(json['schema'])
+              : null,
           served: json['served'],
           storage: json['storage'],
-          subresources: json['subresources'] != null ? CustomResourceSubresources.fromJson(json['subresources']): null,
+          subresources: json['subresources'] != null
+              ? CustomResourceSubresources.fromJson(json['subresources'])
+              : null,
         );
 
   /// Creates a list of CustomResourceDefinitionVersion from JSON data.
-  static List<CustomResourceDefinitionVersion> listFromJson(Iterable<Map<String, dynamic>> list) {
-    return list.map((e) => CustomResourceDefinitionVersion.fromJson(e)).toList();
+  static List<CustomResourceDefinitionVersion> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
+    return list
+        .map((e) => CustomResourceDefinitionVersion.fromJson(e))
+        .toList();
   }
 
   /// Converts a CustomResourceDefinitionVersion instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(additionalPrinterColumns != null) { jsonData['additionalPrinterColumns'] = additionalPrinterColumns!.map((item) => item.toJson()).toList(); }
-    if(deprecated != null) { jsonData['deprecated'] = deprecated!; }
-    if(deprecationWarning != null) { jsonData['deprecationWarning'] = deprecationWarning!; }
+    if (additionalPrinterColumns != null) {
+      jsonData['additionalPrinterColumns'] =
+          additionalPrinterColumns!.map((item) => item.toJson()).toList();
+    }
+    if (deprecated != null) {
+      jsonData['deprecated'] = deprecated!;
+    }
+    if (deprecationWarning != null) {
+      jsonData['deprecationWarning'] = deprecationWarning!;
+    }
     jsonData['name'] = name;
-    if(schema != null) { jsonData['schema'] = schema!.toJson(); }
+    if (schema != null) {
+      jsonData['schema'] = schema!.toJson();
+    }
     jsonData['served'] = served;
     jsonData['storage'] = storage;
-    if(subresources != null) { jsonData['subresources'] = subresources!.toJson(); }
-    
+    if (subresources != null) {
+      jsonData['subresources'] = subresources!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// AdditionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If no columns are specified, a single column displaying the age of the custom resource is used.
   final List<CustomResourceColumnDefinition>? additionalPrinterColumns;

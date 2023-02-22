@@ -1,4 +1,3 @@
-
 /// PersistentVolumeStatus is the current status of a persistent volume.
 class PersistentVolumeStatus {
   /// The main constructor.
@@ -17,23 +16,27 @@ class PersistentVolumeStatus {
         );
 
   /// Creates a list of PersistentVolumeStatus from JSON data.
-  static List<PersistentVolumeStatus> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<PersistentVolumeStatus> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => PersistentVolumeStatus.fromJson(e)).toList();
   }
 
   /// Converts a PersistentVolumeStatus instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(message != null) { jsonData['message'] = message!; }
-    if(phase != null) { jsonData['phase'] = phase!; }
-    if(reason != null) { jsonData['reason'] = reason!; }
-    
+    if (message != null) {
+      jsonData['message'] = message!;
+    }
+    if (phase != null) {
+      jsonData['phase'] = phase!;
+    }
+    if (reason != null) {
+      jsonData['reason'] = reason!;
+    }
 
     return jsonData;
   }
-
 
   /// Message is a human-readable message indicating details about why the volume is in this state.
   final String? message;

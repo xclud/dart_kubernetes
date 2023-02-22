@@ -1,4 +1,3 @@
-
 /// HTTPHeader describes a custom header to be used in HTTP probes.
 class HTTPHeader {
   /// The main constructor.
@@ -20,17 +19,14 @@ class HTTPHeader {
   }
 
   /// Converts a HTTPHeader instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['name'] = name;
     jsonData['value'] = value;
-    
 
     return jsonData;
   }
-
 
   /// The header field name.
   final String name;

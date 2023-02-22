@@ -1,4 +1,3 @@
-
 /// Represents a Flocker volume mounted by the Flocker agent. One and only one of datasetName and datasetUUID should be set. Flocker volumes do not support ownership management or SELinux relabeling.
 class FlockerVolumeSource {
   /// The main constructor.
@@ -15,22 +14,24 @@ class FlockerVolumeSource {
         );
 
   /// Creates a list of FlockerVolumeSource from JSON data.
-  static List<FlockerVolumeSource> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<FlockerVolumeSource> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => FlockerVolumeSource.fromJson(e)).toList();
   }
 
   /// Converts a FlockerVolumeSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(datasetName != null) { jsonData['datasetName'] = datasetName!; }
-    if(datasetUUID != null) { jsonData['datasetUUID'] = datasetUUID!; }
-    
+    if (datasetName != null) {
+      jsonData['datasetName'] = datasetName!;
+    }
+    if (datasetUUID != null) {
+      jsonData['datasetUUID'] = datasetUUID!;
+    }
 
     return jsonData;
   }
-
 
   /// DatasetName is Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated.
   final String? datasetName;

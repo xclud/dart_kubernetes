@@ -10,25 +10,30 @@ class PodSchedulingStatus {
   /// Creates a PodSchedulingStatus from JSON data.
   PodSchedulingStatus.fromJson(Map<String, dynamic> json)
       : this(
-          resourceClaims: json['resourceClaims'] != null ? ResourceClaimSchedulingStatus.listFromJson((json['resourceClaims'] as Iterable).cast<Map<String, dynamic>>()): null,
+          resourceClaims: json['resourceClaims'] != null
+              ? ResourceClaimSchedulingStatus.listFromJson(
+                  (json['resourceClaims'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : null,
         );
 
   /// Creates a list of PodSchedulingStatus from JSON data.
-  static List<PodSchedulingStatus> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<PodSchedulingStatus> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => PodSchedulingStatus.fromJson(e)).toList();
   }
 
   /// Converts a PodSchedulingStatus instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(resourceClaims != null) { jsonData['resourceClaims'] = resourceClaims!.map((item) => item.toJson()).toList(); }
-    
+    if (resourceClaims != null) {
+      jsonData['resourceClaims'] =
+          resourceClaims!.map((item) => item.toJson()).toList();
+    }
 
     return jsonData;
   }
-
 
   /// ResourceClaims describes resource availability for each pod.spec.resourceClaim entry where the corresponding ResourceClaim uses "WaitForFirstConsumer" allocation mode.
   final List<ResourceClaimSchedulingStatus>? resourceClaims;

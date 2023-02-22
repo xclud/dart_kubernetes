@@ -1,4 +1,3 @@
-
 /// ContainerPort represents a network port in a single container.
 class ContainerPort {
   /// The main constructor.
@@ -26,20 +25,25 @@ class ContainerPort {
   }
 
   /// Converts a ContainerPort instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['containerPort'] = containerPort;
-    if(hostIP != null) { jsonData['hostIP'] = hostIP!; }
-    if(hostPort != null) { jsonData['hostPort'] = hostPort!; }
-    if(name != null) { jsonData['name'] = name!; }
-    if(protocol != null) { jsonData['protocol'] = protocol!; }
-    
+    if (hostIP != null) {
+      jsonData['hostIP'] = hostIP!;
+    }
+    if (hostPort != null) {
+      jsonData['hostPort'] = hostPort!;
+    }
+    if (name != null) {
+      jsonData['name'] = name!;
+    }
+    if (protocol != null) {
+      jsonData['protocol'] = protocol!;
+    }
 
     return jsonData;
   }
-
 
   /// Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.
   final int containerPort;

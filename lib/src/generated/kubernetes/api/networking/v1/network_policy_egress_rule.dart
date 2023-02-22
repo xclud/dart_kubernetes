@@ -12,27 +12,35 @@ class NetworkPolicyEgressRule {
   /// Creates a NetworkPolicyEgressRule from JSON data.
   NetworkPolicyEgressRule.fromJson(Map<String, dynamic> json)
       : this(
-          ports: json['ports'] != null ? NetworkPolicyPort.listFromJson((json['ports'] as Iterable).cast<Map<String, dynamic>>()): null,
-          to: json['to'] != null ? NetworkPolicyPeer.listFromJson((json['to'] as Iterable).cast<Map<String, dynamic>>()): null,
+          ports: json['ports'] != null
+              ? NetworkPolicyPort.listFromJson(
+                  (json['ports'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
+          to: json['to'] != null
+              ? NetworkPolicyPeer.listFromJson(
+                  (json['to'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
         );
 
   /// Creates a list of NetworkPolicyEgressRule from JSON data.
-  static List<NetworkPolicyEgressRule> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<NetworkPolicyEgressRule> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => NetworkPolicyEgressRule.fromJson(e)).toList();
   }
 
   /// Converts a NetworkPolicyEgressRule instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(ports != null) { jsonData['ports'] = ports!.map((item) => item.toJson()).toList(); }
-    if(to != null) { jsonData['to'] = to!.map((item) => item.toJson()).toList(); }
-    
+    if (ports != null) {
+      jsonData['ports'] = ports!.map((item) => item.toJson()).toList();
+    }
+    if (to != null) {
+      jsonData['to'] = to!.map((item) => item.toJson()).toList();
+    }
 
     return jsonData;
   }
-
 
   /// Ports is a list of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
   final List<NetworkPolicyPort>? ports;

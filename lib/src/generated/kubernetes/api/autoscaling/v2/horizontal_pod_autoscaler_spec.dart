@@ -16,33 +16,43 @@ class HorizontalPodAutoscalerSpec {
   /// Creates a HorizontalPodAutoscalerSpec from JSON data.
   HorizontalPodAutoscalerSpec.fromJson(Map<String, dynamic> json)
       : this(
-          behavior: json['behavior'] != null ? HorizontalPodAutoscalerBehavior.fromJson(json['behavior']): null,
+          behavior: json['behavior'] != null
+              ? HorizontalPodAutoscalerBehavior.fromJson(json['behavior'])
+              : null,
           maxReplicas: json['maxReplicas'],
-          metrics: json['metrics'] != null ? MetricSpec.listFromJson((json['metrics'] as Iterable).cast<Map<String, dynamic>>()): null,
+          metrics: json['metrics'] != null
+              ? MetricSpec.listFromJson(
+                  (json['metrics'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
           minReplicas: json['minReplicas'],
-          scaleTargetRef: CrossVersionObjectReference.fromJson(json['scaleTargetRef']),
+          scaleTargetRef:
+              CrossVersionObjectReference.fromJson(json['scaleTargetRef']),
         );
 
   /// Creates a list of HorizontalPodAutoscalerSpec from JSON data.
-  static List<HorizontalPodAutoscalerSpec> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<HorizontalPodAutoscalerSpec> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => HorizontalPodAutoscalerSpec.fromJson(e)).toList();
   }
 
   /// Converts a HorizontalPodAutoscalerSpec instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(behavior != null) { jsonData['behavior'] = behavior!.toJson(); }
+    if (behavior != null) {
+      jsonData['behavior'] = behavior!.toJson();
+    }
     jsonData['maxReplicas'] = maxReplicas;
-    if(metrics != null) { jsonData['metrics'] = metrics!.map((item) => item.toJson()).toList(); }
-    if(minReplicas != null) { jsonData['minReplicas'] = minReplicas!; }
+    if (metrics != null) {
+      jsonData['metrics'] = metrics!.map((item) => item.toJson()).toList();
+    }
+    if (minReplicas != null) {
+      jsonData['minReplicas'] = minReplicas!;
+    }
     jsonData['scaleTargetRef'] = scaleTargetRef.toJson();
-    
 
     return jsonData;
   }
-
 
   /// Behavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively). If not set, the default HPAScalingRules for scale up and scale down are used.
   final HorizontalPodAutoscalerBehavior? behavior;

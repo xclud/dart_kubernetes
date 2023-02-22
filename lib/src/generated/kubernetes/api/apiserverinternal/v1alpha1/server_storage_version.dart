@@ -1,4 +1,3 @@
-
 /// An API server instance reports the version it can decode and the version it encodes objects to when persisting objects in the backend.
 class ServerStorageVersion {
   /// The main constructor.
@@ -12,28 +11,34 @@ class ServerStorageVersion {
   ServerStorageVersion.fromJson(Map<String, dynamic> json)
       : this(
           apiServerID: json['apiServerID'],
-          decodableVersions: json['decodableVersions'] != null ? List<String>.from(json['decodableVersions']) : null,
+          decodableVersions: json['decodableVersions'] != null
+              ? List<String>.from(json['decodableVersions'])
+              : null,
           encodingVersion: json['encodingVersion'],
         );
 
   /// Creates a list of ServerStorageVersion from JSON data.
-  static List<ServerStorageVersion> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ServerStorageVersion> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ServerStorageVersion.fromJson(e)).toList();
   }
 
   /// Converts a ServerStorageVersion instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiServerID != null) { jsonData['apiServerID'] = apiServerID!; }
-    if(decodableVersions != null) { jsonData['decodableVersions'] = decodableVersions!; }
-    if(encodingVersion != null) { jsonData['encodingVersion'] = encodingVersion!; }
-    
+    if (apiServerID != null) {
+      jsonData['apiServerID'] = apiServerID!;
+    }
+    if (decodableVersions != null) {
+      jsonData['decodableVersions'] = decodableVersions!;
+    }
+    if (encodingVersion != null) {
+      jsonData['encodingVersion'] = encodingVersion!;
+    }
 
     return jsonData;
   }
-
 
   /// The ID of the reporting API server.
   final String? apiServerID;

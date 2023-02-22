@@ -21,13 +21,23 @@ class JobStatus {
       : this(
           active: json['active'],
           completedIndexes: json['completedIndexes'],
-          completionTime: json['completionTime'] != null ? DateTime.tryParse(json['completionTime']): null,
-          conditions: json['conditions'] != null ? JobCondition.listFromJson((json['conditions'] as Iterable).cast<Map<String, dynamic>>()): null,
+          completionTime: json['completionTime'] != null
+              ? DateTime.tryParse(json['completionTime'])
+              : null,
+          conditions: json['conditions'] != null
+              ? JobCondition.listFromJson(
+                  (json['conditions'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
           failed: json['failed'],
           ready: json['ready'],
-          startTime: json['startTime'] != null ? DateTime.tryParse(json['startTime']): null,
+          startTime: json['startTime'] != null
+              ? DateTime.tryParse(json['startTime'])
+              : null,
           succeeded: json['succeeded'],
-          uncountedTerminatedPods: json['uncountedTerminatedPods'] != null ? UncountedTerminatedPods.fromJson(json['uncountedTerminatedPods']): null,
+          uncountedTerminatedPods: json['uncountedTerminatedPods'] != null
+              ? UncountedTerminatedPods.fromJson(
+                  json['uncountedTerminatedPods'])
+              : null,
         );
 
   /// Creates a list of JobStatus from JSON data.
@@ -36,24 +46,40 @@ class JobStatus {
   }
 
   /// Converts a JobStatus instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(active != null) { jsonData['active'] = active!; }
-    if(completedIndexes != null) { jsonData['completedIndexes'] = completedIndexes!; }
-    if(completionTime != null) { jsonData['completionTime'] = completionTime!.toIso8601String(); }
-    if(conditions != null) { jsonData['conditions'] = conditions!.map((item) => item.toJson()).toList(); }
-    if(failed != null) { jsonData['failed'] = failed!; }
-    if(ready != null) { jsonData['ready'] = ready!; }
-    if(startTime != null) { jsonData['startTime'] = startTime!.toIso8601String(); }
-    if(succeeded != null) { jsonData['succeeded'] = succeeded!; }
-    if(uncountedTerminatedPods != null) { jsonData['uncountedTerminatedPods'] = uncountedTerminatedPods!.toJson(); }
-    
+    if (active != null) {
+      jsonData['active'] = active!;
+    }
+    if (completedIndexes != null) {
+      jsonData['completedIndexes'] = completedIndexes!;
+    }
+    if (completionTime != null) {
+      jsonData['completionTime'] = completionTime!.toIso8601String();
+    }
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
+    if (failed != null) {
+      jsonData['failed'] = failed!;
+    }
+    if (ready != null) {
+      jsonData['ready'] = ready!;
+    }
+    if (startTime != null) {
+      jsonData['startTime'] = startTime!.toIso8601String();
+    }
+    if (succeeded != null) {
+      jsonData['succeeded'] = succeeded!;
+    }
+    if (uncountedTerminatedPods != null) {
+      jsonData['uncountedTerminatedPods'] = uncountedTerminatedPods!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// The number of pending and running pods.
   final int? active;
@@ -71,8 +97,8 @@ class JobStatus {
   final int? failed;
 
   /// The number of pods which have a Ready condition.
-/// 
-/// This field is beta-level. The job controller populates the field when the feature gate JobReadyPods is enabled (enabled by default).
+  ///
+  /// This field is beta-level. The job controller populates the field when the feature gate JobReadyPods is enabled (enabled by default).
   final int? ready;
 
   /// Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
@@ -82,12 +108,12 @@ class JobStatus {
   final int? succeeded;
 
   /// UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
-/// 
-/// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status:
-/// 
-/// 1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
-///     counter.
-/// 
-/// Old jobs might not be tracked using this field, in which case the field remains null.
+  ///
+  /// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status:
+  ///
+  /// 1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
+  ///     counter.
+  ///
+  /// Old jobs might not be tracked using this field, in which case the field remains null.
   final UncountedTerminatedPods? uncountedTerminatedPods;
 }

@@ -33,19 +33,33 @@ class Event {
           action: json['action'],
           apiVersion: json['apiVersion'],
           deprecatedCount: json['deprecatedCount'],
-          deprecatedFirstTimestamp: json['deprecatedFirstTimestamp'] != null ? DateTime.tryParse(json['deprecatedFirstTimestamp']): null,
-          deprecatedLastTimestamp: json['deprecatedLastTimestamp'] != null ? DateTime.tryParse(json['deprecatedLastTimestamp']): null,
-          deprecatedSource: json['deprecatedSource'] != null ? EventSource.fromJson(json['deprecatedSource']): null,
+          deprecatedFirstTimestamp: json['deprecatedFirstTimestamp'] != null
+              ? DateTime.tryParse(json['deprecatedFirstTimestamp'])
+              : null,
+          deprecatedLastTimestamp: json['deprecatedLastTimestamp'] != null
+              ? DateTime.tryParse(json['deprecatedLastTimestamp'])
+              : null,
+          deprecatedSource: json['deprecatedSource'] != null
+              ? EventSource.fromJson(json['deprecatedSource'])
+              : null,
           eventTime: MicroTime.fromJson(json['eventTime']),
           kind: json['kind'],
-          metadata: json['metadata'] != null ? ObjectMeta.fromJson(json['metadata']): null,
+          metadata: json['metadata'] != null
+              ? ObjectMeta.fromJson(json['metadata'])
+              : null,
           note: json['note'],
           reason: json['reason'],
-          regarding: json['regarding'] != null ? ObjectReference.fromJson(json['regarding']): null,
-          related: json['related'] != null ? ObjectReference.fromJson(json['related']): null,
+          regarding: json['regarding'] != null
+              ? ObjectReference.fromJson(json['regarding'])
+              : null,
+          related: json['related'] != null
+              ? ObjectReference.fromJson(json['related'])
+              : null,
           reportingController: json['reportingController'],
           reportingInstance: json['reportingInstance'],
-          series: json['series'] != null ? EventSeries.fromJson(json['series']): null,
+          series: json['series'] != null
+              ? EventSeries.fromJson(json['series'])
+              : null,
           type: json['type'],
         );
 
@@ -55,32 +69,63 @@ class Event {
   }
 
   /// Converts a Event instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(action != null) { jsonData['action'] = action!; }
-    if(apiVersion != null) { jsonData['apiVersion'] = apiVersion!; }
-    if(deprecatedCount != null) { jsonData['deprecatedCount'] = deprecatedCount!; }
-    if(deprecatedFirstTimestamp != null) { jsonData['deprecatedFirstTimestamp'] = deprecatedFirstTimestamp!.toIso8601String(); }
-    if(deprecatedLastTimestamp != null) { jsonData['deprecatedLastTimestamp'] = deprecatedLastTimestamp!.toIso8601String(); }
-    if(deprecatedSource != null) { jsonData['deprecatedSource'] = deprecatedSource!.toJson(); }
+    if (action != null) {
+      jsonData['action'] = action!;
+    }
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (deprecatedCount != null) {
+      jsonData['deprecatedCount'] = deprecatedCount!;
+    }
+    if (deprecatedFirstTimestamp != null) {
+      jsonData['deprecatedFirstTimestamp'] =
+          deprecatedFirstTimestamp!.toIso8601String();
+    }
+    if (deprecatedLastTimestamp != null) {
+      jsonData['deprecatedLastTimestamp'] =
+          deprecatedLastTimestamp!.toIso8601String();
+    }
+    if (deprecatedSource != null) {
+      jsonData['deprecatedSource'] = deprecatedSource!.toJson();
+    }
     jsonData['eventTime'] = eventTime.toJson();
-    if(kind != null) { jsonData['kind'] = kind!; }
-    if(metadata != null) { jsonData['metadata'] = metadata!.toJson(); }
-    if(note != null) { jsonData['note'] = note!; }
-    if(reason != null) { jsonData['reason'] = reason!; }
-    if(regarding != null) { jsonData['regarding'] = regarding!.toJson(); }
-    if(related != null) { jsonData['related'] = related!.toJson(); }
-    if(reportingController != null) { jsonData['reportingController'] = reportingController!; }
-    if(reportingInstance != null) { jsonData['reportingInstance'] = reportingInstance!; }
-    if(series != null) { jsonData['series'] = series!.toJson(); }
-    if(type != null) { jsonData['type'] = type!; }
-    
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
+    if (note != null) {
+      jsonData['note'] = note!;
+    }
+    if (reason != null) {
+      jsonData['reason'] = reason!;
+    }
+    if (regarding != null) {
+      jsonData['regarding'] = regarding!.toJson();
+    }
+    if (related != null) {
+      jsonData['related'] = related!.toJson();
+    }
+    if (reportingController != null) {
+      jsonData['reportingController'] = reportingController!;
+    }
+    if (reportingInstance != null) {
+      jsonData['reportingInstance'] = reportingInstance!;
+    }
+    if (series != null) {
+      jsonData['series'] = series!.toJson();
+    }
+    if (type != null) {
+      jsonData['type'] = type!;
+    }
 
     return jsonData;
   }
-
 
   /// Action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
   final String? action;

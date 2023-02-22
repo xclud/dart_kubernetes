@@ -1,4 +1,3 @@
-
 /// IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
 class IPBlock {
   /// The main constructor.
@@ -11,7 +10,8 @@ class IPBlock {
   IPBlock.fromJson(Map<String, dynamic> json)
       : this(
           cidr: json['cidr'],
-          except: json['except'] != null ? List<String>.from(json['except']) : null,
+          except:
+              json['except'] != null ? List<String>.from(json['except']) : null,
         );
 
   /// Creates a list of IPBlock from JSON data.
@@ -20,17 +20,16 @@ class IPBlock {
   }
 
   /// Converts a IPBlock instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['cidr'] = cidr;
-    if(except != null) { jsonData['except'] = except!; }
-    
+    if (except != null) {
+      jsonData['except'] = except!;
+    }
 
     return jsonData;
   }
-
 
   /// Cidr is a string representing the IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64".
   final String cidr;

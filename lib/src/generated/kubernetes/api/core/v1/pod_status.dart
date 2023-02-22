@@ -24,19 +24,39 @@ class PodStatus {
   /// Creates a PodStatus from JSON data.
   PodStatus.fromJson(Map<String, dynamic> json)
       : this(
-          conditions: json['conditions'] != null ? PodCondition.listFromJson((json['conditions'] as Iterable).cast<Map<String, dynamic>>()): null,
-          containerStatuses: json['containerStatuses'] != null ? ContainerStatus.listFromJson((json['containerStatuses'] as Iterable).cast<Map<String, dynamic>>()): null,
-          ephemeralContainerStatuses: json['ephemeralContainerStatuses'] != null ? ContainerStatus.listFromJson((json['ephemeralContainerStatuses'] as Iterable).cast<Map<String, dynamic>>()): null,
+          conditions: json['conditions'] != null
+              ? PodCondition.listFromJson(
+                  (json['conditions'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
+          containerStatuses: json['containerStatuses'] != null
+              ? ContainerStatus.listFromJson(
+                  (json['containerStatuses'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : null,
+          ephemeralContainerStatuses: json['ephemeralContainerStatuses'] != null
+              ? ContainerStatus.listFromJson(
+                  (json['ephemeralContainerStatuses'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : null,
           hostIP: json['hostIP'],
-          initContainerStatuses: json['initContainerStatuses'] != null ? ContainerStatus.listFromJson((json['initContainerStatuses'] as Iterable).cast<Map<String, dynamic>>()): null,
+          initContainerStatuses: json['initContainerStatuses'] != null
+              ? ContainerStatus.listFromJson(
+                  (json['initContainerStatuses'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : null,
           message: json['message'],
           nominatedNodeName: json['nominatedNodeName'],
           phase: json['phase'],
           podIP: json['podIP'],
-          podIPs: json['podIPs'] != null ? PodIP.listFromJson((json['podIPs'] as Iterable).cast<Map<String, dynamic>>()): null,
+          podIPs: json['podIPs'] != null
+              ? PodIP.listFromJson(
+                  (json['podIPs'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
           qosClass: json['qosClass'],
           reason: json['reason'],
-          startTime: json['startTime'] != null ? DateTime.tryParse(json['startTime']): null,
+          startTime: json['startTime'] != null
+              ? DateTime.tryParse(json['startTime'])
+              : null,
         );
 
   /// Creates a list of PodStatus from JSON data.
@@ -45,28 +65,55 @@ class PodStatus {
   }
 
   /// Converts a PodStatus instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(conditions != null) { jsonData['conditions'] = conditions!.map((item) => item.toJson()).toList(); }
-    if(containerStatuses != null) { jsonData['containerStatuses'] = containerStatuses!.map((item) => item.toJson()).toList(); }
-    if(ephemeralContainerStatuses != null) { jsonData['ephemeralContainerStatuses'] = ephemeralContainerStatuses!.map((item) => item.toJson()).toList(); }
-    if(hostIP != null) { jsonData['hostIP'] = hostIP!; }
-    if(initContainerStatuses != null) { jsonData['initContainerStatuses'] = initContainerStatuses!.map((item) => item.toJson()).toList(); }
-    if(message != null) { jsonData['message'] = message!; }
-    if(nominatedNodeName != null) { jsonData['nominatedNodeName'] = nominatedNodeName!; }
-    if(phase != null) { jsonData['phase'] = phase!; }
-    if(podIP != null) { jsonData['podIP'] = podIP!; }
-    if(podIPs != null) { jsonData['podIPs'] = podIPs!.map((item) => item.toJson()).toList(); }
-    if(qosClass != null) { jsonData['qosClass'] = qosClass!; }
-    if(reason != null) { jsonData['reason'] = reason!; }
-    if(startTime != null) { jsonData['startTime'] = startTime!.toIso8601String(); }
-    
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
+    if (containerStatuses != null) {
+      jsonData['containerStatuses'] =
+          containerStatuses!.map((item) => item.toJson()).toList();
+    }
+    if (ephemeralContainerStatuses != null) {
+      jsonData['ephemeralContainerStatuses'] =
+          ephemeralContainerStatuses!.map((item) => item.toJson()).toList();
+    }
+    if (hostIP != null) {
+      jsonData['hostIP'] = hostIP!;
+    }
+    if (initContainerStatuses != null) {
+      jsonData['initContainerStatuses'] =
+          initContainerStatuses!.map((item) => item.toJson()).toList();
+    }
+    if (message != null) {
+      jsonData['message'] = message!;
+    }
+    if (nominatedNodeName != null) {
+      jsonData['nominatedNodeName'] = nominatedNodeName!;
+    }
+    if (phase != null) {
+      jsonData['phase'] = phase!;
+    }
+    if (podIP != null) {
+      jsonData['podIP'] = podIP!;
+    }
+    if (podIPs != null) {
+      jsonData['podIPs'] = podIPs!.map((item) => item.toJson()).toList();
+    }
+    if (qosClass != null) {
+      jsonData['qosClass'] = qosClass!;
+    }
+    if (reason != null) {
+      jsonData['reason'] = reason!;
+    }
+    if (startTime != null) {
+      jsonData['startTime'] = startTime!.toIso8601String();
+    }
 
     return jsonData;
   }
-
 
   /// Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions.
   final List<PodCondition>? conditions;
@@ -90,10 +137,10 @@ class PodStatus {
   final String? nominatedNodeName;
 
   /// The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
-/// 
-/// Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
-/// 
-/// More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase.
+  ///
+  /// Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
+  ///
+  /// More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase.
   final String? phase;
 
   /// IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.

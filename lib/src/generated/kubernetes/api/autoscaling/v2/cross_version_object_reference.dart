@@ -1,4 +1,3 @@
-
 /// CrossVersionObjectReference contains enough information to let you identify the referred resource.
 class CrossVersionObjectReference {
   /// The main constructor.
@@ -17,23 +16,23 @@ class CrossVersionObjectReference {
         );
 
   /// Creates a list of CrossVersionObjectReference from JSON data.
-  static List<CrossVersionObjectReference> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<CrossVersionObjectReference> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => CrossVersionObjectReference.fromJson(e)).toList();
   }
 
   /// Converts a CrossVersionObjectReference instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiVersion != null) { jsonData['apiVersion'] = apiVersion!; }
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
     jsonData['kind'] = kind;
     jsonData['name'] = name;
-    
 
     return jsonData;
   }
-
 
   /// API version of the referent.
   final String? apiVersion;

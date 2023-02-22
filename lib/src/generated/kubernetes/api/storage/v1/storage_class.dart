@@ -2,7 +2,7 @@ import 'package:kubernetes/src/generated/kubernetes/api/core/v1/topology_selecto
 import 'package:kubernetes/src/generated/kubernetes/apimachinery/pkg/apis/meta/v1/object_meta.dart';
 
 /// StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
-/// 
+///
 /// StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
 class StorageClass {
   /// The main constructor.
@@ -23,12 +23,22 @@ class StorageClass {
   StorageClass.fromJson(Map<String, dynamic> json)
       : this(
           allowVolumeExpansion: json['allowVolumeExpansion'],
-          allowedTopologies: json['allowedTopologies'] != null ? TopologySelectorTerm.listFromJson((json['allowedTopologies'] as Iterable).cast<Map<String, dynamic>>()): null,
+          allowedTopologies: json['allowedTopologies'] != null
+              ? TopologySelectorTerm.listFromJson(
+                  (json['allowedTopologies'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : null,
           apiVersion: json['apiVersion'],
           kind: json['kind'],
-          metadata: json['metadata'] != null ? ObjectMeta.fromJson(json['metadata']): null,
-          mountOptions: json['mountOptions'] != null ? List<String>.from(json['mountOptions']) : null,
-          parameters: json['parameters'] != null ? Map<String, String>.from(json['parameters']) : null,
+          metadata: json['metadata'] != null
+              ? ObjectMeta.fromJson(json['metadata'])
+              : null,
+          mountOptions: json['mountOptions'] != null
+              ? List<String>.from(json['mountOptions'])
+              : null,
+          parameters: json['parameters'] != null
+              ? Map<String, String>.from(json['parameters'])
+              : null,
           provisioner: json['provisioner'],
           reclaimPolicy: json['reclaimPolicy'],
           volumeBindingMode: json['volumeBindingMode'],
@@ -40,25 +50,41 @@ class StorageClass {
   }
 
   /// Converts a StorageClass instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(allowVolumeExpansion != null) { jsonData['allowVolumeExpansion'] = allowVolumeExpansion!; }
-    if(allowedTopologies != null) { jsonData['allowedTopologies'] = allowedTopologies!.map((item) => item.toJson()).toList(); }
-    if(apiVersion != null) { jsonData['apiVersion'] = apiVersion!; }
-    if(kind != null) { jsonData['kind'] = kind!; }
-    if(metadata != null) { jsonData['metadata'] = metadata!.toJson(); }
-    if(mountOptions != null) { jsonData['mountOptions'] = mountOptions!; }
-    if(parameters != null) { jsonData['parameters'] = parameters!; }
+    if (allowVolumeExpansion != null) {
+      jsonData['allowVolumeExpansion'] = allowVolumeExpansion!;
+    }
+    if (allowedTopologies != null) {
+      jsonData['allowedTopologies'] =
+          allowedTopologies!.map((item) => item.toJson()).toList();
+    }
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
+    if (mountOptions != null) {
+      jsonData['mountOptions'] = mountOptions!;
+    }
+    if (parameters != null) {
+      jsonData['parameters'] = parameters!;
+    }
     jsonData['provisioner'] = provisioner;
-    if(reclaimPolicy != null) { jsonData['reclaimPolicy'] = reclaimPolicy!; }
-    if(volumeBindingMode != null) { jsonData['volumeBindingMode'] = volumeBindingMode!; }
-    
+    if (reclaimPolicy != null) {
+      jsonData['reclaimPolicy'] = reclaimPolicy!;
+    }
+    if (volumeBindingMode != null) {
+      jsonData['volumeBindingMode'] = volumeBindingMode!;
+    }
 
     return jsonData;
   }
-
 
   /// AllowVolumeExpansion shows whether the storage class allow volume expand.
   final bool? allowVolumeExpansion;

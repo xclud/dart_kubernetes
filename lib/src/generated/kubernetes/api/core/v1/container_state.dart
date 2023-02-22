@@ -14,29 +14,39 @@ class ContainerState {
   /// Creates a ContainerState from JSON data.
   ContainerState.fromJson(Map<String, dynamic> json)
       : this(
-          running: json['running'] != null ? ContainerStateRunning.fromJson(json['running']): null,
-          terminated: json['terminated'] != null ? ContainerStateTerminated.fromJson(json['terminated']): null,
-          waiting: json['waiting'] != null ? ContainerStateWaiting.fromJson(json['waiting']): null,
+          running: json['running'] != null
+              ? ContainerStateRunning.fromJson(json['running'])
+              : null,
+          terminated: json['terminated'] != null
+              ? ContainerStateTerminated.fromJson(json['terminated'])
+              : null,
+          waiting: json['waiting'] != null
+              ? ContainerStateWaiting.fromJson(json['waiting'])
+              : null,
         );
 
   /// Creates a list of ContainerState from JSON data.
-  static List<ContainerState> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ContainerState> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ContainerState.fromJson(e)).toList();
   }
 
   /// Converts a ContainerState instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(running != null) { jsonData['running'] = running!.toJson(); }
-    if(terminated != null) { jsonData['terminated'] = terminated!.toJson(); }
-    if(waiting != null) { jsonData['waiting'] = waiting!.toJson(); }
-    
+    if (running != null) {
+      jsonData['running'] = running!.toJson();
+    }
+    if (terminated != null) {
+      jsonData['terminated'] = terminated!.toJson();
+    }
+    if (waiting != null) {
+      jsonData['waiting'] = waiting!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// Details about a running container.
   final ContainerStateRunning? running;

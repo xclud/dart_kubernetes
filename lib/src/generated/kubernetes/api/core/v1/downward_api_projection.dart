@@ -10,25 +10,28 @@ class DownwardAPIProjection {
   /// Creates a DownwardAPIProjection from JSON data.
   DownwardAPIProjection.fromJson(Map<String, dynamic> json)
       : this(
-          items: json['items'] != null ? DownwardAPIVolumeFile.listFromJson((json['items'] as Iterable).cast<Map<String, dynamic>>()): null,
+          items: json['items'] != null
+              ? DownwardAPIVolumeFile.listFromJson(
+                  (json['items'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
         );
 
   /// Creates a list of DownwardAPIProjection from JSON data.
-  static List<DownwardAPIProjection> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<DownwardAPIProjection> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => DownwardAPIProjection.fromJson(e)).toList();
   }
 
   /// Converts a DownwardAPIProjection instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(items != null) { jsonData['items'] = items!.map((item) => item.toJson()).toList(); }
-    
+    if (items != null) {
+      jsonData['items'] = items!.map((item) => item.toJson()).toList();
+    }
 
     return jsonData;
   }
-
 
   /// Items is a list of DownwardAPIVolume file.
   final List<DownwardAPIVolumeFile>? items;

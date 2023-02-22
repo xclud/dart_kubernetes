@@ -1,4 +1,3 @@
-
 /// Information about the condition of a component.
 class ComponentCondition {
   /// The main constructor.
@@ -19,24 +18,26 @@ class ComponentCondition {
         );
 
   /// Creates a list of ComponentCondition from JSON data.
-  static List<ComponentCondition> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ComponentCondition> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ComponentCondition.fromJson(e)).toList();
   }
 
   /// Converts a ComponentCondition instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(error != null) { jsonData['error'] = error!; }
-    if(message != null) { jsonData['message'] = message!; }
+    if (error != null) {
+      jsonData['error'] = error!;
+    }
+    if (message != null) {
+      jsonData['message'] = message!;
+    }
     jsonData['status'] = status;
     jsonData['type'] = type;
-    
 
     return jsonData;
   }
-
 
   /// Condition error code for a component. For example, a health check error code.
   final String? error;

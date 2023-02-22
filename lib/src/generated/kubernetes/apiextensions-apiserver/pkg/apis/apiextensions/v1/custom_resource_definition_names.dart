@@ -1,4 +1,3 @@
-
 /// CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition.
 class CustomResourceDefinitionNames {
   /// The main constructor.
@@ -14,35 +13,45 @@ class CustomResourceDefinitionNames {
   /// Creates a CustomResourceDefinitionNames from JSON data.
   CustomResourceDefinitionNames.fromJson(Map<String, dynamic> json)
       : this(
-          categories: json['categories'] != null ? List<String>.from(json['categories']) : null,
+          categories: json['categories'] != null
+              ? List<String>.from(json['categories'])
+              : null,
           kind: json['kind'],
           listKind: json['listKind'],
           plural: json['plural'],
-          shortNames: json['shortNames'] != null ? List<String>.from(json['shortNames']) : null,
+          shortNames: json['shortNames'] != null
+              ? List<String>.from(json['shortNames'])
+              : null,
           singular: json['singular'],
         );
 
   /// Creates a list of CustomResourceDefinitionNames from JSON data.
-  static List<CustomResourceDefinitionNames> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<CustomResourceDefinitionNames> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => CustomResourceDefinitionNames.fromJson(e)).toList();
   }
 
   /// Converts a CustomResourceDefinitionNames instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(categories != null) { jsonData['categories'] = categories!; }
+    if (categories != null) {
+      jsonData['categories'] = categories!;
+    }
     jsonData['kind'] = kind;
-    if(listKind != null) { jsonData['listKind'] = listKind!; }
+    if (listKind != null) {
+      jsonData['listKind'] = listKind!;
+    }
     jsonData['plural'] = plural;
-    if(shortNames != null) { jsonData['shortNames'] = shortNames!; }
-    if(singular != null) { jsonData['singular'] = singular!; }
-    
+    if (shortNames != null) {
+      jsonData['shortNames'] = shortNames!;
+    }
+    if (singular != null) {
+      jsonData['singular'] = singular!;
+    }
 
     return jsonData;
   }
-
 
   /// Categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
   final List<String>? categories;

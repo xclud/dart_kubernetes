@@ -14,9 +14,15 @@ class Affinity {
   /// Creates a Affinity from JSON data.
   Affinity.fromJson(Map<String, dynamic> json)
       : this(
-          nodeAffinity: json['nodeAffinity'] != null ? NodeAffinity.fromJson(json['nodeAffinity']): null,
-          podAffinity: json['podAffinity'] != null ? PodAffinity.fromJson(json['podAffinity']): null,
-          podAntiAffinity: json['podAntiAffinity'] != null ? PodAntiAffinity.fromJson(json['podAntiAffinity']): null,
+          nodeAffinity: json['nodeAffinity'] != null
+              ? NodeAffinity.fromJson(json['nodeAffinity'])
+              : null,
+          podAffinity: json['podAffinity'] != null
+              ? PodAffinity.fromJson(json['podAffinity'])
+              : null,
+          podAntiAffinity: json['podAntiAffinity'] != null
+              ? PodAntiAffinity.fromJson(json['podAntiAffinity'])
+              : null,
         );
 
   /// Creates a list of Affinity from JSON data.
@@ -25,18 +31,21 @@ class Affinity {
   }
 
   /// Converts a Affinity instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(nodeAffinity != null) { jsonData['nodeAffinity'] = nodeAffinity!.toJson(); }
-    if(podAffinity != null) { jsonData['podAffinity'] = podAffinity!.toJson(); }
-    if(podAntiAffinity != null) { jsonData['podAntiAffinity'] = podAntiAffinity!.toJson(); }
-    
+    if (nodeAffinity != null) {
+      jsonData['nodeAffinity'] = nodeAffinity!.toJson();
+    }
+    if (podAffinity != null) {
+      jsonData['podAffinity'] = podAffinity!.toJson();
+    }
+    if (podAntiAffinity != null) {
+      jsonData['podAntiAffinity'] = podAntiAffinity!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// Describes node affinity scheduling rules for the pod.
   final NodeAffinity? nodeAffinity;

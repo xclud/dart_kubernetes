@@ -1,4 +1,3 @@
-
 /// RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
 class RollingUpdateStatefulSetStrategy {
   /// The main constructor.
@@ -15,22 +14,26 @@ class RollingUpdateStatefulSetStrategy {
         );
 
   /// Creates a list of RollingUpdateStatefulSetStrategy from JSON data.
-  static List<RollingUpdateStatefulSetStrategy> listFromJson(Iterable<Map<String, dynamic>> list) {
-    return list.map((e) => RollingUpdateStatefulSetStrategy.fromJson(e)).toList();
+  static List<RollingUpdateStatefulSetStrategy> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
+    return list
+        .map((e) => RollingUpdateStatefulSetStrategy.fromJson(e))
+        .toList();
   }
 
   /// Converts a RollingUpdateStatefulSetStrategy instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(maxUnavailable != null) { jsonData['maxUnavailable'] = maxUnavailable!; }
-    if(partition != null) { jsonData['partition'] = partition!; }
-    
+    if (maxUnavailable != null) {
+      jsonData['maxUnavailable'] = maxUnavailable!;
+    }
+    if (partition != null) {
+      jsonData['partition'] = partition!;
+    }
 
     return jsonData;
   }
-
 
   /// The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is alpha-level and is only honored by servers that enable the MaxUnavailableStatefulSet feature. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable.
   final Object? maxUnavailable;

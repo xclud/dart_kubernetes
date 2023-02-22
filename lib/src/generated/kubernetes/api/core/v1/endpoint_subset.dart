@@ -2,14 +2,14 @@ import 'package:kubernetes/src/generated/kubernetes/api/core/v1/endpoint_address
 import 'package:kubernetes/src/generated/kubernetes/api/core/v1/endpoint_port.dart';
 
 /// EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
-/// 
+///
 /// 	{
 /// 	  Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
 /// 	  Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
 /// 	}
-/// 
+///
 /// The resulting set of endpoints can be viewed as:
-/// 
+///
 /// 	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
 /// 	b: [ 10.10.1.1:309, 10.10.2.2:309 ].
 class EndpointSubset {
@@ -23,29 +23,44 @@ class EndpointSubset {
   /// Creates a EndpointSubset from JSON data.
   EndpointSubset.fromJson(Map<String, dynamic> json)
       : this(
-          addresses: json['addresses'] != null ? EndpointAddress.listFromJson((json['addresses'] as Iterable).cast<Map<String, dynamic>>()): null,
-          notReadyAddresses: json['notReadyAddresses'] != null ? EndpointAddress.listFromJson((json['notReadyAddresses'] as Iterable).cast<Map<String, dynamic>>()): null,
-          ports: json['ports'] != null ? EndpointPort.listFromJson((json['ports'] as Iterable).cast<Map<String, dynamic>>()): null,
+          addresses: json['addresses'] != null
+              ? EndpointAddress.listFromJson(
+                  (json['addresses'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
+          notReadyAddresses: json['notReadyAddresses'] != null
+              ? EndpointAddress.listFromJson(
+                  (json['notReadyAddresses'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : null,
+          ports: json['ports'] != null
+              ? EndpointPort.listFromJson(
+                  (json['ports'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
         );
 
   /// Creates a list of EndpointSubset from JSON data.
-  static List<EndpointSubset> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<EndpointSubset> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => EndpointSubset.fromJson(e)).toList();
   }
 
   /// Converts a EndpointSubset instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(addresses != null) { jsonData['addresses'] = addresses!.map((item) => item.toJson()).toList(); }
-    if(notReadyAddresses != null) { jsonData['notReadyAddresses'] = notReadyAddresses!.map((item) => item.toJson()).toList(); }
-    if(ports != null) { jsonData['ports'] = ports!.map((item) => item.toJson()).toList(); }
-    
+    if (addresses != null) {
+      jsonData['addresses'] = addresses!.map((item) => item.toJson()).toList();
+    }
+    if (notReadyAddresses != null) {
+      jsonData['notReadyAddresses'] =
+          notReadyAddresses!.map((item) => item.toJson()).toList();
+    }
+    if (ports != null) {
+      jsonData['ports'] = ports!.map((item) => item.toJson()).toList();
+    }
 
     return jsonData;
   }
-
 
   /// IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
   final List<EndpointAddress>? addresses;

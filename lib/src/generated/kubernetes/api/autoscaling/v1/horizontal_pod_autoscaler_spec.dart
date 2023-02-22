@@ -15,29 +15,34 @@ class HorizontalPodAutoscalerSpec {
       : this(
           maxReplicas: json['maxReplicas'],
           minReplicas: json['minReplicas'],
-          scaleTargetRef: CrossVersionObjectReference.fromJson(json['scaleTargetRef']),
-          targetCPUUtilizationPercentage: json['targetCPUUtilizationPercentage'],
+          scaleTargetRef:
+              CrossVersionObjectReference.fromJson(json['scaleTargetRef']),
+          targetCPUUtilizationPercentage:
+              json['targetCPUUtilizationPercentage'],
         );
 
   /// Creates a list of HorizontalPodAutoscalerSpec from JSON data.
-  static List<HorizontalPodAutoscalerSpec> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<HorizontalPodAutoscalerSpec> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => HorizontalPodAutoscalerSpec.fromJson(e)).toList();
   }
 
   /// Converts a HorizontalPodAutoscalerSpec instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['maxReplicas'] = maxReplicas;
-    if(minReplicas != null) { jsonData['minReplicas'] = minReplicas!; }
+    if (minReplicas != null) {
+      jsonData['minReplicas'] = minReplicas!;
+    }
     jsonData['scaleTargetRef'] = scaleTargetRef.toJson();
-    if(targetCPUUtilizationPercentage != null) { jsonData['targetCPUUtilizationPercentage'] = targetCPUUtilizationPercentage!; }
-    
+    if (targetCPUUtilizationPercentage != null) {
+      jsonData['targetCPUUtilizationPercentage'] =
+          targetCPUUtilizationPercentage!;
+    }
 
     return jsonData;
   }
-
 
   /// Upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
   final int maxReplicas;

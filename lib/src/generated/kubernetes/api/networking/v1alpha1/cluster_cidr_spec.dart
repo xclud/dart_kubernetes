@@ -15,29 +15,35 @@ class ClusterCIDRSpec {
       : this(
           ipv4: json['ipv4'],
           ipv6: json['ipv6'],
-          nodeSelector: json['nodeSelector'] != null ? NodeSelector.fromJson(json['nodeSelector']): null,
+          nodeSelector: json['nodeSelector'] != null
+              ? NodeSelector.fromJson(json['nodeSelector'])
+              : null,
           perNodeHostBits: json['perNodeHostBits'],
         );
 
   /// Creates a list of ClusterCIDRSpec from JSON data.
-  static List<ClusterCIDRSpec> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ClusterCIDRSpec> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ClusterCIDRSpec.fromJson(e)).toList();
   }
 
   /// Converts a ClusterCIDRSpec instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(ipv4 != null) { jsonData['ipv4'] = ipv4!; }
-    if(ipv6 != null) { jsonData['ipv6'] = ipv6!; }
-    if(nodeSelector != null) { jsonData['nodeSelector'] = nodeSelector!.toJson(); }
+    if (ipv4 != null) {
+      jsonData['ipv4'] = ipv4!;
+    }
+    if (ipv6 != null) {
+      jsonData['ipv6'] = ipv6!;
+    }
+    if (nodeSelector != null) {
+      jsonData['nodeSelector'] = nodeSelector!.toJson();
+    }
     jsonData['perNodeHostBits'] = perNodeHostBits;
-    
 
     return jsonData;
   }
-
 
   /// Ipv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
   final String? ipv4;

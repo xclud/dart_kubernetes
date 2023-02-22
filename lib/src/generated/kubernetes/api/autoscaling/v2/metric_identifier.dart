@@ -12,26 +12,28 @@ class MetricIdentifier {
   MetricIdentifier.fromJson(Map<String, dynamic> json)
       : this(
           name: json['name'],
-          selector: json['selector'] != null ? LabelSelector.fromJson(json['selector']): null,
+          selector: json['selector'] != null
+              ? LabelSelector.fromJson(json['selector'])
+              : null,
         );
 
   /// Creates a list of MetricIdentifier from JSON data.
-  static List<MetricIdentifier> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<MetricIdentifier> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => MetricIdentifier.fromJson(e)).toList();
   }
 
   /// Converts a MetricIdentifier instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['name'] = name;
-    if(selector != null) { jsonData['selector'] = selector!.toJson(); }
-    
+    if (selector != null) {
+      jsonData['selector'] = selector!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// Name is the name of the given metric.
   final String name;

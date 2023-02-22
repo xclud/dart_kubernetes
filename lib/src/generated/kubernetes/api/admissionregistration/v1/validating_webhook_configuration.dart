@@ -16,29 +16,40 @@ class ValidatingWebhookConfiguration {
       : this(
           apiVersion: json['apiVersion'],
           kind: json['kind'],
-          metadata: json['metadata'] != null ? ObjectMeta.fromJson(json['metadata']): null,
-          webhooks: json['webhooks'] != null ? ValidatingWebhook.listFromJson((json['webhooks'] as Iterable).cast<Map<String, dynamic>>()): null,
+          metadata: json['metadata'] != null
+              ? ObjectMeta.fromJson(json['metadata'])
+              : null,
+          webhooks: json['webhooks'] != null
+              ? ValidatingWebhook.listFromJson(
+                  (json['webhooks'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
         );
 
   /// Creates a list of ValidatingWebhookConfiguration from JSON data.
-  static List<ValidatingWebhookConfiguration> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ValidatingWebhookConfiguration> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ValidatingWebhookConfiguration.fromJson(e)).toList();
   }
 
   /// Converts a ValidatingWebhookConfiguration instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiVersion != null) { jsonData['apiVersion'] = apiVersion!; }
-    if(kind != null) { jsonData['kind'] = kind!; }
-    if(metadata != null) { jsonData['metadata'] = metadata!.toJson(); }
-    if(webhooks != null) { jsonData['webhooks'] = webhooks!.map((item) => item.toJson()).toList(); }
-    
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
+    if (webhooks != null) {
+      jsonData['webhooks'] = webhooks!.map((item) => item.toJson()).toList();
+    }
 
     return jsonData;
   }
-
 
   /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;

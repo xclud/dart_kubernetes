@@ -1,4 +1,3 @@
-
 /// EventSource contains information for an event.
 class EventSource {
   /// The main constructor.
@@ -20,17 +19,18 @@ class EventSource {
   }
 
   /// Converts a EventSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(component != null) { jsonData['component'] = component!; }
-    if(host != null) { jsonData['host'] = host!; }
-    
+    if (component != null) {
+      jsonData['component'] = component!;
+    }
+    if (host != null) {
+      jsonData['host'] = host!;
+    }
 
     return jsonData;
   }
-
 
   /// Component from which the event is generated.
   final String? component;

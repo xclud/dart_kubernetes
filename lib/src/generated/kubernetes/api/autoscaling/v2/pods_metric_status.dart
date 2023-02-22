@@ -17,22 +17,20 @@ class PodsMetricStatus {
         );
 
   /// Creates a list of PodsMetricStatus from JSON data.
-  static List<PodsMetricStatus> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<PodsMetricStatus> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => PodsMetricStatus.fromJson(e)).toList();
   }
 
   /// Converts a PodsMetricStatus instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['current'] = current.toJson();
     jsonData['metric'] = metric.toJson();
-    
 
     return jsonData;
   }
-
 
   /// Current contains the current value for the given metric.
   final MetricValueStatus current;

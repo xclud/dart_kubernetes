@@ -20,7 +20,9 @@ class PriorityClass {
           description: json['description'],
           globalDefault: json['globalDefault'],
           kind: json['kind'],
-          metadata: json['metadata'] != null ? ObjectMeta.fromJson(json['metadata']): null,
+          metadata: json['metadata'] != null
+              ? ObjectMeta.fromJson(json['metadata'])
+              : null,
           preemptionPolicy: json['preemptionPolicy'],
           value: json['value'],
         );
@@ -31,22 +33,31 @@ class PriorityClass {
   }
 
   /// Converts a PriorityClass instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiVersion != null) { jsonData['apiVersion'] = apiVersion!; }
-    if(description != null) { jsonData['description'] = description!; }
-    if(globalDefault != null) { jsonData['globalDefault'] = globalDefault!; }
-    if(kind != null) { jsonData['kind'] = kind!; }
-    if(metadata != null) { jsonData['metadata'] = metadata!.toJson(); }
-    if(preemptionPolicy != null) { jsonData['preemptionPolicy'] = preemptionPolicy!; }
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (description != null) {
+      jsonData['description'] = description!;
+    }
+    if (globalDefault != null) {
+      jsonData['globalDefault'] = globalDefault!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
+    if (preemptionPolicy != null) {
+      jsonData['preemptionPolicy'] = preemptionPolicy!;
+    }
     jsonData['value'] = value;
-    
 
     return jsonData;
   }
-
 
   /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;

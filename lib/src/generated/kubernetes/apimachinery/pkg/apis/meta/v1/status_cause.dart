@@ -1,4 +1,3 @@
-
 /// StatusCause provides more information about an api.Status failure, including cases when multiple errors are encountered.
 class StatusCause {
   /// The main constructor.
@@ -22,24 +21,27 @@ class StatusCause {
   }
 
   /// Converts a StatusCause instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(field != null) { jsonData['field'] = field!; }
-    if(message != null) { jsonData['message'] = message!; }
-    if(reason != null) { jsonData['reason'] = reason!; }
-    
+    if (field != null) {
+      jsonData['field'] = field!;
+    }
+    if (message != null) {
+      jsonData['message'] = message!;
+    }
+    if (reason != null) {
+      jsonData['reason'] = reason!;
+    }
 
     return jsonData;
   }
 
-
   /// The field of the resource that has caused this error, as named by its JSON serialization. May include dot and postfix notation for nested attributes. Arrays are zero-indexed.  Fields may appear more than once in an array of causes due to fields having multiple errors. Optional.
-/// 
-/// Examples:
-///   "name" - the field "name" on the current resource
-///   "items[0].name" - the field "name" on the first array entry in "items".
+  ///
+  /// Examples:
+  ///   "name" - the field "name" on the current resource
+  ///   "items[0].name" - the field "name" on the first array entry in "items".
   final String? field;
 
   /// A human-readable description of the cause of the error.  This field may be presented as-is to a reader.

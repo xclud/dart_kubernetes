@@ -17,12 +17,19 @@ class NodeSpec {
   /// Creates a NodeSpec from JSON data.
   NodeSpec.fromJson(Map<String, dynamic> json)
       : this(
-          configSource: json['configSource'] != null ? NodeConfigSource.fromJson(json['configSource']): null,
+          configSource: json['configSource'] != null
+              ? NodeConfigSource.fromJson(json['configSource'])
+              : null,
           externalID: json['externalID'],
           podCIDR: json['podCIDR'],
-          podCIDRs: json['podCIDRs'] != null ? List<String>.from(json['podCIDRs']) : null,
+          podCIDRs: json['podCIDRs'] != null
+              ? List<String>.from(json['podCIDRs'])
+              : null,
           providerID: json['providerID'],
-          taints: json['taints'] != null ? Taint.listFromJson((json['taints'] as Iterable).cast<Map<String, dynamic>>()): null,
+          taints: json['taints'] != null
+              ? Taint.listFromJson(
+                  (json['taints'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
           unschedulable: json['unschedulable'],
         );
 
@@ -32,22 +39,33 @@ class NodeSpec {
   }
 
   /// Converts a NodeSpec instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(configSource != null) { jsonData['configSource'] = configSource!.toJson(); }
-    if(externalID != null) { jsonData['externalID'] = externalID!; }
-    if(podCIDR != null) { jsonData['podCIDR'] = podCIDR!; }
-    if(podCIDRs != null) { jsonData['podCIDRs'] = podCIDRs!; }
-    if(providerID != null) { jsonData['providerID'] = providerID!; }
-    if(taints != null) { jsonData['taints'] = taints!.map((item) => item.toJson()).toList(); }
-    if(unschedulable != null) { jsonData['unschedulable'] = unschedulable!; }
-    
+    if (configSource != null) {
+      jsonData['configSource'] = configSource!.toJson();
+    }
+    if (externalID != null) {
+      jsonData['externalID'] = externalID!;
+    }
+    if (podCIDR != null) {
+      jsonData['podCIDR'] = podCIDR!;
+    }
+    if (podCIDRs != null) {
+      jsonData['podCIDRs'] = podCIDRs!;
+    }
+    if (providerID != null) {
+      jsonData['providerID'] = providerID!;
+    }
+    if (taints != null) {
+      jsonData['taints'] = taints!.map((item) => item.toJson()).toList();
+    }
+    if (unschedulable != null) {
+      jsonData['unschedulable'] = unschedulable!;
+    }
 
     return jsonData;
   }
-
 
   /// Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed.
   final NodeConfigSource? configSource;

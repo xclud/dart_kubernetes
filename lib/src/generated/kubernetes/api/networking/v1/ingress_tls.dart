@@ -1,4 +1,3 @@
-
 /// IngressTLS describes the transport layer security associated with an ingress.
 class IngressTLS {
   /// The main constructor.
@@ -10,7 +9,8 @@ class IngressTLS {
   /// Creates a IngressTLS from JSON data.
   IngressTLS.fromJson(Map<String, dynamic> json)
       : this(
-          hosts: json['hosts'] != null ? List<String>.from(json['hosts']) : null,
+          hosts:
+              json['hosts'] != null ? List<String>.from(json['hosts']) : null,
           secretName: json['secretName'],
         );
 
@@ -20,17 +20,18 @@ class IngressTLS {
   }
 
   /// Converts a IngressTLS instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(hosts != null) { jsonData['hosts'] = hosts!; }
-    if(secretName != null) { jsonData['secretName'] = secretName!; }
-    
+    if (hosts != null) {
+      jsonData['hosts'] = hosts!;
+    }
+    if (secretName != null) {
+      jsonData['secretName'] = secretName!;
+    }
 
     return jsonData;
   }
-
 
   /// Hosts is a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
   final List<String>? hosts;

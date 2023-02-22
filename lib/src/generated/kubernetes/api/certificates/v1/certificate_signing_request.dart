@@ -3,11 +3,11 @@ import 'package:kubernetes/src/generated/kubernetes/api/certificates/v1/certific
 import 'package:kubernetes/src/generated/kubernetes/api/certificates/v1/certificate_signing_request_status.dart';
 
 /// CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting a certificate signing request, and having it asynchronously approved and issued.
-/// 
+///
 /// Kubelets use this API to obtain:
 ///  1. client certificates to authenticate to kube-apiserver (with the "kubernetes.io/kube-apiserver-client-kubelet" signerName).
 ///  2. serving certificates for TLS endpoints kube-apiserver can connect to securely (with the "kubernetes.io/kubelet-serving" signerName).
-/// 
+///
 /// This API can be used to request client certificates to authenticate to kube-apiserver (with the "kubernetes.io/kube-apiserver-client" signerName), or to obtain certificates from custom non-Kubernetes signers.
 class CertificateSigningRequest {
   /// The main constructor.
@@ -24,31 +24,41 @@ class CertificateSigningRequest {
       : this(
           apiVersion: json['apiVersion'],
           kind: json['kind'],
-          metadata: json['metadata'] != null ? ObjectMeta.fromJson(json['metadata']): null,
+          metadata: json['metadata'] != null
+              ? ObjectMeta.fromJson(json['metadata'])
+              : null,
           spec: CertificateSigningRequestSpec.fromJson(json['spec']),
-          status: json['status'] != null ? CertificateSigningRequestStatus.fromJson(json['status']): null,
+          status: json['status'] != null
+              ? CertificateSigningRequestStatus.fromJson(json['status'])
+              : null,
         );
 
   /// Creates a list of CertificateSigningRequest from JSON data.
-  static List<CertificateSigningRequest> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<CertificateSigningRequest> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => CertificateSigningRequest.fromJson(e)).toList();
   }
 
   /// Converts a CertificateSigningRequest instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiVersion != null) { jsonData['apiVersion'] = apiVersion!; }
-    if(kind != null) { jsonData['kind'] = kind!; }
-    if(metadata != null) { jsonData['metadata'] = metadata!.toJson(); }
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
     jsonData['spec'] = spec.toJson();
-    if(status != null) { jsonData['status'] = status!.toJson(); }
-    
+    if (status != null) {
+      jsonData['status'] = status!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;
@@ -56,7 +66,7 @@ class CertificateSigningRequest {
   /// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds.
   final String? kind;
 
-  /// 
+  ///
   final ObjectMeta? metadata;
 
   /// Spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.

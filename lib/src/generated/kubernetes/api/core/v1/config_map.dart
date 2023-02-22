@@ -16,11 +16,17 @@ class ConfigMap {
   ConfigMap.fromJson(Map<String, dynamic> json)
       : this(
           apiVersion: json['apiVersion'],
-          binaryData: json['binaryData'] != null ? Map<String, String>.from(json['binaryData']) : null,
-          data: json['data'] != null ? Map<String, String>.from(json['data']) : null,
+          binaryData: json['binaryData'] != null
+              ? Map<String, String>.from(json['binaryData'])
+              : null,
+          data: json['data'] != null
+              ? Map<String, String>.from(json['data'])
+              : null,
           immutable: json['immutable'],
           kind: json['kind'],
-          metadata: json['metadata'] != null ? ObjectMeta.fromJson(json['metadata']): null,
+          metadata: json['metadata'] != null
+              ? ObjectMeta.fromJson(json['metadata'])
+              : null,
         );
 
   /// Creates a list of ConfigMap from JSON data.
@@ -29,21 +35,30 @@ class ConfigMap {
   }
 
   /// Converts a ConfigMap instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiVersion != null) { jsonData['apiVersion'] = apiVersion!; }
-    if(binaryData != null) { jsonData['binaryData'] = binaryData!; }
-    if(data != null) { jsonData['data'] = data!; }
-    if(immutable != null) { jsonData['immutable'] = immutable!; }
-    if(kind != null) { jsonData['kind'] = kind!; }
-    if(metadata != null) { jsonData['metadata'] = metadata!.toJson(); }
-    
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (binaryData != null) {
+      jsonData['binaryData'] = binaryData!;
+    }
+    if (data != null) {
+      jsonData['data'] = data!;
+    }
+    if (immutable != null) {
+      jsonData['immutable'] = immutable!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;

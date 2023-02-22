@@ -26,44 +26,72 @@ class StatefulSetSpec {
   StatefulSetSpec.fromJson(Map<String, dynamic> json)
       : this(
           minReadySeconds: json['minReadySeconds'],
-          ordinals: json['ordinals'] != null ? StatefulSetOrdinals.fromJson(json['ordinals']): null,
-          persistentVolumeClaimRetentionPolicy: json['persistentVolumeClaimRetentionPolicy'] != null ? StatefulSetPersistentVolumeClaimRetentionPolicy.fromJson(json['persistentVolumeClaimRetentionPolicy']): null,
+          ordinals: json['ordinals'] != null
+              ? StatefulSetOrdinals.fromJson(json['ordinals'])
+              : null,
+          persistentVolumeClaimRetentionPolicy:
+              json['persistentVolumeClaimRetentionPolicy'] != null
+                  ? StatefulSetPersistentVolumeClaimRetentionPolicy.fromJson(
+                      json['persistentVolumeClaimRetentionPolicy'])
+                  : null,
           podManagementPolicy: json['podManagementPolicy'],
           replicas: json['replicas'],
           revisionHistoryLimit: json['revisionHistoryLimit'],
           selector: LabelSelector.fromJson(json['selector']),
           serviceName: json['serviceName'],
           template: PodTemplateSpec.fromJson(json['template']),
-          updateStrategy: json['updateStrategy'] != null ? StatefulSetUpdateStrategy.fromJson(json['updateStrategy']): null,
-          volumeClaimTemplates: json['volumeClaimTemplates'] != null ? PersistentVolumeClaim.listFromJson((json['volumeClaimTemplates'] as Iterable).cast<Map<String, dynamic>>()): null,
+          updateStrategy: json['updateStrategy'] != null
+              ? StatefulSetUpdateStrategy.fromJson(json['updateStrategy'])
+              : null,
+          volumeClaimTemplates: json['volumeClaimTemplates'] != null
+              ? PersistentVolumeClaim.listFromJson(
+                  (json['volumeClaimTemplates'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : null,
         );
 
   /// Creates a list of StatefulSetSpec from JSON data.
-  static List<StatefulSetSpec> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<StatefulSetSpec> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => StatefulSetSpec.fromJson(e)).toList();
   }
 
   /// Converts a StatefulSetSpec instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(minReadySeconds != null) { jsonData['minReadySeconds'] = minReadySeconds!; }
-    if(ordinals != null) { jsonData['ordinals'] = ordinals!.toJson(); }
-    if(persistentVolumeClaimRetentionPolicy != null) { jsonData['persistentVolumeClaimRetentionPolicy'] = persistentVolumeClaimRetentionPolicy!.toJson(); }
-    if(podManagementPolicy != null) { jsonData['podManagementPolicy'] = podManagementPolicy!; }
-    if(replicas != null) { jsonData['replicas'] = replicas!; }
-    if(revisionHistoryLimit != null) { jsonData['revisionHistoryLimit'] = revisionHistoryLimit!; }
+    if (minReadySeconds != null) {
+      jsonData['minReadySeconds'] = minReadySeconds!;
+    }
+    if (ordinals != null) {
+      jsonData['ordinals'] = ordinals!.toJson();
+    }
+    if (persistentVolumeClaimRetentionPolicy != null) {
+      jsonData['persistentVolumeClaimRetentionPolicy'] =
+          persistentVolumeClaimRetentionPolicy!.toJson();
+    }
+    if (podManagementPolicy != null) {
+      jsonData['podManagementPolicy'] = podManagementPolicy!;
+    }
+    if (replicas != null) {
+      jsonData['replicas'] = replicas!;
+    }
+    if (revisionHistoryLimit != null) {
+      jsonData['revisionHistoryLimit'] = revisionHistoryLimit!;
+    }
     jsonData['selector'] = selector.toJson();
     jsonData['serviceName'] = serviceName;
     jsonData['template'] = template.toJson();
-    if(updateStrategy != null) { jsonData['updateStrategy'] = updateStrategy!.toJson(); }
-    if(volumeClaimTemplates != null) { jsonData['volumeClaimTemplates'] = volumeClaimTemplates!.map((item) => item.toJson()).toList(); }
-    
+    if (updateStrategy != null) {
+      jsonData['updateStrategy'] = updateStrategy!.toJson();
+    }
+    if (volumeClaimTemplates != null) {
+      jsonData['volumeClaimTemplates'] =
+          volumeClaimTemplates!.map((item) => item.toJson()).toList();
+    }
 
     return jsonData;
   }
-
 
   /// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
   final int? minReadySeconds;
@@ -72,7 +100,8 @@ class StatefulSetSpec {
   final StatefulSetOrdinals? ordinals;
 
   /// PersistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional.
-  final StatefulSetPersistentVolumeClaimRetentionPolicy? persistentVolumeClaimRetentionPolicy;
+  final StatefulSetPersistentVolumeClaimRetentionPolicy?
+      persistentVolumeClaimRetentionPolicy;
 
   /// PodManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
   final String? podManagementPolicy;

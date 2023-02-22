@@ -31,22 +31,37 @@ class ServiceSpec {
       : this(
           allocateLoadBalancerNodePorts: json['allocateLoadBalancerNodePorts'],
           clusterIP: json['clusterIP'],
-          clusterIPs: json['clusterIPs'] != null ? List<String>.from(json['clusterIPs']) : null,
-          externalIPs: json['externalIPs'] != null ? List<String>.from(json['externalIPs']) : null,
+          clusterIPs: json['clusterIPs'] != null
+              ? List<String>.from(json['clusterIPs'])
+              : null,
+          externalIPs: json['externalIPs'] != null
+              ? List<String>.from(json['externalIPs'])
+              : null,
           externalName: json['externalName'],
           externalTrafficPolicy: json['externalTrafficPolicy'],
           healthCheckNodePort: json['healthCheckNodePort'],
           internalTrafficPolicy: json['internalTrafficPolicy'],
-          ipFamilies: json['ipFamilies'] != null ? List<String>.from(json['ipFamilies']) : null,
+          ipFamilies: json['ipFamilies'] != null
+              ? List<String>.from(json['ipFamilies'])
+              : null,
           ipFamilyPolicy: json['ipFamilyPolicy'],
           loadBalancerClass: json['loadBalancerClass'],
           loadBalancerIP: json['loadBalancerIP'],
-          loadBalancerSourceRanges: json['loadBalancerSourceRanges'] != null ? List<String>.from(json['loadBalancerSourceRanges']) : null,
-          ports: json['ports'] != null ? ServicePort.listFromJson((json['ports'] as Iterable).cast<Map<String, dynamic>>()): null,
+          loadBalancerSourceRanges: json['loadBalancerSourceRanges'] != null
+              ? List<String>.from(json['loadBalancerSourceRanges'])
+              : null,
+          ports: json['ports'] != null
+              ? ServicePort.listFromJson(
+                  (json['ports'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
           publishNotReadyAddresses: json['publishNotReadyAddresses'],
-          selector: json['selector'] != null ? Map<String, String>.from(json['selector']) : null,
+          selector: json['selector'] != null
+              ? Map<String, String>.from(json['selector'])
+              : null,
           sessionAffinity: json['sessionAffinity'],
-          sessionAffinityConfig: json['sessionAffinityConfig'] != null ? SessionAffinityConfig.fromJson(json['sessionAffinityConfig']): null,
+          sessionAffinityConfig: json['sessionAffinityConfig'] != null
+              ? SessionAffinityConfig.fromJson(json['sessionAffinityConfig'])
+              : null,
           type: json['type'],
         );
 
@@ -56,34 +71,70 @@ class ServiceSpec {
   }
 
   /// Converts a ServiceSpec instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(allocateLoadBalancerNodePorts != null) { jsonData['allocateLoadBalancerNodePorts'] = allocateLoadBalancerNodePorts!; }
-    if(clusterIP != null) { jsonData['clusterIP'] = clusterIP!; }
-    if(clusterIPs != null) { jsonData['clusterIPs'] = clusterIPs!; }
-    if(externalIPs != null) { jsonData['externalIPs'] = externalIPs!; }
-    if(externalName != null) { jsonData['externalName'] = externalName!; }
-    if(externalTrafficPolicy != null) { jsonData['externalTrafficPolicy'] = externalTrafficPolicy!; }
-    if(healthCheckNodePort != null) { jsonData['healthCheckNodePort'] = healthCheckNodePort!; }
-    if(internalTrafficPolicy != null) { jsonData['internalTrafficPolicy'] = internalTrafficPolicy!; }
-    if(ipFamilies != null) { jsonData['ipFamilies'] = ipFamilies!; }
-    if(ipFamilyPolicy != null) { jsonData['ipFamilyPolicy'] = ipFamilyPolicy!; }
-    if(loadBalancerClass != null) { jsonData['loadBalancerClass'] = loadBalancerClass!; }
-    if(loadBalancerIP != null) { jsonData['loadBalancerIP'] = loadBalancerIP!; }
-    if(loadBalancerSourceRanges != null) { jsonData['loadBalancerSourceRanges'] = loadBalancerSourceRanges!; }
-    if(ports != null) { jsonData['ports'] = ports!.map((item) => item.toJson()).toList(); }
-    if(publishNotReadyAddresses != null) { jsonData['publishNotReadyAddresses'] = publishNotReadyAddresses!; }
-    if(selector != null) { jsonData['selector'] = selector!; }
-    if(sessionAffinity != null) { jsonData['sessionAffinity'] = sessionAffinity!; }
-    if(sessionAffinityConfig != null) { jsonData['sessionAffinityConfig'] = sessionAffinityConfig!.toJson(); }
-    if(type != null) { jsonData['type'] = type!; }
-    
+    if (allocateLoadBalancerNodePorts != null) {
+      jsonData['allocateLoadBalancerNodePorts'] =
+          allocateLoadBalancerNodePorts!;
+    }
+    if (clusterIP != null) {
+      jsonData['clusterIP'] = clusterIP!;
+    }
+    if (clusterIPs != null) {
+      jsonData['clusterIPs'] = clusterIPs!;
+    }
+    if (externalIPs != null) {
+      jsonData['externalIPs'] = externalIPs!;
+    }
+    if (externalName != null) {
+      jsonData['externalName'] = externalName!;
+    }
+    if (externalTrafficPolicy != null) {
+      jsonData['externalTrafficPolicy'] = externalTrafficPolicy!;
+    }
+    if (healthCheckNodePort != null) {
+      jsonData['healthCheckNodePort'] = healthCheckNodePort!;
+    }
+    if (internalTrafficPolicy != null) {
+      jsonData['internalTrafficPolicy'] = internalTrafficPolicy!;
+    }
+    if (ipFamilies != null) {
+      jsonData['ipFamilies'] = ipFamilies!;
+    }
+    if (ipFamilyPolicy != null) {
+      jsonData['ipFamilyPolicy'] = ipFamilyPolicy!;
+    }
+    if (loadBalancerClass != null) {
+      jsonData['loadBalancerClass'] = loadBalancerClass!;
+    }
+    if (loadBalancerIP != null) {
+      jsonData['loadBalancerIP'] = loadBalancerIP!;
+    }
+    if (loadBalancerSourceRanges != null) {
+      jsonData['loadBalancerSourceRanges'] = loadBalancerSourceRanges!;
+    }
+    if (ports != null) {
+      jsonData['ports'] = ports!.map((item) => item.toJson()).toList();
+    }
+    if (publishNotReadyAddresses != null) {
+      jsonData['publishNotReadyAddresses'] = publishNotReadyAddresses!;
+    }
+    if (selector != null) {
+      jsonData['selector'] = selector!;
+    }
+    if (sessionAffinity != null) {
+      jsonData['sessionAffinity'] = sessionAffinity!;
+    }
+    if (sessionAffinityConfig != null) {
+      jsonData['sessionAffinityConfig'] = sessionAffinityConfig!.toJson();
+    }
+    if (type != null) {
+      jsonData['type'] = type!;
+    }
 
     return jsonData;
   }
-
 
   /// AllocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type.
   final bool? allocateLoadBalancerNodePorts;
@@ -92,8 +143,8 @@ class ServiceSpec {
   final String? clusterIP;
 
   /// ClusterIPs is a list of IP addresses assigned to this service, and are usually assigned randomly.  If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be empty) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address.  Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName.  If this field is not specified, it will be initialized from the clusterIP field.  If this field is specified, clients must ensure that clusterIPs[0] and clusterIP have the same value.
-/// 
-/// This field may hold a maximum of two entries (dual-stack IPs, in either order). These IPs must correspond to the values of the ipFamilies field. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies.
+  ///
+  /// This field may hold a maximum of two entries (dual-stack IPs, in either order). These IPs must correspond to the values of the ipFamilies field. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies.
   final List<String>? clusterIPs;
 
   /// ExternalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service.  These IPs are not managed by Kubernetes.  The user is responsible for ensuring that traffic arrives at a node with this IP.  A common example is external load-balancers that are not part of the Kubernetes system.
@@ -112,8 +163,8 @@ class ServiceSpec {
   final String? internalTrafficPolicy;
 
   /// IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service. This field is usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail. This field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service. Valid values are "IPv4" and "IPv6".  This field only applies to Services of types ClusterIP, NodePort, and LoadBalancer, and does apply to "headless" services. This field will be wiped when updating a Service to type ExternalName.
-/// 
-/// This field may hold a maximum of two entries (dual-stack families, in either order).  These families must correspond to the values of the clusterIPs field, if specified. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field.
+  ///
+  /// This field may hold a maximum of two entries (dual-stack families, in either order).  These families must correspond to the values of the clusterIPs field, if specified. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field.
   final List<String>? ipFamilies;
 
   /// IPFamilyPolicy represents the dual-stack-ness requested or required by this Service. If there is no value provided, then this field will be set to SingleStack. Services can be "SingleStack" (a single IP family), "PreferDualStack" (two IP families on dual-stack configured clusters or a single IP family on single-stack clusters), or "RequireDualStack" (two IP families on dual-stack configured clusters, otherwise fail). The ipFamilies and clusterIPs fields depend on the value of this field. This field will be wiped when updating a service to type ExternalName.

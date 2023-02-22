@@ -1,4 +1,3 @@
-
 /// SecretKeySelector selects a key of a Secret.
 class SecretKeySelector {
   /// The main constructor.
@@ -17,23 +16,25 @@ class SecretKeySelector {
         );
 
   /// Creates a list of SecretKeySelector from JSON data.
-  static List<SecretKeySelector> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<SecretKeySelector> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => SecretKeySelector.fromJson(e)).toList();
   }
 
   /// Converts a SecretKeySelector instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['key'] = key;
-    if(name != null) { jsonData['name'] = name!; }
-    if(optional != null) { jsonData['optional'] = optional!; }
-    
+    if (name != null) {
+      jsonData['name'] = name!;
+    }
+    if (optional != null) {
+      jsonData['optional'] = optional!;
+    }
 
     return jsonData;
   }
-
 
   /// The key of the secret to select from.  Must be a valid secret key.
   final String key;

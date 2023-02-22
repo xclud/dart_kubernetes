@@ -1,4 +1,3 @@
-
 /// NonResourceRule holds information that describes a rule for the non-resource.
 class NonResourceRule {
   /// The main constructor.
@@ -10,27 +9,29 @@ class NonResourceRule {
   /// Creates a NonResourceRule from JSON data.
   NonResourceRule.fromJson(Map<String, dynamic> json)
       : this(
-          nonResourceURLs: json['nonResourceURLs'] != null ? List<String>.from(json['nonResourceURLs']) : null,
+          nonResourceURLs: json['nonResourceURLs'] != null
+              ? List<String>.from(json['nonResourceURLs'])
+              : null,
           verbs: json['verbs'] != null ? List<String>.from(json['verbs']) : [],
         );
 
   /// Creates a list of NonResourceRule from JSON data.
-  static List<NonResourceRule> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<NonResourceRule> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => NonResourceRule.fromJson(e)).toList();
   }
 
   /// Converts a NonResourceRule instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(nonResourceURLs != null) { jsonData['nonResourceURLs'] = nonResourceURLs!; }
+    if (nonResourceURLs != null) {
+      jsonData['nonResourceURLs'] = nonResourceURLs!;
+    }
     jsonData['verbs'] = verbs;
-    
 
     return jsonData;
   }
-
 
   /// NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path.  "*" means all.
   final List<String>? nonResourceURLs;

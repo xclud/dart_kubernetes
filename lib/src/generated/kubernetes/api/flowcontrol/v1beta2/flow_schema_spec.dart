@@ -15,31 +15,43 @@ class FlowSchemaSpec {
   /// Creates a FlowSchemaSpec from JSON data.
   FlowSchemaSpec.fromJson(Map<String, dynamic> json)
       : this(
-          distinguisherMethod: json['distinguisherMethod'] != null ? FlowDistinguisherMethod.fromJson(json['distinguisherMethod']): null,
+          distinguisherMethod: json['distinguisherMethod'] != null
+              ? FlowDistinguisherMethod.fromJson(json['distinguisherMethod'])
+              : null,
           matchingPrecedence: json['matchingPrecedence'],
-          priorityLevelConfiguration: PriorityLevelConfigurationReference.fromJson(json['priorityLevelConfiguration']),
-          rules: json['rules'] != null ? PolicyRulesWithSubjects.listFromJson((json['rules'] as Iterable).cast<Map<String, dynamic>>()): null,
+          priorityLevelConfiguration:
+              PriorityLevelConfigurationReference.fromJson(
+                  json['priorityLevelConfiguration']),
+          rules: json['rules'] != null
+              ? PolicyRulesWithSubjects.listFromJson(
+                  (json['rules'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
         );
 
   /// Creates a list of FlowSchemaSpec from JSON data.
-  static List<FlowSchemaSpec> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<FlowSchemaSpec> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => FlowSchemaSpec.fromJson(e)).toList();
   }
 
   /// Converts a FlowSchemaSpec instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(distinguisherMethod != null) { jsonData['distinguisherMethod'] = distinguisherMethod!.toJson(); }
-    if(matchingPrecedence != null) { jsonData['matchingPrecedence'] = matchingPrecedence!; }
-    jsonData['priorityLevelConfiguration'] = priorityLevelConfiguration.toJson();
-    if(rules != null) { jsonData['rules'] = rules!.map((item) => item.toJson()).toList(); }
-    
+    if (distinguisherMethod != null) {
+      jsonData['distinguisherMethod'] = distinguisherMethod!.toJson();
+    }
+    if (matchingPrecedence != null) {
+      jsonData['matchingPrecedence'] = matchingPrecedence!;
+    }
+    jsonData['priorityLevelConfiguration'] =
+        priorityLevelConfiguration.toJson();
+    if (rules != null) {
+      jsonData['rules'] = rules!.map((item) => item.toJson()).toList();
+    }
 
     return jsonData;
   }
-
 
   /// `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
   final FlowDistinguisherMethod? distinguisherMethod;

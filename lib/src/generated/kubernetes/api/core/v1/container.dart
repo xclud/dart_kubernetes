@@ -40,26 +40,55 @@ class Container {
   Container.fromJson(Map<String, dynamic> json)
       : this(
           args: json['args'] != null ? List<String>.from(json['args']) : null,
-          command: json['command'] != null ? List<String>.from(json['command']) : null,
-          env: json['env'] != null ? EnvVar.listFromJson((json['env'] as Iterable).cast<Map<String, dynamic>>()): null,
-          envFrom: json['envFrom'] != null ? EnvFromSource.listFromJson((json['envFrom'] as Iterable).cast<Map<String, dynamic>>()): null,
+          command: json['command'] != null
+              ? List<String>.from(json['command'])
+              : null,
+          env: json['env'] != null
+              ? EnvVar.listFromJson(
+                  (json['env'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
+          envFrom: json['envFrom'] != null
+              ? EnvFromSource.listFromJson(
+                  (json['envFrom'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
           image: json['image'],
           imagePullPolicy: json['imagePullPolicy'],
-          lifecycle: json['lifecycle'] != null ? Lifecycle.fromJson(json['lifecycle']): null,
-          livenessProbe: json['livenessProbe'] != null ? Probe.fromJson(json['livenessProbe']): null,
+          lifecycle: json['lifecycle'] != null
+              ? Lifecycle.fromJson(json['lifecycle'])
+              : null,
+          livenessProbe: json['livenessProbe'] != null
+              ? Probe.fromJson(json['livenessProbe'])
+              : null,
           name: json['name'],
-          ports: json['ports'] != null ? ContainerPort.listFromJson((json['ports'] as Iterable).cast<Map<String, dynamic>>()): null,
-          readinessProbe: json['readinessProbe'] != null ? Probe.fromJson(json['readinessProbe']): null,
-          resources: json['resources'] != null ? ResourceRequirements.fromJson(json['resources']): null,
-          securityContext: json['securityContext'] != null ? SecurityContext.fromJson(json['securityContext']): null,
-          startupProbe: json['startupProbe'] != null ? Probe.fromJson(json['startupProbe']): null,
+          ports: json['ports'] != null
+              ? ContainerPort.listFromJson(
+                  (json['ports'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
+          readinessProbe: json['readinessProbe'] != null
+              ? Probe.fromJson(json['readinessProbe'])
+              : null,
+          resources: json['resources'] != null
+              ? ResourceRequirements.fromJson(json['resources'])
+              : null,
+          securityContext: json['securityContext'] != null
+              ? SecurityContext.fromJson(json['securityContext'])
+              : null,
+          startupProbe: json['startupProbe'] != null
+              ? Probe.fromJson(json['startupProbe'])
+              : null,
           stdin: json['stdin'],
           stdinOnce: json['stdinOnce'],
           terminationMessagePath: json['terminationMessagePath'],
           terminationMessagePolicy: json['terminationMessagePolicy'],
           tty: json['tty'],
-          volumeDevices: json['volumeDevices'] != null ? VolumeDevice.listFromJson((json['volumeDevices'] as Iterable).cast<Map<String, dynamic>>()): null,
-          volumeMounts: json['volumeMounts'] != null ? VolumeMount.listFromJson((json['volumeMounts'] as Iterable).cast<Map<String, dynamic>>()): null,
+          volumeDevices: json['volumeDevices'] != null
+              ? VolumeDevice.listFromJson((json['volumeDevices'] as Iterable)
+                  .cast<Map<String, dynamic>>())
+              : null,
+          volumeMounts: json['volumeMounts'] != null
+              ? VolumeMount.listFromJson((json['volumeMounts'] as Iterable)
+                  .cast<Map<String, dynamic>>())
+              : null,
           workingDir: json['workingDir'],
         );
 
@@ -69,37 +98,78 @@ class Container {
   }
 
   /// Converts a Container instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(args != null) { jsonData['args'] = args!; }
-    if(command != null) { jsonData['command'] = command!; }
-    if(env != null) { jsonData['env'] = env!.map((item) => item.toJson()).toList(); }
-    if(envFrom != null) { jsonData['envFrom'] = envFrom!.map((item) => item.toJson()).toList(); }
-    if(image != null) { jsonData['image'] = image!; }
-    if(imagePullPolicy != null) { jsonData['imagePullPolicy'] = imagePullPolicy!; }
-    if(lifecycle != null) { jsonData['lifecycle'] = lifecycle!.toJson(); }
-    if(livenessProbe != null) { jsonData['livenessProbe'] = livenessProbe!.toJson(); }
+    if (args != null) {
+      jsonData['args'] = args!;
+    }
+    if (command != null) {
+      jsonData['command'] = command!;
+    }
+    if (env != null) {
+      jsonData['env'] = env!.map((item) => item.toJson()).toList();
+    }
+    if (envFrom != null) {
+      jsonData['envFrom'] = envFrom!.map((item) => item.toJson()).toList();
+    }
+    if (image != null) {
+      jsonData['image'] = image!;
+    }
+    if (imagePullPolicy != null) {
+      jsonData['imagePullPolicy'] = imagePullPolicy!;
+    }
+    if (lifecycle != null) {
+      jsonData['lifecycle'] = lifecycle!.toJson();
+    }
+    if (livenessProbe != null) {
+      jsonData['livenessProbe'] = livenessProbe!.toJson();
+    }
     jsonData['name'] = name;
-    if(ports != null) { jsonData['ports'] = ports!.map((item) => item.toJson()).toList(); }
-    if(readinessProbe != null) { jsonData['readinessProbe'] = readinessProbe!.toJson(); }
-    if(resources != null) { jsonData['resources'] = resources!.toJson(); }
-    if(securityContext != null) { jsonData['securityContext'] = securityContext!.toJson(); }
-    if(startupProbe != null) { jsonData['startupProbe'] = startupProbe!.toJson(); }
-    if(stdin != null) { jsonData['stdin'] = stdin!; }
-    if(stdinOnce != null) { jsonData['stdinOnce'] = stdinOnce!; }
-    if(terminationMessagePath != null) { jsonData['terminationMessagePath'] = terminationMessagePath!; }
-    if(terminationMessagePolicy != null) { jsonData['terminationMessagePolicy'] = terminationMessagePolicy!; }
-    if(tty != null) { jsonData['tty'] = tty!; }
-    if(volumeDevices != null) { jsonData['volumeDevices'] = volumeDevices!.map((item) => item.toJson()).toList(); }
-    if(volumeMounts != null) { jsonData['volumeMounts'] = volumeMounts!.map((item) => item.toJson()).toList(); }
-    if(workingDir != null) { jsonData['workingDir'] = workingDir!; }
-    
+    if (ports != null) {
+      jsonData['ports'] = ports!.map((item) => item.toJson()).toList();
+    }
+    if (readinessProbe != null) {
+      jsonData['readinessProbe'] = readinessProbe!.toJson();
+    }
+    if (resources != null) {
+      jsonData['resources'] = resources!.toJson();
+    }
+    if (securityContext != null) {
+      jsonData['securityContext'] = securityContext!.toJson();
+    }
+    if (startupProbe != null) {
+      jsonData['startupProbe'] = startupProbe!.toJson();
+    }
+    if (stdin != null) {
+      jsonData['stdin'] = stdin!;
+    }
+    if (stdinOnce != null) {
+      jsonData['stdinOnce'] = stdinOnce!;
+    }
+    if (terminationMessagePath != null) {
+      jsonData['terminationMessagePath'] = terminationMessagePath!;
+    }
+    if (terminationMessagePolicy != null) {
+      jsonData['terminationMessagePolicy'] = terminationMessagePolicy!;
+    }
+    if (tty != null) {
+      jsonData['tty'] = tty!;
+    }
+    if (volumeDevices != null) {
+      jsonData['volumeDevices'] =
+          volumeDevices!.map((item) => item.toJson()).toList();
+    }
+    if (volumeMounts != null) {
+      jsonData['volumeMounts'] =
+          volumeMounts!.map((item) => item.toJson()).toList();
+    }
+    if (workingDir != null) {
+      jsonData['workingDir'] = workingDir!;
+    }
 
     return jsonData;
   }
-
 
   /// Arguments to the entrypoint. The container image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell.
   final List<String>? args;

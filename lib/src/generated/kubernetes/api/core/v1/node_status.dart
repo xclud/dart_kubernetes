@@ -26,17 +26,42 @@ class NodeStatus {
   /// Creates a NodeStatus from JSON data.
   NodeStatus.fromJson(Map<String, dynamic> json)
       : this(
-          addresses: json['addresses'] != null ? NodeAddress.listFromJson((json['addresses'] as Iterable).cast<Map<String, dynamic>>()): null,
-          allocatable: json['allocatable'] != null ? Map<String, String>.from(json['allocatable']) : null,
-          capacity: json['capacity'] != null ? Map<String, String>.from(json['capacity']) : null,
-          conditions: json['conditions'] != null ? NodeCondition.listFromJson((json['conditions'] as Iterable).cast<Map<String, dynamic>>()): null,
-          config: json['config'] != null ? NodeConfigStatus.fromJson(json['config']): null,
-          daemonEndpoints: json['daemonEndpoints'] != null ? NodeDaemonEndpoints.fromJson(json['daemonEndpoints']): null,
-          images: json['images'] != null ? ContainerImage.listFromJson((json['images'] as Iterable).cast<Map<String, dynamic>>()): null,
-          nodeInfo: json['nodeInfo'] != null ? NodeSystemInfo.fromJson(json['nodeInfo']): null,
+          addresses: json['addresses'] != null
+              ? NodeAddress.listFromJson(
+                  (json['addresses'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
+          allocatable: json['allocatable'] != null
+              ? Map<String, String>.from(json['allocatable'])
+              : null,
+          capacity: json['capacity'] != null
+              ? Map<String, String>.from(json['capacity'])
+              : null,
+          conditions: json['conditions'] != null
+              ? NodeCondition.listFromJson(
+                  (json['conditions'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
+          config: json['config'] != null
+              ? NodeConfigStatus.fromJson(json['config'])
+              : null,
+          daemonEndpoints: json['daemonEndpoints'] != null
+              ? NodeDaemonEndpoints.fromJson(json['daemonEndpoints'])
+              : null,
+          images: json['images'] != null
+              ? ContainerImage.listFromJson(
+                  (json['images'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
+          nodeInfo: json['nodeInfo'] != null
+              ? NodeSystemInfo.fromJson(json['nodeInfo'])
+              : null,
           phase: json['phase'],
-          volumesAttached: json['volumesAttached'] != null ? AttachedVolume.listFromJson((json['volumesAttached'] as Iterable).cast<Map<String, dynamic>>()): null,
-          volumesInUse: json['volumesInUse'] != null ? List<String>.from(json['volumesInUse']) : null,
+          volumesAttached: json['volumesAttached'] != null
+              ? AttachedVolume.listFromJson(
+                  (json['volumesAttached'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : null,
+          volumesInUse: json['volumesInUse'] != null
+              ? List<String>.from(json['volumesInUse'])
+              : null,
         );
 
   /// Creates a list of NodeStatus from JSON data.
@@ -45,26 +70,47 @@ class NodeStatus {
   }
 
   /// Converts a NodeStatus instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(addresses != null) { jsonData['addresses'] = addresses!.map((item) => item.toJson()).toList(); }
-    if(allocatable != null) { jsonData['allocatable'] = allocatable!; }
-    if(capacity != null) { jsonData['capacity'] = capacity!; }
-    if(conditions != null) { jsonData['conditions'] = conditions!.map((item) => item.toJson()).toList(); }
-    if(config != null) { jsonData['config'] = config!.toJson(); }
-    if(daemonEndpoints != null) { jsonData['daemonEndpoints'] = daemonEndpoints!.toJson(); }
-    if(images != null) { jsonData['images'] = images!.map((item) => item.toJson()).toList(); }
-    if(nodeInfo != null) { jsonData['nodeInfo'] = nodeInfo!.toJson(); }
-    if(phase != null) { jsonData['phase'] = phase!; }
-    if(volumesAttached != null) { jsonData['volumesAttached'] = volumesAttached!.map((item) => item.toJson()).toList(); }
-    if(volumesInUse != null) { jsonData['volumesInUse'] = volumesInUse!; }
-    
+    if (addresses != null) {
+      jsonData['addresses'] = addresses!.map((item) => item.toJson()).toList();
+    }
+    if (allocatable != null) {
+      jsonData['allocatable'] = allocatable!;
+    }
+    if (capacity != null) {
+      jsonData['capacity'] = capacity!;
+    }
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
+    if (config != null) {
+      jsonData['config'] = config!.toJson();
+    }
+    if (daemonEndpoints != null) {
+      jsonData['daemonEndpoints'] = daemonEndpoints!.toJson();
+    }
+    if (images != null) {
+      jsonData['images'] = images!.map((item) => item.toJson()).toList();
+    }
+    if (nodeInfo != null) {
+      jsonData['nodeInfo'] = nodeInfo!.toJson();
+    }
+    if (phase != null) {
+      jsonData['phase'] = phase!;
+    }
+    if (volumesAttached != null) {
+      jsonData['volumesAttached'] =
+          volumesAttached!.map((item) => item.toJson()).toList();
+    }
+    if (volumesInUse != null) {
+      jsonData['volumesInUse'] = volumesInUse!;
+    }
 
     return jsonData;
   }
-
 
   /// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
   final List<NodeAddress>? addresses;

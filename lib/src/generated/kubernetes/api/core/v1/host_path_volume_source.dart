@@ -1,4 +1,3 @@
-
 /// Represents a host path mapped into a pod. Host path volumes do not support ownership management or SELinux relabeling.
 class HostPathVolumeSource {
   /// The main constructor.
@@ -15,22 +14,22 @@ class HostPathVolumeSource {
         );
 
   /// Creates a list of HostPathVolumeSource from JSON data.
-  static List<HostPathVolumeSource> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<HostPathVolumeSource> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => HostPathVolumeSource.fromJson(e)).toList();
   }
 
   /// Converts a HostPathVolumeSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['path'] = path;
-    if(type != null) { jsonData['type'] = type!; }
-    
+    if (type != null) {
+      jsonData['type'] = type!;
+    }
 
     return jsonData;
   }
-
 
   /// Path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath.
   final String path;

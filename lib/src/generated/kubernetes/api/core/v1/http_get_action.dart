@@ -15,7 +15,10 @@ class HTTPGetAction {
   HTTPGetAction.fromJson(Map<String, dynamic> json)
       : this(
           host: json['host'],
-          httpHeaders: json['httpHeaders'] != null ? HTTPHeader.listFromJson((json['httpHeaders'] as Iterable).cast<Map<String, dynamic>>()): null,
+          httpHeaders: json['httpHeaders'] != null
+              ? HTTPHeader.listFromJson((json['httpHeaders'] as Iterable)
+                  .cast<Map<String, dynamic>>())
+              : null,
           path: json['path'],
           port: json['port'],
           scheme: json['scheme'],
@@ -27,20 +30,26 @@ class HTTPGetAction {
   }
 
   /// Converts a HTTPGetAction instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(host != null) { jsonData['host'] = host!; }
-    if(httpHeaders != null) { jsonData['httpHeaders'] = httpHeaders!.map((item) => item.toJson()).toList(); }
-    if(path != null) { jsonData['path'] = path!; }
+    if (host != null) {
+      jsonData['host'] = host!;
+    }
+    if (httpHeaders != null) {
+      jsonData['httpHeaders'] =
+          httpHeaders!.map((item) => item.toJson()).toList();
+    }
+    if (path != null) {
+      jsonData['path'] = path!;
+    }
     jsonData['port'] = port;
-    if(scheme != null) { jsonData['scheme'] = scheme!; }
-    
+    if (scheme != null) {
+      jsonData['scheme'] = scheme!;
+    }
 
     return jsonData;
   }
-
 
   /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
   final String? host;

@@ -15,10 +15,15 @@ class Subject {
   /// Creates a Subject from JSON data.
   Subject.fromJson(Map<String, dynamic> json)
       : this(
-          group: json['group'] != null ? GroupSubject.fromJson(json['group']): null,
+          group: json['group'] != null
+              ? GroupSubject.fromJson(json['group'])
+              : null,
           kind: json['kind'],
-          serviceAccount: json['serviceAccount'] != null ? ServiceAccountSubject.fromJson(json['serviceAccount']): null,
-          user: json['user'] != null ? UserSubject.fromJson(json['user']): null,
+          serviceAccount: json['serviceAccount'] != null
+              ? ServiceAccountSubject.fromJson(json['serviceAccount'])
+              : null,
+          user:
+              json['user'] != null ? UserSubject.fromJson(json['user']) : null,
         );
 
   /// Creates a list of Subject from JSON data.
@@ -27,19 +32,22 @@ class Subject {
   }
 
   /// Converts a Subject instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(group != null) { jsonData['group'] = group!.toJson(); }
+    if (group != null) {
+      jsonData['group'] = group!.toJson();
+    }
     jsonData['kind'] = kind;
-    if(serviceAccount != null) { jsonData['serviceAccount'] = serviceAccount!.toJson(); }
-    if(user != null) { jsonData['user'] = user!.toJson(); }
-    
+    if (serviceAccount != null) {
+      jsonData['serviceAccount'] = serviceAccount!.toJson();
+    }
+    if (user != null) {
+      jsonData['user'] = user!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// `group` matches based on user group name.
   final GroupSubject? group;

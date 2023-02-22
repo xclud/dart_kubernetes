@@ -19,13 +19,23 @@ class Endpoint {
   /// Creates a Endpoint from JSON data.
   Endpoint.fromJson(Map<String, dynamic> json)
       : this(
-          addresses: json['addresses'] != null ? List<String>.from(json['addresses']) : [],
-          conditions: json['conditions'] != null ? EndpointConditions.fromJson(json['conditions']): null,
-          deprecatedTopology: json['deprecatedTopology'] != null ? Map<String, String>.from(json['deprecatedTopology']) : null,
-          hints: json['hints'] != null ? EndpointHints.fromJson(json['hints']): null,
+          addresses: json['addresses'] != null
+              ? List<String>.from(json['addresses'])
+              : [],
+          conditions: json['conditions'] != null
+              ? EndpointConditions.fromJson(json['conditions'])
+              : null,
+          deprecatedTopology: json['deprecatedTopology'] != null
+              ? Map<String, String>.from(json['deprecatedTopology'])
+              : null,
+          hints: json['hints'] != null
+              ? EndpointHints.fromJson(json['hints'])
+              : null,
           hostname: json['hostname'],
           nodeName: json['nodeName'],
-          targetRef: json['targetRef'] != null ? ObjectReference.fromJson(json['targetRef']): null,
+          targetRef: json['targetRef'] != null
+              ? ObjectReference.fromJson(json['targetRef'])
+              : null,
           zone: json['zone'],
         );
 
@@ -35,23 +45,34 @@ class Endpoint {
   }
 
   /// Converts a Endpoint instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['addresses'] = addresses;
-    if(conditions != null) { jsonData['conditions'] = conditions!.toJson(); }
-    if(deprecatedTopology != null) { jsonData['deprecatedTopology'] = deprecatedTopology!; }
-    if(hints != null) { jsonData['hints'] = hints!.toJson(); }
-    if(hostname != null) { jsonData['hostname'] = hostname!; }
-    if(nodeName != null) { jsonData['nodeName'] = nodeName!; }
-    if(targetRef != null) { jsonData['targetRef'] = targetRef!.toJson(); }
-    if(zone != null) { jsonData['zone'] = zone!; }
-    
+    if (conditions != null) {
+      jsonData['conditions'] = conditions!.toJson();
+    }
+    if (deprecatedTopology != null) {
+      jsonData['deprecatedTopology'] = deprecatedTopology!;
+    }
+    if (hints != null) {
+      jsonData['hints'] = hints!.toJson();
+    }
+    if (hostname != null) {
+      jsonData['hostname'] = hostname!;
+    }
+    if (nodeName != null) {
+      jsonData['nodeName'] = nodeName!;
+    }
+    if (targetRef != null) {
+      jsonData['targetRef'] = targetRef!.toJson();
+    }
+    if (zone != null) {
+      jsonData['zone'] = zone!;
+    }
 
     return jsonData;
   }
-
 
   /// Addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100. These are all assumed to be fungible and clients may choose to only use the first element. Refer to: https://issue.k8s.io/106267.
   final List<String> addresses;

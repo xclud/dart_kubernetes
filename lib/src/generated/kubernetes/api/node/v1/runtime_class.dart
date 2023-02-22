@@ -20,9 +20,15 @@ class RuntimeClass {
           apiVersion: json['apiVersion'],
           handler: json['handler'],
           kind: json['kind'],
-          metadata: json['metadata'] != null ? ObjectMeta.fromJson(json['metadata']): null,
-          overhead: json['overhead'] != null ? Overhead.fromJson(json['overhead']): null,
-          scheduling: json['scheduling'] != null ? Scheduling.fromJson(json['scheduling']): null,
+          metadata: json['metadata'] != null
+              ? ObjectMeta.fromJson(json['metadata'])
+              : null,
+          overhead: json['overhead'] != null
+              ? Overhead.fromJson(json['overhead'])
+              : null,
+          scheduling: json['scheduling'] != null
+              ? Scheduling.fromJson(json['scheduling'])
+              : null,
         );
 
   /// Creates a list of RuntimeClass from JSON data.
@@ -31,21 +37,28 @@ class RuntimeClass {
   }
 
   /// Converts a RuntimeClass instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiVersion != null) { jsonData['apiVersion'] = apiVersion!; }
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
     jsonData['handler'] = handler;
-    if(kind != null) { jsonData['kind'] = kind!; }
-    if(metadata != null) { jsonData['metadata'] = metadata!.toJson(); }
-    if(overhead != null) { jsonData['overhead'] = overhead!.toJson(); }
-    if(scheduling != null) { jsonData['scheduling'] = scheduling!.toJson(); }
-    
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
+    if (overhead != null) {
+      jsonData['overhead'] = overhead!.toJson();
+    }
+    if (scheduling != null) {
+      jsonData['scheduling'] = scheduling!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;
@@ -60,7 +73,7 @@ class RuntimeClass {
   final ObjectMeta? metadata;
 
   /// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
-///  https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/.
+  ///  https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/.
   final Overhead? overhead;
 
   /// Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.

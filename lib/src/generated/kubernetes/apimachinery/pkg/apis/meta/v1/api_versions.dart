@@ -15,8 +15,14 @@ class APIVersions {
       : this(
           apiVersion: json['apiVersion'],
           kind: json['kind'],
-          serverAddressByClientCIDRs: json['serverAddressByClientCIDRs'] != null ? ServerAddressByClientCIDR.listFromJson((json['serverAddressByClientCIDRs'] as Iterable).cast<Map<String, dynamic>>()): [],
-          versions: json['versions'] != null ? List<String>.from(json['versions']) : [],
+          serverAddressByClientCIDRs: json['serverAddressByClientCIDRs'] != null
+              ? ServerAddressByClientCIDR.listFromJson(
+                  (json['serverAddressByClientCIDRs'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : [],
+          versions: json['versions'] != null
+              ? List<String>.from(json['versions'])
+              : [],
         );
 
   /// Creates a list of APIVersions from JSON data.
@@ -25,19 +31,21 @@ class APIVersions {
   }
 
   /// Converts a APIVersions instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiVersion != null) { jsonData['apiVersion'] = apiVersion!; }
-    if(kind != null) { jsonData['kind'] = kind!; }
-    jsonData['serverAddressByClientCIDRs'] = serverAddressByClientCIDRs.map((item) => item.toJson()).toList();
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    jsonData['serverAddressByClientCIDRs'] =
+        serverAddressByClientCIDRs.map((item) => item.toJson()).toList();
     jsonData['versions'] = versions;
-    
 
     return jsonData;
   }
-
 
   /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;

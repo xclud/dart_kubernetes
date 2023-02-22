@@ -17,8 +17,12 @@ class TopologySpreadConstraint {
   /// Creates a TopologySpreadConstraint from JSON data.
   TopologySpreadConstraint.fromJson(Map<String, dynamic> json)
       : this(
-          labelSelector: json['labelSelector'] != null ? LabelSelector.fromJson(json['labelSelector']): null,
-          matchLabelKeys: json['matchLabelKeys'] != null ? List<String>.from(json['matchLabelKeys']) : null,
+          labelSelector: json['labelSelector'] != null
+              ? LabelSelector.fromJson(json['labelSelector'])
+              : null,
+          matchLabelKeys: json['matchLabelKeys'] != null
+              ? List<String>.from(json['matchLabelKeys'])
+              : null,
           maxSkew: json['maxSkew'],
           minDomains: json['minDomains'],
           nodeAffinityPolicy: json['nodeAffinityPolicy'],
@@ -28,28 +32,36 @@ class TopologySpreadConstraint {
         );
 
   /// Creates a list of TopologySpreadConstraint from JSON data.
-  static List<TopologySpreadConstraint> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<TopologySpreadConstraint> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => TopologySpreadConstraint.fromJson(e)).toList();
   }
 
   /// Converts a TopologySpreadConstraint instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(labelSelector != null) { jsonData['labelSelector'] = labelSelector!.toJson(); }
-    if(matchLabelKeys != null) { jsonData['matchLabelKeys'] = matchLabelKeys!; }
+    if (labelSelector != null) {
+      jsonData['labelSelector'] = labelSelector!.toJson();
+    }
+    if (matchLabelKeys != null) {
+      jsonData['matchLabelKeys'] = matchLabelKeys!;
+    }
     jsonData['maxSkew'] = maxSkew;
-    if(minDomains != null) { jsonData['minDomains'] = minDomains!; }
-    if(nodeAffinityPolicy != null) { jsonData['nodeAffinityPolicy'] = nodeAffinityPolicy!; }
-    if(nodeTaintsPolicy != null) { jsonData['nodeTaintsPolicy'] = nodeTaintsPolicy!; }
+    if (minDomains != null) {
+      jsonData['minDomains'] = minDomains!;
+    }
+    if (nodeAffinityPolicy != null) {
+      jsonData['nodeAffinityPolicy'] = nodeAffinityPolicy!;
+    }
+    if (nodeTaintsPolicy != null) {
+      jsonData['nodeTaintsPolicy'] = nodeTaintsPolicy!;
+    }
     jsonData['topologyKey'] = topologyKey;
     jsonData['whenUnsatisfiable'] = whenUnsatisfiable;
-    
 
     return jsonData;
   }
-
 
   /// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
   final LabelSelector? labelSelector;
@@ -61,28 +73,28 @@ class TopologySpreadConstraint {
   final int maxSkew;
 
   /// MinDomains indicates a minimum number of eligible domains. When the number of eligible domains with matching topology keys is less than minDomains, Pod Topology Spread treats "global minimum" as 0, and then the calculation of Skew is performed. And when the number of eligible domains with matching topology keys equals or greater than minDomains, this value has no effect on scheduling. As a result, when the number of eligible domains is less than minDomains, scheduler won't schedule more than maxSkew Pods to those domains. If value is nil, the constraint behaves as if MinDomains is equal to 1. Valid values are integers greater than 0. When value is not nil, WhenUnsatisfiable must be DoNotSchedule.
-/// 
-/// For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
-/// 
-/// This is a beta field and requires the MinDomainsInPodTopologySpread feature gate to be enabled (enabled by default).
+  ///
+  /// For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
+  ///
+  /// This is a beta field and requires the MinDomainsInPodTopologySpread feature gate to be enabled (enabled by default).
   final int? minDomains;
 
   /// NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
-/// 
-/// If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+  ///
+  /// If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
   final String? nodeAffinityPolicy;
 
   /// NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
-/// 
-/// If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+  ///
+  /// If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
   final String? nodeTaintsPolicy;
 
   /// TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of nodeAffinityPolicy and nodeTaintsPolicy. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
   final String topologyKey;
 
   /// WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,
-///   but giving higher precedence to topologies that would help reduce the
-///   skew.
-/// A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assignment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
+  ///   but giving higher precedence to topologies that would help reduce the
+  ///   skew.
+  /// A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assignment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
   final String whenUnsatisfiable;
 }

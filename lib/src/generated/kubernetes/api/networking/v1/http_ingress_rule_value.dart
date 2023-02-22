@@ -10,25 +10,26 @@ class HTTPIngressRuleValue {
   /// Creates a HTTPIngressRuleValue from JSON data.
   HTTPIngressRuleValue.fromJson(Map<String, dynamic> json)
       : this(
-          paths: json['paths'] != null ? HTTPIngressPath.listFromJson((json['paths'] as Iterable).cast<Map<String, dynamic>>()): [],
+          paths: json['paths'] != null
+              ? HTTPIngressPath.listFromJson(
+                  (json['paths'] as Iterable).cast<Map<String, dynamic>>())
+              : [],
         );
 
   /// Creates a list of HTTPIngressRuleValue from JSON data.
-  static List<HTTPIngressRuleValue> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<HTTPIngressRuleValue> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => HTTPIngressRuleValue.fromJson(e)).toList();
   }
 
   /// Converts a HTTPIngressRuleValue instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['paths'] = paths.map((item) => item.toJson()).toList();
-    
 
     return jsonData;
   }
-
 
   /// Paths is a collection of paths that map requests to backends.
   final List<HTTPIngressPath> paths;

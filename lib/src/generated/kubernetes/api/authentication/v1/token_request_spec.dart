@@ -12,29 +12,35 @@ class TokenRequestSpec {
   /// Creates a TokenRequestSpec from JSON data.
   TokenRequestSpec.fromJson(Map<String, dynamic> json)
       : this(
-          audiences: json['audiences'] != null ? List<String>.from(json['audiences']) : [],
-          boundObjectRef: json['boundObjectRef'] != null ? BoundObjectReference.fromJson(json['boundObjectRef']): null,
+          audiences: json['audiences'] != null
+              ? List<String>.from(json['audiences'])
+              : [],
+          boundObjectRef: json['boundObjectRef'] != null
+              ? BoundObjectReference.fromJson(json['boundObjectRef'])
+              : null,
           expirationSeconds: json['expirationSeconds'],
         );
 
   /// Creates a list of TokenRequestSpec from JSON data.
-  static List<TokenRequestSpec> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<TokenRequestSpec> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => TokenRequestSpec.fromJson(e)).toList();
   }
 
   /// Converts a TokenRequestSpec instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['audiences'] = audiences;
-    if(boundObjectRef != null) { jsonData['boundObjectRef'] = boundObjectRef!.toJson(); }
-    if(expirationSeconds != null) { jsonData['expirationSeconds'] = expirationSeconds!; }
-    
+    if (boundObjectRef != null) {
+      jsonData['boundObjectRef'] = boundObjectRef!.toJson();
+    }
+    if (expirationSeconds != null) {
+      jsonData['expirationSeconds'] = expirationSeconds!;
+    }
 
     return jsonData;
   }
-
 
   /// Audiences are the intendend audiences of the token. A recipient of a token must identify themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
   final List<String> audiences;

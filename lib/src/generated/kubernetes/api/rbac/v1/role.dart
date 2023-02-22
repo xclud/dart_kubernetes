@@ -16,8 +16,13 @@ class Role {
       : this(
           apiVersion: json['apiVersion'],
           kind: json['kind'],
-          metadata: json['metadata'] != null ? ObjectMeta.fromJson(json['metadata']): null,
-          rules: json['rules'] != null ? PolicyRule.listFromJson((json['rules'] as Iterable).cast<Map<String, dynamic>>()): null,
+          metadata: json['metadata'] != null
+              ? ObjectMeta.fromJson(json['metadata'])
+              : null,
+          rules: json['rules'] != null
+              ? PolicyRule.listFromJson(
+                  (json['rules'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
         );
 
   /// Creates a list of Role from JSON data.
@@ -26,19 +31,24 @@ class Role {
   }
 
   /// Converts a Role instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiVersion != null) { jsonData['apiVersion'] = apiVersion!; }
-    if(kind != null) { jsonData['kind'] = kind!; }
-    if(metadata != null) { jsonData['metadata'] = metadata!.toJson(); }
-    if(rules != null) { jsonData['rules'] = rules!.map((item) => item.toJson()).toList(); }
-    
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
+    if (rules != null) {
+      jsonData['rules'] = rules!.map((item) => item.toJson()).toList();
+    }
 
     return jsonData;
   }
-
 
   /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;

@@ -1,4 +1,3 @@
-
 /// LimitRangeItem defines a min/max usage limit for any resource that matches on kind.
 class LimitRangeItem {
   /// The main constructor.
@@ -14,35 +13,53 @@ class LimitRangeItem {
   /// Creates a LimitRangeItem from JSON data.
   LimitRangeItem.fromJson(Map<String, dynamic> json)
       : this(
-          $default: json['default'] != null ? Map<String, String>.from(json['default']) : null,
-          defaultRequest: json['defaultRequest'] != null ? Map<String, String>.from(json['defaultRequest']) : null,
-          max: json['max'] != null ? Map<String, String>.from(json['max']) : null,
-          maxLimitRequestRatio: json['maxLimitRequestRatio'] != null ? Map<String, String>.from(json['maxLimitRequestRatio']) : null,
-          min: json['min'] != null ? Map<String, String>.from(json['min']) : null,
+          $default: json['default'] != null
+              ? Map<String, String>.from(json['default'])
+              : null,
+          defaultRequest: json['defaultRequest'] != null
+              ? Map<String, String>.from(json['defaultRequest'])
+              : null,
+          max: json['max'] != null
+              ? Map<String, String>.from(json['max'])
+              : null,
+          maxLimitRequestRatio: json['maxLimitRequestRatio'] != null
+              ? Map<String, String>.from(json['maxLimitRequestRatio'])
+              : null,
+          min: json['min'] != null
+              ? Map<String, String>.from(json['min'])
+              : null,
           type: json['type'],
         );
 
   /// Creates a list of LimitRangeItem from JSON data.
-  static List<LimitRangeItem> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<LimitRangeItem> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => LimitRangeItem.fromJson(e)).toList();
   }
 
   /// Converts a LimitRangeItem instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if($default != null) { jsonData['default'] = $default!; }
-    if(defaultRequest != null) { jsonData['defaultRequest'] = defaultRequest!; }
-    if(max != null) { jsonData['max'] = max!; }
-    if(maxLimitRequestRatio != null) { jsonData['maxLimitRequestRatio'] = maxLimitRequestRatio!; }
-    if(min != null) { jsonData['min'] = min!; }
+    if ($default != null) {
+      jsonData['default'] = $default!;
+    }
+    if (defaultRequest != null) {
+      jsonData['defaultRequest'] = defaultRequest!;
+    }
+    if (max != null) {
+      jsonData['max'] = max!;
+    }
+    if (maxLimitRequestRatio != null) {
+      jsonData['maxLimitRequestRatio'] = maxLimitRequestRatio!;
+    }
+    if (min != null) {
+      jsonData['min'] = min!;
+    }
     jsonData['type'] = type;
-    
 
     return jsonData;
   }
-
 
   /// Default resource requirement limit value by resource name if resource limit is omitted.
   final Map<String, String>? $default;

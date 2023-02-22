@@ -1,4 +1,3 @@
-
 /// ClientIPConfig represents the configurations of Client IP based session affinity.
 class ClientIPConfig {
   /// The main constructor.
@@ -13,21 +12,21 @@ class ClientIPConfig {
         );
 
   /// Creates a list of ClientIPConfig from JSON data.
-  static List<ClientIPConfig> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ClientIPConfig> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ClientIPConfig.fromJson(e)).toList();
   }
 
   /// Converts a ClientIPConfig instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(timeoutSeconds != null) { jsonData['timeoutSeconds'] = timeoutSeconds!; }
-    
+    if (timeoutSeconds != null) {
+      jsonData['timeoutSeconds'] = timeoutSeconds!;
+    }
 
     return jsonData;
   }
-
 
   /// TimeoutSeconds specifies the seconds of ClientIP type session sticky time. The value must be >0 && <=86400(for 1 day) if ServiceAffinity == "ClientIP". Default value is 10800(for 3 hours).
   final int? timeoutSeconds;

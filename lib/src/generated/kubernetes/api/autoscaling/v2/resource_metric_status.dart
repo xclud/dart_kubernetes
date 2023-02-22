@@ -16,22 +16,20 @@ class ResourceMetricStatus {
         );
 
   /// Creates a list of ResourceMetricStatus from JSON data.
-  static List<ResourceMetricStatus> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ResourceMetricStatus> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ResourceMetricStatus.fromJson(e)).toList();
   }
 
   /// Converts a ResourceMetricStatus instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['current'] = current.toJson();
     jsonData['name'] = name;
-    
 
     return jsonData;
   }
-
 
   /// Current contains the current value for the given metric.
   final MetricValueStatus current;

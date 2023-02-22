@@ -1,4 +1,3 @@
-
 /// NodeCondition contains condition information for a node.
 class NodeCondition {
   /// The main constructor.
@@ -14,8 +13,12 @@ class NodeCondition {
   /// Creates a NodeCondition from JSON data.
   NodeCondition.fromJson(Map<String, dynamic> json)
       : this(
-          lastHeartbeatTime: json['lastHeartbeatTime'] != null ? DateTime.tryParse(json['lastHeartbeatTime']): null,
-          lastTransitionTime: json['lastTransitionTime'] != null ? DateTime.tryParse(json['lastTransitionTime']): null,
+          lastHeartbeatTime: json['lastHeartbeatTime'] != null
+              ? DateTime.tryParse(json['lastHeartbeatTime'])
+              : null,
+          lastTransitionTime: json['lastTransitionTime'] != null
+              ? DateTime.tryParse(json['lastTransitionTime'])
+              : null,
           message: json['message'],
           reason: json['reason'],
           status: json['status'],
@@ -28,21 +31,26 @@ class NodeCondition {
   }
 
   /// Converts a NodeCondition instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(lastHeartbeatTime != null) { jsonData['lastHeartbeatTime'] = lastHeartbeatTime!.toIso8601String(); }
-    if(lastTransitionTime != null) { jsonData['lastTransitionTime'] = lastTransitionTime!.toIso8601String(); }
-    if(message != null) { jsonData['message'] = message!; }
-    if(reason != null) { jsonData['reason'] = reason!; }
+    if (lastHeartbeatTime != null) {
+      jsonData['lastHeartbeatTime'] = lastHeartbeatTime!.toIso8601String();
+    }
+    if (lastTransitionTime != null) {
+      jsonData['lastTransitionTime'] = lastTransitionTime!.toIso8601String();
+    }
+    if (message != null) {
+      jsonData['message'] = message!;
+    }
+    if (reason != null) {
+      jsonData['reason'] = reason!;
+    }
     jsonData['status'] = status;
     jsonData['type'] = type;
-    
 
     return jsonData;
   }
-
 
   /// Last time we got an update on a given condition.
   final DateTime? lastHeartbeatTime;

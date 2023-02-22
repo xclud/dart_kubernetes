@@ -16,29 +16,38 @@ class SubjectRulesReviewStatus {
       : this(
           evaluationError: json['evaluationError'],
           incomplete: json['incomplete'],
-          nonResourceRules: json['nonResourceRules'] != null ? NonResourceRule.listFromJson((json['nonResourceRules'] as Iterable).cast<Map<String, dynamic>>()): [],
-          resourceRules: json['resourceRules'] != null ? ResourceRule.listFromJson((json['resourceRules'] as Iterable).cast<Map<String, dynamic>>()): [],
+          nonResourceRules: json['nonResourceRules'] != null
+              ? NonResourceRule.listFromJson(
+                  (json['nonResourceRules'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : [],
+          resourceRules: json['resourceRules'] != null
+              ? ResourceRule.listFromJson((json['resourceRules'] as Iterable)
+                  .cast<Map<String, dynamic>>())
+              : [],
         );
 
   /// Creates a list of SubjectRulesReviewStatus from JSON data.
-  static List<SubjectRulesReviewStatus> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<SubjectRulesReviewStatus> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => SubjectRulesReviewStatus.fromJson(e)).toList();
   }
 
   /// Converts a SubjectRulesReviewStatus instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(evaluationError != null) { jsonData['evaluationError'] = evaluationError!; }
+    if (evaluationError != null) {
+      jsonData['evaluationError'] = evaluationError!;
+    }
     jsonData['incomplete'] = incomplete;
-    jsonData['nonResourceRules'] = nonResourceRules.map((item) => item.toJson()).toList();
-    jsonData['resourceRules'] = resourceRules.map((item) => item.toJson()).toList();
-    
+    jsonData['nonResourceRules'] =
+        nonResourceRules.map((item) => item.toJson()).toList();
+    jsonData['resourceRules'] =
+        resourceRules.map((item) => item.toJson()).toList();
 
     return jsonData;
   }
-
 
   /// EvaluationError can appear in combination with Rules. It indicates an error occurred during rule evaluation, such as an authorizer that doesn't support rule evaluation, and that ResourceRules and/or NonResourceRules may be incomplete.
   final String? evaluationError;

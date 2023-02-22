@@ -3,7 +3,7 @@ import 'package:kubernetes/src/generated/kubernetes/api/resource/v1alpha1/pod_sc
 import 'package:kubernetes/src/generated/kubernetes/api/resource/v1alpha1/pod_scheduling_status.dart';
 
 /// PodScheduling objects hold information that is needed to schedule a Pod with ResourceClaims that use "WaitForFirstConsumer" allocation mode.
-/// 
+///
 /// This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
 class PodScheduling {
   /// The main constructor.
@@ -20,9 +20,13 @@ class PodScheduling {
       : this(
           apiVersion: json['apiVersion'],
           kind: json['kind'],
-          metadata: json['metadata'] != null ? ObjectMeta.fromJson(json['metadata']): null,
+          metadata: json['metadata'] != null
+              ? ObjectMeta.fromJson(json['metadata'])
+              : null,
           spec: PodSchedulingSpec.fromJson(json['spec']),
-          status: json['status'] != null ? PodSchedulingStatus.fromJson(json['status']): null,
+          status: json['status'] != null
+              ? PodSchedulingStatus.fromJson(json['status'])
+              : null,
         );
 
   /// Creates a list of PodScheduling from JSON data.
@@ -31,20 +35,25 @@ class PodScheduling {
   }
 
   /// Converts a PodScheduling instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiVersion != null) { jsonData['apiVersion'] = apiVersion!; }
-    if(kind != null) { jsonData['kind'] = kind!; }
-    if(metadata != null) { jsonData['metadata'] = metadata!.toJson(); }
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
     jsonData['spec'] = spec.toJson();
-    if(status != null) { jsonData['status'] = status!.toJson(); }
-    
+    if (status != null) {
+      jsonData['status'] = status!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;

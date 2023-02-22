@@ -13,29 +13,41 @@ class CustomResourceDefinitionStatus {
   /// Creates a CustomResourceDefinitionStatus from JSON data.
   CustomResourceDefinitionStatus.fromJson(Map<String, dynamic> json)
       : this(
-          acceptedNames: json['acceptedNames'] != null ? CustomResourceDefinitionNames.fromJson(json['acceptedNames']): null,
-          conditions: json['conditions'] != null ? CustomResourceDefinitionCondition.listFromJson((json['conditions'] as Iterable).cast<Map<String, dynamic>>()): null,
-          storedVersions: json['storedVersions'] != null ? List<String>.from(json['storedVersions']) : null,
+          acceptedNames: json['acceptedNames'] != null
+              ? CustomResourceDefinitionNames.fromJson(json['acceptedNames'])
+              : null,
+          conditions: json['conditions'] != null
+              ? CustomResourceDefinitionCondition.listFromJson(
+                  (json['conditions'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
+          storedVersions: json['storedVersions'] != null
+              ? List<String>.from(json['storedVersions'])
+              : null,
         );
 
   /// Creates a list of CustomResourceDefinitionStatus from JSON data.
-  static List<CustomResourceDefinitionStatus> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<CustomResourceDefinitionStatus> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => CustomResourceDefinitionStatus.fromJson(e)).toList();
   }
 
   /// Converts a CustomResourceDefinitionStatus instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(acceptedNames != null) { jsonData['acceptedNames'] = acceptedNames!.toJson(); }
-    if(conditions != null) { jsonData['conditions'] = conditions!.map((item) => item.toJson()).toList(); }
-    if(storedVersions != null) { jsonData['storedVersions'] = storedVersions!; }
-    
+    if (acceptedNames != null) {
+      jsonData['acceptedNames'] = acceptedNames!.toJson();
+    }
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
+    if (storedVersions != null) {
+      jsonData['storedVersions'] = storedVersions!;
+    }
 
     return jsonData;
   }
-
 
   /// AcceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
   final CustomResourceDefinitionNames? acceptedNames;

@@ -1,4 +1,3 @@
-
 /// StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.
 class StatefulSetPersistentVolumeClaimRetentionPolicy {
   /// The main constructor.
@@ -8,29 +7,34 @@ class StatefulSetPersistentVolumeClaimRetentionPolicy {
   });
 
   /// Creates a StatefulSetPersistentVolumeClaimRetentionPolicy from JSON data.
-  StatefulSetPersistentVolumeClaimRetentionPolicy.fromJson(Map<String, dynamic> json)
+  StatefulSetPersistentVolumeClaimRetentionPolicy.fromJson(
+      Map<String, dynamic> json)
       : this(
           whenDeleted: json['whenDeleted'],
           whenScaled: json['whenScaled'],
         );
 
   /// Creates a list of StatefulSetPersistentVolumeClaimRetentionPolicy from JSON data.
-  static List<StatefulSetPersistentVolumeClaimRetentionPolicy> listFromJson(Iterable<Map<String, dynamic>> list) {
-    return list.map((e) => StatefulSetPersistentVolumeClaimRetentionPolicy.fromJson(e)).toList();
+  static List<StatefulSetPersistentVolumeClaimRetentionPolicy> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
+    return list
+        .map((e) => StatefulSetPersistentVolumeClaimRetentionPolicy.fromJson(e))
+        .toList();
   }
 
   /// Converts a StatefulSetPersistentVolumeClaimRetentionPolicy instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(whenDeleted != null) { jsonData['whenDeleted'] = whenDeleted!; }
-    if(whenScaled != null) { jsonData['whenScaled'] = whenScaled!; }
-    
+    if (whenDeleted != null) {
+      jsonData['whenDeleted'] = whenDeleted!;
+    }
+    if (whenScaled != null) {
+      jsonData['whenScaled'] = whenScaled!;
+    }
 
     return jsonData;
   }
-
 
   /// WhenDeleted specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is deleted. The default policy of `Retain` causes PVCs to not be affected by StatefulSet deletion. The `Delete` policy causes those PVCs to be deleted.
   final String? whenDeleted;

@@ -19,10 +19,18 @@ class EndpointSlice {
       : this(
           addressType: json['addressType'],
           apiVersion: json['apiVersion'],
-          endpoints: json['endpoints'] != null ? Endpoint.listFromJson((json['endpoints'] as Iterable).cast<Map<String, dynamic>>()): [],
+          endpoints: json['endpoints'] != null
+              ? Endpoint.listFromJson(
+                  (json['endpoints'] as Iterable).cast<Map<String, dynamic>>())
+              : [],
           kind: json['kind'],
-          metadata: json['metadata'] != null ? ObjectMeta.fromJson(json['metadata']): null,
-          ports: json['ports'] != null ? EndpointPort.listFromJson((json['ports'] as Iterable).cast<Map<String, dynamic>>()): null,
+          metadata: json['metadata'] != null
+              ? ObjectMeta.fromJson(json['metadata'])
+              : null,
+          ports: json['ports'] != null
+              ? EndpointPort.listFromJson(
+                  (json['ports'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
         );
 
   /// Creates a list of EndpointSlice from JSON data.
@@ -31,21 +39,26 @@ class EndpointSlice {
   }
 
   /// Converts a EndpointSlice instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['addressType'] = addressType;
-    if(apiVersion != null) { jsonData['apiVersion'] = apiVersion!; }
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
     jsonData['endpoints'] = endpoints.map((item) => item.toJson()).toList();
-    if(kind != null) { jsonData['kind'] = kind!; }
-    if(metadata != null) { jsonData['metadata'] = metadata!.toJson(); }
-    if(ports != null) { jsonData['ports'] = ports!.map((item) => item.toJson()).toList(); }
-    
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
+    if (ports != null) {
+      jsonData['ports'] = ports!.map((item) => item.toJson()).toList();
+    }
 
     return jsonData;
   }
-
 
   /// AddressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
   final String addressType;

@@ -1,4 +1,3 @@
-
 /// TCPSocketAction describes an action based on opening a socket.
 class TCPSocketAction {
   /// The main constructor.
@@ -15,22 +14,22 @@ class TCPSocketAction {
         );
 
   /// Creates a list of TCPSocketAction from JSON data.
-  static List<TCPSocketAction> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<TCPSocketAction> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => TCPSocketAction.fromJson(e)).toList();
   }
 
   /// Converts a TCPSocketAction instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(host != null) { jsonData['host'] = host!; }
+    if (host != null) {
+      jsonData['host'] = host!;
+    }
     jsonData['port'] = port;
-    
 
     return jsonData;
   }
-
 
   /// Optional: Host name to connect to, defaults to the pod IP.
   final String? host;

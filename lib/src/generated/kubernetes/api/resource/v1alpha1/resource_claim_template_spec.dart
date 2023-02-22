@@ -12,27 +12,29 @@ class ResourceClaimTemplateSpec {
   /// Creates a ResourceClaimTemplateSpec from JSON data.
   ResourceClaimTemplateSpec.fromJson(Map<String, dynamic> json)
       : this(
-          metadata: json['metadata'] != null ? ObjectMeta.fromJson(json['metadata']): null,
+          metadata: json['metadata'] != null
+              ? ObjectMeta.fromJson(json['metadata'])
+              : null,
           spec: ResourceClaimSpec.fromJson(json['spec']),
         );
 
   /// Creates a list of ResourceClaimTemplateSpec from JSON data.
-  static List<ResourceClaimTemplateSpec> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ResourceClaimTemplateSpec> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ResourceClaimTemplateSpec.fromJson(e)).toList();
   }
 
   /// Converts a ResourceClaimTemplateSpec instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(metadata != null) { jsonData['metadata'] = metadata!.toJson(); }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
     jsonData['spec'] = spec.toJson();
-    
 
     return jsonData;
   }
-
 
   /// ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
   final ObjectMeta? metadata;

@@ -33,19 +33,31 @@ class Event {
           action: json['action'],
           apiVersion: json['apiVersion'],
           count: json['count'],
-          eventTime: json['eventTime'] != null ? MicroTime.fromJson(json['eventTime']): null,
-          firstTimestamp: json['firstTimestamp'] != null ? DateTime.tryParse(json['firstTimestamp']): null,
+          eventTime: json['eventTime'] != null
+              ? MicroTime.fromJson(json['eventTime'])
+              : null,
+          firstTimestamp: json['firstTimestamp'] != null
+              ? DateTime.tryParse(json['firstTimestamp'])
+              : null,
           involvedObject: ObjectReference.fromJson(json['involvedObject']),
           kind: json['kind'],
-          lastTimestamp: json['lastTimestamp'] != null ? DateTime.tryParse(json['lastTimestamp']): null,
+          lastTimestamp: json['lastTimestamp'] != null
+              ? DateTime.tryParse(json['lastTimestamp'])
+              : null,
           message: json['message'],
           metadata: ObjectMeta.fromJson(json['metadata']),
           reason: json['reason'],
-          related: json['related'] != null ? ObjectReference.fromJson(json['related']): null,
+          related: json['related'] != null
+              ? ObjectReference.fromJson(json['related'])
+              : null,
           reportingComponent: json['reportingComponent'],
           reportingInstance: json['reportingInstance'],
-          series: json['series'] != null ? EventSeries.fromJson(json['series']): null,
-          source: json['source'] != null ? EventSource.fromJson(json['source']): null,
+          series: json['series'] != null
+              ? EventSeries.fromJson(json['series'])
+              : null,
+          source: json['source'] != null
+              ? EventSource.fromJson(json['source'])
+              : null,
           type: json['type'],
         );
 
@@ -55,32 +67,59 @@ class Event {
   }
 
   /// Converts a Event instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(action != null) { jsonData['action'] = action!; }
-    if(apiVersion != null) { jsonData['apiVersion'] = apiVersion!; }
-    if(count != null) { jsonData['count'] = count!; }
-    if(eventTime != null) { jsonData['eventTime'] = eventTime!.toJson(); }
-    if(firstTimestamp != null) { jsonData['firstTimestamp'] = firstTimestamp!.toIso8601String(); }
+    if (action != null) {
+      jsonData['action'] = action!;
+    }
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (count != null) {
+      jsonData['count'] = count!;
+    }
+    if (eventTime != null) {
+      jsonData['eventTime'] = eventTime!.toJson();
+    }
+    if (firstTimestamp != null) {
+      jsonData['firstTimestamp'] = firstTimestamp!.toIso8601String();
+    }
     jsonData['involvedObject'] = involvedObject.toJson();
-    if(kind != null) { jsonData['kind'] = kind!; }
-    if(lastTimestamp != null) { jsonData['lastTimestamp'] = lastTimestamp!.toIso8601String(); }
-    if(message != null) { jsonData['message'] = message!; }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (lastTimestamp != null) {
+      jsonData['lastTimestamp'] = lastTimestamp!.toIso8601String();
+    }
+    if (message != null) {
+      jsonData['message'] = message!;
+    }
     jsonData['metadata'] = metadata.toJson();
-    if(reason != null) { jsonData['reason'] = reason!; }
-    if(related != null) { jsonData['related'] = related!.toJson(); }
-    if(reportingComponent != null) { jsonData['reportingComponent'] = reportingComponent!; }
-    if(reportingInstance != null) { jsonData['reportingInstance'] = reportingInstance!; }
-    if(series != null) { jsonData['series'] = series!.toJson(); }
-    if(source != null) { jsonData['source'] = source!.toJson(); }
-    if(type != null) { jsonData['type'] = type!; }
-    
+    if (reason != null) {
+      jsonData['reason'] = reason!;
+    }
+    if (related != null) {
+      jsonData['related'] = related!.toJson();
+    }
+    if (reportingComponent != null) {
+      jsonData['reportingComponent'] = reportingComponent!;
+    }
+    if (reportingInstance != null) {
+      jsonData['reportingInstance'] = reportingInstance!;
+    }
+    if (series != null) {
+      jsonData['series'] = series!.toJson();
+    }
+    if (source != null) {
+      jsonData['source'] = source!.toJson();
+    }
+    if (type != null) {
+      jsonData['type'] = type!;
+    }
 
     return jsonData;
   }
-
 
   /// What action was taken/failed regarding to the Regarding object.
   final String? action;

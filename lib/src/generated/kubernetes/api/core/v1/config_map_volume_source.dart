@@ -1,7 +1,7 @@
 import 'package:kubernetes/src/generated/kubernetes/api/core/v1/key_to_path.dart';
 
 /// Adapts a ConfigMap into a volume.
-/// 
+///
 /// The contents of the target ConfigMap's Data field will be presented in a volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. ConfigMap volumes support ownership management and SELinux relabeling.
 class ConfigMapVolumeSource {
   /// The main constructor.
@@ -16,30 +16,39 @@ class ConfigMapVolumeSource {
   ConfigMapVolumeSource.fromJson(Map<String, dynamic> json)
       : this(
           defaultMode: json['defaultMode'],
-          items: json['items'] != null ? KeyToPath.listFromJson((json['items'] as Iterable).cast<Map<String, dynamic>>()): null,
+          items: json['items'] != null
+              ? KeyToPath.listFromJson(
+                  (json['items'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
           name: json['name'],
           optional: json['optional'],
         );
 
   /// Creates a list of ConfigMapVolumeSource from JSON data.
-  static List<ConfigMapVolumeSource> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ConfigMapVolumeSource> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ConfigMapVolumeSource.fromJson(e)).toList();
   }
 
   /// Converts a ConfigMapVolumeSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(defaultMode != null) { jsonData['defaultMode'] = defaultMode!; }
-    if(items != null) { jsonData['items'] = items!.map((item) => item.toJson()).toList(); }
-    if(name != null) { jsonData['name'] = name!; }
-    if(optional != null) { jsonData['optional'] = optional!; }
-    
+    if (defaultMode != null) {
+      jsonData['defaultMode'] = defaultMode!;
+    }
+    if (items != null) {
+      jsonData['items'] = items!.map((item) => item.toJson()).toList();
+    }
+    if (name != null) {
+      jsonData['name'] = name!;
+    }
+    if (optional != null) {
+      jsonData['optional'] = optional!;
+    }
 
     return jsonData;
   }
-
 
   /// DefaultMode is optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
   final int? defaultMode;

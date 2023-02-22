@@ -1,4 +1,3 @@
-
 /// ContainerStateWaiting is a waiting state of a container.
 class ContainerStateWaiting {
   /// The main constructor.
@@ -15,22 +14,24 @@ class ContainerStateWaiting {
         );
 
   /// Creates a list of ContainerStateWaiting from JSON data.
-  static List<ContainerStateWaiting> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ContainerStateWaiting> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ContainerStateWaiting.fromJson(e)).toList();
   }
 
   /// Converts a ContainerStateWaiting instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(message != null) { jsonData['message'] = message!; }
-    if(reason != null) { jsonData['reason'] = reason!; }
-    
+    if (message != null) {
+      jsonData['message'] = message!;
+    }
+    if (reason != null) {
+      jsonData['reason'] = reason!;
+    }
 
     return jsonData;
   }
-
 
   /// Message regarding why the container is not yet running.
   final String? message;

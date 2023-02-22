@@ -15,29 +15,39 @@ class ReplicationControllerSpec {
       : this(
           minReadySeconds: json['minReadySeconds'],
           replicas: json['replicas'],
-          selector: json['selector'] != null ? Map<String, String>.from(json['selector']) : null,
-          template: json['template'] != null ? PodTemplateSpec.fromJson(json['template']): null,
+          selector: json['selector'] != null
+              ? Map<String, String>.from(json['selector'])
+              : null,
+          template: json['template'] != null
+              ? PodTemplateSpec.fromJson(json['template'])
+              : null,
         );
 
   /// Creates a list of ReplicationControllerSpec from JSON data.
-  static List<ReplicationControllerSpec> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ReplicationControllerSpec> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ReplicationControllerSpec.fromJson(e)).toList();
   }
 
   /// Converts a ReplicationControllerSpec instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(minReadySeconds != null) { jsonData['minReadySeconds'] = minReadySeconds!; }
-    if(replicas != null) { jsonData['replicas'] = replicas!; }
-    if(selector != null) { jsonData['selector'] = selector!; }
-    if(template != null) { jsonData['template'] = template!.toJson(); }
-    
+    if (minReadySeconds != null) {
+      jsonData['minReadySeconds'] = minReadySeconds!;
+    }
+    if (replicas != null) {
+      jsonData['replicas'] = replicas!;
+    }
+    if (selector != null) {
+      jsonData['selector'] = selector!;
+    }
+    if (template != null) {
+      jsonData['template'] = template!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
   final int? minReadySeconds;

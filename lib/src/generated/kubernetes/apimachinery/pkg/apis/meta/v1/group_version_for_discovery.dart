@@ -1,4 +1,3 @@
-
 /// GroupVersion contains the "group/version" and "version" string of a version. It is made a struct to keep extensibility.
 class GroupVersionForDiscovery {
   /// The main constructor.
@@ -15,22 +14,20 @@ class GroupVersionForDiscovery {
         );
 
   /// Creates a list of GroupVersionForDiscovery from JSON data.
-  static List<GroupVersionForDiscovery> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<GroupVersionForDiscovery> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => GroupVersionForDiscovery.fromJson(e)).toList();
   }
 
   /// Converts a GroupVersionForDiscovery instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['groupVersion'] = groupVersion;
     jsonData['version'] = version;
-    
 
     return jsonData;
   }
-
 
   /// GroupVersion specifies the API group and version in the form "group/version".
   final String groupVersion;

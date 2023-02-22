@@ -1,4 +1,3 @@
-
 /// Represents an NFS mount that lasts the lifetime of a pod. NFS volumes do not support ownership management or SELinux relabeling.
 class NFSVolumeSource {
   /// The main constructor.
@@ -17,23 +16,23 @@ class NFSVolumeSource {
         );
 
   /// Creates a list of NFSVolumeSource from JSON data.
-  static List<NFSVolumeSource> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<NFSVolumeSource> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => NFSVolumeSource.fromJson(e)).toList();
   }
 
   /// Converts a NFSVolumeSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['path'] = path;
-    if(readOnly != null) { jsonData['readOnly'] = readOnly!; }
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
     jsonData['server'] = server;
-    
 
     return jsonData;
   }
-
 
   /// Path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs.
   final String path;

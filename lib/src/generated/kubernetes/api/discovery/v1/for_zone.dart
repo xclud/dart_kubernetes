@@ -1,4 +1,3 @@
-
 /// ForZone provides information about which zones should consume this endpoint.
 class ForZone {
   /// The main constructor.
@@ -18,16 +17,13 @@ class ForZone {
   }
 
   /// Converts a ForZone instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['name'] = name;
-    
 
     return jsonData;
   }
-
 
   /// Name represents the name of the zone.
   final String name;

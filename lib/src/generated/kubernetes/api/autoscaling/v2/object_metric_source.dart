@@ -14,29 +14,28 @@ class ObjectMetricSource {
   /// Creates a ObjectMetricSource from JSON data.
   ObjectMetricSource.fromJson(Map<String, dynamic> json)
       : this(
-          describedObject: CrossVersionObjectReference.fromJson(json['describedObject']),
+          describedObject:
+              CrossVersionObjectReference.fromJson(json['describedObject']),
           metric: MetricIdentifier.fromJson(json['metric']),
           target: MetricTarget.fromJson(json['target']),
         );
 
   /// Creates a list of ObjectMetricSource from JSON data.
-  static List<ObjectMetricSource> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ObjectMetricSource> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ObjectMetricSource.fromJson(e)).toList();
   }
 
   /// Converts a ObjectMetricSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['describedObject'] = describedObject.toJson();
     jsonData['metric'] = metric.toJson();
     jsonData['target'] = target.toJson();
-    
 
     return jsonData;
   }
-
 
   /// DescribedObject specifies the descriptions of a object,such as kind,name apiVersion.
   final CrossVersionObjectReference describedObject;

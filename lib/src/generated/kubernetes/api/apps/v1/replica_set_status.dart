@@ -16,7 +16,10 @@ class ReplicaSetStatus {
   ReplicaSetStatus.fromJson(Map<String, dynamic> json)
       : this(
           availableReplicas: json['availableReplicas'],
-          conditions: json['conditions'] != null ? ReplicaSetCondition.listFromJson((json['conditions'] as Iterable).cast<Map<String, dynamic>>()): null,
+          conditions: json['conditions'] != null
+              ? ReplicaSetCondition.listFromJson(
+                  (json['conditions'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
           fullyLabeledReplicas: json['fullyLabeledReplicas'],
           observedGeneration: json['observedGeneration'],
           readyReplicas: json['readyReplicas'],
@@ -24,26 +27,35 @@ class ReplicaSetStatus {
         );
 
   /// Creates a list of ReplicaSetStatus from JSON data.
-  static List<ReplicaSetStatus> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ReplicaSetStatus> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ReplicaSetStatus.fromJson(e)).toList();
   }
 
   /// Converts a ReplicaSetStatus instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(availableReplicas != null) { jsonData['availableReplicas'] = availableReplicas!; }
-    if(conditions != null) { jsonData['conditions'] = conditions!.map((item) => item.toJson()).toList(); }
-    if(fullyLabeledReplicas != null) { jsonData['fullyLabeledReplicas'] = fullyLabeledReplicas!; }
-    if(observedGeneration != null) { jsonData['observedGeneration'] = observedGeneration!; }
-    if(readyReplicas != null) { jsonData['readyReplicas'] = readyReplicas!; }
+    if (availableReplicas != null) {
+      jsonData['availableReplicas'] = availableReplicas!;
+    }
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
+    if (fullyLabeledReplicas != null) {
+      jsonData['fullyLabeledReplicas'] = fullyLabeledReplicas!;
+    }
+    if (observedGeneration != null) {
+      jsonData['observedGeneration'] = observedGeneration!;
+    }
+    if (readyReplicas != null) {
+      jsonData['readyReplicas'] = readyReplicas!;
+    }
     jsonData['replicas'] = replicas;
-    
 
     return jsonData;
   }
-
 
   /// The number of available replicas (ready for at least minReadySeconds) for this replica set.
   final int? availableReplicas;

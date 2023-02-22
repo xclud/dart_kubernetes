@@ -1,4 +1,3 @@
-
 /// TokenRequest contains parameters of a service account token.
 class TokenRequest {
   /// The main constructor.
@@ -20,17 +19,16 @@ class TokenRequest {
   }
 
   /// Converts a TokenRequest instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['audience'] = audience;
-    if(expirationSeconds != null) { jsonData['expirationSeconds'] = expirationSeconds!; }
-    
+    if (expirationSeconds != null) {
+      jsonData['expirationSeconds'] = expirationSeconds!;
+    }
 
     return jsonData;
   }
-
 
   /// Audience is the intended audience of the token in "TokenRequestSpec". It will default to the audiences of kube apiserver.
   final String audience;

@@ -10,25 +10,29 @@ class APIServiceStatus {
   /// Creates a APIServiceStatus from JSON data.
   APIServiceStatus.fromJson(Map<String, dynamic> json)
       : this(
-          conditions: json['conditions'] != null ? APIServiceCondition.listFromJson((json['conditions'] as Iterable).cast<Map<String, dynamic>>()): null,
+          conditions: json['conditions'] != null
+              ? APIServiceCondition.listFromJson(
+                  (json['conditions'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
         );
 
   /// Creates a list of APIServiceStatus from JSON data.
-  static List<APIServiceStatus> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<APIServiceStatus> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => APIServiceStatus.fromJson(e)).toList();
   }
 
   /// Converts a APIServiceStatus instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(conditions != null) { jsonData['conditions'] = conditions!.map((item) => item.toJson()).toList(); }
-    
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
 
     return jsonData;
   }
-
 
   /// Current service state of apiService.
   final List<APIServiceCondition>? conditions;

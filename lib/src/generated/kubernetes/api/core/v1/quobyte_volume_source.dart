@@ -1,4 +1,3 @@
-
 /// Represents a Quobyte mount that lasts the lifetime of a pod. Quobyte volumes do not support ownership management or SELinux relabeling.
 class QuobyteVolumeSource {
   /// The main constructor.
@@ -23,26 +22,32 @@ class QuobyteVolumeSource {
         );
 
   /// Creates a list of QuobyteVolumeSource from JSON data.
-  static List<QuobyteVolumeSource> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<QuobyteVolumeSource> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => QuobyteVolumeSource.fromJson(e)).toList();
   }
 
   /// Converts a QuobyteVolumeSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(group != null) { jsonData['group'] = group!; }
-    if(readOnly != null) { jsonData['readOnly'] = readOnly!; }
+    if (group != null) {
+      jsonData['group'] = group!;
+    }
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
     jsonData['registry'] = registry;
-    if(tenant != null) { jsonData['tenant'] = tenant!; }
-    if(user != null) { jsonData['user'] = user!; }
+    if (tenant != null) {
+      jsonData['tenant'] = tenant!;
+    }
+    if (user != null) {
+      jsonData['user'] = user!;
+    }
     jsonData['volume'] = volume;
-    
 
     return jsonData;
   }
-
 
   /// Group to map volume access to Default is no group.
   final String? group;

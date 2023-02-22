@@ -21,17 +21,14 @@ class EventSeries {
   }
 
   /// Converts a EventSeries instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['count'] = count;
     jsonData['lastObservedTime'] = lastObservedTime.toJson();
-    
 
     return jsonData;
   }
-
 
   /// Count is the number of occurrences in this series up to the last heartbeat time.
   final int count;

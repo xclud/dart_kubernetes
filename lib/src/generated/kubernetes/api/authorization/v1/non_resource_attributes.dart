@@ -1,4 +1,3 @@
-
 /// NonResourceAttributes includes the authorization attributes available for non-resource requests to the Authorizer interface.
 class NonResourceAttributes {
   /// The main constructor.
@@ -15,22 +14,24 @@ class NonResourceAttributes {
         );
 
   /// Creates a list of NonResourceAttributes from JSON data.
-  static List<NonResourceAttributes> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<NonResourceAttributes> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => NonResourceAttributes.fromJson(e)).toList();
   }
 
   /// Converts a NonResourceAttributes instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(path != null) { jsonData['path'] = path!; }
-    if(verb != null) { jsonData['verb'] = verb!; }
-    
+    if (path != null) {
+      jsonData['path'] = path!;
+    }
+    if (verb != null) {
+      jsonData['verb'] = verb!;
+    }
 
     return jsonData;
   }
-
 
   /// Path is the URL path of the request.
   final String? path;

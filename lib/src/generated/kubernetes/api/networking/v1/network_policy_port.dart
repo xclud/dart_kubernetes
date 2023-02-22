@@ -1,4 +1,3 @@
-
 /// NetworkPolicyPort describes a port to allow traffic on.
 class NetworkPolicyPort {
   /// The main constructor.
@@ -17,23 +16,27 @@ class NetworkPolicyPort {
         );
 
   /// Creates a list of NetworkPolicyPort from JSON data.
-  static List<NetworkPolicyPort> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<NetworkPolicyPort> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => NetworkPolicyPort.fromJson(e)).toList();
   }
 
   /// Converts a NetworkPolicyPort instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(endPort != null) { jsonData['endPort'] = endPort!; }
-    if(port != null) { jsonData['port'] = port!; }
-    if(protocol != null) { jsonData['protocol'] = protocol!; }
-    
+    if (endPort != null) {
+      jsonData['endPort'] = endPort!;
+    }
+    if (port != null) {
+      jsonData['port'] = port!;
+    }
+    if (protocol != null) {
+      jsonData['protocol'] = protocol!;
+    }
 
     return jsonData;
   }
-
 
   /// EndPort indicates that the range of ports from port to endPort if set, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port.
   final int? endPort;

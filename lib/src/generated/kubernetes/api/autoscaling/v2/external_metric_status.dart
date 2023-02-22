@@ -17,22 +17,20 @@ class ExternalMetricStatus {
         );
 
   /// Creates a list of ExternalMetricStatus from JSON data.
-  static List<ExternalMetricStatus> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ExternalMetricStatus> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ExternalMetricStatus.fromJson(e)).toList();
   }
 
   /// Converts a ExternalMetricStatus instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['current'] = current.toJson();
     jsonData['metric'] = metric.toJson();
-    
 
     return jsonData;
   }
-
 
   /// Current contains the current value for the given metric.
   final MetricValueStatus current;

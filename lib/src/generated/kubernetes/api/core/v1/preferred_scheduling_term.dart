@@ -16,22 +16,20 @@ class PreferredSchedulingTerm {
         );
 
   /// Creates a list of PreferredSchedulingTerm from JSON data.
-  static List<PreferredSchedulingTerm> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<PreferredSchedulingTerm> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => PreferredSchedulingTerm.fromJson(e)).toList();
   }
 
   /// Converts a PreferredSchedulingTerm instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['preference'] = preference.toJson();
     jsonData['weight'] = weight;
-    
 
     return jsonData;
   }
-
 
   /// A node selector term, associated with the corresponding weight.
   final NodeSelectorTerm preference;

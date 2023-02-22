@@ -1,4 +1,3 @@
-
 /// IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.
 class IngressClassParametersReference {
   /// The main constructor.
@@ -21,25 +20,31 @@ class IngressClassParametersReference {
         );
 
   /// Creates a list of IngressClassParametersReference from JSON data.
-  static List<IngressClassParametersReference> listFromJson(Iterable<Map<String, dynamic>> list) {
-    return list.map((e) => IngressClassParametersReference.fromJson(e)).toList();
+  static List<IngressClassParametersReference> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
+    return list
+        .map((e) => IngressClassParametersReference.fromJson(e))
+        .toList();
   }
 
   /// Converts a IngressClassParametersReference instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiGroup != null) { jsonData['apiGroup'] = apiGroup!; }
+    if (apiGroup != null) {
+      jsonData['apiGroup'] = apiGroup!;
+    }
     jsonData['kind'] = kind;
     jsonData['name'] = name;
-    if(namespace != null) { jsonData['namespace'] = namespace!; }
-    if(scope != null) { jsonData['scope'] = scope!; }
-    
+    if (namespace != null) {
+      jsonData['namespace'] = namespace!;
+    }
+    if (scope != null) {
+      jsonData['scope'] = scope!;
+    }
 
     return jsonData;
   }
-
 
   /// ApiGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
   final String? apiGroup;

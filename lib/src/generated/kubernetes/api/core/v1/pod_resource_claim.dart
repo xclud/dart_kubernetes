@@ -12,26 +12,28 @@ class PodResourceClaim {
   PodResourceClaim.fromJson(Map<String, dynamic> json)
       : this(
           name: json['name'],
-          source: json['source'] != null ? ClaimSource.fromJson(json['source']): null,
+          source: json['source'] != null
+              ? ClaimSource.fromJson(json['source'])
+              : null,
         );
 
   /// Creates a list of PodResourceClaim from JSON data.
-  static List<PodResourceClaim> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<PodResourceClaim> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => PodResourceClaim.fromJson(e)).toList();
   }
 
   /// Converts a PodResourceClaim instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['name'] = name;
-    if(source != null) { jsonData['source'] = source!.toJson(); }
-    
+    if (source != null) {
+      jsonData['source'] = source!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// Name uniquely identifies this resource claim inside the pod. This must be a DNS_LABEL.
   final String name;

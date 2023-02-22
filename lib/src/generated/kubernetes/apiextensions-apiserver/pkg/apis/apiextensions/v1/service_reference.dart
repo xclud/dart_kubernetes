@@ -1,4 +1,3 @@
-
 /// ServiceReference holds a reference to Service.legacy.k8s.io.
 class ServiceReference {
   /// The main constructor.
@@ -19,24 +18,26 @@ class ServiceReference {
         );
 
   /// Creates a list of ServiceReference from JSON data.
-  static List<ServiceReference> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ServiceReference> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ServiceReference.fromJson(e)).toList();
   }
 
   /// Converts a ServiceReference instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['name'] = name;
     jsonData['namespace'] = namespace;
-    if(path != null) { jsonData['path'] = path!; }
-    if(port != null) { jsonData['port'] = port!; }
-    
+    if (path != null) {
+      jsonData['path'] = path!;
+    }
+    if (port != null) {
+      jsonData['port'] = port!;
+    }
 
     return jsonData;
   }
-
 
   /// Name is the name of the service. Required.
   final String name;

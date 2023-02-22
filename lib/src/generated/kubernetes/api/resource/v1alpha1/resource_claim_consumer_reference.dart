@@ -1,4 +1,3 @@
-
 /// ResourceClaimConsumerReference contains enough information to let you locate the consumer of a ResourceClaim. The user must be a resource in the same namespace as the ResourceClaim.
 class ResourceClaimConsumerReference {
   /// The main constructor.
@@ -19,24 +18,24 @@ class ResourceClaimConsumerReference {
         );
 
   /// Creates a list of ResourceClaimConsumerReference from JSON data.
-  static List<ResourceClaimConsumerReference> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ResourceClaimConsumerReference> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ResourceClaimConsumerReference.fromJson(e)).toList();
   }
 
   /// Converts a ResourceClaimConsumerReference instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiGroup != null) { jsonData['apiGroup'] = apiGroup!; }
+    if (apiGroup != null) {
+      jsonData['apiGroup'] = apiGroup!;
+    }
     jsonData['name'] = name;
     jsonData['resource'] = resource;
     jsonData['uid'] = uid;
-    
 
     return jsonData;
   }
-
 
   /// APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
   final String? apiGroup;

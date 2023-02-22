@@ -16,29 +16,35 @@ class ResourceClaimTemplate {
       : this(
           apiVersion: json['apiVersion'],
           kind: json['kind'],
-          metadata: json['metadata'] != null ? ObjectMeta.fromJson(json['metadata']): null,
+          metadata: json['metadata'] != null
+              ? ObjectMeta.fromJson(json['metadata'])
+              : null,
           spec: ResourceClaimTemplateSpec.fromJson(json['spec']),
         );
 
   /// Creates a list of ResourceClaimTemplate from JSON data.
-  static List<ResourceClaimTemplate> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ResourceClaimTemplate> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ResourceClaimTemplate.fromJson(e)).toList();
   }
 
   /// Converts a ResourceClaimTemplate instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiVersion != null) { jsonData['apiVersion'] = apiVersion!; }
-    if(kind != null) { jsonData['kind'] = kind!; }
-    if(metadata != null) { jsonData['metadata'] = metadata!.toJson(); }
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
     jsonData['spec'] = spec.toJson();
-    
 
     return jsonData;
   }
-
 
   /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;
@@ -50,7 +56,7 @@ class ResourceClaimTemplate {
   final ObjectMeta? metadata;
 
   /// Describes the ResourceClaim that is to be generated.
-/// 
-/// This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
+  ///
+  /// This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
   final ResourceClaimTemplateSpec spec;
 }

@@ -10,7 +10,11 @@ class NodeSelector {
   /// Creates a NodeSelector from JSON data.
   NodeSelector.fromJson(Map<String, dynamic> json)
       : this(
-          nodeSelectorTerms: json['nodeSelectorTerms'] != null ? NodeSelectorTerm.listFromJson((json['nodeSelectorTerms'] as Iterable).cast<Map<String, dynamic>>()): [],
+          nodeSelectorTerms: json['nodeSelectorTerms'] != null
+              ? NodeSelectorTerm.listFromJson(
+                  (json['nodeSelectorTerms'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : [],
         );
 
   /// Creates a list of NodeSelector from JSON data.
@@ -19,16 +23,14 @@ class NodeSelector {
   }
 
   /// Converts a NodeSelector instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    jsonData['nodeSelectorTerms'] = nodeSelectorTerms.map((item) => item.toJson()).toList();
-    
+    jsonData['nodeSelectorTerms'] =
+        nodeSelectorTerms.map((item) => item.toJson()).toList();
 
     return jsonData;
   }
-
 
   /// Required. A list of node selector terms. The terms are ORed.
   final List<NodeSelectorTerm> nodeSelectorTerms;

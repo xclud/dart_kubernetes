@@ -21,25 +21,22 @@ class WatchEvent {
   }
 
   /// Converts a WatchEvent instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['object'] = object.toJson();
     jsonData['type'] = type;
-    
 
     return jsonData;
   }
 
-
   /// Object is:
-///  * If Type is Added or Modified: the new state of the object.
-///  * If Type is Deleted: the state of the object immediately before deletion.
-///  * If Type is Error: *Status is recommended; other types may make sense
-///    depending on context.
+  ///  * If Type is Added or Modified: the new state of the object.
+  ///  * If Type is Deleted: the state of the object immediately before deletion.
+  ///  * If Type is Error: *Status is recommended; other types may make sense
+  ///    depending on context.
   final RawExtension object;
 
-  /// 
+  ///
   final String type;
 }

@@ -1,4 +1,3 @@
-
 /// VolumeMount describes a mounting of a Volume within a container.
 class VolumeMount {
   /// The main constructor.
@@ -28,21 +27,26 @@ class VolumeMount {
   }
 
   /// Converts a VolumeMount instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['mountPath'] = mountPath;
-    if(mountPropagation != null) { jsonData['mountPropagation'] = mountPropagation!; }
+    if (mountPropagation != null) {
+      jsonData['mountPropagation'] = mountPropagation!;
+    }
     jsonData['name'] = name;
-    if(readOnly != null) { jsonData['readOnly'] = readOnly!; }
-    if(subPath != null) { jsonData['subPath'] = subPath!; }
-    if(subPathExpr != null) { jsonData['subPathExpr'] = subPathExpr!; }
-    
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
+    if (subPath != null) {
+      jsonData['subPath'] = subPath!;
+    }
+    if (subPathExpr != null) {
+      jsonData['subPathExpr'] = subPathExpr!;
+    }
 
     return jsonData;
   }
-
 
   /// Path within the container at which the volume should be mounted.  Must not contain ':'.
   final String mountPath;

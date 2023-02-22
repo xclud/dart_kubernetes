@@ -1,4 +1,3 @@
-
 /// VolumeError captures an error encountered during a volume operation.
 class VolumeError {
   /// The main constructor.
@@ -11,7 +10,7 @@ class VolumeError {
   VolumeError.fromJson(Map<String, dynamic> json)
       : this(
           message: json['message'],
-          time: json['time'] != null ? DateTime.tryParse(json['time']): null,
+          time: json['time'] != null ? DateTime.tryParse(json['time']) : null,
         );
 
   /// Creates a list of VolumeError from JSON data.
@@ -20,17 +19,18 @@ class VolumeError {
   }
 
   /// Converts a VolumeError instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(message != null) { jsonData['message'] = message!; }
-    if(time != null) { jsonData['time'] = time!.toIso8601String(); }
-    
+    if (message != null) {
+      jsonData['message'] = message!;
+    }
+    if (time != null) {
+      jsonData['time'] = time!.toIso8601String();
+    }
 
     return jsonData;
   }
-
 
   /// Message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
   final String? message;

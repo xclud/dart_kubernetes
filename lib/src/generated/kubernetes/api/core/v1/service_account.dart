@@ -19,33 +19,53 @@ class ServiceAccount {
       : this(
           apiVersion: json['apiVersion'],
           automountServiceAccountToken: json['automountServiceAccountToken'],
-          imagePullSecrets: json['imagePullSecrets'] != null ? LocalObjectReference.listFromJson((json['imagePullSecrets'] as Iterable).cast<Map<String, dynamic>>()): null,
+          imagePullSecrets: json['imagePullSecrets'] != null
+              ? LocalObjectReference.listFromJson(
+                  (json['imagePullSecrets'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : null,
           kind: json['kind'],
-          metadata: json['metadata'] != null ? ObjectMeta.fromJson(json['metadata']): null,
-          secrets: json['secrets'] != null ? ObjectReference.listFromJson((json['secrets'] as Iterable).cast<Map<String, dynamic>>()): null,
+          metadata: json['metadata'] != null
+              ? ObjectMeta.fromJson(json['metadata'])
+              : null,
+          secrets: json['secrets'] != null
+              ? ObjectReference.listFromJson(
+                  (json['secrets'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
         );
 
   /// Creates a list of ServiceAccount from JSON data.
-  static List<ServiceAccount> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ServiceAccount> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ServiceAccount.fromJson(e)).toList();
   }
 
   /// Converts a ServiceAccount instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiVersion != null) { jsonData['apiVersion'] = apiVersion!; }
-    if(automountServiceAccountToken != null) { jsonData['automountServiceAccountToken'] = automountServiceAccountToken!; }
-    if(imagePullSecrets != null) { jsonData['imagePullSecrets'] = imagePullSecrets!.map((item) => item.toJson()).toList(); }
-    if(kind != null) { jsonData['kind'] = kind!; }
-    if(metadata != null) { jsonData['metadata'] = metadata!.toJson(); }
-    if(secrets != null) { jsonData['secrets'] = secrets!.map((item) => item.toJson()).toList(); }
-    
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (automountServiceAccountToken != null) {
+      jsonData['automountServiceAccountToken'] = automountServiceAccountToken!;
+    }
+    if (imagePullSecrets != null) {
+      jsonData['imagePullSecrets'] =
+          imagePullSecrets!.map((item) => item.toJson()).toList();
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
+    if (metadata != null) {
+      jsonData['metadata'] = metadata!.toJson();
+    }
+    if (secrets != null) {
+      jsonData['secrets'] = secrets!.map((item) => item.toJson()).toList();
+    }
 
     return jsonData;
   }
-
 
   /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;

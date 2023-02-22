@@ -16,28 +16,33 @@ class APIResourceList {
           apiVersion: json['apiVersion'],
           groupVersion: json['groupVersion'],
           kind: json['kind'],
-          resources: json['resources'] != null ? APIResource.listFromJson((json['resources'] as Iterable).cast<Map<String, dynamic>>()): [],
+          resources: json['resources'] != null
+              ? APIResource.listFromJson(
+                  (json['resources'] as Iterable).cast<Map<String, dynamic>>())
+              : [],
         );
 
   /// Creates a list of APIResourceList from JSON data.
-  static List<APIResourceList> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<APIResourceList> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => APIResourceList.fromJson(e)).toList();
   }
 
   /// Converts a APIResourceList instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiVersion != null) { jsonData['apiVersion'] = apiVersion!; }
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
     jsonData['groupVersion'] = groupVersion;
-    if(kind != null) { jsonData['kind'] = kind!; }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
     jsonData['resources'] = resources.map((item) => item.toJson()).toList();
-    
 
     return jsonData;
   }
-
 
   /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;

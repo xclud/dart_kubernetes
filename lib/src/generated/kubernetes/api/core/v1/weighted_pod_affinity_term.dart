@@ -16,22 +16,20 @@ class WeightedPodAffinityTerm {
         );
 
   /// Creates a list of WeightedPodAffinityTerm from JSON data.
-  static List<WeightedPodAffinityTerm> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<WeightedPodAffinityTerm> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => WeightedPodAffinityTerm.fromJson(e)).toList();
   }
 
   /// Converts a WeightedPodAffinityTerm instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['podAffinityTerm'] = podAffinityTerm.toJson();
     jsonData['weight'] = weight;
-    
 
     return jsonData;
   }
-
 
   /// Required. A pod affinity term, associated with the corresponding weight.
   final PodAffinityTerm podAffinityTerm;

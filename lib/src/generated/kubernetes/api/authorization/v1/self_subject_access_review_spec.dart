@@ -12,27 +12,33 @@ class SelfSubjectAccessReviewSpec {
   /// Creates a SelfSubjectAccessReviewSpec from JSON data.
   SelfSubjectAccessReviewSpec.fromJson(Map<String, dynamic> json)
       : this(
-          nonResourceAttributes: json['nonResourceAttributes'] != null ? NonResourceAttributes.fromJson(json['nonResourceAttributes']): null,
-          resourceAttributes: json['resourceAttributes'] != null ? ResourceAttributes.fromJson(json['resourceAttributes']): null,
+          nonResourceAttributes: json['nonResourceAttributes'] != null
+              ? NonResourceAttributes.fromJson(json['nonResourceAttributes'])
+              : null,
+          resourceAttributes: json['resourceAttributes'] != null
+              ? ResourceAttributes.fromJson(json['resourceAttributes'])
+              : null,
         );
 
   /// Creates a list of SelfSubjectAccessReviewSpec from JSON data.
-  static List<SelfSubjectAccessReviewSpec> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<SelfSubjectAccessReviewSpec> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => SelfSubjectAccessReviewSpec.fromJson(e)).toList();
   }
 
   /// Converts a SelfSubjectAccessReviewSpec instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(nonResourceAttributes != null) { jsonData['nonResourceAttributes'] = nonResourceAttributes!.toJson(); }
-    if(resourceAttributes != null) { jsonData['resourceAttributes'] = resourceAttributes!.toJson(); }
-    
+    if (nonResourceAttributes != null) {
+      jsonData['nonResourceAttributes'] = nonResourceAttributes!.toJson();
+    }
+    if (resourceAttributes != null) {
+      jsonData['resourceAttributes'] = resourceAttributes!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// NonResourceAttributes describes information for a non-resource access request.
   final NonResourceAttributes? nonResourceAttributes;

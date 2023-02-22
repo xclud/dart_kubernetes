@@ -11,27 +11,31 @@ class WebhookConversion {
   /// Creates a WebhookConversion from JSON data.
   WebhookConversion.fromJson(Map<String, dynamic> json)
       : this(
-          clientConfig: json['clientConfig'] != null ? WebhookClientConfig.fromJson(json['clientConfig']): null,
-          conversionReviewVersions: json['conversionReviewVersions'] != null ? List<String>.from(json['conversionReviewVersions']) : [],
+          clientConfig: json['clientConfig'] != null
+              ? WebhookClientConfig.fromJson(json['clientConfig'])
+              : null,
+          conversionReviewVersions: json['conversionReviewVersions'] != null
+              ? List<String>.from(json['conversionReviewVersions'])
+              : [],
         );
 
   /// Creates a list of WebhookConversion from JSON data.
-  static List<WebhookConversion> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<WebhookConversion> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => WebhookConversion.fromJson(e)).toList();
   }
 
   /// Converts a WebhookConversion instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(clientConfig != null) { jsonData['clientConfig'] = clientConfig!.toJson(); }
+    if (clientConfig != null) {
+      jsonData['clientConfig'] = clientConfig!.toJson();
+    }
     jsonData['conversionReviewVersions'] = conversionReviewVersions;
-    
 
     return jsonData;
   }
-
 
   /// ClientConfig is the instructions for how to call the webhook if strategy is `Webhook`.
   final WebhookClientConfig? clientConfig;

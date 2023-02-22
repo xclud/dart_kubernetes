@@ -19,9 +19,18 @@ class APIGroup {
           apiVersion: json['apiVersion'],
           kind: json['kind'],
           name: json['name'],
-          preferredVersion: json['preferredVersion'] != null ? GroupVersionForDiscovery.fromJson(json['preferredVersion']): null,
-          serverAddressByClientCIDRs: json['serverAddressByClientCIDRs'] != null ? ServerAddressByClientCIDR.listFromJson((json['serverAddressByClientCIDRs'] as Iterable).cast<Map<String, dynamic>>()): null,
-          versions: json['versions'] != null ? GroupVersionForDiscovery.listFromJson((json['versions'] as Iterable).cast<Map<String, dynamic>>()): [],
+          preferredVersion: json['preferredVersion'] != null
+              ? GroupVersionForDiscovery.fromJson(json['preferredVersion'])
+              : null,
+          serverAddressByClientCIDRs: json['serverAddressByClientCIDRs'] != null
+              ? ServerAddressByClientCIDR.listFromJson(
+                  (json['serverAddressByClientCIDRs'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : null,
+          versions: json['versions'] != null
+              ? GroupVersionForDiscovery.listFromJson(
+                  (json['versions'] as Iterable).cast<Map<String, dynamic>>())
+              : [],
         );
 
   /// Creates a list of APIGroup from JSON data.
@@ -30,21 +39,27 @@ class APIGroup {
   }
 
   /// Converts a APIGroup instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiVersion != null) { jsonData['apiVersion'] = apiVersion!; }
-    if(kind != null) { jsonData['kind'] = kind!; }
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
     jsonData['name'] = name;
-    if(preferredVersion != null) { jsonData['preferredVersion'] = preferredVersion!.toJson(); }
-    if(serverAddressByClientCIDRs != null) { jsonData['serverAddressByClientCIDRs'] = serverAddressByClientCIDRs!.map((item) => item.toJson()).toList(); }
+    if (preferredVersion != null) {
+      jsonData['preferredVersion'] = preferredVersion!.toJson();
+    }
+    if (serverAddressByClientCIDRs != null) {
+      jsonData['serverAddressByClientCIDRs'] =
+          serverAddressByClientCIDRs!.map((item) => item.toJson()).toList();
+    }
     jsonData['versions'] = versions.map((item) => item.toJson()).toList();
-    
 
     return jsonData;
   }
-
 
   /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;

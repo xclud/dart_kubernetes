@@ -1,4 +1,3 @@
-
 /// StatefulSetCondition describes the state of a statefulset at a certain point.
 class StatefulSetCondition {
   /// The main constructor.
@@ -13,7 +12,9 @@ class StatefulSetCondition {
   /// Creates a StatefulSetCondition from JSON data.
   StatefulSetCondition.fromJson(Map<String, dynamic> json)
       : this(
-          lastTransitionTime: json['lastTransitionTime'] != null ? DateTime.tryParse(json['lastTransitionTime']): null,
+          lastTransitionTime: json['lastTransitionTime'] != null
+              ? DateTime.tryParse(json['lastTransitionTime'])
+              : null,
           message: json['message'],
           reason: json['reason'],
           status: json['status'],
@@ -21,25 +22,29 @@ class StatefulSetCondition {
         );
 
   /// Creates a list of StatefulSetCondition from JSON data.
-  static List<StatefulSetCondition> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<StatefulSetCondition> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => StatefulSetCondition.fromJson(e)).toList();
   }
 
   /// Converts a StatefulSetCondition instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(lastTransitionTime != null) { jsonData['lastTransitionTime'] = lastTransitionTime!.toIso8601String(); }
-    if(message != null) { jsonData['message'] = message!; }
-    if(reason != null) { jsonData['reason'] = reason!; }
+    if (lastTransitionTime != null) {
+      jsonData['lastTransitionTime'] = lastTransitionTime!.toIso8601String();
+    }
+    if (message != null) {
+      jsonData['message'] = message!;
+    }
+    if (reason != null) {
+      jsonData['reason'] = reason!;
+    }
     jsonData['status'] = status;
     jsonData['type'] = type;
-    
 
     return jsonData;
   }
-
 
   /// Last time the condition transitioned from one status to another.
   final DateTime? lastTransitionTime;

@@ -11,27 +11,31 @@ class StatefulSetUpdateStrategy {
   /// Creates a StatefulSetUpdateStrategy from JSON data.
   StatefulSetUpdateStrategy.fromJson(Map<String, dynamic> json)
       : this(
-          rollingUpdate: json['rollingUpdate'] != null ? RollingUpdateStatefulSetStrategy.fromJson(json['rollingUpdate']): null,
+          rollingUpdate: json['rollingUpdate'] != null
+              ? RollingUpdateStatefulSetStrategy.fromJson(json['rollingUpdate'])
+              : null,
           type: json['type'],
         );
 
   /// Creates a list of StatefulSetUpdateStrategy from JSON data.
-  static List<StatefulSetUpdateStrategy> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<StatefulSetUpdateStrategy> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => StatefulSetUpdateStrategy.fromJson(e)).toList();
   }
 
   /// Converts a StatefulSetUpdateStrategy instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(rollingUpdate != null) { jsonData['rollingUpdate'] = rollingUpdate!.toJson(); }
-    if(type != null) { jsonData['type'] = type!; }
-    
+    if (rollingUpdate != null) {
+      jsonData['rollingUpdate'] = rollingUpdate!.toJson();
+    }
+    if (type != null) {
+      jsonData['type'] = type!;
+    }
 
     return jsonData;
   }
-
 
   /// RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
   final RollingUpdateStatefulSetStrategy? rollingUpdate;

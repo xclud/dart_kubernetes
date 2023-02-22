@@ -1,4 +1,3 @@
-
 /// TokenRequestStatus is the result of a token request.
 class TokenRequestStatus {
   /// The main constructor.
@@ -15,22 +14,20 @@ class TokenRequestStatus {
         );
 
   /// Creates a list of TokenRequestStatus from JSON data.
-  static List<TokenRequestStatus> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<TokenRequestStatus> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => TokenRequestStatus.fromJson(e)).toList();
   }
 
   /// Converts a TokenRequestStatus instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['expirationTimestamp'] = expirationTimestamp.toIso8601String();
     jsonData['token'] = token;
-    
 
     return jsonData;
   }
-
 
   /// ExpirationTimestamp is the time of expiration of the returned token.
   final DateTime expirationTimestamp;

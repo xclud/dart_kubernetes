@@ -13,9 +13,13 @@ class EnvFromSource {
   /// Creates a EnvFromSource from JSON data.
   EnvFromSource.fromJson(Map<String, dynamic> json)
       : this(
-          configMapRef: json['configMapRef'] != null ? ConfigMapEnvSource.fromJson(json['configMapRef']): null,
+          configMapRef: json['configMapRef'] != null
+              ? ConfigMapEnvSource.fromJson(json['configMapRef'])
+              : null,
           prefix: json['prefix'],
-          secretRef: json['secretRef'] != null ? SecretEnvSource.fromJson(json['secretRef']): null,
+          secretRef: json['secretRef'] != null
+              ? SecretEnvSource.fromJson(json['secretRef'])
+              : null,
         );
 
   /// Creates a list of EnvFromSource from JSON data.
@@ -24,18 +28,21 @@ class EnvFromSource {
   }
 
   /// Converts a EnvFromSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(configMapRef != null) { jsonData['configMapRef'] = configMapRef!.toJson(); }
-    if(prefix != null) { jsonData['prefix'] = prefix!; }
-    if(secretRef != null) { jsonData['secretRef'] = secretRef!.toJson(); }
-    
+    if (configMapRef != null) {
+      jsonData['configMapRef'] = configMapRef!.toJson();
+    }
+    if (prefix != null) {
+      jsonData['prefix'] = prefix!;
+    }
+    if (secretRef != null) {
+      jsonData['secretRef'] = secretRef!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// The ConfigMap to select from.
   final ConfigMapEnvSource? configMapRef;

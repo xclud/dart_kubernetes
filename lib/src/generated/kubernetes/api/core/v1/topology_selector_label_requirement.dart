@@ -1,4 +1,3 @@
-
 /// A topology selector requirement is a selector that matches given label. This is an alpha feature and may change in the future.
 class TopologySelectorLabelRequirement {
   /// The main constructor.
@@ -11,26 +10,27 @@ class TopologySelectorLabelRequirement {
   TopologySelectorLabelRequirement.fromJson(Map<String, dynamic> json)
       : this(
           key: json['key'],
-          values: json['values'] != null ? List<String>.from(json['values']) : [],
+          values:
+              json['values'] != null ? List<String>.from(json['values']) : [],
         );
 
   /// Creates a list of TopologySelectorLabelRequirement from JSON data.
-  static List<TopologySelectorLabelRequirement> listFromJson(Iterable<Map<String, dynamic>> list) {
-    return list.map((e) => TopologySelectorLabelRequirement.fromJson(e)).toList();
+  static List<TopologySelectorLabelRequirement> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
+    return list
+        .map((e) => TopologySelectorLabelRequirement.fromJson(e))
+        .toList();
   }
 
   /// Converts a TopologySelectorLabelRequirement instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['key'] = key;
     jsonData['values'] = values;
-    
 
     return jsonData;
   }
-
 
   /// The label key that the selector applies to.
   final String key;

@@ -21,7 +21,10 @@ class StatefulSetStatus {
       : this(
           availableReplicas: json['availableReplicas'],
           collisionCount: json['collisionCount'],
-          conditions: json['conditions'] != null ? StatefulSetCondition.listFromJson((json['conditions'] as Iterable).cast<Map<String, dynamic>>()): null,
+          conditions: json['conditions'] != null
+              ? StatefulSetCondition.listFromJson(
+                  (json['conditions'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
           currentReplicas: json['currentReplicas'],
           currentRevision: json['currentRevision'],
           observedGeneration: json['observedGeneration'],
@@ -32,30 +35,47 @@ class StatefulSetStatus {
         );
 
   /// Creates a list of StatefulSetStatus from JSON data.
-  static List<StatefulSetStatus> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<StatefulSetStatus> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => StatefulSetStatus.fromJson(e)).toList();
   }
 
   /// Converts a StatefulSetStatus instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(availableReplicas != null) { jsonData['availableReplicas'] = availableReplicas!; }
-    if(collisionCount != null) { jsonData['collisionCount'] = collisionCount!; }
-    if(conditions != null) { jsonData['conditions'] = conditions!.map((item) => item.toJson()).toList(); }
-    if(currentReplicas != null) { jsonData['currentReplicas'] = currentReplicas!; }
-    if(currentRevision != null) { jsonData['currentRevision'] = currentRevision!; }
-    if(observedGeneration != null) { jsonData['observedGeneration'] = observedGeneration!; }
-    if(readyReplicas != null) { jsonData['readyReplicas'] = readyReplicas!; }
+    if (availableReplicas != null) {
+      jsonData['availableReplicas'] = availableReplicas!;
+    }
+    if (collisionCount != null) {
+      jsonData['collisionCount'] = collisionCount!;
+    }
+    if (conditions != null) {
+      jsonData['conditions'] =
+          conditions!.map((item) => item.toJson()).toList();
+    }
+    if (currentReplicas != null) {
+      jsonData['currentReplicas'] = currentReplicas!;
+    }
+    if (currentRevision != null) {
+      jsonData['currentRevision'] = currentRevision!;
+    }
+    if (observedGeneration != null) {
+      jsonData['observedGeneration'] = observedGeneration!;
+    }
+    if (readyReplicas != null) {
+      jsonData['readyReplicas'] = readyReplicas!;
+    }
     jsonData['replicas'] = replicas;
-    if(updateRevision != null) { jsonData['updateRevision'] = updateRevision!; }
-    if(updatedReplicas != null) { jsonData['updatedReplicas'] = updatedReplicas!; }
-    
+    if (updateRevision != null) {
+      jsonData['updateRevision'] = updateRevision!;
+    }
+    if (updatedReplicas != null) {
+      jsonData['updatedReplicas'] = updatedReplicas!;
+    }
 
     return jsonData;
   }
-
 
   /// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset.
   final int? availableReplicas;

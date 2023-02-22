@@ -16,10 +16,18 @@ class EnvVarSource {
   /// Creates a EnvVarSource from JSON data.
   EnvVarSource.fromJson(Map<String, dynamic> json)
       : this(
-          configMapKeyRef: json['configMapKeyRef'] != null ? ConfigMapKeySelector.fromJson(json['configMapKeyRef']): null,
-          fieldRef: json['fieldRef'] != null ? ObjectFieldSelector.fromJson(json['fieldRef']): null,
-          resourceFieldRef: json['resourceFieldRef'] != null ? ResourceFieldSelector.fromJson(json['resourceFieldRef']): null,
-          secretKeyRef: json['secretKeyRef'] != null ? SecretKeySelector.fromJson(json['secretKeyRef']): null,
+          configMapKeyRef: json['configMapKeyRef'] != null
+              ? ConfigMapKeySelector.fromJson(json['configMapKeyRef'])
+              : null,
+          fieldRef: json['fieldRef'] != null
+              ? ObjectFieldSelector.fromJson(json['fieldRef'])
+              : null,
+          resourceFieldRef: json['resourceFieldRef'] != null
+              ? ResourceFieldSelector.fromJson(json['resourceFieldRef'])
+              : null,
+          secretKeyRef: json['secretKeyRef'] != null
+              ? SecretKeySelector.fromJson(json['secretKeyRef'])
+              : null,
         );
 
   /// Creates a list of EnvVarSource from JSON data.
@@ -28,19 +36,24 @@ class EnvVarSource {
   }
 
   /// Converts a EnvVarSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(configMapKeyRef != null) { jsonData['configMapKeyRef'] = configMapKeyRef!.toJson(); }
-    if(fieldRef != null) { jsonData['fieldRef'] = fieldRef!.toJson(); }
-    if(resourceFieldRef != null) { jsonData['resourceFieldRef'] = resourceFieldRef!.toJson(); }
-    if(secretKeyRef != null) { jsonData['secretKeyRef'] = secretKeyRef!.toJson(); }
-    
+    if (configMapKeyRef != null) {
+      jsonData['configMapKeyRef'] = configMapKeyRef!.toJson();
+    }
+    if (fieldRef != null) {
+      jsonData['fieldRef'] = fieldRef!.toJson();
+    }
+    if (resourceFieldRef != null) {
+      jsonData['resourceFieldRef'] = resourceFieldRef!.toJson();
+    }
+    if (secretKeyRef != null) {
+      jsonData['secretKeyRef'] = secretKeyRef!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// Selects a key of a ConfigMap.
   final ConfigMapKeySelector? configMapKeyRef;

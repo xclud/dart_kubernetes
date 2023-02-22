@@ -1,7 +1,9 @@
+part of kubernetes;
+
 /// Kubernetes Configuration.
 class K8SConfiguration {
   /// The main constructor.
-  K8SConfiguration({
+  const K8SConfiguration({
     this.preferences,
     required this.apiVersion,
     required this.kind,
@@ -33,7 +35,7 @@ class K8SConfiguration {
         );
 
   /// Gets or sets general information to be use for CLI interactions.
-  Map<String, Object>? preferences;
+  final Map<String, Object>? preferences;
 
   /// API version.
   final String apiVersion;

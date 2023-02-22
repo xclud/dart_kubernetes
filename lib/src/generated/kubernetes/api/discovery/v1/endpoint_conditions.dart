@@ -1,4 +1,3 @@
-
 /// EndpointConditions represents the current condition of an endpoint.
 class EndpointConditions {
   /// The main constructor.
@@ -17,23 +16,27 @@ class EndpointConditions {
         );
 
   /// Creates a list of EndpointConditions from JSON data.
-  static List<EndpointConditions> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<EndpointConditions> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => EndpointConditions.fromJson(e)).toList();
   }
 
   /// Converts a EndpointConditions instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(ready != null) { jsonData['ready'] = ready!; }
-    if(serving != null) { jsonData['serving'] = serving!; }
-    if(terminating != null) { jsonData['terminating'] = terminating!; }
-    
+    if (ready != null) {
+      jsonData['ready'] = ready!;
+    }
+    if (serving != null) {
+      jsonData['serving'] = serving!;
+    }
+    if (terminating != null) {
+      jsonData['terminating'] = terminating!;
+    }
 
     return jsonData;
   }
-
 
   /// Ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
   final bool? ready;

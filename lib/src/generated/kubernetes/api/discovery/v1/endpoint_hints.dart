@@ -10,7 +10,10 @@ class EndpointHints {
   /// Creates a EndpointHints from JSON data.
   EndpointHints.fromJson(Map<String, dynamic> json)
       : this(
-          forZones: json['forZones'] != null ? ForZone.listFromJson((json['forZones'] as Iterable).cast<Map<String, dynamic>>()): null,
+          forZones: json['forZones'] != null
+              ? ForZone.listFromJson(
+                  (json['forZones'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
         );
 
   /// Creates a list of EndpointHints from JSON data.
@@ -19,16 +22,15 @@ class EndpointHints {
   }
 
   /// Converts a EndpointHints instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(forZones != null) { jsonData['forZones'] = forZones!.map((item) => item.toJson()).toList(); }
-    
+    if (forZones != null) {
+      jsonData['forZones'] = forZones!.map((item) => item.toJson()).toList();
+    }
 
     return jsonData;
   }
-
 
   /// ForZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing.
   final List<ForZone>? forZones;

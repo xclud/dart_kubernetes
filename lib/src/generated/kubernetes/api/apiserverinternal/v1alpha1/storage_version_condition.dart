@@ -1,4 +1,3 @@
-
 /// Describes the state of the storageVersion at a certain point.
 class StorageVersionCondition {
   /// The main constructor.
@@ -14,7 +13,9 @@ class StorageVersionCondition {
   /// Creates a StorageVersionCondition from JSON data.
   StorageVersionCondition.fromJson(Map<String, dynamic> json)
       : this(
-          lastTransitionTime: json['lastTransitionTime'] != null ? DateTime.tryParse(json['lastTransitionTime']): null,
+          lastTransitionTime: json['lastTransitionTime'] != null
+              ? DateTime.tryParse(json['lastTransitionTime'])
+              : null,
           message: json['message'],
           observedGeneration: json['observedGeneration'],
           reason: json['reason'],
@@ -23,26 +24,30 @@ class StorageVersionCondition {
         );
 
   /// Creates a list of StorageVersionCondition from JSON data.
-  static List<StorageVersionCondition> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<StorageVersionCondition> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => StorageVersionCondition.fromJson(e)).toList();
   }
 
   /// Converts a StorageVersionCondition instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(lastTransitionTime != null) { jsonData['lastTransitionTime'] = lastTransitionTime!.toIso8601String(); }
-    if(message != null) { jsonData['message'] = message!; }
-    if(observedGeneration != null) { jsonData['observedGeneration'] = observedGeneration!; }
+    if (lastTransitionTime != null) {
+      jsonData['lastTransitionTime'] = lastTransitionTime!.toIso8601String();
+    }
+    if (message != null) {
+      jsonData['message'] = message!;
+    }
+    if (observedGeneration != null) {
+      jsonData['observedGeneration'] = observedGeneration!;
+    }
     jsonData['reason'] = reason;
     jsonData['status'] = status;
     jsonData['type'] = type;
-    
 
     return jsonData;
   }
-
 
   /// Last time the condition transitioned from one status to another.
   final DateTime? lastTransitionTime;

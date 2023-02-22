@@ -14,29 +14,44 @@ class PolicyRulesWithSubjects {
   /// Creates a PolicyRulesWithSubjects from JSON data.
   PolicyRulesWithSubjects.fromJson(Map<String, dynamic> json)
       : this(
-          nonResourceRules: json['nonResourceRules'] != null ? NonResourcePolicyRule.listFromJson((json['nonResourceRules'] as Iterable).cast<Map<String, dynamic>>()): null,
-          resourceRules: json['resourceRules'] != null ? ResourcePolicyRule.listFromJson((json['resourceRules'] as Iterable).cast<Map<String, dynamic>>()): null,
-          subjects: json['subjects'] != null ? Subject.listFromJson((json['subjects'] as Iterable).cast<Map<String, dynamic>>()): [],
+          nonResourceRules: json['nonResourceRules'] != null
+              ? NonResourcePolicyRule.listFromJson(
+                  (json['nonResourceRules'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : null,
+          resourceRules: json['resourceRules'] != null
+              ? ResourcePolicyRule.listFromJson(
+                  (json['resourceRules'] as Iterable)
+                      .cast<Map<String, dynamic>>())
+              : null,
+          subjects: json['subjects'] != null
+              ? Subject.listFromJson(
+                  (json['subjects'] as Iterable).cast<Map<String, dynamic>>())
+              : [],
         );
 
   /// Creates a list of PolicyRulesWithSubjects from JSON data.
-  static List<PolicyRulesWithSubjects> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<PolicyRulesWithSubjects> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => PolicyRulesWithSubjects.fromJson(e)).toList();
   }
 
   /// Converts a PolicyRulesWithSubjects instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(nonResourceRules != null) { jsonData['nonResourceRules'] = nonResourceRules!.map((item) => item.toJson()).toList(); }
-    if(resourceRules != null) { jsonData['resourceRules'] = resourceRules!.map((item) => item.toJson()).toList(); }
+    if (nonResourceRules != null) {
+      jsonData['nonResourceRules'] =
+          nonResourceRules!.map((item) => item.toJson()).toList();
+    }
+    if (resourceRules != null) {
+      jsonData['resourceRules'] =
+          resourceRules!.map((item) => item.toJson()).toList();
+    }
     jsonData['subjects'] = subjects.map((item) => item.toJson()).toList();
-    
 
     return jsonData;
   }
-
 
   /// `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests according to their verb and the target non-resource URL.
   final List<NonResourcePolicyRule>? nonResourceRules;

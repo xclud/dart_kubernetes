@@ -18,35 +18,49 @@ class ManagedFieldsEntry {
       : this(
           apiVersion: json['apiVersion'],
           fieldsType: json['fieldsType'],
-          fieldsV1: json['fieldsV1'] != null ? FieldsV1.fromJson(json['fieldsV1']): null,
+          fieldsV1: json['fieldsV1'] != null
+              ? FieldsV1.fromJson(json['fieldsV1'])
+              : null,
           manager: json['manager'],
           operation: json['operation'],
           subresource: json['subresource'],
-          time: json['time'] != null ? DateTime.tryParse(json['time']): null,
+          time: json['time'] != null ? DateTime.tryParse(json['time']) : null,
         );
 
   /// Creates a list of ManagedFieldsEntry from JSON data.
-  static List<ManagedFieldsEntry> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ManagedFieldsEntry> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ManagedFieldsEntry.fromJson(e)).toList();
   }
 
   /// Converts a ManagedFieldsEntry instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiVersion != null) { jsonData['apiVersion'] = apiVersion!; }
-    if(fieldsType != null) { jsonData['fieldsType'] = fieldsType!; }
-    if(fieldsV1 != null) { jsonData['fieldsV1'] = fieldsV1!.toJson(); }
-    if(manager != null) { jsonData['manager'] = manager!; }
-    if(operation != null) { jsonData['operation'] = operation!; }
-    if(subresource != null) { jsonData['subresource'] = subresource!; }
-    if(time != null) { jsonData['time'] = time!.toIso8601String(); }
-    
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (fieldsType != null) {
+      jsonData['fieldsType'] = fieldsType!;
+    }
+    if (fieldsV1 != null) {
+      jsonData['fieldsV1'] = fieldsV1!.toJson();
+    }
+    if (manager != null) {
+      jsonData['manager'] = manager!;
+    }
+    if (operation != null) {
+      jsonData['operation'] = operation!;
+    }
+    if (subresource != null) {
+      jsonData['subresource'] = subresource!;
+    }
+    if (time != null) {
+      jsonData['time'] = time!.toIso8601String();
+    }
 
     return jsonData;
   }
-
 
   /// APIVersion defines the version of this resource that this field set applies to. The format is "group/version" just like the top-level APIVersion field. It is necessary to track the version of a field set because it cannot be automatically converted.
   final String? apiVersion;

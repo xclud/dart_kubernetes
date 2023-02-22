@@ -1,4 +1,3 @@
-
 /// A scoped-resource selector requirement is a selector that contains values, a scope name, and an operator that relates the scope name and values.
 class ScopedResourceSelectorRequirement {
   /// The main constructor.
@@ -13,27 +12,30 @@ class ScopedResourceSelectorRequirement {
       : this(
           operator: json['operator'],
           scopeName: json['scopeName'],
-          values: json['values'] != null ? List<String>.from(json['values']) : null,
+          values:
+              json['values'] != null ? List<String>.from(json['values']) : null,
         );
 
   /// Creates a list of ScopedResourceSelectorRequirement from JSON data.
-  static List<ScopedResourceSelectorRequirement> listFromJson(Iterable<Map<String, dynamic>> list) {
-    return list.map((e) => ScopedResourceSelectorRequirement.fromJson(e)).toList();
+  static List<ScopedResourceSelectorRequirement> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
+    return list
+        .map((e) => ScopedResourceSelectorRequirement.fromJson(e))
+        .toList();
   }
 
   /// Converts a ScopedResourceSelectorRequirement instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['operator'] = operator;
     jsonData['scopeName'] = scopeName;
-    if(values != null) { jsonData['values'] = values!; }
-    
+    if (values != null) {
+      jsonData['values'] = values!;
+    }
 
     return jsonData;
   }
-
 
   /// Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist.
   final String operator;

@@ -1,4 +1,3 @@
-
 /// MetricTarget defines the target value, average value, or average utilization of a specific metric.
 class MetricTarget {
   /// The main constructor.
@@ -24,19 +23,22 @@ class MetricTarget {
   }
 
   /// Converts a MetricTarget instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(averageUtilization != null) { jsonData['averageUtilization'] = averageUtilization!; }
-    if(averageValue != null) { jsonData['averageValue'] = averageValue!; }
+    if (averageUtilization != null) {
+      jsonData['averageUtilization'] = averageUtilization!;
+    }
+    if (averageValue != null) {
+      jsonData['averageValue'] = averageValue!;
+    }
     jsonData['type'] = type;
-    if(value != null) { jsonData['value'] = value!; }
-    
+    if (value != null) {
+      jsonData['value'] = value!;
+    }
 
     return jsonData;
   }
-
 
   /// AverageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type.
   final int? averageUtilization;

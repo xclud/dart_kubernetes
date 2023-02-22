@@ -1,6 +1,5 @@
-
 /// Represents a Persistent Disk resource in Google Compute Engine.
-/// 
+///
 /// A GCE PD must exist before mounting to a container. The disk must also be in the same GCE project and zone as the kubelet. A GCE PD can only be mounted as read/write once or read-only many times. GCE PDs support ownership management and SELinux relabeling.
 class GCEPersistentDiskVolumeSource {
   /// The main constructor.
@@ -21,24 +20,28 @@ class GCEPersistentDiskVolumeSource {
         );
 
   /// Creates a list of GCEPersistentDiskVolumeSource from JSON data.
-  static List<GCEPersistentDiskVolumeSource> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<GCEPersistentDiskVolumeSource> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => GCEPersistentDiskVolumeSource.fromJson(e)).toList();
   }
 
   /// Converts a GCEPersistentDiskVolumeSource instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(fsType != null) { jsonData['fsType'] = fsType!; }
-    if(partition != null) { jsonData['partition'] = partition!; }
+    if (fsType != null) {
+      jsonData['fsType'] = fsType!;
+    }
+    if (partition != null) {
+      jsonData['partition'] = partition!;
+    }
     jsonData['pdName'] = pdName;
-    if(readOnly != null) { jsonData['readOnly'] = readOnly!; }
-    
+    if (readOnly != null) {
+      jsonData['readOnly'] = readOnly!;
+    }
 
     return jsonData;
   }
-
 
   /// FsType is filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk.
   final String? fsType;

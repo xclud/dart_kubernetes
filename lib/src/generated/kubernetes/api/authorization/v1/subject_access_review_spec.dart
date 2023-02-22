@@ -16,35 +16,52 @@ class SubjectAccessReviewSpec {
   /// Creates a SubjectAccessReviewSpec from JSON data.
   SubjectAccessReviewSpec.fromJson(Map<String, dynamic> json)
       : this(
-          extra: json['extra'] != null ? Map<String, List<String>>.from(json['extra']) : null,
-          groups: json['groups'] != null ? List<String>.from(json['groups']) : null,
-          nonResourceAttributes: json['nonResourceAttributes'] != null ? NonResourceAttributes.fromJson(json['nonResourceAttributes']): null,
-          resourceAttributes: json['resourceAttributes'] != null ? ResourceAttributes.fromJson(json['resourceAttributes']): null,
+          extra: json['extra'] != null
+              ? Map<String, List<String>>.from(json['extra'])
+              : null,
+          groups:
+              json['groups'] != null ? List<String>.from(json['groups']) : null,
+          nonResourceAttributes: json['nonResourceAttributes'] != null
+              ? NonResourceAttributes.fromJson(json['nonResourceAttributes'])
+              : null,
+          resourceAttributes: json['resourceAttributes'] != null
+              ? ResourceAttributes.fromJson(json['resourceAttributes'])
+              : null,
           uid: json['uid'],
           user: json['user'],
         );
 
   /// Creates a list of SubjectAccessReviewSpec from JSON data.
-  static List<SubjectAccessReviewSpec> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<SubjectAccessReviewSpec> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => SubjectAccessReviewSpec.fromJson(e)).toList();
   }
 
   /// Converts a SubjectAccessReviewSpec instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(extra != null) { jsonData['extra'] = extra!; }
-    if(groups != null) { jsonData['groups'] = groups!; }
-    if(nonResourceAttributes != null) { jsonData['nonResourceAttributes'] = nonResourceAttributes!.toJson(); }
-    if(resourceAttributes != null) { jsonData['resourceAttributes'] = resourceAttributes!.toJson(); }
-    if(uid != null) { jsonData['uid'] = uid!; }
-    if(user != null) { jsonData['user'] = user!; }
-    
+    if (extra != null) {
+      jsonData['extra'] = extra!;
+    }
+    if (groups != null) {
+      jsonData['groups'] = groups!;
+    }
+    if (nonResourceAttributes != null) {
+      jsonData['nonResourceAttributes'] = nonResourceAttributes!.toJson();
+    }
+    if (resourceAttributes != null) {
+      jsonData['resourceAttributes'] = resourceAttributes!.toJson();
+    }
+    if (uid != null) {
+      jsonData['uid'] = uid!;
+    }
+    if (user != null) {
+      jsonData['user'] = user!;
+    }
 
     return jsonData;
   }
-
 
   /// Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
   final Map<String, List<String>>? extra;

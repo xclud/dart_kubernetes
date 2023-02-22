@@ -1,4 +1,3 @@
-
 /// ServiceBackendPort is the service port being referenced.
 class ServiceBackendPort {
   /// The main constructor.
@@ -15,22 +14,24 @@ class ServiceBackendPort {
         );
 
   /// Creates a list of ServiceBackendPort from JSON data.
-  static List<ServiceBackendPort> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<ServiceBackendPort> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => ServiceBackendPort.fromJson(e)).toList();
   }
 
   /// Converts a ServiceBackendPort instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(name != null) { jsonData['name'] = name!; }
-    if(number != null) { jsonData['number'] = number!; }
-    
+    if (name != null) {
+      jsonData['name'] = name!;
+    }
+    if (number != null) {
+      jsonData['number'] = number!;
+    }
 
     return jsonData;
   }
-
 
   /// Name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
   final String? name;

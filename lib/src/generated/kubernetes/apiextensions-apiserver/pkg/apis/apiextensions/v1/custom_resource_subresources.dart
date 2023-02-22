@@ -12,27 +12,33 @@ class CustomResourceSubresources {
   /// Creates a CustomResourceSubresources from JSON data.
   CustomResourceSubresources.fromJson(Map<String, dynamic> json)
       : this(
-          scale: json['scale'] != null ? CustomResourceSubresourceScale.fromJson(json['scale']): null,
-          status: json['status'] != null ? CustomResourceSubresourceStatus.fromJson(json['status']): null,
+          scale: json['scale'] != null
+              ? CustomResourceSubresourceScale.fromJson(json['scale'])
+              : null,
+          status: json['status'] != null
+              ? CustomResourceSubresourceStatus.fromJson(json['status'])
+              : null,
         );
 
   /// Creates a list of CustomResourceSubresources from JSON data.
-  static List<CustomResourceSubresources> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<CustomResourceSubresources> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => CustomResourceSubresources.fromJson(e)).toList();
   }
 
   /// Converts a CustomResourceSubresources instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(scale != null) { jsonData['scale'] = scale!.toJson(); }
-    if(status != null) { jsonData['status'] = status!.toJson(); }
-    
+    if (scale != null) {
+      jsonData['scale'] = scale!.toJson();
+    }
+    if (status != null) {
+      jsonData['status'] = status!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// Scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
   final CustomResourceSubresourceScale? scale;

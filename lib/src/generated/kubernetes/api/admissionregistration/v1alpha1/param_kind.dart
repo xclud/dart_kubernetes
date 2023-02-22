@@ -1,4 +1,3 @@
-
 /// ParamKind is a tuple of Group Kind and Version.
 class ParamKind {
   /// The main constructor.
@@ -20,17 +19,18 @@ class ParamKind {
   }
 
   /// Converts a ParamKind instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(apiVersion != null) { jsonData['apiVersion'] = apiVersion!; }
-    if(kind != null) { jsonData['kind'] = kind!; }
-    
+    if (apiVersion != null) {
+      jsonData['apiVersion'] = apiVersion!;
+    }
+    if (kind != null) {
+      jsonData['kind'] = kind!;
+    }
 
     return jsonData;
   }
-
 
   /// APIVersion is the API group version the resources belong to. In format of "group/version". Required.
   final String? apiVersion;

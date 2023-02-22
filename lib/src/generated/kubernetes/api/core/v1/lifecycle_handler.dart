@@ -14,29 +14,37 @@ class LifecycleHandler {
   /// Creates a LifecycleHandler from JSON data.
   LifecycleHandler.fromJson(Map<String, dynamic> json)
       : this(
-          exec: json['exec'] != null ? ExecAction.fromJson(json['exec']): null,
-          httpGet: json['httpGet'] != null ? HTTPGetAction.fromJson(json['httpGet']): null,
-          tcpSocket: json['tcpSocket'] != null ? TCPSocketAction.fromJson(json['tcpSocket']): null,
+          exec: json['exec'] != null ? ExecAction.fromJson(json['exec']) : null,
+          httpGet: json['httpGet'] != null
+              ? HTTPGetAction.fromJson(json['httpGet'])
+              : null,
+          tcpSocket: json['tcpSocket'] != null
+              ? TCPSocketAction.fromJson(json['tcpSocket'])
+              : null,
         );
 
   /// Creates a list of LifecycleHandler from JSON data.
-  static List<LifecycleHandler> listFromJson(Iterable<Map<String, dynamic>> list) {
+  static List<LifecycleHandler> listFromJson(
+      Iterable<Map<String, dynamic>> list) {
     return list.map((e) => LifecycleHandler.fromJson(e)).toList();
   }
 
   /// Converts a LifecycleHandler instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(exec != null) { jsonData['exec'] = exec!.toJson(); }
-    if(httpGet != null) { jsonData['httpGet'] = httpGet!.toJson(); }
-    if(tcpSocket != null) { jsonData['tcpSocket'] = tcpSocket!.toJson(); }
-    
+    if (exec != null) {
+      jsonData['exec'] = exec!.toJson();
+    }
+    if (httpGet != null) {
+      jsonData['httpGet'] = httpGet!.toJson();
+    }
+    if (tcpSocket != null) {
+      jsonData['tcpSocket'] = tcpSocket!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// Exec specifies the action to take.
   final ExecAction? exec;

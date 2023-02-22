@@ -1,4 +1,3 @@
-
 /// The node this Taint is attached to has the "effect" on any pod that does not tolerate the Taint.
 class Taint {
   /// The main constructor.
@@ -14,7 +13,9 @@ class Taint {
       : this(
           effect: json['effect'],
           key: json['key'],
-          timeAdded: json['timeAdded'] != null ? DateTime.tryParse(json['timeAdded']): null,
+          timeAdded: json['timeAdded'] != null
+              ? DateTime.tryParse(json['timeAdded'])
+              : null,
           value: json['value'],
         );
 
@@ -24,19 +25,20 @@ class Taint {
   }
 
   /// Converts a Taint instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['effect'] = effect;
     jsonData['key'] = key;
-    if(timeAdded != null) { jsonData['timeAdded'] = timeAdded!.toIso8601String(); }
-    if(value != null) { jsonData['value'] = value!; }
-    
+    if (timeAdded != null) {
+      jsonData['timeAdded'] = timeAdded!.toIso8601String();
+    }
+    if (value != null) {
+      jsonData['value'] = value!;
+    }
 
     return jsonData;
   }
-
 
   /// Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute.
   final String effect;

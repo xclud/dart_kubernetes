@@ -15,10 +15,18 @@ class IngressSpec {
   /// Creates a IngressSpec from JSON data.
   IngressSpec.fromJson(Map<String, dynamic> json)
       : this(
-          defaultBackend: json['defaultBackend'] != null ? IngressBackend.fromJson(json['defaultBackend']): null,
+          defaultBackend: json['defaultBackend'] != null
+              ? IngressBackend.fromJson(json['defaultBackend'])
+              : null,
           ingressClassName: json['ingressClassName'],
-          rules: json['rules'] != null ? IngressRule.listFromJson((json['rules'] as Iterable).cast<Map<String, dynamic>>()): null,
-          tls: json['tls'] != null ? IngressTLS.listFromJson((json['tls'] as Iterable).cast<Map<String, dynamic>>()): null,
+          rules: json['rules'] != null
+              ? IngressRule.listFromJson(
+                  (json['rules'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
+          tls: json['tls'] != null
+              ? IngressTLS.listFromJson(
+                  (json['tls'] as Iterable).cast<Map<String, dynamic>>())
+              : null,
         );
 
   /// Creates a list of IngressSpec from JSON data.
@@ -27,19 +35,24 @@ class IngressSpec {
   }
 
   /// Converts a IngressSpec instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
-    if(defaultBackend != null) { jsonData['defaultBackend'] = defaultBackend!.toJson(); }
-    if(ingressClassName != null) { jsonData['ingressClassName'] = ingressClassName!; }
-    if(rules != null) { jsonData['rules'] = rules!.map((item) => item.toJson()).toList(); }
-    if(tls != null) { jsonData['tls'] = tls!.map((item) => item.toJson()).toList(); }
-    
+    if (defaultBackend != null) {
+      jsonData['defaultBackend'] = defaultBackend!.toJson();
+    }
+    if (ingressClassName != null) {
+      jsonData['ingressClassName'] = ingressClassName!;
+    }
+    if (rules != null) {
+      jsonData['rules'] = rules!.map((item) => item.toJson()).toList();
+    }
+    if (tls != null) {
+      jsonData['tls'] = tls!.map((item) => item.toJson()).toList();
+    }
 
     return jsonData;
   }
-
 
   /// DefaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
   final IngressBackend? defaultBackend;

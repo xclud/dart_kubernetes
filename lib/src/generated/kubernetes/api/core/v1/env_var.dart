@@ -14,7 +14,9 @@ class EnvVar {
       : this(
           name: json['name'],
           value: json['value'],
-          valueFrom: json['valueFrom'] != null ? EnvVarSource.fromJson(json['valueFrom']): null,
+          valueFrom: json['valueFrom'] != null
+              ? EnvVarSource.fromJson(json['valueFrom'])
+              : null,
         );
 
   /// Creates a list of EnvVar from JSON data.
@@ -23,18 +25,19 @@ class EnvVar {
   }
 
   /// Converts a EnvVar instance to JSON data.
-  Map<String, Object> toJson()
-  {
+  Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     jsonData['name'] = name;
-    if(value != null) { jsonData['value'] = value!; }
-    if(valueFrom != null) { jsonData['valueFrom'] = valueFrom!.toJson(); }
-    
+    if (value != null) {
+      jsonData['value'] = value!;
+    }
+    if (valueFrom != null) {
+      jsonData['valueFrom'] = valueFrom!.toJson();
+    }
 
     return jsonData;
   }
-
 
   /// Name of the environment variable. Must be a C_IDENTIFIER.
   final String name;
