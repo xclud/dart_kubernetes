@@ -1,3 +1,7 @@
+## 1.26.0
+
+* Support Kubernetes v1.26.0.
+
 ## 0.1.4
 
 * Support Kubernetes v1.24.3.

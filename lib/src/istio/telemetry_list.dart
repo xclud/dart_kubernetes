@@ -1,4 +1,4 @@
-import 'package:kubernetes/src/generated/apimachinery/pkg/apis/meta/v1/list_meta.dart';
+import 'package:kubernetes/src/generated/kubernetes/apimachinery/pkg/apis/meta/v1/list_meta.dart';
 
 import 'telemetry.dart';
 

@@ -8,15 +8,15 @@ import '../api_authentication_v1.dart' as api_authentication_v1;
 import '../api_authorization_v1.dart' as api_authorization_v1;
 import '../api_autoscaling_v1.dart' as api_autoscaling_v1;
 import '../api_autoscaling_v2.dart' as api_autoscaling_v2;
-import '../api_autoscaling_v2beta2.dart' as api_autoscaling_v2beta2;
+import '../api_autoscaling_v2.dart' as api_autoscaling_v2beta2;
 import '../api_batch_v1.dart' as api_batch_v1;
 import '../api_certificates_v1.dart' as api_certificates_v1;
 import '../api_coordination_v1.dart' as api_coordination_v1;
 import '../api_core_v1.dart' as api_core_v1;
 import '../api_discovery_v1.dart' as api_discovery_v1;
 import '../api_events_v1.dart' as api_events_v1;
-import '../api_flowcontrol_v1beta1.dart' as api_flowcontrol_v1beta1;
 import '../api_flowcontrol_v1beta2.dart' as api_flowcontrol_v1beta2;
+import '../api_flowcontrol_v1beta3.dart' as api_flowcontrol_v1beta3;
 import '../api_networking_v1.dart' as api_networking_v1;
 import '../api_node_v1.dart' as api_node_v1;
 import '../api_policy_v1.dart' as api_policy_v1;
@@ -19144,7 +19144,7 @@ class KubernetesClient {
   /// List or watch objects of kind FlowSchema.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<api_flowcontrol_v1beta1.FlowSchemaList>
+  Future<api_flowcontrol_v1beta3.FlowSchemaList>
       listFlowcontrolApiserverV1beta1FlowSchema({
     bool? pretty,
   }) async {
@@ -19158,7 +19158,7 @@ class KubernetesClient {
 
     final result = await _getJsonMap(
         '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas$query');
-    return api_flowcontrol_v1beta1.FlowSchemaList.fromJson(result);
+    return api_flowcontrol_v1beta3.FlowSchemaList.fromJson(result);
   }
 
   /// Delete collection of FlowSchema.
@@ -19184,9 +19184,9 @@ class KubernetesClient {
   /// Create a FlowSchema.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<api_flowcontrol_v1beta1.FlowSchema>
+  Future<api_flowcontrol_v1beta3.FlowSchema>
       createFlowcontrolApiserverV1beta1FlowSchema({
-    required api_flowcontrol_v1beta1.FlowSchema body,
+    required api_flowcontrol_v1beta3.FlowSchema body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -19201,7 +19201,7 @@ class KubernetesClient {
     final result = await _postJsonMap(
         '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas$query',
         jsonBody);
-    return api_flowcontrol_v1beta1.FlowSchema.fromJson(result);
+    return api_flowcontrol_v1beta3.FlowSchema.fromJson(result);
   }
 
   /// Read the specified FlowSchema.
@@ -19209,7 +19209,7 @@ class KubernetesClient {
   /// [name] Name of the FlowSchema.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<api_flowcontrol_v1beta1.FlowSchema>
+  Future<api_flowcontrol_v1beta3.FlowSchema>
       readFlowcontrolApiserverV1beta1FlowSchema({
     required String name,
     bool? pretty,
@@ -19224,7 +19224,7 @@ class KubernetesClient {
 
     final result = await _getJsonMap(
         '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name$query');
-    return api_flowcontrol_v1beta1.FlowSchema.fromJson(result);
+    return api_flowcontrol_v1beta3.FlowSchema.fromJson(result);
   }
 
   /// Delete a FlowSchema.
@@ -19255,9 +19255,9 @@ class KubernetesClient {
   /// [name] Name of the FlowSchema.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<api_flowcontrol_v1beta1.FlowSchema>
+  Future<api_flowcontrol_v1beta3.FlowSchema>
       replaceFlowcontrolApiserverV1beta1FlowSchema({
-    required api_flowcontrol_v1beta1.FlowSchema body,
+    required api_flowcontrol_v1beta3.FlowSchema body,
     required String name,
     bool? pretty,
   }) async {
@@ -19273,7 +19273,7 @@ class KubernetesClient {
     final result = await _putJsonMap(
         '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name$query',
         jsonBody);
-    return api_flowcontrol_v1beta1.FlowSchema.fromJson(result);
+    return api_flowcontrol_v1beta3.FlowSchema.fromJson(result);
   }
 
   /// Partially update the specified FlowSchema.
@@ -19281,9 +19281,9 @@ class KubernetesClient {
   /// [name] Name of the FlowSchema.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<api_flowcontrol_v1beta1.FlowSchema>
+  Future<api_flowcontrol_v1beta3.FlowSchema>
       patchFlowcontrolApiserverV1beta1FlowSchema({
-    required api_flowcontrol_v1beta1.FlowSchema body,
+    required api_flowcontrol_v1beta3.FlowSchema body,
     required String name,
     bool? pretty,
     PatchType patchType = PatchType.mergePatch,
@@ -19301,7 +19301,7 @@ class KubernetesClient {
         '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name$query',
         jsonBody,
         patchType);
-    return api_flowcontrol_v1beta1.FlowSchema.fromJson(result);
+    return api_flowcontrol_v1beta3.FlowSchema.fromJson(result);
   }
 
   /// Read status of the specified FlowSchema.
@@ -19309,7 +19309,7 @@ class KubernetesClient {
   /// [name] Name of the FlowSchema.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<api_flowcontrol_v1beta1.FlowSchema>
+  Future<api_flowcontrol_v1beta3.FlowSchema>
       readFlowcontrolApiserverV1beta1FlowSchemaStatus({
     required String name,
     bool? pretty,
@@ -19324,7 +19324,7 @@ class KubernetesClient {
 
     final result = await _getJsonMap(
         '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name/status$query');
-    return api_flowcontrol_v1beta1.FlowSchema.fromJson(result);
+    return api_flowcontrol_v1beta3.FlowSchema.fromJson(result);
   }
 
   /// Replace status of the specified FlowSchema.
@@ -19332,9 +19332,9 @@ class KubernetesClient {
   /// [name] Name of the FlowSchema.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<api_flowcontrol_v1beta1.FlowSchema>
+  Future<api_flowcontrol_v1beta3.FlowSchema>
       replaceFlowcontrolApiserverV1beta1FlowSchemaStatus({
-    required api_flowcontrol_v1beta1.FlowSchema body,
+    required api_flowcontrol_v1beta3.FlowSchema body,
     required String name,
     bool? pretty,
   }) async {
@@ -19350,7 +19350,7 @@ class KubernetesClient {
     final result = await _putJsonMap(
         '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name/status$query',
         jsonBody);
-    return api_flowcontrol_v1beta1.FlowSchema.fromJson(result);
+    return api_flowcontrol_v1beta3.FlowSchema.fromJson(result);
   }
 
   /// Partially update status of the specified FlowSchema.
@@ -19358,9 +19358,9 @@ class KubernetesClient {
   /// [name] Name of the FlowSchema.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<api_flowcontrol_v1beta1.FlowSchema>
+  Future<api_flowcontrol_v1beta3.FlowSchema>
       patchFlowcontrolApiserverV1beta1FlowSchemaStatus({
-    required api_flowcontrol_v1beta1.FlowSchema body,
+    required api_flowcontrol_v1beta3.FlowSchema body,
     required String name,
     bool? pretty,
     PatchType patchType = PatchType.mergePatch,
@@ -19378,13 +19378,13 @@ class KubernetesClient {
         '/apis/flowcontrol.apiserver.k8s.io/v1beta1/flowschemas/$name/status$query',
         jsonBody,
         patchType);
-    return api_flowcontrol_v1beta1.FlowSchema.fromJson(result);
+    return api_flowcontrol_v1beta3.FlowSchema.fromJson(result);
   }
 
   /// List or watch objects of kind PriorityLevelConfiguration.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<api_flowcontrol_v1beta1.PriorityLevelConfigurationList>
+  Future<api_flowcontrol_v1beta3.PriorityLevelConfigurationList>
       listFlowcontrolApiserverV1beta1PriorityLevelConfiguration({
     bool? pretty,
   }) async {
@@ -19398,7 +19398,7 @@ class KubernetesClient {
 
     final result = await _getJsonMap(
         '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations$query');
-    return api_flowcontrol_v1beta1.PriorityLevelConfigurationList.fromJson(
+    return api_flowcontrol_v1beta3.PriorityLevelConfigurationList.fromJson(
         result);
   }
 
@@ -19425,9 +19425,9 @@ class KubernetesClient {
   /// Create a PriorityLevelConfiguration.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<api_flowcontrol_v1beta1.PriorityLevelConfiguration>
+  Future<api_flowcontrol_v1beta3.PriorityLevelConfiguration>
       createFlowcontrolApiserverV1beta1PriorityLevelConfiguration({
-    required api_flowcontrol_v1beta1.PriorityLevelConfiguration body,
+    required api_flowcontrol_v1beta3.PriorityLevelConfiguration body,
     bool? pretty,
   }) async {
     final queryStrings = <String, Object>{};
@@ -19442,7 +19442,7 @@ class KubernetesClient {
     final result = await _postJsonMap(
         '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations$query',
         jsonBody);
-    return api_flowcontrol_v1beta1.PriorityLevelConfiguration.fromJson(result);
+    return api_flowcontrol_v1beta3.PriorityLevelConfiguration.fromJson(result);
   }
 
   /// Read the specified PriorityLevelConfiguration.
@@ -19450,7 +19450,7 @@ class KubernetesClient {
   /// [name] Name of the PriorityLevelConfiguration.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<api_flowcontrol_v1beta1.PriorityLevelConfiguration>
+  Future<api_flowcontrol_v1beta3.PriorityLevelConfiguration>
       readFlowcontrolApiserverV1beta1PriorityLevelConfiguration({
     required String name,
     bool? pretty,
@@ -19465,7 +19465,7 @@ class KubernetesClient {
 
     final result = await _getJsonMap(
         '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name$query');
-    return api_flowcontrol_v1beta1.PriorityLevelConfiguration.fromJson(result);
+    return api_flowcontrol_v1beta3.PriorityLevelConfiguration.fromJson(result);
   }
 
   /// Delete a PriorityLevelConfiguration.
@@ -19496,9 +19496,9 @@ class KubernetesClient {
   /// [name] Name of the PriorityLevelConfiguration.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<api_flowcontrol_v1beta1.PriorityLevelConfiguration>
+  Future<api_flowcontrol_v1beta3.PriorityLevelConfiguration>
       replaceFlowcontrolApiserverV1beta1PriorityLevelConfiguration({
-    required api_flowcontrol_v1beta1.PriorityLevelConfiguration body,
+    required api_flowcontrol_v1beta3.PriorityLevelConfiguration body,
     required String name,
     bool? pretty,
   }) async {
@@ -19514,7 +19514,7 @@ class KubernetesClient {
     final result = await _putJsonMap(
         '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name$query',
         jsonBody);
-    return api_flowcontrol_v1beta1.PriorityLevelConfiguration.fromJson(result);
+    return api_flowcontrol_v1beta3.PriorityLevelConfiguration.fromJson(result);
   }
 
   /// Partially update the specified PriorityLevelConfiguration.
@@ -19522,9 +19522,9 @@ class KubernetesClient {
   /// [name] Name of the PriorityLevelConfiguration.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<api_flowcontrol_v1beta1.PriorityLevelConfiguration>
+  Future<api_flowcontrol_v1beta3.PriorityLevelConfiguration>
       patchFlowcontrolApiserverV1beta1PriorityLevelConfiguration({
-    required api_flowcontrol_v1beta1.PriorityLevelConfiguration body,
+    required api_flowcontrol_v1beta3.PriorityLevelConfiguration body,
     required String name,
     bool? pretty,
     PatchType patchType = PatchType.mergePatch,
@@ -19542,7 +19542,7 @@ class KubernetesClient {
         '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name$query',
         jsonBody,
         patchType);
-    return api_flowcontrol_v1beta1.PriorityLevelConfiguration.fromJson(result);
+    return api_flowcontrol_v1beta3.PriorityLevelConfiguration.fromJson(result);
   }
 
   /// Read status of the specified PriorityLevelConfiguration.
@@ -19550,7 +19550,7 @@ class KubernetesClient {
   /// [name] Name of the PriorityLevelConfiguration.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<api_flowcontrol_v1beta1.PriorityLevelConfiguration>
+  Future<api_flowcontrol_v1beta3.PriorityLevelConfiguration>
       readFlowcontrolApiserverV1beta1PriorityLevelConfigurationStatus({
     required String name,
     bool? pretty,
@@ -19565,7 +19565,7 @@ class KubernetesClient {
 
     final result = await _getJsonMap(
         '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name/status$query');
-    return api_flowcontrol_v1beta1.PriorityLevelConfiguration.fromJson(result);
+    return api_flowcontrol_v1beta3.PriorityLevelConfiguration.fromJson(result);
   }
 
   /// Replace status of the specified PriorityLevelConfiguration.
@@ -19573,9 +19573,9 @@ class KubernetesClient {
   /// [name] Name of the PriorityLevelConfiguration.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<api_flowcontrol_v1beta1.PriorityLevelConfiguration>
+  Future<api_flowcontrol_v1beta3.PriorityLevelConfiguration>
       replaceFlowcontrolApiserverV1beta1PriorityLevelConfigurationStatus({
-    required api_flowcontrol_v1beta1.PriorityLevelConfiguration body,
+    required api_flowcontrol_v1beta3.PriorityLevelConfiguration body,
     required String name,
     bool? pretty,
   }) async {
@@ -19591,7 +19591,7 @@ class KubernetesClient {
     final result = await _putJsonMap(
         '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name/status$query',
         jsonBody);
-    return api_flowcontrol_v1beta1.PriorityLevelConfiguration.fromJson(result);
+    return api_flowcontrol_v1beta3.PriorityLevelConfiguration.fromJson(result);
   }
 
   /// Partially update status of the specified PriorityLevelConfiguration.
@@ -19599,9 +19599,9 @@ class KubernetesClient {
   /// [name] Name of the PriorityLevelConfiguration.
   ///
   /// [pretty] If true, then the output is pretty printed.
-  Future<api_flowcontrol_v1beta1.PriorityLevelConfiguration>
+  Future<api_flowcontrol_v1beta3.PriorityLevelConfiguration>
       patchFlowcontrolApiserverV1beta1PriorityLevelConfigurationStatus({
-    required api_flowcontrol_v1beta1.PriorityLevelConfiguration body,
+    required api_flowcontrol_v1beta3.PriorityLevelConfiguration body,
     required String name,
     bool? pretty,
     PatchType patchType = PatchType.mergePatch,
@@ -19619,7 +19619,7 @@ class KubernetesClient {
         '/apis/flowcontrol.apiserver.k8s.io/v1beta1/prioritylevelconfigurations/$name/status$query',
         jsonBody,
         patchType);
-    return api_flowcontrol_v1beta1.PriorityLevelConfiguration.fromJson(result);
+    return api_flowcontrol_v1beta3.PriorityLevelConfiguration.fromJson(result);
   }
 
   /// Watch individual changes to a list of FlowSchema.

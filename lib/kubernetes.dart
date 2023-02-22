@@ -2,6 +2,13 @@ export 'api_admissionregistration_v1.dart';
 export 'api_apps_v1.dart';
 export 'api_authentication_v1.dart';
 export 'api_authorization_v1.dart';
+export 'api_autoscaling_v1.dart'
+    hide
+        CrossVersionObjectReference,
+        HorizontalPodAutoscaler,
+        HorizontalPodAutoscalerList,
+        HorizontalPodAutoscalerSpec,
+        HorizontalPodAutoscalerStatus;
 export 'api_autoscaling_v2.dart';
 export 'api_batch_v1.dart';
 export 'api_certificates_v1.dart';
@@ -24,3 +31,4 @@ export 'kube__aggregator_pkg_apis_apiregistration_v1.dart'
     hide ServiceReference;
 
 export 'src/client.dart';
+export 'src/config.dart';

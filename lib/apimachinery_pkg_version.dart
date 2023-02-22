@@ -1,1 +1,1 @@
-export 'src/generated/apimachinery/pkg/version/info.dart';
+export 'src/generated/kubernetes/apimachinery/pkg/version/info.dart';
