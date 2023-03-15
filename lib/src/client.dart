@@ -4,10 +4,18 @@ String _getHeader(Object body) {
   return 'application/json; charset=utf-8';
 }
 
+/// Patch type.
 enum PatchType {
+  ///
   jsonPatch,
+
+  ///
   mergePatch,
+
+  ///
   strategicMergePatch,
+
+  ///
   applyPatch,
 }
 

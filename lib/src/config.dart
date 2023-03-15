@@ -170,6 +170,7 @@ class ClusterEndpoint {
 
 /// Relates nicknames to cluster information.
 class Cluster {
+  /// Default constructor.
   Cluster({
     required this.name,
     required this.clusterEndpoint,
@@ -290,6 +291,7 @@ class User {
 
 /// External Execution
 class ExternalExecution {
+  /// API version.
   String? apiVersion;
 
   /// The command to execute. Required.
