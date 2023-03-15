@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kubernetes/kubernetes.dart';
+import 'package:kubernetes/core_v1.dart';
 import 'package:yakc/views/object_meta_widget.dart';
 
 class SecretViewPage extends StatefulWidget {
@@ -30,12 +30,12 @@ class _SecretViewPageState extends State<SecretViewPage> {
               child: ObjectMetaWidget(metadata: widget.secret.metadata!),
             ),
           ),
-          if (widget.secret.data != null)
+          if (widget.secret.data.isNotEmpty)
             Padding(
               padding: const EdgeInsets.all(4.0),
               child: Card(
                 child: Column(
-                  children: widget.secret.data!.entries
+                  children: widget.secret.data.entries
                       .map(
                         (e) => ListTile(
                           title: Text(e.key),

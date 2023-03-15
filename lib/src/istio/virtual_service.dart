@@ -1,4 +1,4 @@
-import 'package:kubernetes/apimachinery_pkg_apis_meta_v1.dart';
+import 'package:kubernetes/io_k8s_apimachinery_pkg_apis_meta_v1.dart';
 
 import '_todo.dart';
 import 'virtual_service_spec.dart';

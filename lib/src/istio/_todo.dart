@@ -1,3 +1,4 @@
+///
 class AuthorizationPolicyStatus {
   /// The main constructor.
   const AuthorizationPolicyStatus();
@@ -6,6 +7,7 @@ class AuthorizationPolicyStatus {
   AuthorizationPolicyStatus.fromJson(Map<String, dynamic> json) : this();
 }
 
+///
 class DestinationRuleSpec {
   /// The main constructor.
   const DestinationRuleSpec();
@@ -14,6 +16,7 @@ class DestinationRuleSpec {
   DestinationRuleSpec.fromJson(Map<String, dynamic> json) : this();
 }
 
+///
 class DestinationRuleStatus {
   /// The main constructor.
   const DestinationRuleStatus();
@@ -22,6 +25,7 @@ class DestinationRuleStatus {
   DestinationRuleStatus.fromJson(Map<String, dynamic> json) : this();
 }
 
+///
 class EnvoyFilterSpec {
   /// The main constructor.
   const EnvoyFilterSpec();
@@ -30,6 +34,7 @@ class EnvoyFilterSpec {
   EnvoyFilterSpec.fromJson(Map<String, dynamic> json) : this();
 }
 
+///
 class EnvoyFilterStatus {
   /// The main constructor.
   const EnvoyFilterStatus();
@@ -38,6 +43,7 @@ class EnvoyFilterStatus {
   EnvoyFilterStatus.fromJson(Map<String, dynamic> json) : this();
 }
 
+///
 class PeerAuthenticationSpec {
   /// The main constructor.
   const PeerAuthenticationSpec();
@@ -46,6 +52,7 @@ class PeerAuthenticationSpec {
   PeerAuthenticationSpec.fromJson(Map<String, dynamic> json) : this();
 }
 
+///
 class PeerAuthenticationStatus {
   /// The main constructor.
   const PeerAuthenticationStatus();
@@ -54,6 +61,7 @@ class PeerAuthenticationStatus {
   PeerAuthenticationStatus.fromJson(Map<String, dynamic> json) : this();
 }
 
+///
 class RequestAuthenticationSpec {
   /// The main constructor.
   const RequestAuthenticationSpec();
@@ -62,6 +70,7 @@ class RequestAuthenticationSpec {
   RequestAuthenticationSpec.fromJson(Map<String, dynamic> json) : this();
 }
 
+///
 class RequestAuthenticationStatus {
   /// The main constructor.
   const RequestAuthenticationStatus();
@@ -70,6 +79,7 @@ class RequestAuthenticationStatus {
   RequestAuthenticationStatus.fromJson(Map<String, dynamic> json) : this();
 }
 
+///
 class ServiceEntrySpec {
   /// The main constructor.
   const ServiceEntrySpec();
@@ -78,6 +88,7 @@ class ServiceEntrySpec {
   ServiceEntrySpec.fromJson(Map<String, dynamic> json) : this();
 }
 
+///
 class ServiceEntryStatus {
   /// The main constructor.
   const ServiceEntryStatus();
@@ -86,6 +97,7 @@ class ServiceEntryStatus {
   ServiceEntryStatus.fromJson(Map<String, dynamic> json) : this();
 }
 
+///
 class SidecarSpec {
   /// The main constructor.
   const SidecarSpec();
@@ -94,6 +106,7 @@ class SidecarSpec {
   SidecarSpec.fromJson(Map<String, dynamic> json) : this();
 }
 
+///
 class SidecarStatus {
   /// The main constructor.
   const SidecarStatus();
@@ -102,6 +115,7 @@ class SidecarStatus {
   SidecarStatus.fromJson(Map<String, dynamic> json) : this();
 }
 
+///
 class TelemetrySpec {
   /// The main constructor.
   const TelemetrySpec();
@@ -110,6 +124,7 @@ class TelemetrySpec {
   TelemetrySpec.fromJson(Map<String, dynamic> json) : this();
 }
 
+///
 class TelemetryStatus {
   /// The main constructor.
   const TelemetryStatus();
@@ -118,6 +133,7 @@ class TelemetryStatus {
   TelemetryStatus.fromJson(Map<String, dynamic> json) : this();
 }
 
+///
 class VirtualServiceStatus {
   /// The main constructor.
   const VirtualServiceStatus();
@@ -126,6 +142,7 @@ class VirtualServiceStatus {
   VirtualServiceStatus.fromJson(Map<String, dynamic> json) : this();
 }
 
+///
 class WorkloadEntrySpec {
   /// The main constructor.
   const WorkloadEntrySpec();
@@ -134,6 +151,7 @@ class WorkloadEntrySpec {
   WorkloadEntrySpec.fromJson(Map<String, dynamic> json) : this();
 }
 
+///
 class WorkloadEntryStatus {
   /// The main constructor.
   const WorkloadEntryStatus();
@@ -142,6 +160,7 @@ class WorkloadEntryStatus {
   WorkloadEntryStatus.fromJson(Map<String, dynamic> json) : this();
 }
 
+///
 class WorkloadGroupSpec {
   /// The main constructor.
   const WorkloadGroupSpec();
@@ -150,6 +169,7 @@ class WorkloadGroupSpec {
   WorkloadGroupSpec.fromJson(Map<String, dynamic> json) : this();
 }
 
+///
 class WorkloadGroupStatus {
   /// The main constructor.
   const WorkloadGroupStatus();

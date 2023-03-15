@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:kubernetes/kubernetes.dart';
+import 'package:kubernetes/core_v1.dart';
 import 'package:yakc/dialogs/json_editor_dialog.dart';
 import 'package:yakc/views/object_meta_widget.dart';
 
@@ -54,12 +54,12 @@ class _ConfigMapViewPageState extends State<ConfigMapViewPage> {
               child: ObjectMetaWidget(metadata: widget.configmap.metadata!),
             ),
           ),
-          if (widget.configmap.data != null)
+          if (widget.configmap.data.isNotEmpty)
             Padding(
               padding: const EdgeInsets.all(4.0),
               child: Card(
                 child: Column(
-                  children: widget.configmap.data!.entries
+                  children: widget.configmap.data.entries
                       .map(
                         (e) => ListTile(
                           title: Text(e.key),

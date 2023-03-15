@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kubernetes/kubernetes.dart';
+import 'package:kubernetes/apps_v1.dart';
 import 'package:yakc/views/object_meta_widget.dart';
 
 class StatefulSetViewPage extends StatefulWidget {

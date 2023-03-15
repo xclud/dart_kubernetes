@@ -1,7 +1,8 @@
-import 'package:kubernetes/src/generated/kubernetes/apimachinery/pkg/apis/meta/v1/list_meta.dart';
+import 'package:kubernetes/io_k8s_apimachinery_pkg_apis_meta_v1.dart';
 
 import 'service_entry.dart';
 
+/// [ServiceEntry] list.
 class ServiceEntryList {
   /// The main constructor.
   const ServiceEntryList({

@@ -18,6 +18,7 @@ class GatewaySpec {
               : null,
         );
 
+  /// Selector.
   final Map<String, String>? selector;
 
   /// A list of server specifications.

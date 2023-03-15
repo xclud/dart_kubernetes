@@ -1,3 +1,7 @@
+## 1.26.0+1
+
+* Refactor.
+
 ## 1.26.0
 
 * Support Kubernetes v1.26.0.

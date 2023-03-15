@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kubernetes/apimachinery_pkg_apis_meta_v1.dart';
+import 'package:kubernetes/io_k8s_apimachinery_pkg_apis_meta_v1.dart';
 
 class ObjectMetaWidget extends StatelessWidget {
   const ObjectMetaWidget({
@@ -11,7 +11,7 @@ class ObjectMetaWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var annotations = metadata.annotations?.entries
+    var annotations = metadata.annotations.entries
         .map(
           (e) => Chip(
             label: Text('${e.key}:${e.value}'),
@@ -42,7 +42,7 @@ class ObjectMetaWidget extends StatelessWidget {
           title: Text(metadata.creationTimestamp?.toLocal().toString() ?? ''),
           subtitle: const Text('Creation Timestamp'),
         ),
-        if (annotations != null)
+        if (annotations.isNotEmpty)
           Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),

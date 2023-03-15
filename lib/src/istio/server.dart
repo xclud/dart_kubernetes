@@ -46,5 +46,7 @@ class Server {
 
   /// One or more hosts exposed by this gateway.
   final List<String>? hosts;
+
+  /// TLS.
   final ServerTLSSettings? tls;
 }

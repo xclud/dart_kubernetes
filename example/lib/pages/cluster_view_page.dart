@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kubernetes/apps_v1.dart';
+import 'package:kubernetes/core_v1.dart';
 import 'package:kubernetes/istio_v1beta1.dart';
 import 'package:kubernetes/kubernetes.dart';
 import 'package:yakc/models.dart' as models;

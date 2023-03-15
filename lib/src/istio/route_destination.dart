@@ -8,6 +8,7 @@ class RouteDestination {
     this.weight,
   });
 
+  /// From JSON.
   RouteDestination.fromJson(Map<String, dynamic> json)
       : this(
           destination: Destination.fromJson(json['destination']),

@@ -1,7 +1,8 @@
-import 'package:kubernetes/apimachinery_pkg_apis_meta_v1.dart';
+import 'package:kubernetes/io_k8s_apimachinery_pkg_apis_meta_v1.dart';
 //import 'gateway_status.dart';
 import 'gateway_spec.dart';
 
+/// Gateway.
 class Gateway {
   /// The main constructor.
   const Gateway({

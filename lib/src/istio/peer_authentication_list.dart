@@ -1,7 +1,8 @@
-import 'package:kubernetes/src/generated/kubernetes/apimachinery/pkg/apis/meta/v1/list_meta.dart';
+import 'package:kubernetes/io_k8s_apimachinery_pkg_apis_meta_v1.dart';
 
 import 'peer_authentication.dart';
 
+/// [PeerAuthentication] list.
 class PeerAuthenticationList {
   /// The main constructor.
   const PeerAuthenticationList({
