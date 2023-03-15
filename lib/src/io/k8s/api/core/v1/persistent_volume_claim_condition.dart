@@ -26,8 +26,12 @@ class PersistentVolumeClaimCondition {
     final tempStatusJson = json['status'];
     final tempTypeJson = json['type'];
 
-    final tempLastProbeTime = tempLastProbeTimeJson;
-    final tempLastTransitionTime = tempLastTransitionTimeJson;
+    final tempLastProbeTime = tempLastProbeTimeJson != null
+        ? DateTime.tryParse(tempLastProbeTimeJson)
+        : null;
+    final tempLastTransitionTime = tempLastTransitionTimeJson != null
+        ? DateTime.tryParse(tempLastTransitionTimeJson)
+        : null;
     final tempMessage = tempMessageJson;
     final tempReason = tempReasonJson;
     final tempStatus = tempStatusJson;

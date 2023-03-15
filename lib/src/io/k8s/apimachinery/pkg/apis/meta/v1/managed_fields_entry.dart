@@ -35,7 +35,8 @@ class ManagedFieldsEntry {
     final tempManager = tempManagerJson;
     final tempOperation = tempOperationJson;
     final tempSubresource = tempSubresourceJson;
-    final tempTime = tempTimeJson;
+    final tempTime =
+        tempTimeJson != null ? DateTime.tryParse(tempTimeJson) : null;
 
     return ManagedFieldsEntry(
       apiVersion: tempApiVersion,

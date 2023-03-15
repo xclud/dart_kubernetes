@@ -30,7 +30,9 @@ class HorizontalPodAutoscalerStatus {
     final tempCurrentMetrics = tempCurrentMetricsJson;
     final tempCurrentReplicas = tempCurrentReplicasJson;
     final tempDesiredReplicas = tempDesiredReplicasJson;
-    final tempLastScaleTime = tempLastScaleTimeJson;
+    final tempLastScaleTime = tempLastScaleTimeJson != null
+        ? DateTime.tryParse(tempLastScaleTimeJson)
+        : null;
     final tempObservedGeneration = tempObservedGenerationJson;
 
     return HorizontalPodAutoscalerStatus(

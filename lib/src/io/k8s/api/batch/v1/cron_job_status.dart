@@ -21,8 +21,12 @@ class CronJobStatus {
     final tempLastSuccessfulTimeJson = json['lastSuccessfulTime'];
 
     final tempActive = tempActiveJson;
-    final tempLastScheduleTime = tempLastScheduleTimeJson;
-    final tempLastSuccessfulTime = tempLastSuccessfulTimeJson;
+    final tempLastScheduleTime = tempLastScheduleTimeJson != null
+        ? DateTime.tryParse(tempLastScheduleTimeJson)
+        : null;
+    final tempLastSuccessfulTime = tempLastSuccessfulTimeJson != null
+        ? DateTime.tryParse(tempLastSuccessfulTimeJson)
+        : null;
 
     return CronJobStatus(
       active: tempActive,

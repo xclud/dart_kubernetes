@@ -46,9 +46,13 @@ class ObjectMeta {
     final tempUidJson = json['uid'];
 
     final tempAnnotations = tempAnnotationsJson;
-    final tempCreationTimestamp = tempCreationTimestampJson;
+    final tempCreationTimestamp = tempCreationTimestampJson != null
+        ? DateTime.tryParse(tempCreationTimestampJson)
+        : null;
     final tempDeletionGracePeriodSeconds = tempDeletionGracePeriodSecondsJson;
-    final tempDeletionTimestamp = tempDeletionTimestampJson;
+    final tempDeletionTimestamp = tempDeletionTimestampJson != null
+        ? DateTime.tryParse(tempDeletionTimestampJson)
+        : null;
     final tempFinalizers = tempFinalizersJson;
     final tempGenerateName = tempGenerateNameJson;
     final tempGeneration = tempGenerationJson;

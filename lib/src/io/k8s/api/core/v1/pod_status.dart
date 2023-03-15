@@ -53,7 +53,8 @@ class PodStatus {
     final tempPodIPs = tempPodIPsJson;
     final tempQosClass = tempQosClassJson;
     final tempReason = tempReasonJson;
-    final tempStartTime = tempStartTimeJson;
+    final tempStartTime =
+        tempStartTimeJson != null ? DateTime.tryParse(tempStartTimeJson) : null;
 
     return PodStatus(
       conditions: tempConditions,

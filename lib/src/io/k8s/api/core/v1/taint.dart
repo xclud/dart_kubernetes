@@ -24,7 +24,8 @@ class Taint {
 
     final tempEffect = tempEffectJson;
     final tempKey = tempKeyJson;
-    final tempTimeAdded = tempTimeAddedJson;
+    final tempTimeAdded =
+        tempTimeAddedJson != null ? DateTime.tryParse(tempTimeAddedJson) : null;
     final tempValue = tempValueJson;
 
     return Taint(

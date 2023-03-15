@@ -51,8 +51,13 @@ class Event {
     final tempAction = tempActionJson;
     final tempApiVersion = tempApiVersionJson;
     final tempDeprecatedCount = tempDeprecatedCountJson;
-    final tempDeprecatedFirstTimestamp = tempDeprecatedFirstTimestampJson;
-    final tempDeprecatedLastTimestamp = tempDeprecatedLastTimestampJson;
+    final tempDeprecatedFirstTimestamp =
+        tempDeprecatedFirstTimestampJson != null
+            ? DateTime.tryParse(tempDeprecatedFirstTimestampJson)
+            : null;
+    final tempDeprecatedLastTimestamp = tempDeprecatedLastTimestampJson != null
+        ? DateTime.tryParse(tempDeprecatedLastTimestampJson)
+        : null;
     final tempDeprecatedSource = tempDeprecatedSourceJson != null
         ? EventSource.fromJson(tempDeprecatedSourceJson)
         : null;

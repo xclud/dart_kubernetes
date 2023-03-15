@@ -24,7 +24,9 @@ class ReplicationControllerCondition {
     final tempStatusJson = json['status'];
     final tempTypeJson = json['type'];
 
-    final tempLastTransitionTime = tempLastTransitionTimeJson;
+    final tempLastTransitionTime = tempLastTransitionTimeJson != null
+        ? DateTime.tryParse(tempLastTransitionTimeJson)
+        : null;
     final tempMessage = tempMessageJson;
     final tempReason = tempReasonJson;
     final tempStatus = tempStatusJson;

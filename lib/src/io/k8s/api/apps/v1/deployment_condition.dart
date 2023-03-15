@@ -26,8 +26,12 @@ class DeploymentCondition {
     final tempStatusJson = json['status'];
     final tempTypeJson = json['type'];
 
-    final tempLastTransitionTime = tempLastTransitionTimeJson;
-    final tempLastUpdateTime = tempLastUpdateTimeJson;
+    final tempLastTransitionTime = tempLastTransitionTimeJson != null
+        ? DateTime.tryParse(tempLastTransitionTimeJson)
+        : null;
+    final tempLastUpdateTime = tempLastUpdateTimeJson != null
+        ? DateTime.tryParse(tempLastUpdateTimeJson)
+        : null;
     final tempMessage = tempMessageJson;
     final tempReason = tempReasonJson;
     final tempStatus = tempStatusJson;

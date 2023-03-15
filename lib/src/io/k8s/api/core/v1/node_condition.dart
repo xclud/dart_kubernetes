@@ -26,8 +26,12 @@ class NodeCondition {
     final tempStatusJson = json['status'];
     final tempTypeJson = json['type'];
 
-    final tempLastHeartbeatTime = tempLastHeartbeatTimeJson;
-    final tempLastTransitionTime = tempLastTransitionTimeJson;
+    final tempLastHeartbeatTime = tempLastHeartbeatTimeJson != null
+        ? DateTime.tryParse(tempLastHeartbeatTimeJson)
+        : null;
+    final tempLastTransitionTime = tempLastTransitionTimeJson != null
+        ? DateTime.tryParse(tempLastTransitionTimeJson)
+        : null;
     final tempMessage = tempMessageJson;
     final tempReason = tempReasonJson;
     final tempStatus = tempStatusJson;

@@ -18,7 +18,7 @@ class TokenRequestStatus {
     final tempExpirationTimestampJson = json['expirationTimestamp'];
     final tempTokenJson = json['token'];
 
-    final tempExpirationTimestamp = tempExpirationTimestampJson;
+    final tempExpirationTimestamp = DateTime.parse(tempExpirationTimestampJson);
     final tempToken = tempTokenJson;
 
     return TokenRequestStatus(

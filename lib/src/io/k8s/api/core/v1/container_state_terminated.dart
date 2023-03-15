@@ -30,11 +30,14 @@ class ContainerStateTerminated {
 
     final tempContainerID = tempContainerIDJson;
     final tempExitCode = tempExitCodeJson;
-    final tempFinishedAt = tempFinishedAtJson;
+    final tempFinishedAt = tempFinishedAtJson != null
+        ? DateTime.tryParse(tempFinishedAtJson)
+        : null;
     final tempMessage = tempMessageJson;
     final tempReason = tempReasonJson;
     final tempSignal = tempSignalJson;
-    final tempStartedAt = tempStartedAtJson;
+    final tempStartedAt =
+        tempStartedAtJson != null ? DateTime.tryParse(tempStartedAtJson) : null;
 
     return ContainerStateTerminated(
       containerID: tempContainerID,

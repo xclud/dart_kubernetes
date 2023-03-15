@@ -34,11 +34,14 @@ class JobStatus {
 
     final tempActive = tempActiveJson;
     final tempCompletedIndexes = tempCompletedIndexesJson;
-    final tempCompletionTime = tempCompletionTimeJson;
+    final tempCompletionTime = tempCompletionTimeJson != null
+        ? DateTime.tryParse(tempCompletionTimeJson)
+        : null;
     final tempConditions = tempConditionsJson;
     final tempFailed = tempFailedJson;
     final tempReady = tempReadyJson;
-    final tempStartTime = tempStartTimeJson;
+    final tempStartTime =
+        tempStartTimeJson != null ? DateTime.tryParse(tempStartTimeJson) : null;
     final tempSucceeded = tempSucceededJson;
     final tempUncountedTerminatedPods = tempUncountedTerminatedPodsJson != null
         ? UncountedTerminatedPods.fromJson(tempUncountedTerminatedPodsJson)

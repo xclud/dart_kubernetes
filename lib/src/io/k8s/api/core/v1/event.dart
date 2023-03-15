@@ -52,10 +52,14 @@ class Event {
     final tempApiVersion = tempApiVersionJson;
     final tempCount = tempCountJson;
     final tempEventTime = tempEventTimeJson;
-    final tempFirstTimestamp = tempFirstTimestampJson;
+    final tempFirstTimestamp = tempFirstTimestampJson != null
+        ? DateTime.tryParse(tempFirstTimestampJson)
+        : null;
     final tempInvolvedObject = ObjectReference.fromJson(tempInvolvedObjectJson);
     final tempKind = tempKindJson;
-    final tempLastTimestamp = tempLastTimestampJson;
+    final tempLastTimestamp = tempLastTimestampJson != null
+        ? DateTime.tryParse(tempLastTimestampJson)
+        : null;
     final tempMessage = tempMessageJson;
     final tempMetadata = ObjectMeta.fromJson(tempMetadataJson);
     final tempReason = tempReasonJson;
