@@ -18,8 +18,9 @@ class NodeSelectorTerm {
     final tempMatchExpressionsJson = json['matchExpressions'];
     final tempMatchFieldsJson = json['matchFields'];
 
-    final tempMatchExpressions = tempMatchExpressionsJson;
-    final tempMatchFields = tempMatchFieldsJson;
+    final List<NodeSelectorRequirement>? tempMatchExpressions =
+        tempMatchExpressionsJson;
+    final List<NodeSelectorRequirement>? tempMatchFields = tempMatchFieldsJson;
 
     return NodeSelectorTerm(
       matchExpressions: tempMatchExpressions,

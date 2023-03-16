@@ -23,14 +23,15 @@ class FlowSchemaSpec {
         json['priorityLevelConfiguration'];
     final tempRulesJson = json['rules'];
 
-    final tempDistinguisherMethod = tempDistinguisherMethodJson != null
-        ? FlowDistinguisherMethod.fromJson(tempDistinguisherMethodJson)
-        : null;
-    final tempMatchingPrecedence = tempMatchingPrecedenceJson;
-    final tempPriorityLevelConfiguration =
+    final FlowDistinguisherMethod? tempDistinguisherMethod =
+        tempDistinguisherMethodJson != null
+            ? FlowDistinguisherMethod.fromJson(tempDistinguisherMethodJson)
+            : null;
+    final int? tempMatchingPrecedence = tempMatchingPrecedenceJson;
+    final PriorityLevelConfigurationReference tempPriorityLevelConfiguration =
         PriorityLevelConfigurationReference.fromJson(
             tempPriorityLevelConfigurationJson);
-    final tempRules = tempRulesJson;
+    final List<PolicyRulesWithSubjects>? tempRules = tempRulesJson;
 
     return FlowSchemaSpec(
       distinguisherMethod: tempDistinguisherMethod,

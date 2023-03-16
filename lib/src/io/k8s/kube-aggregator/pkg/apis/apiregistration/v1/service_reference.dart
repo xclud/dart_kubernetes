@@ -20,9 +20,9 @@ class ServiceReference {
     final tempNamespaceJson = json['namespace'];
     final tempPortJson = json['port'];
 
-    final tempName = tempNameJson;
-    final tempNamespace = tempNamespaceJson;
-    final tempPort = tempPortJson;
+    final String? tempName = tempNameJson;
+    final String? tempNamespace = tempNamespaceJson;
+    final int? tempPort = tempPortJson;
 
     return ServiceReference(
       name: tempName,

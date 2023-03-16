@@ -20,9 +20,9 @@ class NFSVolumeSource {
     final tempReadOnlyJson = json['readOnly'];
     final tempServerJson = json['server'];
 
-    final tempPath = tempPathJson;
-    final tempReadOnly = tempReadOnlyJson;
-    final tempServer = tempServerJson;
+    final String tempPath = tempPathJson;
+    final bool? tempReadOnly = tempReadOnlyJson;
+    final String tempServer = tempServerJson;
 
     return NFSVolumeSource(
       path: tempPath,

@@ -20,11 +20,11 @@ class AllocationResult {
     final tempResourceHandleJson = json['resourceHandle'];
     final tempShareableJson = json['shareable'];
 
-    final tempAvailableOnNodes = tempAvailableOnNodesJson != null
+    final NodeSelector? tempAvailableOnNodes = tempAvailableOnNodesJson != null
         ? NodeSelector.fromJson(tempAvailableOnNodesJson)
         : null;
-    final tempResourceHandle = tempResourceHandleJson;
-    final tempShareable = tempShareableJson;
+    final String? tempResourceHandle = tempResourceHandleJson;
+    final bool? tempShareable = tempShareableJson;
 
     return AllocationResult(
       availableOnNodes: tempAvailableOnNodes,

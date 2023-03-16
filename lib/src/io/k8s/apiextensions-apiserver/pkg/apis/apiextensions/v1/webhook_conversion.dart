@@ -18,10 +18,11 @@ class WebhookConversion {
     final tempClientConfigJson = json['clientConfig'];
     final tempConversionReviewVersionsJson = json['conversionReviewVersions'];
 
-    final tempClientConfig = tempClientConfigJson != null
+    final WebhookClientConfig? tempClientConfig = tempClientConfigJson != null
         ? WebhookClientConfig.fromJson(tempClientConfigJson)
         : null;
-    final tempConversionReviewVersions = tempConversionReviewVersionsJson;
+    final List<String> tempConversionReviewVersions =
+        tempConversionReviewVersionsJson;
 
     return WebhookConversion(
       clientConfig: tempClientConfig,

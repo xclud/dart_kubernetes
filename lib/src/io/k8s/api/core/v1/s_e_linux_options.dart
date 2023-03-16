@@ -22,10 +22,10 @@ class SELinuxOptions {
     final tempTypeJson = json['type'];
     final tempUserJson = json['user'];
 
-    final tempLevel = tempLevelJson;
-    final tempRole = tempRoleJson;
-    final tempType = tempTypeJson;
-    final tempUser = tempUserJson;
+    final String? tempLevel = tempLevelJson;
+    final String? tempRole = tempRoleJson;
+    final String? tempType = tempTypeJson;
+    final String? tempUser = tempUserJson;
 
     return SELinuxOptions(
       level: tempLevel,

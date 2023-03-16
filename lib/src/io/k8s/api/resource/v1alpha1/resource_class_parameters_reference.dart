@@ -22,10 +22,10 @@ class ResourceClassParametersReference {
     final tempNameJson = json['name'];
     final tempNamespaceJson = json['namespace'];
 
-    final tempApiGroup = tempApiGroupJson;
-    final tempKind = tempKindJson;
-    final tempName = tempNameJson;
-    final tempNamespace = tempNamespaceJson;
+    final String? tempApiGroup = tempApiGroupJson;
+    final String tempKind = tempKindJson;
+    final String tempName = tempNameJson;
+    final String? tempNamespace = tempNamespaceJson;
 
     return ResourceClassParametersReference(
       apiGroup: tempApiGroup,

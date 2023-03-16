@@ -20,9 +20,9 @@ class Validation {
     final tempMessageJson = json['message'];
     final tempReasonJson = json['reason'];
 
-    final tempExpression = tempExpressionJson;
-    final tempMessage = tempMessageJson;
-    final tempReason = tempReasonJson;
+    final String tempExpression = tempExpressionJson;
+    final String? tempMessage = tempMessageJson;
+    final String? tempReason = tempReasonJson;
 
     return Validation(
       expression: tempExpression,

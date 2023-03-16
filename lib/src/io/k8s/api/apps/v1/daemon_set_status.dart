@@ -34,16 +34,16 @@ class DaemonSetStatus {
     final tempObservedGenerationJson = json['observedGeneration'];
     final tempUpdatedNumberScheduledJson = json['updatedNumberScheduled'];
 
-    final tempCollisionCount = tempCollisionCountJson;
-    final tempConditions = tempConditionsJson;
-    final tempCurrentNumberScheduled = tempCurrentNumberScheduledJson;
-    final tempDesiredNumberScheduled = tempDesiredNumberScheduledJson;
-    final tempNumberAvailable = tempNumberAvailableJson;
-    final tempNumberMisscheduled = tempNumberMisscheduledJson;
-    final tempNumberReady = tempNumberReadyJson;
-    final tempNumberUnavailable = tempNumberUnavailableJson;
-    final tempObservedGeneration = tempObservedGenerationJson;
-    final tempUpdatedNumberScheduled = tempUpdatedNumberScheduledJson;
+    final int? tempCollisionCount = tempCollisionCountJson;
+    final List<DaemonSetCondition>? tempConditions = tempConditionsJson;
+    final int tempCurrentNumberScheduled = tempCurrentNumberScheduledJson;
+    final int tempDesiredNumberScheduled = tempDesiredNumberScheduledJson;
+    final int? tempNumberAvailable = tempNumberAvailableJson;
+    final int tempNumberMisscheduled = tempNumberMisscheduledJson;
+    final int tempNumberReady = tempNumberReadyJson;
+    final int? tempNumberUnavailable = tempNumberUnavailableJson;
+    final int? tempObservedGeneration = tempObservedGenerationJson;
+    final int? tempUpdatedNumberScheduled = tempUpdatedNumberScheduledJson;
 
     return DaemonSetStatus(
       collisionCount: tempCollisionCount,

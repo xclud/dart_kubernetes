@@ -34,20 +34,23 @@ class ValidatingWebhook {
     final tempSideEffectsJson = json['sideEffects'];
     final tempTimeoutSecondsJson = json['timeoutSeconds'];
 
-    final tempAdmissionReviewVersions = tempAdmissionReviewVersionsJson;
-    final tempClientConfig = WebhookClientConfig.fromJson(tempClientConfigJson);
-    final tempFailurePolicy = tempFailurePolicyJson;
-    final tempMatchPolicy = tempMatchPolicyJson;
-    final tempName = tempNameJson;
-    final tempNamespaceSelector = tempNamespaceSelectorJson != null
-        ? LabelSelector.fromJson(tempNamespaceSelectorJson)
-        : null;
-    final tempObjectSelector = tempObjectSelectorJson != null
+    final List<String> tempAdmissionReviewVersions =
+        tempAdmissionReviewVersionsJson;
+    final WebhookClientConfig tempClientConfig =
+        WebhookClientConfig.fromJson(tempClientConfigJson);
+    final String? tempFailurePolicy = tempFailurePolicyJson;
+    final String? tempMatchPolicy = tempMatchPolicyJson;
+    final String tempName = tempNameJson;
+    final LabelSelector? tempNamespaceSelector =
+        tempNamespaceSelectorJson != null
+            ? LabelSelector.fromJson(tempNamespaceSelectorJson)
+            : null;
+    final LabelSelector? tempObjectSelector = tempObjectSelectorJson != null
         ? LabelSelector.fromJson(tempObjectSelectorJson)
         : null;
-    final tempRules = tempRulesJson;
-    final tempSideEffects = tempSideEffectsJson;
-    final tempTimeoutSeconds = tempTimeoutSecondsJson;
+    final List<RuleWithOperations>? tempRules = tempRulesJson;
+    final String tempSideEffects = tempSideEffectsJson;
+    final int? tempTimeoutSeconds = tempTimeoutSecondsJson;
 
     return ValidatingWebhook(
       admissionReviewVersions: tempAdmissionReviewVersions,

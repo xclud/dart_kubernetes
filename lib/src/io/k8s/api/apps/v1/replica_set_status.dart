@@ -26,12 +26,12 @@ class ReplicaSetStatus {
     final tempReadyReplicasJson = json['readyReplicas'];
     final tempReplicasJson = json['replicas'];
 
-    final tempAvailableReplicas = tempAvailableReplicasJson;
-    final tempConditions = tempConditionsJson;
-    final tempFullyLabeledReplicas = tempFullyLabeledReplicasJson;
-    final tempObservedGeneration = tempObservedGenerationJson;
-    final tempReadyReplicas = tempReadyReplicasJson;
-    final tempReplicas = tempReplicasJson;
+    final int? tempAvailableReplicas = tempAvailableReplicasJson;
+    final List<ReplicaSetCondition>? tempConditions = tempConditionsJson;
+    final int? tempFullyLabeledReplicas = tempFullyLabeledReplicasJson;
+    final int? tempObservedGeneration = tempObservedGenerationJson;
+    final int? tempReadyReplicas = tempReadyReplicasJson;
+    final int tempReplicas = tempReplicasJson;
 
     return ReplicaSetStatus(
       availableReplicas: tempAvailableReplicas,

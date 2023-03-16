@@ -28,13 +28,13 @@ class ObjectReference {
     final tempResourceVersionJson = json['resourceVersion'];
     final tempUidJson = json['uid'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempFieldPath = tempFieldPathJson;
-    final tempKind = tempKindJson;
-    final tempName = tempNameJson;
-    final tempNamespace = tempNamespaceJson;
-    final tempResourceVersion = tempResourceVersionJson;
-    final tempUid = tempUidJson;
+    final String? tempApiVersion = tempApiVersionJson;
+    final String? tempFieldPath = tempFieldPathJson;
+    final String? tempKind = tempKindJson;
+    final String? tempName = tempNameJson;
+    final String? tempNamespace = tempNamespaceJson;
+    final String? tempResourceVersion = tempResourceVersionJson;
+    final String? tempUid = tempUidJson;
 
     return ObjectReference(
       apiVersion: tempApiVersion,

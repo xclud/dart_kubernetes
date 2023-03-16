@@ -30,16 +30,16 @@ class TopologySpreadConstraint {
     final tempTopologyKeyJson = json['topologyKey'];
     final tempWhenUnsatisfiableJson = json['whenUnsatisfiable'];
 
-    final tempLabelSelector = tempLabelSelectorJson != null
+    final LabelSelector? tempLabelSelector = tempLabelSelectorJson != null
         ? LabelSelector.fromJson(tempLabelSelectorJson)
         : null;
-    final tempMatchLabelKeys = tempMatchLabelKeysJson;
-    final tempMaxSkew = tempMaxSkewJson;
-    final tempMinDomains = tempMinDomainsJson;
-    final tempNodeAffinityPolicy = tempNodeAffinityPolicyJson;
-    final tempNodeTaintsPolicy = tempNodeTaintsPolicyJson;
-    final tempTopologyKey = tempTopologyKeyJson;
-    final tempWhenUnsatisfiable = tempWhenUnsatisfiableJson;
+    final List<String>? tempMatchLabelKeys = tempMatchLabelKeysJson;
+    final int tempMaxSkew = tempMaxSkewJson;
+    final int? tempMinDomains = tempMinDomainsJson;
+    final String? tempNodeAffinityPolicy = tempNodeAffinityPolicyJson;
+    final String? tempNodeTaintsPolicy = tempNodeTaintsPolicyJson;
+    final String tempTopologyKey = tempTopologyKeyJson;
+    final String tempWhenUnsatisfiable = tempWhenUnsatisfiableJson;
 
     return TopologySpreadConstraint(
       labelSelector: tempLabelSelector,

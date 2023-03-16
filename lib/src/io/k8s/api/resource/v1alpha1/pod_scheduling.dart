@@ -26,12 +26,12 @@ class PodScheduling {
     final tempSpecJson = json['spec'];
     final tempStatusJson = json['status'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempKind = tempKindJson;
-    final tempMetadata =
+    final String? tempApiVersion = tempApiVersionJson;
+    final String? tempKind = tempKindJson;
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final tempSpec = PodSchedulingSpec.fromJson(tempSpecJson);
-    final tempStatus = tempStatusJson != null
+    final PodSchedulingSpec tempSpec = PodSchedulingSpec.fromJson(tempSpecJson);
+    final PodSchedulingStatus? tempStatus = tempStatusJson != null
         ? PodSchedulingStatus.fromJson(tempStatusJson)
         : null;
 

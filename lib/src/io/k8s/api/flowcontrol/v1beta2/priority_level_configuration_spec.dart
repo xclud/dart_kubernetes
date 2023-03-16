@@ -18,10 +18,11 @@ class PriorityLevelConfigurationSpec {
     final tempLimitedJson = json['limited'];
     final tempTypeJson = json['type'];
 
-    final tempLimited = tempLimitedJson != null
-        ? LimitedPriorityLevelConfiguration.fromJson(tempLimitedJson)
-        : null;
-    final tempType = tempTypeJson;
+    final LimitedPriorityLevelConfiguration? tempLimited =
+        tempLimitedJson != null
+            ? LimitedPriorityLevelConfiguration.fromJson(tempLimitedJson)
+            : null;
+    final String tempType = tempTypeJson;
 
     return PriorityLevelConfigurationSpec(
       limited: tempLimited,

@@ -22,10 +22,10 @@ class ServiceReference {
     final tempPathJson = json['path'];
     final tempPortJson = json['port'];
 
-    final tempName = tempNameJson;
-    final tempNamespace = tempNamespaceJson;
-    final tempPath = tempPathJson;
-    final tempPort = tempPortJson;
+    final String tempName = tempNameJson;
+    final String tempNamespace = tempNamespaceJson;
+    final String? tempPath = tempPathJson;
+    final int? tempPort = tempPortJson;
 
     return ServiceReference(
       name: tempName,

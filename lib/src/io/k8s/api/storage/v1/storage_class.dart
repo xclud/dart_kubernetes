@@ -36,17 +36,18 @@ class StorageClass {
     final tempReclaimPolicyJson = json['reclaimPolicy'];
     final tempVolumeBindingModeJson = json['volumeBindingMode'];
 
-    final tempAllowVolumeExpansion = tempAllowVolumeExpansionJson;
-    final tempAllowedTopologies = tempAllowedTopologiesJson;
-    final tempApiVersion = tempApiVersionJson;
-    final tempKind = tempKindJson;
-    final tempMetadata =
+    final bool? tempAllowVolumeExpansion = tempAllowVolumeExpansionJson;
+    final List<TopologySelectorTerm>? tempAllowedTopologies =
+        tempAllowedTopologiesJson;
+    final String? tempApiVersion = tempApiVersionJson;
+    final String? tempKind = tempKindJson;
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final tempMountOptions = tempMountOptionsJson;
-    final tempParameters = tempParametersJson;
-    final tempProvisioner = tempProvisionerJson;
-    final tempReclaimPolicy = tempReclaimPolicyJson;
-    final tempVolumeBindingMode = tempVolumeBindingModeJson;
+    final List<String>? tempMountOptions = tempMountOptionsJson;
+    final Map<String, String> tempParameters = tempParametersJson;
+    final String tempProvisioner = tempProvisionerJson;
+    final String? tempReclaimPolicy = tempReclaimPolicyJson;
+    final String? tempVolumeBindingMode = tempVolumeBindingModeJson;
 
     return StorageClass(
       allowVolumeExpansion: tempAllowVolumeExpansion,

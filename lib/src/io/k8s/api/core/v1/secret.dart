@@ -28,14 +28,14 @@ class Secret {
     final tempStringDataJson = json['stringData'];
     final tempTypeJson = json['type'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempData = tempDataJson;
-    final tempImmutable = tempImmutableJson;
-    final tempKind = tempKindJson;
-    final tempMetadata =
+    final String? tempApiVersion = tempApiVersionJson;
+    final Map<String, String> tempData = tempDataJson;
+    final bool? tempImmutable = tempImmutableJson;
+    final String? tempKind = tempKindJson;
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final tempStringData = tempStringDataJson;
-    final tempType = tempTypeJson;
+    final Map<String, String> tempStringData = tempStringDataJson;
+    final String? tempType = tempTypeJson;
 
     return Secret(
       apiVersion: tempApiVersion,

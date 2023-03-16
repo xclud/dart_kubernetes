@@ -18,8 +18,8 @@ class RollingUpdateStatefulSetStrategy {
     final tempMaxUnavailableJson = json['maxUnavailable'];
     final tempPartitionJson = json['partition'];
 
-    final tempMaxUnavailable = tempMaxUnavailableJson;
-    final tempPartition = tempPartitionJson;
+    final String? tempMaxUnavailable = tempMaxUnavailableJson;
+    final int? tempPartition = tempPartitionJson;
 
     return RollingUpdateStatefulSetStrategy(
       maxUnavailable: tempMaxUnavailable,

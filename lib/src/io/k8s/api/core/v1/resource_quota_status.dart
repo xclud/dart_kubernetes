@@ -18,8 +18,8 @@ class ResourceQuotaStatus {
     final tempHardJson = json['hard'];
     final tempUsedJson = json['used'];
 
-    final tempHard = tempHardJson;
-    final tempUsed = tempUsedJson;
+    final Map<String, Object> tempHard = tempHardJson;
+    final Map<String, Object> tempUsed = tempUsedJson;
 
     return ResourceQuotaStatus(
       hard: tempHard,

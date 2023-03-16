@@ -20,9 +20,9 @@ class LoadBalancerIngress {
     final tempIpJson = json['ip'];
     final tempPortsJson = json['ports'];
 
-    final tempHostname = tempHostnameJson;
-    final tempIp = tempIpJson;
-    final tempPorts = tempPortsJson;
+    final String? tempHostname = tempHostnameJson;
+    final String? tempIp = tempIpJson;
+    final List<PortStatus>? tempPorts = tempPortsJson;
 
     return LoadBalancerIngress(
       hostname: tempHostname,

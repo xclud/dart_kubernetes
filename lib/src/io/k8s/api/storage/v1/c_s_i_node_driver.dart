@@ -22,12 +22,12 @@ class CSINodeDriver {
     final tempNodeIDJson = json['nodeID'];
     final tempTopologyKeysJson = json['topologyKeys'];
 
-    final tempAllocatable = tempAllocatableJson != null
+    final VolumeNodeResources? tempAllocatable = tempAllocatableJson != null
         ? VolumeNodeResources.fromJson(tempAllocatableJson)
         : null;
-    final tempName = tempNameJson;
-    final tempNodeID = tempNodeIDJson;
-    final tempTopologyKeys = tempTopologyKeysJson;
+    final String tempName = tempNameJson;
+    final String tempNodeID = tempNodeIDJson;
+    final List<String>? tempTopologyKeys = tempTopologyKeysJson;
 
     return CSINodeDriver(
       allocatable: tempAllocatable,

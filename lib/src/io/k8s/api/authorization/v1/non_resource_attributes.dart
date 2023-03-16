@@ -18,8 +18,8 @@ class NonResourceAttributes {
     final tempPathJson = json['path'];
     final tempVerbJson = json['verb'];
 
-    final tempPath = tempPathJson;
-    final tempVerb = tempVerbJson;
+    final String? tempPath = tempPathJson;
+    final String? tempVerb = tempVerbJson;
 
     return NonResourceAttributes(
       path: tempPath,

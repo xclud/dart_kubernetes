@@ -24,12 +24,12 @@ class ClusterRoleBinding {
     final tempRoleRefJson = json['roleRef'];
     final tempSubjectsJson = json['subjects'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempKind = tempKindJson;
-    final tempMetadata =
+    final String? tempApiVersion = tempApiVersionJson;
+    final String? tempKind = tempKindJson;
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final tempRoleRef = RoleRef.fromJson(tempRoleRefJson);
-    final tempSubjects = tempSubjectsJson;
+    final RoleRef tempRoleRef = RoleRef.fromJson(tempRoleRefJson);
+    final List<Subject>? tempSubjects = tempSubjectsJson;
 
     return ClusterRoleBinding(
       apiVersion: tempApiVersion,

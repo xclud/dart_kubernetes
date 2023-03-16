@@ -22,10 +22,10 @@ class SubjectRulesReviewStatus {
     final tempNonResourceRulesJson = json['nonResourceRules'];
     final tempResourceRulesJson = json['resourceRules'];
 
-    final tempEvaluationError = tempEvaluationErrorJson;
-    final tempIncomplete = tempIncompleteJson;
-    final tempNonResourceRules = tempNonResourceRulesJson;
-    final tempResourceRules = tempResourceRulesJson;
+    final String? tempEvaluationError = tempEvaluationErrorJson;
+    final bool tempIncomplete = tempIncompleteJson;
+    final List<NonResourceRule> tempNonResourceRules = tempNonResourceRulesJson;
+    final List<ResourceRule> tempResourceRules = tempResourceRulesJson;
 
     return SubjectRulesReviewStatus(
       evaluationError: tempEvaluationError,

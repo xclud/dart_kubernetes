@@ -18,8 +18,8 @@ class DownwardAPIVolumeSource {
     final tempDefaultModeJson = json['defaultMode'];
     final tempItemsJson = json['items'];
 
-    final tempDefaultMode = tempDefaultModeJson;
-    final tempItems = tempItemsJson;
+    final int? tempDefaultMode = tempDefaultModeJson;
+    final List<DownwardAPIVolumeFile>? tempItems = tempItemsJson;
 
     return DownwardAPIVolumeSource(
       defaultMode: tempDefaultMode,

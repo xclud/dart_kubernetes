@@ -22,11 +22,11 @@ class SelfSubjectReview {
     final tempMetadataJson = json['metadata'];
     final tempStatusJson = json['status'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempKind = tempKindJson;
-    final tempMetadata =
+    final String? tempApiVersion = tempApiVersionJson;
+    final String? tempKind = tempKindJson;
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final tempStatus = tempStatusJson != null
+    final SelfSubjectReviewStatus? tempStatus = tempStatusJson != null
         ? SelfSubjectReviewStatus.fromJson(tempStatusJson)
         : null;
 

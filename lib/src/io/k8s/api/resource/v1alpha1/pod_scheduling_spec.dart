@@ -18,8 +18,8 @@ class PodSchedulingSpec {
     final tempPotentialNodesJson = json['potentialNodes'];
     final tempSelectedNodeJson = json['selectedNode'];
 
-    final tempPotentialNodes = tempPotentialNodesJson;
-    final tempSelectedNode = tempSelectedNodeJson;
+    final List<String>? tempPotentialNodes = tempPotentialNodesJson;
+    final String? tempSelectedNode = tempSelectedNodeJson;
 
     return PodSchedulingSpec(
       potentialNodes: tempPotentialNodes,

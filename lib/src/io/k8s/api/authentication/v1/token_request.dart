@@ -24,12 +24,12 @@ class TokenRequest {
     final tempSpecJson = json['spec'];
     final tempStatusJson = json['status'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempKind = tempKindJson;
-    final tempMetadata =
+    final String? tempApiVersion = tempApiVersionJson;
+    final String? tempKind = tempKindJson;
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final tempSpec = TokenRequestSpec.fromJson(tempSpecJson);
-    final tempStatus = tempStatusJson != null
+    final TokenRequestSpec tempSpec = TokenRequestSpec.fromJson(tempSpecJson);
+    final TokenRequestStatus? tempStatus = tempStatusJson != null
         ? TokenRequestStatus.fromJson(tempStatusJson)
         : null;
 

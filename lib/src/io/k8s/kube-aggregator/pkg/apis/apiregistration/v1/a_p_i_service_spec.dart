@@ -28,15 +28,15 @@ class APIServiceSpec {
     final tempVersionJson = json['version'];
     final tempVersionPriorityJson = json['versionPriority'];
 
-    final tempCaBundle = tempCaBundleJson;
-    final tempGroup = tempGroupJson;
-    final tempGroupPriorityMinimum = tempGroupPriorityMinimumJson;
-    final tempInsecureSkipTLSVerify = tempInsecureSkipTLSVerifyJson;
-    final tempService = tempServiceJson != null
+    final String? tempCaBundle = tempCaBundleJson;
+    final String? tempGroup = tempGroupJson;
+    final int tempGroupPriorityMinimum = tempGroupPriorityMinimumJson;
+    final bool? tempInsecureSkipTLSVerify = tempInsecureSkipTLSVerifyJson;
+    final ServiceReference? tempService = tempServiceJson != null
         ? ServiceReference.fromJson(tempServiceJson)
         : null;
-    final tempVersion = tempVersionJson;
-    final tempVersionPriority = tempVersionPriorityJson;
+    final String? tempVersion = tempVersionJson;
+    final int tempVersionPriority = tempVersionPriorityJson;
 
     return APIServiceSpec(
       caBundle: tempCaBundle,

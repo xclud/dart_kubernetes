@@ -18,8 +18,8 @@ class GRPCAction {
     final tempPortJson = json['port'];
     final tempServiceJson = json['service'];
 
-    final tempPort = tempPortJson;
-    final tempService = tempServiceJson;
+    final int tempPort = tempPortJson;
+    final String? tempService = tempServiceJson;
 
     return GRPCAction(
       port: tempPort,

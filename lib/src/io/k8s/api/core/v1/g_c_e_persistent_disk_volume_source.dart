@@ -24,10 +24,10 @@ class GCEPersistentDiskVolumeSource {
     final tempPdNameJson = json['pdName'];
     final tempReadOnlyJson = json['readOnly'];
 
-    final tempFsType = tempFsTypeJson;
-    final tempPartition = tempPartitionJson;
-    final tempPdName = tempPdNameJson;
-    final tempReadOnly = tempReadOnlyJson;
+    final String? tempFsType = tempFsTypeJson;
+    final int? tempPartition = tempPartitionJson;
+    final String tempPdName = tempPdNameJson;
+    final bool? tempReadOnly = tempReadOnlyJson;
 
     return GCEPersistentDiskVolumeSource(
       fsType: tempFsType,

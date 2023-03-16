@@ -18,9 +18,9 @@ class ResourceClaimTemplateSpec {
     final tempMetadataJson = json['metadata'];
     final tempSpecJson = json['spec'];
 
-    final tempMetadata =
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final tempSpec = ResourceClaimSpec.fromJson(tempSpecJson);
+    final ResourceClaimSpec tempSpec = ResourceClaimSpec.fromJson(tempSpecJson);
 
     return ResourceClaimTemplateSpec(
       metadata: tempMetadata,

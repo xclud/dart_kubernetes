@@ -16,7 +16,7 @@ class SelfSubjectRulesReviewSpec {
   factory SelfSubjectRulesReviewSpec.fromJson(Map<String, dynamic> json) {
     final tempNamespaceJson = json['namespace'];
 
-    final tempNamespace = tempNamespaceJson;
+    final String? tempNamespace = tempNamespaceJson;
 
     return SelfSubjectRulesReviewSpec(
       namespace: tempNamespace,

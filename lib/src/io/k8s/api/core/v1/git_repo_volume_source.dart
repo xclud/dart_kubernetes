@@ -22,9 +22,9 @@ class GitRepoVolumeSource {
     final tempRepositoryJson = json['repository'];
     final tempRevisionJson = json['revision'];
 
-    final tempDirectory = tempDirectoryJson;
-    final tempRepository = tempRepositoryJson;
-    final tempRevision = tempRevisionJson;
+    final String? tempDirectory = tempDirectoryJson;
+    final String tempRepository = tempRepositoryJson;
+    final String? tempRevision = tempRevisionJson;
 
     return GitRepoVolumeSource(
       directory: tempDirectory,

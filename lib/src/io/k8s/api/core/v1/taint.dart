@@ -22,11 +22,11 @@ class Taint {
     final tempTimeAddedJson = json['timeAdded'];
     final tempValueJson = json['value'];
 
-    final tempEffect = tempEffectJson;
-    final tempKey = tempKeyJson;
-    final tempTimeAdded =
+    final String tempEffect = tempEffectJson;
+    final String tempKey = tempKeyJson;
+    final DateTime? tempTimeAdded =
         tempTimeAddedJson != null ? DateTime.tryParse(tempTimeAddedJson) : null;
-    final tempValue = tempValueJson;
+    final String? tempValue = tempValueJson;
 
     return Taint(
       effect: tempEffect,

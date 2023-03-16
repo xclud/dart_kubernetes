@@ -26,13 +26,13 @@ class EndpointSlice {
     final tempMetadataJson = json['metadata'];
     final tempPortsJson = json['ports'];
 
-    final tempAddressType = tempAddressTypeJson;
-    final tempApiVersion = tempApiVersionJson;
-    final tempEndpoints = tempEndpointsJson;
-    final tempKind = tempKindJson;
-    final tempMetadata =
+    final String tempAddressType = tempAddressTypeJson;
+    final String? tempApiVersion = tempApiVersionJson;
+    final List<Endpoint> tempEndpoints = tempEndpointsJson;
+    final String? tempKind = tempKindJson;
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final tempPorts = tempPortsJson;
+    final List<EndpointPort>? tempPorts = tempPortsJson;
 
     return EndpointSlice(
       addressType: tempAddressType,

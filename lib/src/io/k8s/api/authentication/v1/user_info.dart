@@ -22,10 +22,10 @@ class UserInfo {
     final tempUidJson = json['uid'];
     final tempUsernameJson = json['username'];
 
-    final tempExtra = tempExtraJson;
-    final tempGroups = tempGroupsJson;
-    final tempUid = tempUidJson;
-    final tempUsername = tempUsernameJson;
+    final Map<String, List<String>> tempExtra = tempExtraJson;
+    final List<String>? tempGroups = tempGroupsJson;
+    final String? tempUid = tempUidJson;
+    final String? tempUsername = tempUsernameJson;
 
     return UserInfo(
       extra: tempExtra,

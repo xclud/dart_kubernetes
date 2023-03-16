@@ -20,9 +20,10 @@ class VolumeAttachmentSpec {
     final tempNodeNameJson = json['nodeName'];
     final tempSourceJson = json['source'];
 
-    final tempAttacher = tempAttacherJson;
-    final tempNodeName = tempNodeNameJson;
-    final tempSource = VolumeAttachmentSource.fromJson(tempSourceJson);
+    final String tempAttacher = tempAttacherJson;
+    final String tempNodeName = tempNodeNameJson;
+    final VolumeAttachmentSource tempSource =
+        VolumeAttachmentSource.fromJson(tempSourceJson);
 
     return VolumeAttachmentSpec(
       attacher: tempAttacher,

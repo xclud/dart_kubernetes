@@ -20,9 +20,9 @@ class ConfigMapKeySelector {
     final tempNameJson = json['name'];
     final tempOptionalJson = json['optional'];
 
-    final tempKey = tempKeyJson;
-    final tempName = tempNameJson;
-    final tempOptional = tempOptionalJson;
+    final String tempKey = tempKeyJson;
+    final String? tempName = tempNameJson;
+    final bool? tempOptional = tempOptionalJson;
 
     return ConfigMapKeySelector(
       key: tempKey,

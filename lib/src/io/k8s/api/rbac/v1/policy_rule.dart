@@ -24,11 +24,11 @@ class PolicyRule {
     final tempResourcesJson = json['resources'];
     final tempVerbsJson = json['verbs'];
 
-    final tempApiGroups = tempApiGroupsJson;
-    final tempNonResourceURLs = tempNonResourceURLsJson;
-    final tempResourceNames = tempResourceNamesJson;
-    final tempResources = tempResourcesJson;
-    final tempVerbs = tempVerbsJson;
+    final List<String>? tempApiGroups = tempApiGroupsJson;
+    final List<String>? tempNonResourceURLs = tempNonResourceURLsJson;
+    final List<String>? tempResourceNames = tempResourceNamesJson;
+    final List<String>? tempResources = tempResourcesJson;
+    final List<String> tempVerbs = tempVerbsJson;
 
     return PolicyRule(
       apiGroups: tempApiGroups,

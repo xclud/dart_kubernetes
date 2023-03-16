@@ -26,14 +26,15 @@ class CustomResourceDefinitionSpec {
     final tempScopeJson = json['scope'];
     final tempVersionsJson = json['versions'];
 
-    final tempConversion = tempConversionJson != null
+    final CustomResourceConversion? tempConversion = tempConversionJson != null
         ? CustomResourceConversion.fromJson(tempConversionJson)
         : null;
-    final tempGroup = tempGroupJson;
-    final tempNames = CustomResourceDefinitionNames.fromJson(tempNamesJson);
-    final tempPreserveUnknownFields = tempPreserveUnknownFieldsJson;
-    final tempScope = tempScopeJson;
-    final tempVersions = tempVersionsJson;
+    final String tempGroup = tempGroupJson;
+    final CustomResourceDefinitionNames tempNames =
+        CustomResourceDefinitionNames.fromJson(tempNamesJson);
+    final bool? tempPreserveUnknownFields = tempPreserveUnknownFieldsJson;
+    final String tempScope = tempScopeJson;
+    final List<CustomResourceDefinitionVersion> tempVersions = tempVersionsJson;
 
     return CustomResourceDefinitionSpec(
       conversion: tempConversion,

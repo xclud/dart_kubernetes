@@ -24,11 +24,11 @@ class Toleration {
     final tempTolerationSecondsJson = json['tolerationSeconds'];
     final tempValueJson = json['value'];
 
-    final tempEffect = tempEffectJson;
-    final tempKey = tempKeyJson;
-    final tempOperator = tempOperatorJson;
-    final tempTolerationSeconds = tempTolerationSecondsJson;
-    final tempValue = tempValueJson;
+    final String? tempEffect = tempEffectJson;
+    final String? tempKey = tempKeyJson;
+    final String? tempOperator = tempOperatorJson;
+    final int? tempTolerationSeconds = tempTolerationSecondsJson;
+    final String? tempValue = tempValueJson;
 
     return Toleration(
       effect: tempEffect,

@@ -30,16 +30,17 @@ class DeploymentSpec {
     final tempStrategyJson = json['strategy'];
     final tempTemplateJson = json['template'];
 
-    final tempMinReadySeconds = tempMinReadySecondsJson;
-    final tempPaused = tempPausedJson;
-    final tempProgressDeadlineSeconds = tempProgressDeadlineSecondsJson;
-    final tempReplicas = tempReplicasJson;
-    final tempRevisionHistoryLimit = tempRevisionHistoryLimitJson;
-    final tempSelector = LabelSelector.fromJson(tempSelectorJson);
-    final tempStrategy = tempStrategyJson != null
+    final int? tempMinReadySeconds = tempMinReadySecondsJson;
+    final bool? tempPaused = tempPausedJson;
+    final int? tempProgressDeadlineSeconds = tempProgressDeadlineSecondsJson;
+    final int? tempReplicas = tempReplicasJson;
+    final int? tempRevisionHistoryLimit = tempRevisionHistoryLimitJson;
+    final LabelSelector tempSelector = LabelSelector.fromJson(tempSelectorJson);
+    final DeploymentStrategy? tempStrategy = tempStrategyJson != null
         ? DeploymentStrategy.fromJson(tempStrategyJson)
         : null;
-    final tempTemplate = PodTemplateSpec.fromJson(tempTemplateJson);
+    final PodTemplateSpec tempTemplate =
+        PodTemplateSpec.fromJson(tempTemplateJson);
 
     return DeploymentSpec(
       minReadySeconds: tempMinReadySeconds,

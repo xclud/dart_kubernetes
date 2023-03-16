@@ -18,8 +18,8 @@ class ResourceClaimSchedulingStatus {
     final tempNameJson = json['name'];
     final tempUnsuitableNodesJson = json['unsuitableNodes'];
 
-    final tempName = tempNameJson;
-    final tempUnsuitableNodes = tempUnsuitableNodesJson;
+    final String? tempName = tempNameJson;
+    final List<String>? tempUnsuitableNodes = tempUnsuitableNodesJson;
 
     return ResourceClaimSchedulingStatus(
       name: tempName,

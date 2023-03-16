@@ -16,7 +16,8 @@ class TopologySelectorTerm {
   factory TopologySelectorTerm.fromJson(Map<String, dynamic> json) {
     final tempMatchLabelExpressionsJson = json['matchLabelExpressions'];
 
-    final tempMatchLabelExpressions = tempMatchLabelExpressionsJson;
+    final List<TopologySelectorLabelRequirement>? tempMatchLabelExpressions =
+        tempMatchLabelExpressionsJson;
 
     return TopologySelectorTerm(
       matchLabelExpressions: tempMatchLabelExpressions,

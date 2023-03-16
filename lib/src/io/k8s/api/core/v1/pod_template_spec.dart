@@ -18,9 +18,9 @@ class PodTemplateSpec {
     final tempMetadataJson = json['metadata'];
     final tempSpecJson = json['spec'];
 
-    final tempMetadata =
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final tempSpec =
+    final PodSpec? tempSpec =
         tempSpecJson != null ? PodSpec.fromJson(tempSpecJson) : null;
 
     return PodTemplateSpec(

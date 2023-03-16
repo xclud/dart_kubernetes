@@ -18,8 +18,8 @@ class ScaleStatus {
     final tempReplicasJson = json['replicas'];
     final tempSelectorJson = json['selector'];
 
-    final tempReplicas = tempReplicasJson;
-    final tempSelector = tempSelectorJson;
+    final int tempReplicas = tempReplicasJson;
+    final String? tempSelector = tempSelectorJson;
 
     return ScaleStatus(
       replicas: tempReplicas,

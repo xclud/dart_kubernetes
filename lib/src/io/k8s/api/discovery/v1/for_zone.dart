@@ -16,7 +16,7 @@ class ForZone {
   factory ForZone.fromJson(Map<String, dynamic> json) {
     final tempNameJson = json['name'];
 
-    final tempName = tempNameJson;
+    final String tempName = tempNameJson;
 
     return ForZone(
       name: tempName,

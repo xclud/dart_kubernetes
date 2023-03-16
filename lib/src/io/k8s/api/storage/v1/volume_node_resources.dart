@@ -16,7 +16,7 @@ class VolumeNodeResources {
   factory VolumeNodeResources.fromJson(Map<String, dynamic> json) {
     final tempCountJson = json['count'];
 
-    final tempCount = tempCountJson;
+    final int? tempCount = tempCountJson;
 
     return VolumeNodeResources(
       count: tempCount,

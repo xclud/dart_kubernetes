@@ -18,8 +18,9 @@ class CertificateSigningRequestStatus {
     final tempCertificateJson = json['certificate'];
     final tempConditionsJson = json['conditions'];
 
-    final tempCertificate = tempCertificateJson;
-    final tempConditions = tempConditionsJson;
+    final String? tempCertificate = tempCertificateJson;
+    final List<CertificateSigningRequestCondition>? tempConditions =
+        tempConditionsJson;
 
     return CertificateSigningRequestStatus(
       certificate: tempCertificate,

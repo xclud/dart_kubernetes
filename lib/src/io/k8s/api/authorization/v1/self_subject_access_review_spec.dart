@@ -18,12 +18,14 @@ class SelfSubjectAccessReviewSpec {
     final tempNonResourceAttributesJson = json['nonResourceAttributes'];
     final tempResourceAttributesJson = json['resourceAttributes'];
 
-    final tempNonResourceAttributes = tempNonResourceAttributesJson != null
-        ? NonResourceAttributes.fromJson(tempNonResourceAttributesJson)
-        : null;
-    final tempResourceAttributes = tempResourceAttributesJson != null
-        ? ResourceAttributes.fromJson(tempResourceAttributesJson)
-        : null;
+    final NonResourceAttributes? tempNonResourceAttributes =
+        tempNonResourceAttributesJson != null
+            ? NonResourceAttributes.fromJson(tempNonResourceAttributesJson)
+            : null;
+    final ResourceAttributes? tempResourceAttributes =
+        tempResourceAttributesJson != null
+            ? ResourceAttributes.fromJson(tempResourceAttributesJson)
+            : null;
 
     return SelfSubjectAccessReviewSpec(
       nonResourceAttributes: tempNonResourceAttributes,

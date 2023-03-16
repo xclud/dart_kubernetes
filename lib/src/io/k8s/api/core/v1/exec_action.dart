@@ -16,7 +16,7 @@ class ExecAction {
   factory ExecAction.fromJson(Map<String, dynamic> json) {
     final tempCommandJson = json['command'];
 
-    final tempCommand = tempCommandJson;
+    final List<String>? tempCommand = tempCommandJson;
 
     return ExecAction(
       command: tempCommand,

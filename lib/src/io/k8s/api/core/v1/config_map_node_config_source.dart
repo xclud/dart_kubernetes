@@ -24,11 +24,11 @@ class ConfigMapNodeConfigSource {
     final tempResourceVersionJson = json['resourceVersion'];
     final tempUidJson = json['uid'];
 
-    final tempKubeletConfigKey = tempKubeletConfigKeyJson;
-    final tempName = tempNameJson;
-    final tempNamespace = tempNamespaceJson;
-    final tempResourceVersion = tempResourceVersionJson;
-    final tempUid = tempUidJson;
+    final String tempKubeletConfigKey = tempKubeletConfigKeyJson;
+    final String tempName = tempNameJson;
+    final String tempNamespace = tempNamespaceJson;
+    final String? tempResourceVersion = tempResourceVersionJson;
+    final String? tempUid = tempUidJson;
 
     return ConfigMapNodeConfigSource(
       kubeletConfigKey: tempKubeletConfigKey,

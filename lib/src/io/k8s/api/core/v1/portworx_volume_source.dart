@@ -20,9 +20,9 @@ class PortworxVolumeSource {
     final tempReadOnlyJson = json['readOnly'];
     final tempVolumeIDJson = json['volumeID'];
 
-    final tempFsType = tempFsTypeJson;
-    final tempReadOnly = tempReadOnlyJson;
-    final tempVolumeID = tempVolumeIDJson;
+    final String? tempFsType = tempFsTypeJson;
+    final bool? tempReadOnly = tempReadOnlyJson;
+    final String tempVolumeID = tempVolumeIDJson;
 
     return PortworxVolumeSource(
       fsType: tempFsType,

@@ -18,8 +18,8 @@ class ResourceMetricSource {
     final tempNameJson = json['name'];
     final tempTargetJson = json['target'];
 
-    final tempName = tempNameJson;
-    final tempTarget = MetricTarget.fromJson(tempTargetJson);
+    final String tempName = tempNameJson;
+    final MetricTarget tempTarget = MetricTarget.fromJson(tempTargetJson);
 
     return ResourceMetricSource(
       name: tempName,

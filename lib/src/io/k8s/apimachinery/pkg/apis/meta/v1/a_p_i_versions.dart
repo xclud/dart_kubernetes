@@ -23,10 +23,11 @@ class APIVersions {
         json['serverAddressByClientCIDRs'];
     final tempVersionsJson = json['versions'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempKind = tempKindJson;
-    final tempServerAddressByClientCIDRs = tempServerAddressByClientCIDRsJson;
-    final tempVersions = tempVersionsJson;
+    final String? tempApiVersion = tempApiVersionJson;
+    final String? tempKind = tempKindJson;
+    final List<ServerAddressByClientCIDR> tempServerAddressByClientCIDRs =
+        tempServerAddressByClientCIDRsJson;
+    final List<String> tempVersions = tempVersionsJson;
 
     return APIVersions(
       apiVersion: tempApiVersion,

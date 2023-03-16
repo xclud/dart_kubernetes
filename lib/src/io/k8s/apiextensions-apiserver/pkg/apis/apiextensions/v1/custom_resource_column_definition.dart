@@ -26,12 +26,12 @@ class CustomResourceColumnDefinition {
     final tempPriorityJson = json['priority'];
     final tempTypeJson = json['type'];
 
-    final tempDescription = tempDescriptionJson;
-    final tempFormat = tempFormatJson;
-    final tempJsonPath = tempJsonPathJson;
-    final tempName = tempNameJson;
-    final tempPriority = tempPriorityJson;
-    final tempType = tempTypeJson;
+    final String? tempDescription = tempDescriptionJson;
+    final String? tempFormat = tempFormatJson;
+    final String tempJsonPath = tempJsonPathJson;
+    final String tempName = tempNameJson;
+    final int? tempPriority = tempPriorityJson;
+    final String tempType = tempTypeJson;
 
     return CustomResourceColumnDefinition(
       description: tempDescription,

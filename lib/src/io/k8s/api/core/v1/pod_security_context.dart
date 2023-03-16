@@ -34,22 +34,23 @@ class PodSecurityContext {
     final tempSysctlsJson = json['sysctls'];
     final tempWindowsOptionsJson = json['windowsOptions'];
 
-    final tempFsGroup = tempFsGroupJson;
-    final tempFsGroupChangePolicy = tempFsGroupChangePolicyJson;
-    final tempRunAsGroup = tempRunAsGroupJson;
-    final tempRunAsNonRoot = tempRunAsNonRootJson;
-    final tempRunAsUser = tempRunAsUserJson;
-    final tempSeLinuxOptions = tempSeLinuxOptionsJson != null
+    final int? tempFsGroup = tempFsGroupJson;
+    final String? tempFsGroupChangePolicy = tempFsGroupChangePolicyJson;
+    final int? tempRunAsGroup = tempRunAsGroupJson;
+    final bool? tempRunAsNonRoot = tempRunAsNonRootJson;
+    final int? tempRunAsUser = tempRunAsUserJson;
+    final SELinuxOptions? tempSeLinuxOptions = tempSeLinuxOptionsJson != null
         ? SELinuxOptions.fromJson(tempSeLinuxOptionsJson)
         : null;
-    final tempSeccompProfile = tempSeccompProfileJson != null
+    final SeccompProfile? tempSeccompProfile = tempSeccompProfileJson != null
         ? SeccompProfile.fromJson(tempSeccompProfileJson)
         : null;
-    final tempSupplementalGroups = tempSupplementalGroupsJson;
-    final tempSysctls = tempSysctlsJson;
-    final tempWindowsOptions = tempWindowsOptionsJson != null
-        ? WindowsSecurityContextOptions.fromJson(tempWindowsOptionsJson)
-        : null;
+    final List<int>? tempSupplementalGroups = tempSupplementalGroupsJson;
+    final List<Sysctl>? tempSysctls = tempSysctlsJson;
+    final WindowsSecurityContextOptions? tempWindowsOptions =
+        tempWindowsOptionsJson != null
+            ? WindowsSecurityContextOptions.fromJson(tempWindowsOptionsJson)
+            : null;
 
     return PodSecurityContext(
       fsGroup: tempFsGroup,

@@ -18,8 +18,8 @@ class TCPSocketAction {
     final tempHostJson = json['host'];
     final tempPortJson = json['port'];
 
-    final tempHost = tempHostJson;
-    final tempPort = tempPortJson;
+    final String? tempHost = tempHostJson;
+    final String tempPort = tempPortJson;
 
     return TCPSocketAction(
       host: tempHost,

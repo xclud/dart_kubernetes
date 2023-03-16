@@ -18,8 +18,8 @@ class MetricIdentifier {
     final tempNameJson = json['name'];
     final tempSelectorJson = json['selector'];
 
-    final tempName = tempNameJson;
-    final tempSelector = tempSelectorJson != null
+    final String tempName = tempNameJson;
+    final LabelSelector? tempSelector = tempSelectorJson != null
         ? LabelSelector.fromJson(tempSelectorJson)
         : null;
 

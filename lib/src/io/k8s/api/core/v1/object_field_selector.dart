@@ -18,8 +18,8 @@ class ObjectFieldSelector {
     final tempApiVersionJson = json['apiVersion'];
     final tempFieldPathJson = json['fieldPath'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempFieldPath = tempFieldPathJson;
+    final String? tempApiVersion = tempApiVersionJson;
+    final String tempFieldPath = tempFieldPathJson;
 
     return ObjectFieldSelector(
       apiVersion: tempApiVersion,

@@ -18,8 +18,9 @@ class ExternalMetricSource {
     final tempMetricJson = json['metric'];
     final tempTargetJson = json['target'];
 
-    final tempMetric = MetricIdentifier.fromJson(tempMetricJson);
-    final tempTarget = MetricTarget.fromJson(tempTargetJson);
+    final MetricIdentifier tempMetric =
+        MetricIdentifier.fromJson(tempMetricJson);
+    final MetricTarget tempTarget = MetricTarget.fromJson(tempTargetJson);
 
     return ExternalMetricSource(
       metric: tempMetric,

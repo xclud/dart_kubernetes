@@ -24,13 +24,13 @@ class ControllerRevision {
     final tempMetadataJson = json['metadata'];
     final tempRevisionJson = json['revision'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempData =
+    final String? tempApiVersion = tempApiVersionJson;
+    final RawExtension? tempData =
         tempDataJson != null ? RawExtension.fromJson(tempDataJson) : null;
-    final tempKind = tempKindJson;
-    final tempMetadata =
+    final String? tempKind = tempKindJson;
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final tempRevision = tempRevisionJson;
+    final int tempRevision = tempRevisionJson;
 
     return ControllerRevision(
       apiVersion: tempApiVersion,

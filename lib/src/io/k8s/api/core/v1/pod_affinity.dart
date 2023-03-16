@@ -20,9 +20,11 @@ class PodAffinity {
     final tempRequiredDuringSchedulingIgnoredDuringExecutionJson =
         json['requiredDuringSchedulingIgnoredDuringExecution'];
 
-    final tempPreferredDuringSchedulingIgnoredDuringExecution =
+    final List<WeightedPodAffinityTerm>?
+        tempPreferredDuringSchedulingIgnoredDuringExecution =
         tempPreferredDuringSchedulingIgnoredDuringExecutionJson;
-    final tempRequiredDuringSchedulingIgnoredDuringExecution =
+    final List<PodAffinityTerm>?
+        tempRequiredDuringSchedulingIgnoredDuringExecution =
         tempRequiredDuringSchedulingIgnoredDuringExecutionJson;
 
     return PodAffinity(

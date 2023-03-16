@@ -18,8 +18,8 @@ class IngressTLS {
     final tempHostsJson = json['hosts'];
     final tempSecretNameJson = json['secretName'];
 
-    final tempHosts = tempHostsJson;
-    final tempSecretName = tempSecretNameJson;
+    final List<String>? tempHosts = tempHostsJson;
+    final String? tempSecretName = tempSecretNameJson;
 
     return IngressTLS(
       hosts: tempHosts,

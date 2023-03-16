@@ -18,7 +18,7 @@ class PodIP {
   factory PodIP.fromJson(Map<String, dynamic> json) {
     final tempIpJson = json['ip'];
 
-    final tempIp = tempIpJson;
+    final String? tempIp = tempIpJson;
 
     return PodIP(
       ip: tempIp,

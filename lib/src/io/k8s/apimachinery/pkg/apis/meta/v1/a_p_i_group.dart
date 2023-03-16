@@ -27,14 +27,16 @@ class APIGroup {
         json['serverAddressByClientCIDRs'];
     final tempVersionsJson = json['versions'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempKind = tempKindJson;
-    final tempName = tempNameJson;
-    final tempPreferredVersion = tempPreferredVersionJson != null
-        ? GroupVersionForDiscovery.fromJson(tempPreferredVersionJson)
-        : null;
-    final tempServerAddressByClientCIDRs = tempServerAddressByClientCIDRsJson;
-    final tempVersions = tempVersionsJson;
+    final String? tempApiVersion = tempApiVersionJson;
+    final String? tempKind = tempKindJson;
+    final String tempName = tempNameJson;
+    final GroupVersionForDiscovery? tempPreferredVersion =
+        tempPreferredVersionJson != null
+            ? GroupVersionForDiscovery.fromJson(tempPreferredVersionJson)
+            : null;
+    final List<ServerAddressByClientCIDR>? tempServerAddressByClientCIDRs =
+        tempServerAddressByClientCIDRsJson;
+    final List<GroupVersionForDiscovery> tempVersions = tempVersionsJson;
 
     return APIGroup(
       apiVersion: tempApiVersion,

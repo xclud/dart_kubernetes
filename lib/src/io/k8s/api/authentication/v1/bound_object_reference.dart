@@ -22,10 +22,10 @@ class BoundObjectReference {
     final tempNameJson = json['name'];
     final tempUidJson = json['uid'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempKind = tempKindJson;
-    final tempName = tempNameJson;
-    final tempUid = tempUidJson;
+    final String? tempApiVersion = tempApiVersionJson;
+    final String? tempKind = tempKindJson;
+    final String? tempName = tempNameJson;
+    final String? tempUid = tempUidJson;
 
     return BoundObjectReference(
       apiVersion: tempApiVersion,

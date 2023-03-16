@@ -18,8 +18,8 @@ class ContainerImage {
     final tempNamesJson = json['names'];
     final tempSizeBytesJson = json['sizeBytes'];
 
-    final tempNames = tempNamesJson;
-    final tempSizeBytes = tempSizeBytesJson;
+    final List<String>? tempNames = tempNamesJson;
+    final int? tempSizeBytes = tempSizeBytesJson;
 
     return ContainerImage(
       names: tempNames,

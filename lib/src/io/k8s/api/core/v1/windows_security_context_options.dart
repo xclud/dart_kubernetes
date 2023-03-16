@@ -22,10 +22,10 @@ class WindowsSecurityContextOptions {
     final tempHostProcessJson = json['hostProcess'];
     final tempRunAsUserNameJson = json['runAsUserName'];
 
-    final tempGmsaCredentialSpec = tempGmsaCredentialSpecJson;
-    final tempGmsaCredentialSpecName = tempGmsaCredentialSpecNameJson;
-    final tempHostProcess = tempHostProcessJson;
-    final tempRunAsUserName = tempRunAsUserNameJson;
+    final String? tempGmsaCredentialSpec = tempGmsaCredentialSpecJson;
+    final String? tempGmsaCredentialSpecName = tempGmsaCredentialSpecNameJson;
+    final bool? tempHostProcess = tempHostProcessJson;
+    final String? tempRunAsUserName = tempRunAsUserNameJson;
 
     return WindowsSecurityContextOptions(
       gmsaCredentialSpec: tempGmsaCredentialSpec,

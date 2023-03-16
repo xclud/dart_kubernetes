@@ -16,7 +16,7 @@ class LocalObjectReference {
   factory LocalObjectReference.fromJson(Map<String, dynamic> json) {
     final tempNameJson = json['name'];
 
-    final tempName = tempNameJson;
+    final String? tempName = tempNameJson;
 
     return LocalObjectReference(
       name: tempName,

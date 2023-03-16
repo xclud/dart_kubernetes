@@ -16,7 +16,7 @@ class PodReadinessGate {
   factory PodReadinessGate.fromJson(Map<String, dynamic> json) {
     final tempConditionTypeJson = json['conditionType'];
 
-    final tempConditionType = tempConditionTypeJson;
+    final String tempConditionType = tempConditionTypeJson;
 
     return PodReadinessGate(
       conditionType: tempConditionType,

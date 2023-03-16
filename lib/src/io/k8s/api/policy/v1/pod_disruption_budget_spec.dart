@@ -23,12 +23,13 @@ class PodDisruptionBudgetSpec {
     final tempUnhealthyPodEvictionPolicyJson =
         json['unhealthyPodEvictionPolicy'];
 
-    final tempMaxUnavailable = tempMaxUnavailableJson;
-    final tempMinAvailable = tempMinAvailableJson;
-    final tempSelector = tempSelectorJson != null
+    final String? tempMaxUnavailable = tempMaxUnavailableJson;
+    final String? tempMinAvailable = tempMinAvailableJson;
+    final LabelSelector? tempSelector = tempSelectorJson != null
         ? LabelSelector.fromJson(tempSelectorJson)
         : null;
-    final tempUnhealthyPodEvictionPolicy = tempUnhealthyPodEvictionPolicyJson;
+    final String? tempUnhealthyPodEvictionPolicy =
+        tempUnhealthyPodEvictionPolicyJson;
 
     return PodDisruptionBudgetSpec(
       maxUnavailable: tempMaxUnavailable,

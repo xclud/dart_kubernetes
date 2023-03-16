@@ -18,10 +18,11 @@ class DaemonSetUpdateStrategy {
     final tempRollingUpdateJson = json['rollingUpdate'];
     final tempTypeJson = json['type'];
 
-    final tempRollingUpdate = tempRollingUpdateJson != null
-        ? RollingUpdateDaemonSet.fromJson(tempRollingUpdateJson)
-        : null;
-    final tempType = tempTypeJson;
+    final RollingUpdateDaemonSet? tempRollingUpdate =
+        tempRollingUpdateJson != null
+            ? RollingUpdateDaemonSet.fromJson(tempRollingUpdateJson)
+            : null;
+    final String? tempType = tempTypeJson;
 
     return DaemonSetUpdateStrategy(
       rollingUpdate: tempRollingUpdate,

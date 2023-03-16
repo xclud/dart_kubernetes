@@ -20,9 +20,9 @@ class ServiceAccountTokenProjection {
     final tempExpirationSecondsJson = json['expirationSeconds'];
     final tempPathJson = json['path'];
 
-    final tempAudience = tempAudienceJson;
-    final tempExpirationSeconds = tempExpirationSecondsJson;
-    final tempPath = tempPathJson;
+    final String? tempAudience = tempAudienceJson;
+    final int? tempExpirationSeconds = tempExpirationSecondsJson;
+    final String tempPath = tempPathJson;
 
     return ServiceAccountTokenProjection(
       audience: tempAudience,

@@ -22,12 +22,12 @@ class IngressSpec {
     final tempRulesJson = json['rules'];
     final tempTlsJson = json['tls'];
 
-    final tempDefaultBackend = tempDefaultBackendJson != null
+    final IngressBackend? tempDefaultBackend = tempDefaultBackendJson != null
         ? IngressBackend.fromJson(tempDefaultBackendJson)
         : null;
-    final tempIngressClassName = tempIngressClassNameJson;
-    final tempRules = tempRulesJson;
-    final tempTls = tempTlsJson;
+    final String? tempIngressClassName = tempIngressClassNameJson;
+    final List<IngressRule>? tempRules = tempRulesJson;
+    final List<IngressTLS>? tempTls = tempTlsJson;
 
     return IngressSpec(
       defaultBackend: tempDefaultBackend,

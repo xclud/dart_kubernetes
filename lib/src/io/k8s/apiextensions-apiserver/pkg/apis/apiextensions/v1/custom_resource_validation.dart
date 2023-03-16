@@ -16,7 +16,7 @@ class CustomResourceValidation {
   factory CustomResourceValidation.fromJson(Map<String, dynamic> json) {
     final tempOpenAPIV3SchemaJson = json['openAPIV3Schema'];
 
-    final tempOpenAPIV3Schema = tempOpenAPIV3SchemaJson;
+    final Map<String, dynamic>? tempOpenAPIV3Schema = tempOpenAPIV3SchemaJson;
 
     return CustomResourceValidation(
       openAPIV3Schema: tempOpenAPIV3Schema,

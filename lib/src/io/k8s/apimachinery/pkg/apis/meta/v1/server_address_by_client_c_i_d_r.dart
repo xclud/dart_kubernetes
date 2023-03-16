@@ -18,8 +18,8 @@ class ServerAddressByClientCIDR {
     final tempClientCIDRJson = json['clientCIDR'];
     final tempServerAddressJson = json['serverAddress'];
 
-    final tempClientCIDR = tempClientCIDRJson;
-    final tempServerAddress = tempServerAddressJson;
+    final String tempClientCIDR = tempClientCIDRJson;
+    final String tempServerAddress = tempServerAddressJson;
 
     return ServerAddressByClientCIDR(
       clientCIDR: tempClientCIDR,

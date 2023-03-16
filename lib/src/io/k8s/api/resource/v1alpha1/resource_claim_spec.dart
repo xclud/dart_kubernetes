@@ -20,11 +20,12 @@ class ResourceClaimSpec {
     final tempParametersRefJson = json['parametersRef'];
     final tempResourceClassNameJson = json['resourceClassName'];
 
-    final tempAllocationMode = tempAllocationModeJson;
-    final tempParametersRef = tempParametersRefJson != null
-        ? ResourceClaimParametersReference.fromJson(tempParametersRefJson)
-        : null;
-    final tempResourceClassName = tempResourceClassNameJson;
+    final String? tempAllocationMode = tempAllocationModeJson;
+    final ResourceClaimParametersReference? tempParametersRef =
+        tempParametersRefJson != null
+            ? ResourceClaimParametersReference.fromJson(tempParametersRefJson)
+            : null;
+    final String tempResourceClassName = tempResourceClassNameJson;
 
     return ResourceClaimSpec(
       allocationMode: tempAllocationMode,

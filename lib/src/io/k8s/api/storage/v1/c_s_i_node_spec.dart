@@ -16,7 +16,7 @@ class CSINodeSpec {
   factory CSINodeSpec.fromJson(Map<String, dynamic> json) {
     final tempDriversJson = json['drivers'];
 
-    final tempDrivers = tempDriversJson;
+    final List<CSINodeDriver> tempDrivers = tempDriversJson;
 
     return CSINodeSpec(
       drivers: tempDrivers,

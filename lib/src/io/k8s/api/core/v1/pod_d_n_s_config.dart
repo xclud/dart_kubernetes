@@ -20,9 +20,9 @@ class PodDNSConfig {
     final tempOptionsJson = json['options'];
     final tempSearchesJson = json['searches'];
 
-    final tempNameservers = tempNameserversJson;
-    final tempOptions = tempOptionsJson;
-    final tempSearches = tempSearchesJson;
+    final List<String>? tempNameservers = tempNameserversJson;
+    final List<PodDNSConfigOption>? tempOptions = tempOptionsJson;
+    final List<String>? tempSearches = tempSearchesJson;
 
     return PodDNSConfig(
       nameservers: tempNameservers,

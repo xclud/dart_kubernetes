@@ -18,8 +18,8 @@ class EventSource {
     final tempComponentJson = json['component'];
     final tempHostJson = json['host'];
 
-    final tempComponent = tempComponentJson;
-    final tempHost = tempHostJson;
+    final String? tempComponent = tempComponentJson;
+    final String? tempHost = tempHostJson;
 
     return EventSource(
       component: tempComponent,

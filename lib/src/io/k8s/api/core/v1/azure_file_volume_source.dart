@@ -20,9 +20,9 @@ class AzureFileVolumeSource {
     final tempSecretNameJson = json['secretName'];
     final tempShareNameJson = json['shareName'];
 
-    final tempReadOnly = tempReadOnlyJson;
-    final tempSecretName = tempSecretNameJson;
-    final tempShareName = tempShareNameJson;
+    final bool? tempReadOnly = tempReadOnlyJson;
+    final String tempSecretName = tempSecretNameJson;
+    final String tempShareName = tempShareNameJson;
 
     return AzureFileVolumeSource(
       readOnly: tempReadOnly,

@@ -18,9 +18,9 @@ class WeightedPodAffinityTerm {
     final tempPodAffinityTermJson = json['podAffinityTerm'];
     final tempWeightJson = json['weight'];
 
-    final tempPodAffinityTerm =
+    final PodAffinityTerm tempPodAffinityTerm =
         PodAffinityTerm.fromJson(tempPodAffinityTermJson);
-    final tempWeight = tempWeightJson;
+    final int tempWeight = tempWeightJson;
 
     return WeightedPodAffinityTerm(
       podAffinityTerm: tempPodAffinityTerm,

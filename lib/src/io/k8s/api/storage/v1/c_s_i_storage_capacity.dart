@@ -36,16 +36,16 @@ class CSIStorageCapacity {
     final tempNodeTopologyJson = json['nodeTopology'];
     final tempStorageClassNameJson = json['storageClassName'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempCapacity = tempCapacityJson;
-    final tempKind = tempKindJson;
-    final tempMaximumVolumeSize = tempMaximumVolumeSizeJson;
-    final tempMetadata =
+    final String? tempApiVersion = tempApiVersionJson;
+    final String? tempCapacity = tempCapacityJson;
+    final String? tempKind = tempKindJson;
+    final String? tempMaximumVolumeSize = tempMaximumVolumeSizeJson;
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final tempNodeTopology = tempNodeTopologyJson != null
+    final LabelSelector? tempNodeTopology = tempNodeTopologyJson != null
         ? LabelSelector.fromJson(tempNodeTopologyJson)
         : null;
-    final tempStorageClassName = tempStorageClassNameJson;
+    final String tempStorageClassName = tempStorageClassNameJson;
 
     return CSIStorageCapacity(
       apiVersion: tempApiVersion,

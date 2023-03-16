@@ -20,12 +20,12 @@ class LifecycleHandler {
     final tempHttpGetJson = json['httpGet'];
     final tempTcpSocketJson = json['tcpSocket'];
 
-    final tempExec =
+    final ExecAction? tempExec =
         tempExecJson != null ? ExecAction.fromJson(tempExecJson) : null;
-    final tempHttpGet = tempHttpGetJson != null
+    final HTTPGetAction? tempHttpGet = tempHttpGetJson != null
         ? HTTPGetAction.fromJson(tempHttpGetJson)
         : null;
-    final tempTcpSocket = tempTcpSocketJson != null
+    final TCPSocketAction? tempTcpSocket = tempTcpSocketJson != null
         ? TCPSocketAction.fromJson(tempTcpSocketJson)
         : null;
 

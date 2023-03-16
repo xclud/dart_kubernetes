@@ -18,10 +18,11 @@ class DeploymentStrategy {
     final tempRollingUpdateJson = json['rollingUpdate'];
     final tempTypeJson = json['type'];
 
-    final tempRollingUpdate = tempRollingUpdateJson != null
-        ? RollingUpdateDeployment.fromJson(tempRollingUpdateJson)
-        : null;
-    final tempType = tempTypeJson;
+    final RollingUpdateDeployment? tempRollingUpdate =
+        tempRollingUpdateJson != null
+            ? RollingUpdateDeployment.fromJson(tempRollingUpdateJson)
+            : null;
+    final String? tempType = tempTypeJson;
 
     return DeploymentStrategy(
       rollingUpdate: tempRollingUpdate,

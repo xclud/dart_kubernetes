@@ -24,11 +24,11 @@ class FlexPersistentVolumeSource {
     final tempReadOnlyJson = json['readOnly'];
     final tempSecretRefJson = json['secretRef'];
 
-    final tempDriver = tempDriverJson;
-    final tempFsType = tempFsTypeJson;
-    final tempOptions = tempOptionsJson;
-    final tempReadOnly = tempReadOnlyJson;
-    final tempSecretRef = tempSecretRefJson != null
+    final String tempDriver = tempDriverJson;
+    final String? tempFsType = tempFsTypeJson;
+    final Map<String, String> tempOptions = tempOptionsJson;
+    final bool? tempReadOnly = tempReadOnlyJson;
+    final SecretReference? tempSecretRef = tempSecretRefJson != null
         ? SecretReference.fromJson(tempSecretRefJson)
         : null;
 

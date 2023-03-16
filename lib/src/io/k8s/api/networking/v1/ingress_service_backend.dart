@@ -18,8 +18,8 @@ class IngressServiceBackend {
     final tempNameJson = json['name'];
     final tempPortJson = json['port'];
 
-    final tempName = tempNameJson;
-    final tempPort =
+    final String tempName = tempNameJson;
+    final ServiceBackendPort? tempPort =
         tempPortJson != null ? ServiceBackendPort.fromJson(tempPortJson) : null;
 
     return IngressServiceBackend(

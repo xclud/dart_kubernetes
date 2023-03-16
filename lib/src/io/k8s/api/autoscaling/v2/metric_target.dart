@@ -22,10 +22,10 @@ class MetricTarget {
     final tempTypeJson = json['type'];
     final tempValueJson = json['value'];
 
-    final tempAverageUtilization = tempAverageUtilizationJson;
-    final tempAverageValue = tempAverageValueJson;
-    final tempType = tempTypeJson;
-    final tempValue = tempValueJson;
+    final int? tempAverageUtilization = tempAverageUtilizationJson;
+    final String? tempAverageValue = tempAverageValueJson;
+    final String tempType = tempTypeJson;
+    final String? tempValue = tempValueJson;
 
     return MetricTarget(
       averageUtilization: tempAverageUtilization,

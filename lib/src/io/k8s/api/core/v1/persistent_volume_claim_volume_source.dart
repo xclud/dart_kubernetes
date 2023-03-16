@@ -19,8 +19,8 @@ class PersistentVolumeClaimVolumeSource {
     final tempClaimNameJson = json['claimName'];
     final tempReadOnlyJson = json['readOnly'];
 
-    final tempClaimName = tempClaimNameJson;
-    final tempReadOnly = tempReadOnlyJson;
+    final String tempClaimName = tempClaimNameJson;
+    final bool? tempReadOnly = tempReadOnlyJson;
 
     return PersistentVolumeClaimVolumeSource(
       claimName: tempClaimName,

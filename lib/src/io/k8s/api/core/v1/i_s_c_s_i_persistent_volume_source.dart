@@ -36,19 +36,19 @@ class ISCSIPersistentVolumeSource {
     final tempSecretRefJson = json['secretRef'];
     final tempTargetPortalJson = json['targetPortal'];
 
-    final tempChapAuthDiscovery = tempChapAuthDiscoveryJson;
-    final tempChapAuthSession = tempChapAuthSessionJson;
-    final tempFsType = tempFsTypeJson;
-    final tempInitiatorName = tempInitiatorNameJson;
-    final tempIqn = tempIqnJson;
-    final tempIscsiInterface = tempIscsiInterfaceJson;
-    final tempLun = tempLunJson;
-    final tempPortals = tempPortalsJson;
-    final tempReadOnly = tempReadOnlyJson;
-    final tempSecretRef = tempSecretRefJson != null
+    final bool? tempChapAuthDiscovery = tempChapAuthDiscoveryJson;
+    final bool? tempChapAuthSession = tempChapAuthSessionJson;
+    final String? tempFsType = tempFsTypeJson;
+    final String? tempInitiatorName = tempInitiatorNameJson;
+    final String tempIqn = tempIqnJson;
+    final String? tempIscsiInterface = tempIscsiInterfaceJson;
+    final int tempLun = tempLunJson;
+    final List<String>? tempPortals = tempPortalsJson;
+    final bool? tempReadOnly = tempReadOnlyJson;
+    final SecretReference? tempSecretRef = tempSecretRefJson != null
         ? SecretReference.fromJson(tempSecretRefJson)
         : null;
-    final tempTargetPortal = tempTargetPortalJson;
+    final String tempTargetPortal = tempTargetPortalJson;
 
     return ISCSIPersistentVolumeSource(
       chapAuthDiscovery: tempChapAuthDiscovery,

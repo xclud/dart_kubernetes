@@ -48,36 +48,37 @@ class Event {
     final tempSeriesJson = json['series'];
     final tempTypeJson = json['type'];
 
-    final tempAction = tempActionJson;
-    final tempApiVersion = tempApiVersionJson;
-    final tempDeprecatedCount = tempDeprecatedCountJson;
-    final tempDeprecatedFirstTimestamp =
+    final String? tempAction = tempActionJson;
+    final String? tempApiVersion = tempApiVersionJson;
+    final int? tempDeprecatedCount = tempDeprecatedCountJson;
+    final DateTime? tempDeprecatedFirstTimestamp =
         tempDeprecatedFirstTimestampJson != null
             ? DateTime.tryParse(tempDeprecatedFirstTimestampJson)
             : null;
-    final tempDeprecatedLastTimestamp = tempDeprecatedLastTimestampJson != null
-        ? DateTime.tryParse(tempDeprecatedLastTimestampJson)
-        : null;
-    final tempDeprecatedSource = tempDeprecatedSourceJson != null
+    final DateTime? tempDeprecatedLastTimestamp =
+        tempDeprecatedLastTimestampJson != null
+            ? DateTime.tryParse(tempDeprecatedLastTimestampJson)
+            : null;
+    final EventSource? tempDeprecatedSource = tempDeprecatedSourceJson != null
         ? EventSource.fromJson(tempDeprecatedSourceJson)
         : null;
-    final tempEventTime = tempEventTimeJson;
-    final tempKind = tempKindJson;
-    final tempMetadata =
+    final String tempEventTime = tempEventTimeJson;
+    final String? tempKind = tempKindJson;
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final tempNote = tempNoteJson;
-    final tempReason = tempReasonJson;
-    final tempRegarding = tempRegardingJson != null
+    final String? tempNote = tempNoteJson;
+    final String? tempReason = tempReasonJson;
+    final ObjectReference? tempRegarding = tempRegardingJson != null
         ? ObjectReference.fromJson(tempRegardingJson)
         : null;
-    final tempRelated = tempRelatedJson != null
+    final ObjectReference? tempRelated = tempRelatedJson != null
         ? ObjectReference.fromJson(tempRelatedJson)
         : null;
-    final tempReportingController = tempReportingControllerJson;
-    final tempReportingInstance = tempReportingInstanceJson;
-    final tempSeries =
+    final String? tempReportingController = tempReportingControllerJson;
+    final String? tempReportingInstance = tempReportingInstanceJson;
+    final EventSeries? tempSeries =
         tempSeriesJson != null ? EventSeries.fromJson(tempSeriesJson) : null;
-    final tempType = tempTypeJson;
+    final String? tempType = tempTypeJson;
 
     return Event(
       action: tempAction,

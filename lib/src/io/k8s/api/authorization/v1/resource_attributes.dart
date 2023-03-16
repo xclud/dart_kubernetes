@@ -28,13 +28,13 @@ class ResourceAttributes {
     final tempVerbJson = json['verb'];
     final tempVersionJson = json['version'];
 
-    final tempGroup = tempGroupJson;
-    final tempName = tempNameJson;
-    final tempNamespace = tempNamespaceJson;
-    final tempResource = tempResourceJson;
-    final tempSubresource = tempSubresourceJson;
-    final tempVerb = tempVerbJson;
-    final tempVersion = tempVersionJson;
+    final String? tempGroup = tempGroupJson;
+    final String? tempName = tempNameJson;
+    final String? tempNamespace = tempNamespaceJson;
+    final String? tempResource = tempResourceJson;
+    final String? tempSubresource = tempSubresourceJson;
+    final String? tempVerb = tempVerbJson;
+    final String? tempVersion = tempVersionJson;
 
     return ResourceAttributes(
       group: tempGroup,

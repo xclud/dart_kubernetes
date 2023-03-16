@@ -18,8 +18,8 @@ class TokenRequest {
     final tempAudienceJson = json['audience'];
     final tempExpirationSecondsJson = json['expirationSeconds'];
 
-    final tempAudience = tempAudienceJson;
-    final tempExpirationSeconds = tempExpirationSecondsJson;
+    final String tempAudience = tempAudienceJson;
+    final int? tempExpirationSeconds = tempExpirationSecondsJson;
 
     return TokenRequest(
       audience: tempAudience,

@@ -30,14 +30,14 @@ class CSIDriverSpec {
     final tempTokenRequestsJson = json['tokenRequests'];
     final tempVolumeLifecycleModesJson = json['volumeLifecycleModes'];
 
-    final tempAttachRequired = tempAttachRequiredJson;
-    final tempFsGroupPolicy = tempFsGroupPolicyJson;
-    final tempPodInfoOnMount = tempPodInfoOnMountJson;
-    final tempRequiresRepublish = tempRequiresRepublishJson;
-    final tempSeLinuxMount = tempSeLinuxMountJson;
-    final tempStorageCapacity = tempStorageCapacityJson;
-    final tempTokenRequests = tempTokenRequestsJson;
-    final tempVolumeLifecycleModes = tempVolumeLifecycleModesJson;
+    final bool? tempAttachRequired = tempAttachRequiredJson;
+    final String? tempFsGroupPolicy = tempFsGroupPolicyJson;
+    final bool? tempPodInfoOnMount = tempPodInfoOnMountJson;
+    final bool? tempRequiresRepublish = tempRequiresRepublishJson;
+    final bool? tempSeLinuxMount = tempSeLinuxMountJson;
+    final bool? tempStorageCapacity = tempStorageCapacityJson;
+    final List<TokenRequest>? tempTokenRequests = tempTokenRequestsJson;
+    final List<String>? tempVolumeLifecycleModes = tempVolumeLifecycleModesJson;
 
     return CSIDriverSpec(
       attachRequired: tempAttachRequired,

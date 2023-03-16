@@ -24,13 +24,13 @@ class StorageOSVolumeSource {
     final tempVolumeNameJson = json['volumeName'];
     final tempVolumeNamespaceJson = json['volumeNamespace'];
 
-    final tempFsType = tempFsTypeJson;
-    final tempReadOnly = tempReadOnlyJson;
-    final tempSecretRef = tempSecretRefJson != null
+    final String? tempFsType = tempFsTypeJson;
+    final bool? tempReadOnly = tempReadOnlyJson;
+    final LocalObjectReference? tempSecretRef = tempSecretRefJson != null
         ? LocalObjectReference.fromJson(tempSecretRefJson)
         : null;
-    final tempVolumeName = tempVolumeNameJson;
-    final tempVolumeNamespace = tempVolumeNamespaceJson;
+    final String? tempVolumeName = tempVolumeNameJson;
+    final String? tempVolumeNamespace = tempVolumeNamespaceJson;
 
     return StorageOSVolumeSource(
       fsType: tempFsType,

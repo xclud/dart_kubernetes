@@ -16,7 +16,7 @@ class FlowDistinguisherMethod {
   factory FlowDistinguisherMethod.fromJson(Map<String, dynamic> json) {
     final tempTypeJson = json['type'];
 
-    final tempType = tempTypeJson;
+    final String tempType = tempTypeJson;
 
     return FlowDistinguisherMethod(
       type: tempType,

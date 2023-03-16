@@ -16,7 +16,7 @@ class PodSchedulingGate {
   factory PodSchedulingGate.fromJson(Map<String, dynamic> json) {
     final tempNameJson = json['name'];
 
-    final tempName = tempNameJson;
+    final String tempName = tempNameJson;
 
     return PodSchedulingGate(
       name: tempName,

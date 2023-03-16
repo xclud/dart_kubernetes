@@ -22,16 +22,18 @@ class EnvVarSource {
     final tempResourceFieldRefJson = json['resourceFieldRef'];
     final tempSecretKeyRefJson = json['secretKeyRef'];
 
-    final tempConfigMapKeyRef = tempConfigMapKeyRefJson != null
-        ? ConfigMapKeySelector.fromJson(tempConfigMapKeyRefJson)
-        : null;
-    final tempFieldRef = tempFieldRefJson != null
+    final ConfigMapKeySelector? tempConfigMapKeyRef =
+        tempConfigMapKeyRefJson != null
+            ? ConfigMapKeySelector.fromJson(tempConfigMapKeyRefJson)
+            : null;
+    final ObjectFieldSelector? tempFieldRef = tempFieldRefJson != null
         ? ObjectFieldSelector.fromJson(tempFieldRefJson)
         : null;
-    final tempResourceFieldRef = tempResourceFieldRefJson != null
-        ? ResourceFieldSelector.fromJson(tempResourceFieldRefJson)
-        : null;
-    final tempSecretKeyRef = tempSecretKeyRefJson != null
+    final ResourceFieldSelector? tempResourceFieldRef =
+        tempResourceFieldRefJson != null
+            ? ResourceFieldSelector.fromJson(tempResourceFieldRefJson)
+            : null;
+    final SecretKeySelector? tempSecretKeyRef = tempSecretKeyRefJson != null
         ? SecretKeySelector.fromJson(tempSecretKeyRefJson)
         : null;
 

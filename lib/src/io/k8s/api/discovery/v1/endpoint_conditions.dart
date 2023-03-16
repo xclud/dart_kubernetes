@@ -20,9 +20,9 @@ class EndpointConditions {
     final tempServingJson = json['serving'];
     final tempTerminatingJson = json['terminating'];
 
-    final tempReady = tempReadyJson;
-    final tempServing = tempServingJson;
-    final tempTerminating = tempTerminatingJson;
+    final bool? tempReady = tempReadyJson;
+    final bool? tempServing = tempServingJson;
+    final bool? tempTerminating = tempTerminatingJson;
 
     return EndpointConditions(
       ready: tempReady,

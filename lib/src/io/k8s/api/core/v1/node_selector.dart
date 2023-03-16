@@ -16,7 +16,8 @@ class NodeSelector {
   factory NodeSelector.fromJson(Map<String, dynamic> json) {
     final tempNodeSelectorTermsJson = json['nodeSelectorTerms'];
 
-    final tempNodeSelectorTerms = tempNodeSelectorTermsJson;
+    final List<NodeSelectorTerm> tempNodeSelectorTerms =
+        tempNodeSelectorTermsJson;
 
     return NodeSelector(
       nodeSelectorTerms: tempNodeSelectorTerms,

@@ -23,11 +23,11 @@ class HorizontalPodAutoscalerSpec {
     final tempTargetCPUUtilizationPercentageJson =
         json['targetCPUUtilizationPercentage'];
 
-    final tempMaxReplicas = tempMaxReplicasJson;
-    final tempMinReplicas = tempMinReplicasJson;
-    final tempScaleTargetRef =
+    final int tempMaxReplicas = tempMaxReplicasJson;
+    final int? tempMinReplicas = tempMinReplicasJson;
+    final CrossVersionObjectReference tempScaleTargetRef =
         CrossVersionObjectReference.fromJson(tempScaleTargetRefJson);
-    final tempTargetCPUUtilizationPercentage =
+    final int? tempTargetCPUUtilizationPercentage =
         tempTargetCPUUtilizationPercentageJson;
 
     return HorizontalPodAutoscalerSpec(

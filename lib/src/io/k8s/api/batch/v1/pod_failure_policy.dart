@@ -16,7 +16,7 @@ class PodFailurePolicy {
   factory PodFailurePolicy.fromJson(Map<String, dynamic> json) {
     final tempRulesJson = json['rules'];
 
-    final tempRules = tempRulesJson;
+    final List<PodFailurePolicyRule> tempRules = tempRulesJson;
 
     return PodFailurePolicy(
       rules: tempRules,

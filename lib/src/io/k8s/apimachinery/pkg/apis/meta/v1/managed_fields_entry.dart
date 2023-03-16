@@ -28,14 +28,14 @@ class ManagedFieldsEntry {
     final tempSubresourceJson = json['subresource'];
     final tempTimeJson = json['time'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempFieldsType = tempFieldsTypeJson;
-    final tempFieldsV1 =
+    final String? tempApiVersion = tempApiVersionJson;
+    final String? tempFieldsType = tempFieldsTypeJson;
+    final FieldsV1? tempFieldsV1 =
         tempFieldsV1Json != null ? FieldsV1.fromJson(tempFieldsV1Json) : null;
-    final tempManager = tempManagerJson;
-    final tempOperation = tempOperationJson;
-    final tempSubresource = tempSubresourceJson;
-    final tempTime =
+    final String? tempManager = tempManagerJson;
+    final String? tempOperation = tempOperationJson;
+    final String? tempSubresource = tempSubresourceJson;
+    final DateTime? tempTime =
         tempTimeJson != null ? DateTime.tryParse(tempTimeJson) : null;
 
     return ManagedFieldsEntry(

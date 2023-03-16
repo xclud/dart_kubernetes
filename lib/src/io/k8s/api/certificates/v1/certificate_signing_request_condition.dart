@@ -27,16 +27,16 @@ class CertificateSigningRequestCondition {
     final tempStatusJson = json['status'];
     final tempTypeJson = json['type'];
 
-    final tempLastTransitionTime = tempLastTransitionTimeJson != null
+    final DateTime? tempLastTransitionTime = tempLastTransitionTimeJson != null
         ? DateTime.tryParse(tempLastTransitionTimeJson)
         : null;
-    final tempLastUpdateTime = tempLastUpdateTimeJson != null
+    final DateTime? tempLastUpdateTime = tempLastUpdateTimeJson != null
         ? DateTime.tryParse(tempLastUpdateTimeJson)
         : null;
-    final tempMessage = tempMessageJson;
-    final tempReason = tempReasonJson;
-    final tempStatus = tempStatusJson;
-    final tempType = tempTypeJson;
+    final String? tempMessage = tempMessageJson;
+    final String? tempReason = tempReasonJson;
+    final String tempStatus = tempStatusJson;
+    final String tempType = tempTypeJson;
 
     return CertificateSigningRequestCondition(
       lastTransitionTime: tempLastTransitionTime,

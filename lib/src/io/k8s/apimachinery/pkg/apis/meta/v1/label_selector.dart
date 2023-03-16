@@ -18,8 +18,9 @@ class LabelSelector {
     final tempMatchExpressionsJson = json['matchExpressions'];
     final tempMatchLabelsJson = json['matchLabels'];
 
-    final tempMatchExpressions = tempMatchExpressionsJson;
-    final tempMatchLabels = tempMatchLabelsJson;
+    final List<LabelSelectorRequirement>? tempMatchExpressions =
+        tempMatchExpressionsJson;
+    final Map<String, String> tempMatchLabels = tempMatchLabelsJson;
 
     return LabelSelector(
       matchExpressions: tempMatchExpressions,

@@ -24,10 +24,10 @@ class SecretVolumeSource {
     final tempOptionalJson = json['optional'];
     final tempSecretNameJson = json['secretName'];
 
-    final tempDefaultMode = tempDefaultModeJson;
-    final tempItems = tempItemsJson;
-    final tempOptional = tempOptionalJson;
-    final tempSecretName = tempSecretNameJson;
+    final int? tempDefaultMode = tempDefaultModeJson;
+    final List<KeyToPath>? tempItems = tempItemsJson;
+    final bool? tempOptional = tempOptionalJson;
+    final String? tempSecretName = tempSecretNameJson;
 
     return SecretVolumeSource(
       defaultMode: tempDefaultMode,

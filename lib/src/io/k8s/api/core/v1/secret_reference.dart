@@ -18,8 +18,8 @@ class SecretReference {
     final tempNameJson = json['name'];
     final tempNamespaceJson = json['namespace'];
 
-    final tempName = tempNameJson;
-    final tempNamespace = tempNamespaceJson;
+    final String? tempName = tempNameJson;
+    final String? tempNamespace = tempNamespaceJson;
 
     return SecretReference(
       name: tempName,

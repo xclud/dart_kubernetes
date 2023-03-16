@@ -28,13 +28,13 @@ class PodDisruptionBudgetStatus {
     final tempExpectedPodsJson = json['expectedPods'];
     final tempObservedGenerationJson = json['observedGeneration'];
 
-    final tempConditions = tempConditionsJson;
-    final tempCurrentHealthy = tempCurrentHealthyJson;
-    final tempDesiredHealthy = tempDesiredHealthyJson;
-    final tempDisruptedPods = tempDisruptedPodsJson;
-    final tempDisruptionsAllowed = tempDisruptionsAllowedJson;
-    final tempExpectedPods = tempExpectedPodsJson;
-    final tempObservedGeneration = tempObservedGenerationJson;
+    final List<Condition>? tempConditions = tempConditionsJson;
+    final int tempCurrentHealthy = tempCurrentHealthyJson;
+    final int tempDesiredHealthy = tempDesiredHealthyJson;
+    final Map<String, Object> tempDisruptedPods = tempDisruptedPodsJson;
+    final int tempDisruptionsAllowed = tempDisruptionsAllowedJson;
+    final int tempExpectedPods = tempExpectedPodsJson;
+    final int? tempObservedGeneration = tempObservedGenerationJson;
 
     return PodDisruptionBudgetStatus(
       conditions: tempConditions,

@@ -26,21 +26,22 @@ class MetricSpec {
     final tempResourceJson = json['resource'];
     final tempTypeJson = json['type'];
 
-    final tempContainerResource = tempContainerResourceJson != null
-        ? ContainerResourceMetricSource.fromJson(tempContainerResourceJson)
-        : null;
-    final tempExternal = tempExternalJson != null
+    final ContainerResourceMetricSource? tempContainerResource =
+        tempContainerResourceJson != null
+            ? ContainerResourceMetricSource.fromJson(tempContainerResourceJson)
+            : null;
+    final ExternalMetricSource? tempExternal = tempExternalJson != null
         ? ExternalMetricSource.fromJson(tempExternalJson)
         : null;
-    final tempObject = tempObjectJson != null
+    final ObjectMetricSource? tempObject = tempObjectJson != null
         ? ObjectMetricSource.fromJson(tempObjectJson)
         : null;
-    final tempPods =
+    final PodsMetricSource? tempPods =
         tempPodsJson != null ? PodsMetricSource.fromJson(tempPodsJson) : null;
-    final tempResource = tempResourceJson != null
+    final ResourceMetricSource? tempResource = tempResourceJson != null
         ? ResourceMetricSource.fromJson(tempResourceJson)
         : null;
-    final tempType = tempTypeJson;
+    final String tempType = tempTypeJson;
 
     return MetricSpec(
       containerResource: tempContainerResource,

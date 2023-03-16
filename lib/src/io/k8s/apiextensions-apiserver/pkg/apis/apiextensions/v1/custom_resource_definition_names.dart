@@ -26,12 +26,12 @@ class CustomResourceDefinitionNames {
     final tempShortNamesJson = json['shortNames'];
     final tempSingularJson = json['singular'];
 
-    final tempCategories = tempCategoriesJson;
-    final tempKind = tempKindJson;
-    final tempListKind = tempListKindJson;
-    final tempPlural = tempPluralJson;
-    final tempShortNames = tempShortNamesJson;
-    final tempSingular = tempSingularJson;
+    final List<String>? tempCategories = tempCategoriesJson;
+    final String tempKind = tempKindJson;
+    final String? tempListKind = tempListKindJson;
+    final String tempPlural = tempPluralJson;
+    final List<String>? tempShortNames = tempShortNamesJson;
+    final String? tempSingular = tempSingularJson;
 
     return CustomResourceDefinitionNames(
       categories: tempCategories,

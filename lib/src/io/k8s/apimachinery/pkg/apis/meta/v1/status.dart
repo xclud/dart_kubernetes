@@ -30,17 +30,17 @@ class Status {
     final tempReasonJson = json['reason'];
     final tempStatusJson = json['status'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempCode = tempCodeJson;
-    final tempDetails = tempDetailsJson != null
+    final String? tempApiVersion = tempApiVersionJson;
+    final int? tempCode = tempCodeJson;
+    final StatusDetails? tempDetails = tempDetailsJson != null
         ? StatusDetails.fromJson(tempDetailsJson)
         : null;
-    final tempKind = tempKindJson;
-    final tempMessage = tempMessageJson;
-    final tempMetadata =
+    final String? tempKind = tempKindJson;
+    final String? tempMessage = tempMessageJson;
+    final ListMeta? tempMetadata =
         tempMetadataJson != null ? ListMeta.fromJson(tempMetadataJson) : null;
-    final tempReason = tempReasonJson;
-    final tempStatus = tempStatusJson;
+    final String? tempReason = tempReasonJson;
+    final String? tempStatus = tempStatusJson;
 
     return Status(
       apiVersion: tempApiVersion,

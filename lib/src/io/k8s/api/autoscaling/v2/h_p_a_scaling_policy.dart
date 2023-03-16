@@ -20,9 +20,9 @@ class HPAScalingPolicy {
     final tempTypeJson = json['type'];
     final tempValueJson = json['value'];
 
-    final tempPeriodSeconds = tempPeriodSecondsJson;
-    final tempType = tempTypeJson;
-    final tempValue = tempValueJson;
+    final int tempPeriodSeconds = tempPeriodSecondsJson;
+    final String tempType = tempTypeJson;
+    final int tempValue = tempValueJson;
 
     return HPAScalingPolicy(
       periodSeconds: tempPeriodSeconds,

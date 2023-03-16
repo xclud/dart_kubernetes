@@ -18,8 +18,8 @@ class VolumeDevice {
     final tempDevicePathJson = json['devicePath'];
     final tempNameJson = json['name'];
 
-    final tempDevicePath = tempDevicePathJson;
-    final tempName = tempNameJson;
+    final String tempDevicePath = tempDevicePathJson;
+    final String tempName = tempNameJson;
 
     return VolumeDevice(
       devicePath: tempDevicePath,

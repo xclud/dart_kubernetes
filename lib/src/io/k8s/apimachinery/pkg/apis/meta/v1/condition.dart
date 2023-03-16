@@ -26,12 +26,13 @@ class Condition {
     final tempStatusJson = json['status'];
     final tempTypeJson = json['type'];
 
-    final tempLastTransitionTime = DateTime.parse(tempLastTransitionTimeJson);
-    final tempMessage = tempMessageJson;
-    final tempObservedGeneration = tempObservedGenerationJson;
-    final tempReason = tempReasonJson;
-    final tempStatus = tempStatusJson;
-    final tempType = tempTypeJson;
+    final DateTime tempLastTransitionTime =
+        DateTime.parse(tempLastTransitionTimeJson);
+    final String tempMessage = tempMessageJson;
+    final int? tempObservedGeneration = tempObservedGenerationJson;
+    final String tempReason = tempReasonJson;
+    final String tempStatus = tempStatusJson;
+    final String tempType = tempTypeJson;
 
     return Condition(
       lastTransitionTime: tempLastTransitionTime,

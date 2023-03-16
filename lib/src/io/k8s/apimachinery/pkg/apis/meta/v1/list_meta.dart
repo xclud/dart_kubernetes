@@ -22,10 +22,10 @@ class ListMeta {
     final tempResourceVersionJson = json['resourceVersion'];
     final tempSelfLinkJson = json['selfLink'];
 
-    final tempContinue = tempContinueJson;
-    final tempRemainingItemCount = tempRemainingItemCountJson;
-    final tempResourceVersion = tempResourceVersionJson;
-    final tempSelfLink = tempSelfLinkJson;
+    final String? tempContinue = tempContinueJson;
+    final int? tempRemainingItemCount = tempRemainingItemCountJson;
+    final String? tempResourceVersion = tempResourceVersionJson;
+    final String? tempSelfLink = tempSelfLinkJson;
 
     return ListMeta(
       $continue: tempContinue,

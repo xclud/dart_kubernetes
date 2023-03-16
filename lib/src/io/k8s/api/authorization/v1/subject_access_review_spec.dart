@@ -26,16 +26,18 @@ class SubjectAccessReviewSpec {
     final tempUidJson = json['uid'];
     final tempUserJson = json['user'];
 
-    final tempExtra = tempExtraJson;
-    final tempGroups = tempGroupsJson;
-    final tempNonResourceAttributes = tempNonResourceAttributesJson != null
-        ? NonResourceAttributes.fromJson(tempNonResourceAttributesJson)
-        : null;
-    final tempResourceAttributes = tempResourceAttributesJson != null
-        ? ResourceAttributes.fromJson(tempResourceAttributesJson)
-        : null;
-    final tempUid = tempUidJson;
-    final tempUser = tempUserJson;
+    final Map<String, List<String>> tempExtra = tempExtraJson;
+    final List<String>? tempGroups = tempGroupsJson;
+    final NonResourceAttributes? tempNonResourceAttributes =
+        tempNonResourceAttributesJson != null
+            ? NonResourceAttributes.fromJson(tempNonResourceAttributesJson)
+            : null;
+    final ResourceAttributes? tempResourceAttributes =
+        tempResourceAttributesJson != null
+            ? ResourceAttributes.fromJson(tempResourceAttributesJson)
+            : null;
+    final String? tempUid = tempUidJson;
+    final String? tempUser = tempUserJson;
 
     return SubjectAccessReviewSpec(
       extra: tempExtra,

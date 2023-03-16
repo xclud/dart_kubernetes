@@ -18,8 +18,8 @@ class NamespaceStatus {
     final tempConditionsJson = json['conditions'];
     final tempPhaseJson = json['phase'];
 
-    final tempConditions = tempConditionsJson;
-    final tempPhase = tempPhaseJson;
+    final List<NamespaceCondition>? tempConditions = tempConditionsJson;
+    final String? tempPhase = tempPhaseJson;
 
     return NamespaceStatus(
       conditions: tempConditions,

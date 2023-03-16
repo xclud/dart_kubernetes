@@ -30,14 +30,14 @@ class CertificateSigningRequestSpec {
     final tempUsagesJson = json['usages'];
     final tempUsernameJson = json['username'];
 
-    final tempExpirationSeconds = tempExpirationSecondsJson;
-    final tempExtra = tempExtraJson;
-    final tempGroups = tempGroupsJson;
-    final tempRequest = tempRequestJson;
-    final tempSignerName = tempSignerNameJson;
-    final tempUid = tempUidJson;
-    final tempUsages = tempUsagesJson;
-    final tempUsername = tempUsernameJson;
+    final int? tempExpirationSeconds = tempExpirationSecondsJson;
+    final Map<String, List<String>> tempExtra = tempExtraJson;
+    final List<String>? tempGroups = tempGroupsJson;
+    final String tempRequest = tempRequestJson;
+    final String tempSignerName = tempSignerNameJson;
+    final String? tempUid = tempUidJson;
+    final List<String>? tempUsages = tempUsagesJson;
+    final String? tempUsername = tempUsernameJson;
 
     return CertificateSigningRequestSpec(
       expirationSeconds: tempExpirationSeconds,

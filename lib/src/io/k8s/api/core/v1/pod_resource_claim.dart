@@ -18,8 +18,8 @@ class PodResourceClaim {
     final tempNameJson = json['name'];
     final tempSourceJson = json['source'];
 
-    final tempName = tempNameJson;
-    final tempSource =
+    final String tempName = tempNameJson;
+    final ClaimSource? tempSource =
         tempSourceJson != null ? ClaimSource.fromJson(tempSourceJson) : null;
 
     return PodResourceClaim(

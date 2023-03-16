@@ -20,9 +20,9 @@ class KeyToPath {
     final tempModeJson = json['mode'];
     final tempPathJson = json['path'];
 
-    final tempKey = tempKeyJson;
-    final tempMode = tempModeJson;
-    final tempPath = tempPathJson;
+    final String tempKey = tempKeyJson;
+    final int? tempMode = tempModeJson;
+    final String tempPath = tempPathJson;
 
     return KeyToPath(
       key: tempKey,

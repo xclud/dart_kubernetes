@@ -20,10 +20,12 @@ class ObjectMetricStatus {
     final tempDescribedObjectJson = json['describedObject'];
     final tempMetricJson = json['metric'];
 
-    final tempCurrent = MetricValueStatus.fromJson(tempCurrentJson);
-    final tempDescribedObject =
+    final MetricValueStatus tempCurrent =
+        MetricValueStatus.fromJson(tempCurrentJson);
+    final CrossVersionObjectReference tempDescribedObject =
         CrossVersionObjectReference.fromJson(tempDescribedObjectJson);
-    final tempMetric = MetricIdentifier.fromJson(tempMetricJson);
+    final MetricIdentifier tempMetric =
+        MetricIdentifier.fromJson(tempMetricJson);
 
     return ObjectMetricStatus(
       current: tempCurrent,

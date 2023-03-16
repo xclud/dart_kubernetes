@@ -26,12 +26,12 @@ class OwnerReference {
     final tempNameJson = json['name'];
     final tempUidJson = json['uid'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempBlockOwnerDeletion = tempBlockOwnerDeletionJson;
-    final tempController = tempControllerJson;
-    final tempKind = tempKindJson;
-    final tempName = tempNameJson;
-    final tempUid = tempUidJson;
+    final String tempApiVersion = tempApiVersionJson;
+    final bool? tempBlockOwnerDeletion = tempBlockOwnerDeletionJson;
+    final bool? tempController = tempControllerJson;
+    final String tempKind = tempKindJson;
+    final String tempName = tempNameJson;
+    final String tempUid = tempUidJson;
 
     return OwnerReference(
       apiVersion: tempApiVersion,

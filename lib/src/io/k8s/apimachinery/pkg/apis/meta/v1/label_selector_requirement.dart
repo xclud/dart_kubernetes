@@ -20,9 +20,9 @@ class LabelSelectorRequirement {
     final tempOperatorJson = json['operator'];
     final tempValuesJson = json['values'];
 
-    final tempKey = tempKeyJson;
-    final tempOperator = tempOperatorJson;
-    final tempValues = tempValuesJson;
+    final String tempKey = tempKeyJson;
+    final String tempOperator = tempOperatorJson;
+    final List<String>? tempValues = tempValuesJson;
 
     return LabelSelectorRequirement(
       key: tempKey,

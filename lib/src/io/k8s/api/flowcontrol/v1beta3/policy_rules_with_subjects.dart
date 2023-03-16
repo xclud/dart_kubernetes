@@ -20,9 +20,10 @@ class PolicyRulesWithSubjects {
     final tempResourceRulesJson = json['resourceRules'];
     final tempSubjectsJson = json['subjects'];
 
-    final tempNonResourceRules = tempNonResourceRulesJson;
-    final tempResourceRules = tempResourceRulesJson;
-    final tempSubjects = tempSubjectsJson;
+    final List<NonResourcePolicyRule>? tempNonResourceRules =
+        tempNonResourceRulesJson;
+    final List<ResourcePolicyRule>? tempResourceRules = tempResourceRulesJson;
+    final List<Subject> tempSubjects = tempSubjectsJson;
 
     return PolicyRulesWithSubjects(
       nonResourceRules: tempNonResourceRules,

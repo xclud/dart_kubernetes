@@ -30,19 +30,20 @@ class Endpoint {
     final tempTargetRefJson = json['targetRef'];
     final tempZoneJson = json['zone'];
 
-    final tempAddresses = tempAddressesJson;
-    final tempConditions = tempConditionsJson != null
+    final List<String> tempAddresses = tempAddressesJson;
+    final EndpointConditions? tempConditions = tempConditionsJson != null
         ? EndpointConditions.fromJson(tempConditionsJson)
         : null;
-    final tempDeprecatedTopology = tempDeprecatedTopologyJson;
-    final tempHints =
+    final Map<String, String> tempDeprecatedTopology =
+        tempDeprecatedTopologyJson;
+    final EndpointHints? tempHints =
         tempHintsJson != null ? EndpointHints.fromJson(tempHintsJson) : null;
-    final tempHostname = tempHostnameJson;
-    final tempNodeName = tempNodeNameJson;
-    final tempTargetRef = tempTargetRefJson != null
+    final String? tempHostname = tempHostnameJson;
+    final String? tempNodeName = tempNodeNameJson;
+    final ObjectReference? tempTargetRef = tempTargetRefJson != null
         ? ObjectReference.fromJson(tempTargetRefJson)
         : null;
-    final tempZone = tempZoneJson;
+    final String? tempZone = tempZoneJson;
 
     return Endpoint(
       addresses: tempAddresses,

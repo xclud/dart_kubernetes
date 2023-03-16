@@ -20,8 +20,8 @@ class SecretEnvSource {
     final tempNameJson = json['name'];
     final tempOptionalJson = json['optional'];
 
-    final tempName = tempNameJson;
-    final tempOptional = tempOptionalJson;
+    final String? tempName = tempNameJson;
+    final bool? tempOptional = tempOptionalJson;
 
     return SecretEnvSource(
       name: tempName,

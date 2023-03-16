@@ -26,12 +26,14 @@ class PersistentVolumeClaimStatus {
     final tempPhaseJson = json['phase'];
     final tempResizeStatusJson = json['resizeStatus'];
 
-    final tempAccessModes = tempAccessModesJson;
-    final tempAllocatedResources = tempAllocatedResourcesJson;
-    final tempCapacity = tempCapacityJson;
-    final tempConditions = tempConditionsJson;
-    final tempPhase = tempPhaseJson;
-    final tempResizeStatus = tempResizeStatusJson;
+    final List<String>? tempAccessModes = tempAccessModesJson;
+    final Map<String, Object> tempAllocatedResources =
+        tempAllocatedResourcesJson;
+    final Map<String, Object> tempCapacity = tempCapacityJson;
+    final List<PersistentVolumeClaimCondition>? tempConditions =
+        tempConditionsJson;
+    final String? tempPhase = tempPhaseJson;
+    final String? tempResizeStatus = tempResizeStatusJson;
 
     return PersistentVolumeClaimStatus(
       accessModes: tempAccessModes,

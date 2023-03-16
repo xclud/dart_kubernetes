@@ -20,9 +20,9 @@ class ResourceClaimParametersReference {
     final tempKindJson = json['kind'];
     final tempNameJson = json['name'];
 
-    final tempApiGroup = tempApiGroupJson;
-    final tempKind = tempKindJson;
-    final tempName = tempNameJson;
+    final String? tempApiGroup = tempApiGroupJson;
+    final String tempKind = tempKindJson;
+    final String tempName = tempNameJson;
 
     return ResourceClaimParametersReference(
       apiGroup: tempApiGroup,

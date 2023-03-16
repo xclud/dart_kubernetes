@@ -27,14 +27,15 @@ class ServiceAccount {
     final tempMetadataJson = json['metadata'];
     final tempSecretsJson = json['secrets'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempAutomountServiceAccountToken =
+    final String? tempApiVersion = tempApiVersionJson;
+    final bool? tempAutomountServiceAccountToken =
         tempAutomountServiceAccountTokenJson;
-    final tempImagePullSecrets = tempImagePullSecretsJson;
-    final tempKind = tempKindJson;
-    final tempMetadata =
+    final List<LocalObjectReference>? tempImagePullSecrets =
+        tempImagePullSecretsJson;
+    final String? tempKind = tempKindJson;
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final tempSecrets = tempSecretsJson;
+    final List<ObjectReference>? tempSecrets = tempSecretsJson;
 
     return ServiceAccount(
       apiVersion: tempApiVersion,

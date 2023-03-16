@@ -36,25 +36,26 @@ class SecurityContext {
     final tempSeccompProfileJson = json['seccompProfile'];
     final tempWindowsOptionsJson = json['windowsOptions'];
 
-    final tempAllowPrivilegeEscalation = tempAllowPrivilegeEscalationJson;
-    final tempCapabilities = tempCapabilitiesJson != null
+    final bool? tempAllowPrivilegeEscalation = tempAllowPrivilegeEscalationJson;
+    final Capabilities? tempCapabilities = tempCapabilitiesJson != null
         ? Capabilities.fromJson(tempCapabilitiesJson)
         : null;
-    final tempPrivileged = tempPrivilegedJson;
-    final tempProcMount = tempProcMountJson;
-    final tempReadOnlyRootFilesystem = tempReadOnlyRootFilesystemJson;
-    final tempRunAsGroup = tempRunAsGroupJson;
-    final tempRunAsNonRoot = tempRunAsNonRootJson;
-    final tempRunAsUser = tempRunAsUserJson;
-    final tempSeLinuxOptions = tempSeLinuxOptionsJson != null
+    final bool? tempPrivileged = tempPrivilegedJson;
+    final String? tempProcMount = tempProcMountJson;
+    final bool? tempReadOnlyRootFilesystem = tempReadOnlyRootFilesystemJson;
+    final int? tempRunAsGroup = tempRunAsGroupJson;
+    final bool? tempRunAsNonRoot = tempRunAsNonRootJson;
+    final int? tempRunAsUser = tempRunAsUserJson;
+    final SELinuxOptions? tempSeLinuxOptions = tempSeLinuxOptionsJson != null
         ? SELinuxOptions.fromJson(tempSeLinuxOptionsJson)
         : null;
-    final tempSeccompProfile = tempSeccompProfileJson != null
+    final SeccompProfile? tempSeccompProfile = tempSeccompProfileJson != null
         ? SeccompProfile.fromJson(tempSeccompProfileJson)
         : null;
-    final tempWindowsOptions = tempWindowsOptionsJson != null
-        ? WindowsSecurityContextOptions.fromJson(tempWindowsOptionsJson)
-        : null;
+    final WindowsSecurityContextOptions? tempWindowsOptions =
+        tempWindowsOptionsJson != null
+            ? WindowsSecurityContextOptions.fromJson(tempWindowsOptionsJson)
+            : null;
 
     return SecurityContext(
       allowPrivilegeEscalation: tempAllowPrivilegeEscalation,

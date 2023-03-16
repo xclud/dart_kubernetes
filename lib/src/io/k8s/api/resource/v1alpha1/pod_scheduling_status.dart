@@ -16,7 +16,8 @@ class PodSchedulingStatus {
   factory PodSchedulingStatus.fromJson(Map<String, dynamic> json) {
     final tempResourceClaimsJson = json['resourceClaims'];
 
-    final tempResourceClaims = tempResourceClaimsJson;
+    final List<ResourceClaimSchedulingStatus>? tempResourceClaims =
+        tempResourceClaimsJson;
 
     return PodSchedulingStatus(
       resourceClaims: tempResourceClaims,

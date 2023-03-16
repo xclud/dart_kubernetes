@@ -16,7 +16,7 @@ class DownwardAPIProjection {
   factory DownwardAPIProjection.fromJson(Map<String, dynamic> json) {
     final tempItemsJson = json['items'];
 
-    final tempItems = tempItemsJson;
+    final List<DownwardAPIVolumeFile>? tempItems = tempItemsJson;
 
     return DownwardAPIProjection(
       items: tempItems,

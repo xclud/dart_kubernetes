@@ -26,12 +26,12 @@ class ConfigMap {
     final tempKindJson = json['kind'];
     final tempMetadataJson = json['metadata'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempBinaryData = tempBinaryDataJson;
-    final tempData = tempDataJson;
-    final tempImmutable = tempImmutableJson;
-    final tempKind = tempKindJson;
-    final tempMetadata =
+    final String? tempApiVersion = tempApiVersionJson;
+    final Map<String, String> tempBinaryData = tempBinaryDataJson;
+    final Map<String, String> tempData = tempDataJson;
+    final bool? tempImmutable = tempImmutableJson;
+    final String? tempKind = tempKindJson;
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
 
     return ConfigMap(

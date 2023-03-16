@@ -36,23 +36,24 @@ class NodeStatus {
     final tempVolumesAttachedJson = json['volumesAttached'];
     final tempVolumesInUseJson = json['volumesInUse'];
 
-    final tempAddresses = tempAddressesJson;
-    final tempAllocatable = tempAllocatableJson;
-    final tempCapacity = tempCapacityJson;
-    final tempConditions = tempConditionsJson;
-    final tempConfig = tempConfigJson != null
+    final List<NodeAddress>? tempAddresses = tempAddressesJson;
+    final Map<String, Object> tempAllocatable = tempAllocatableJson;
+    final Map<String, Object> tempCapacity = tempCapacityJson;
+    final List<NodeCondition>? tempConditions = tempConditionsJson;
+    final NodeConfigStatus? tempConfig = tempConfigJson != null
         ? NodeConfigStatus.fromJson(tempConfigJson)
         : null;
-    final tempDaemonEndpoints = tempDaemonEndpointsJson != null
-        ? NodeDaemonEndpoints.fromJson(tempDaemonEndpointsJson)
-        : null;
-    final tempImages = tempImagesJson;
-    final tempNodeInfo = tempNodeInfoJson != null
+    final NodeDaemonEndpoints? tempDaemonEndpoints =
+        tempDaemonEndpointsJson != null
+            ? NodeDaemonEndpoints.fromJson(tempDaemonEndpointsJson)
+            : null;
+    final List<ContainerImage>? tempImages = tempImagesJson;
+    final NodeSystemInfo? tempNodeInfo = tempNodeInfoJson != null
         ? NodeSystemInfo.fromJson(tempNodeInfoJson)
         : null;
-    final tempPhase = tempPhaseJson;
-    final tempVolumesAttached = tempVolumesAttachedJson;
-    final tempVolumesInUse = tempVolumesInUseJson;
+    final String? tempPhase = tempPhaseJson;
+    final List<AttachedVolume>? tempVolumesAttached = tempVolumesAttachedJson;
+    final List<String>? tempVolumesInUse = tempVolumesInUseJson;
 
     return NodeStatus(
       addresses: tempAddresses,

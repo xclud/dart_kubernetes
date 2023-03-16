@@ -22,12 +22,13 @@ class VolumeAttachmentStatus {
     final tempAttachmentMetadataJson = json['attachmentMetadata'];
     final tempDetachErrorJson = json['detachError'];
 
-    final tempAttachError = tempAttachErrorJson != null
+    final VolumeError? tempAttachError = tempAttachErrorJson != null
         ? VolumeError.fromJson(tempAttachErrorJson)
         : null;
-    final tempAttached = tempAttachedJson;
-    final tempAttachmentMetadata = tempAttachmentMetadataJson;
-    final tempDetachError = tempDetachErrorJson != null
+    final bool tempAttached = tempAttachedJson;
+    final Map<String, String> tempAttachmentMetadata =
+        tempAttachmentMetadataJson;
+    final VolumeError? tempDetachError = tempDetachErrorJson != null
         ? VolumeError.fromJson(tempDetachErrorJson)
         : null;
 

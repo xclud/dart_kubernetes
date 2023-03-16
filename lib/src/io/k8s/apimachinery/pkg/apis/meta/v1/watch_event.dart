@@ -18,8 +18,8 @@ class WatchEvent {
     final tempObjectJson = json['object'];
     final tempTypeJson = json['type'];
 
-    final tempObject = RawExtension.fromJson(tempObjectJson);
-    final tempType = tempTypeJson;
+    final RawExtension tempObject = RawExtension.fromJson(tempObjectJson);
+    final String tempType = tempTypeJson;
 
     return WatchEvent(
       object: tempObject,

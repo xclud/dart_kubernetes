@@ -24,11 +24,11 @@ class ContainerPort {
     final tempNameJson = json['name'];
     final tempProtocolJson = json['protocol'];
 
-    final tempContainerPort = tempContainerPortJson;
-    final tempHostIP = tempHostIPJson;
-    final tempHostPort = tempHostPortJson;
-    final tempName = tempNameJson;
-    final tempProtocol = tempProtocolJson;
+    final int tempContainerPort = tempContainerPortJson;
+    final String? tempHostIP = tempHostIPJson;
+    final int? tempHostPort = tempHostPortJson;
+    final String? tempName = tempNameJson;
+    final String? tempProtocol = tempProtocolJson;
 
     return ContainerPort(
       containerPort: tempContainerPort,

@@ -20,9 +20,9 @@ class CrossVersionObjectReference {
     final tempKindJson = json['kind'];
     final tempNameJson = json['name'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempKind = tempKindJson;
-    final tempName = tempNameJson;
+    final String? tempApiVersion = tempApiVersionJson;
+    final String tempKind = tempKindJson;
+    final String tempName = tempNameJson;
 
     return CrossVersionObjectReference(
       apiVersion: tempApiVersion,

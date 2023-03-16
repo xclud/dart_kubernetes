@@ -26,12 +26,12 @@ class ServicePort {
     final tempProtocolJson = json['protocol'];
     final tempTargetPortJson = json['targetPort'];
 
-    final tempAppProtocol = tempAppProtocolJson;
-    final tempName = tempNameJson;
-    final tempNodePort = tempNodePortJson;
-    final tempPort = tempPortJson;
-    final tempProtocol = tempProtocolJson;
-    final tempTargetPort = tempTargetPortJson;
+    final String? tempAppProtocol = tempAppProtocolJson;
+    final String? tempName = tempNameJson;
+    final int? tempNodePort = tempNodePortJson;
+    final int tempPort = tempPortJson;
+    final String? tempProtocol = tempProtocolJson;
+    final String? tempTargetPort = tempTargetPortJson;
 
     return ServicePort(
       appProtocol: tempAppProtocol,

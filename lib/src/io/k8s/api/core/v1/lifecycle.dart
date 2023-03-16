@@ -18,10 +18,10 @@ class Lifecycle {
     final tempPostStartJson = json['postStart'];
     final tempPreStopJson = json['preStop'];
 
-    final tempPostStart = tempPostStartJson != null
+    final LifecycleHandler? tempPostStart = tempPostStartJson != null
         ? LifecycleHandler.fromJson(tempPostStartJson)
         : null;
-    final tempPreStop = tempPreStopJson != null
+    final LifecycleHandler? tempPreStop = tempPreStopJson != null
         ? LifecycleHandler.fromJson(tempPreStopJson)
         : null;
 

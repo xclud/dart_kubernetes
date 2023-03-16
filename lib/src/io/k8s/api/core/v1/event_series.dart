@@ -18,8 +18,8 @@ class EventSeries {
     final tempCountJson = json['count'];
     final tempLastObservedTimeJson = json['lastObservedTime'];
 
-    final tempCount = tempCountJson;
-    final tempLastObservedTime = tempLastObservedTimeJson;
+    final int? tempCount = tempCountJson;
+    final String? tempLastObservedTime = tempLastObservedTimeJson;
 
     return EventSeries(
       count: tempCount,

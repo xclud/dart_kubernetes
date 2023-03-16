@@ -20,9 +20,9 @@ class EnvVar {
     final tempValueJson = json['value'];
     final tempValueFromJson = json['valueFrom'];
 
-    final tempName = tempNameJson;
-    final tempValue = tempValueJson;
-    final tempValueFrom = tempValueFromJson != null
+    final String tempName = tempNameJson;
+    final String? tempValue = tempValueJson;
+    final EnvVarSource? tempValueFrom = tempValueFromJson != null
         ? EnvVarSource.fromJson(tempValueFromJson)
         : null;
 

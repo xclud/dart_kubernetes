@@ -22,10 +22,10 @@ class ComponentStatus {
     final tempKindJson = json['kind'];
     final tempMetadataJson = json['metadata'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempConditions = tempConditionsJson;
-    final tempKind = tempKindJson;
-    final tempMetadata =
+    final String? tempApiVersion = tempApiVersionJson;
+    final List<ComponentCondition>? tempConditions = tempConditionsJson;
+    final String? tempKind = tempKindJson;
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
 
     return ComponentStatus(

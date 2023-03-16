@@ -20,13 +20,13 @@ class ContainerState {
     final tempTerminatedJson = json['terminated'];
     final tempWaitingJson = json['waiting'];
 
-    final tempRunning = tempRunningJson != null
+    final ContainerStateRunning? tempRunning = tempRunningJson != null
         ? ContainerStateRunning.fromJson(tempRunningJson)
         : null;
-    final tempTerminated = tempTerminatedJson != null
+    final ContainerStateTerminated? tempTerminated = tempTerminatedJson != null
         ? ContainerStateTerminated.fromJson(tempTerminatedJson)
         : null;
-    final tempWaiting = tempWaitingJson != null
+    final ContainerStateWaiting? tempWaiting = tempWaitingJson != null
         ? ContainerStateWaiting.fromJson(tempWaitingJson)
         : null;
 

@@ -16,7 +16,7 @@ class SelfSubjectReviewStatus {
   factory SelfSubjectReviewStatus.fromJson(Map<String, dynamic> json) {
     final tempUserInfoJson = json['userInfo'];
 
-    final tempUserInfo =
+    final UserInfo? tempUserInfo =
         tempUserInfoJson != null ? UserInfo.fromJson(tempUserInfoJson) : null;
 
     return SelfSubjectReviewStatus(

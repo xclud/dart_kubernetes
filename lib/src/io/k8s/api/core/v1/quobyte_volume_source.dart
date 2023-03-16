@@ -26,12 +26,12 @@ class QuobyteVolumeSource {
     final tempUserJson = json['user'];
     final tempVolumeJson = json['volume'];
 
-    final tempGroup = tempGroupJson;
-    final tempReadOnly = tempReadOnlyJson;
-    final tempRegistry = tempRegistryJson;
-    final tempTenant = tempTenantJson;
-    final tempUser = tempUserJson;
-    final tempVolume = tempVolumeJson;
+    final String? tempGroup = tempGroupJson;
+    final bool? tempReadOnly = tempReadOnlyJson;
+    final String tempRegistry = tempRegistryJson;
+    final String? tempTenant = tempTenantJson;
+    final String? tempUser = tempUserJson;
+    final String tempVolume = tempVolumeJson;
 
     return QuobyteVolumeSource(
       group: tempGroup,

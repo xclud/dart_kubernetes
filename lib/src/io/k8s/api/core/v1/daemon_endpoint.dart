@@ -16,7 +16,7 @@ class DaemonEndpoint {
   factory DaemonEndpoint.fromJson(Map<String, dynamic> json) {
     final tempPortJson = json['port'];
 
-    final tempPort = tempPortJson;
+    final int tempPort = tempPortJson;
 
     return DaemonEndpoint(
       port: tempPort,

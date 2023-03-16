@@ -22,14 +22,15 @@ class ValidatingAdmissionPolicySpec {
     final tempParamKindJson = json['paramKind'];
     final tempValidationsJson = json['validations'];
 
-    final tempFailurePolicy = tempFailurePolicyJson;
-    final tempMatchConstraints = tempMatchConstraintsJson != null
-        ? MatchResources.fromJson(tempMatchConstraintsJson)
-        : null;
-    final tempParamKind = tempParamKindJson != null
+    final String? tempFailurePolicy = tempFailurePolicyJson;
+    final MatchResources? tempMatchConstraints =
+        tempMatchConstraintsJson != null
+            ? MatchResources.fromJson(tempMatchConstraintsJson)
+            : null;
+    final ParamKind? tempParamKind = tempParamKindJson != null
         ? ParamKind.fromJson(tempParamKindJson)
         : null;
-    final tempValidations = tempValidationsJson;
+    final List<Validation> tempValidations = tempValidationsJson;
 
     return ValidatingAdmissionPolicySpec(
       failurePolicy: tempFailurePolicy,

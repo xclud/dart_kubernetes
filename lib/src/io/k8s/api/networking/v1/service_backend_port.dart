@@ -18,8 +18,8 @@ class ServiceBackendPort {
     final tempNameJson = json['name'];
     final tempNumberJson = json['number'];
 
-    final tempName = tempNameJson;
-    final tempNumber = tempNumberJson;
+    final String? tempName = tempNameJson;
+    final int? tempNumber = tempNumberJson;
 
     return ServiceBackendPort(
       name: tempName,

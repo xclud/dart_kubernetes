@@ -41,19 +41,22 @@ class PodStatus {
     final tempReasonJson = json['reason'];
     final tempStartTimeJson = json['startTime'];
 
-    final tempConditions = tempConditionsJson;
-    final tempContainerStatuses = tempContainerStatusesJson;
-    final tempEphemeralContainerStatuses = tempEphemeralContainerStatusesJson;
-    final tempHostIP = tempHostIPJson;
-    final tempInitContainerStatuses = tempInitContainerStatusesJson;
-    final tempMessage = tempMessageJson;
-    final tempNominatedNodeName = tempNominatedNodeNameJson;
-    final tempPhase = tempPhaseJson;
-    final tempPodIP = tempPodIPJson;
-    final tempPodIPs = tempPodIPsJson;
-    final tempQosClass = tempQosClassJson;
-    final tempReason = tempReasonJson;
-    final tempStartTime =
+    final List<PodCondition>? tempConditions = tempConditionsJson;
+    final List<ContainerStatus>? tempContainerStatuses =
+        tempContainerStatusesJson;
+    final List<ContainerStatus>? tempEphemeralContainerStatuses =
+        tempEphemeralContainerStatusesJson;
+    final String? tempHostIP = tempHostIPJson;
+    final List<ContainerStatus>? tempInitContainerStatuses =
+        tempInitContainerStatusesJson;
+    final String? tempMessage = tempMessageJson;
+    final String? tempNominatedNodeName = tempNominatedNodeNameJson;
+    final String? tempPhase = tempPhaseJson;
+    final String? tempPodIP = tempPodIPJson;
+    final List<PodIP>? tempPodIPs = tempPodIPsJson;
+    final String? tempQosClass = tempQosClassJson;
+    final String? tempReason = tempReasonJson;
+    final DateTime? tempStartTime =
         tempStartTimeJson != null ? DateTime.tryParse(tempStartTimeJson) : null;
 
     return PodStatus(

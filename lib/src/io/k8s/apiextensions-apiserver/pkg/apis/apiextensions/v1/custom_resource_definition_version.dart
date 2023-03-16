@@ -30,18 +30,20 @@ class CustomResourceDefinitionVersion {
     final tempStorageJson = json['storage'];
     final tempSubresourcesJson = json['subresources'];
 
-    final tempAdditionalPrinterColumns = tempAdditionalPrinterColumnsJson;
-    final tempDeprecated = tempDeprecatedJson;
-    final tempDeprecationWarning = tempDeprecationWarningJson;
-    final tempName = tempNameJson;
-    final tempSchema = tempSchemaJson != null
+    final List<CustomResourceColumnDefinition>? tempAdditionalPrinterColumns =
+        tempAdditionalPrinterColumnsJson;
+    final bool? tempDeprecated = tempDeprecatedJson;
+    final String? tempDeprecationWarning = tempDeprecationWarningJson;
+    final String tempName = tempNameJson;
+    final CustomResourceValidation? tempSchema = tempSchemaJson != null
         ? CustomResourceValidation.fromJson(tempSchemaJson)
         : null;
-    final tempServed = tempServedJson;
-    final tempStorage = tempStorageJson;
-    final tempSubresources = tempSubresourcesJson != null
-        ? CustomResourceSubresources.fromJson(tempSubresourcesJson)
-        : null;
+    final bool tempServed = tempServedJson;
+    final bool tempStorage = tempStorageJson;
+    final CustomResourceSubresources? tempSubresources =
+        tempSubresourcesJson != null
+            ? CustomResourceSubresources.fromJson(tempSubresourcesJson)
+            : null;
 
     return CustomResourceDefinitionVersion(
       additionalPrinterColumns: tempAdditionalPrinterColumns,

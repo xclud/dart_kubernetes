@@ -20,9 +20,10 @@ class StorageVersionStatus {
     final tempConditionsJson = json['conditions'];
     final tempStorageVersionsJson = json['storageVersions'];
 
-    final tempCommonEncodingVersion = tempCommonEncodingVersionJson;
-    final tempConditions = tempConditionsJson;
-    final tempStorageVersions = tempStorageVersionsJson;
+    final String? tempCommonEncodingVersion = tempCommonEncodingVersionJson;
+    final List<StorageVersionCondition>? tempConditions = tempConditionsJson;
+    final List<ServerStorageVersion>? tempStorageVersions =
+        tempStorageVersionsJson;
 
     return StorageVersionStatus(
       commonEncodingVersion: tempCommonEncodingVersion,

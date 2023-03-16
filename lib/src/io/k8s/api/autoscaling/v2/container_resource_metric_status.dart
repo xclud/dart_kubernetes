@@ -20,9 +20,10 @@ class ContainerResourceMetricStatus {
     final tempCurrentJson = json['current'];
     final tempNameJson = json['name'];
 
-    final tempContainer = tempContainerJson;
-    final tempCurrent = MetricValueStatus.fromJson(tempCurrentJson);
-    final tempName = tempNameJson;
+    final String tempContainer = tempContainerJson;
+    final MetricValueStatus tempCurrent =
+        MetricValueStatus.fromJson(tempCurrentJson);
+    final String tempName = tempNameJson;
 
     return ContainerResourceMetricStatus(
       container: tempContainer,

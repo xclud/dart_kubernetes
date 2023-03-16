@@ -22,10 +22,10 @@ class AzureFilePersistentVolumeSource {
     final tempSecretNamespaceJson = json['secretNamespace'];
     final tempShareNameJson = json['shareName'];
 
-    final tempReadOnly = tempReadOnlyJson;
-    final tempSecretName = tempSecretNameJson;
-    final tempSecretNamespace = tempSecretNamespaceJson;
-    final tempShareName = tempShareNameJson;
+    final bool? tempReadOnly = tempReadOnlyJson;
+    final String tempSecretName = tempSecretNameJson;
+    final String? tempSecretNamespace = tempSecretNamespaceJson;
+    final String tempShareName = tempShareNameJson;
 
     return AzureFilePersistentVolumeSource(
       readOnly: tempReadOnly,

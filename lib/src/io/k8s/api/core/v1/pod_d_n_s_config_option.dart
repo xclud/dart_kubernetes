@@ -18,8 +18,8 @@ class PodDNSConfigOption {
     final tempNameJson = json['name'];
     final tempValueJson = json['value'];
 
-    final tempName = tempNameJson;
-    final tempValue = tempValueJson;
+    final String? tempName = tempNameJson;
+    final String? tempValue = tempValueJson;
 
     return PodDNSConfigOption(
       name: tempName,

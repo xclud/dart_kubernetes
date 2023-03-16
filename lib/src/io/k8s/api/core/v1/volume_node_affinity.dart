@@ -16,7 +16,7 @@ class VolumeNodeAffinity {
   factory VolumeNodeAffinity.fromJson(Map<String, dynamic> json) {
     final tempRequiredJson = json['required'];
 
-    final tempRequired = tempRequiredJson != null
+    final NodeSelector? tempRequired = tempRequiredJson != null
         ? NodeSelector.fromJson(tempRequiredJson)
         : null;
 

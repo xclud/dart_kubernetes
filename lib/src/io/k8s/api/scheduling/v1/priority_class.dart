@@ -28,14 +28,14 @@ class PriorityClass {
     final tempPreemptionPolicyJson = json['preemptionPolicy'];
     final tempValueJson = json['value'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempDescription = tempDescriptionJson;
-    final tempGlobalDefault = tempGlobalDefaultJson;
-    final tempKind = tempKindJson;
-    final tempMetadata =
+    final String? tempApiVersion = tempApiVersionJson;
+    final String? tempDescription = tempDescriptionJson;
+    final bool? tempGlobalDefault = tempGlobalDefaultJson;
+    final String? tempKind = tempKindJson;
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final tempPreemptionPolicy = tempPreemptionPolicyJson;
-    final tempValue = tempValueJson;
+    final String? tempPreemptionPolicy = tempPreemptionPolicyJson;
+    final int tempValue = tempValueJson;
 
     return PriorityClass(
       apiVersion: tempApiVersion,

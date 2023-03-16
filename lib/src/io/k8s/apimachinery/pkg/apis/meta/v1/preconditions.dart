@@ -18,8 +18,8 @@ class Preconditions {
     final tempResourceVersionJson = json['resourceVersion'];
     final tempUidJson = json['uid'];
 
-    final tempResourceVersion = tempResourceVersionJson;
-    final tempUid = tempUidJson;
+    final String? tempResourceVersion = tempResourceVersionJson;
+    final String? tempUid = tempUidJson;
 
     return Preconditions(
       resourceVersion: tempResourceVersion,

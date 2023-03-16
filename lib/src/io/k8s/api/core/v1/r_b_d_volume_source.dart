@@ -30,16 +30,16 @@ class RBDVolumeSource {
     final tempSecretRefJson = json['secretRef'];
     final tempUserJson = json['user'];
 
-    final tempFsType = tempFsTypeJson;
-    final tempImage = tempImageJson;
-    final tempKeyring = tempKeyringJson;
-    final tempMonitors = tempMonitorsJson;
-    final tempPool = tempPoolJson;
-    final tempReadOnly = tempReadOnlyJson;
-    final tempSecretRef = tempSecretRefJson != null
+    final String? tempFsType = tempFsTypeJson;
+    final String tempImage = tempImageJson;
+    final String? tempKeyring = tempKeyringJson;
+    final List<String> tempMonitors = tempMonitorsJson;
+    final String? tempPool = tempPoolJson;
+    final bool? tempReadOnly = tempReadOnlyJson;
+    final LocalObjectReference? tempSecretRef = tempSecretRefJson != null
         ? LocalObjectReference.fromJson(tempSecretRefJson)
         : null;
-    final tempUser = tempUserJson;
+    final String? tempUser = tempUserJson;
 
     return RBDVolumeSource(
       fsType: tempFsType,

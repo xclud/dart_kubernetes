@@ -28,15 +28,15 @@ class NodeSpec {
     final tempTaintsJson = json['taints'];
     final tempUnschedulableJson = json['unschedulable'];
 
-    final tempConfigSource = tempConfigSourceJson != null
+    final NodeConfigSource? tempConfigSource = tempConfigSourceJson != null
         ? NodeConfigSource.fromJson(tempConfigSourceJson)
         : null;
-    final tempExternalID = tempExternalIDJson;
-    final tempPodCIDR = tempPodCIDRJson;
-    final tempPodCIDRs = tempPodCIDRsJson;
-    final tempProviderID = tempProviderIDJson;
-    final tempTaints = tempTaintsJson;
-    final tempUnschedulable = tempUnschedulableJson;
+    final String? tempExternalID = tempExternalIDJson;
+    final String? tempPodCIDR = tempPodCIDRJson;
+    final List<String>? tempPodCIDRs = tempPodCIDRsJson;
+    final String? tempProviderID = tempProviderIDJson;
+    final List<Taint>? tempTaints = tempTaintsJson;
+    final bool? tempUnschedulable = tempUnschedulableJson;
 
     return NodeSpec(
       configSource: tempConfigSource,

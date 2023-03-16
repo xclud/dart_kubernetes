@@ -24,10 +24,10 @@ class AWSElasticBlockStoreVolumeSource {
     final tempReadOnlyJson = json['readOnly'];
     final tempVolumeIDJson = json['volumeID'];
 
-    final tempFsType = tempFsTypeJson;
-    final tempPartition = tempPartitionJson;
-    final tempReadOnly = tempReadOnlyJson;
-    final tempVolumeID = tempVolumeIDJson;
+    final String? tempFsType = tempFsTypeJson;
+    final int? tempPartition = tempPartitionJson;
+    final bool? tempReadOnly = tempReadOnlyJson;
+    final String tempVolumeID = tempVolumeIDJson;
 
     return AWSElasticBlockStoreVolumeSource(
       fsType: tempFsType,

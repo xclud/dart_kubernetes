@@ -18,10 +18,10 @@ class LimitResponse {
     final tempQueuingJson = json['queuing'];
     final tempTypeJson = json['type'];
 
-    final tempQueuing = tempQueuingJson != null
+    final QueuingConfiguration? tempQueuing = tempQueuingJson != null
         ? QueuingConfiguration.fromJson(tempQueuingJson)
         : null;
-    final tempType = tempTypeJson;
+    final String tempType = tempTypeJson;
 
     return LimitResponse(
       queuing: tempQueuing,

@@ -16,7 +16,8 @@ class ScopeSelector {
   factory ScopeSelector.fromJson(Map<String, dynamic> json) {
     final tempMatchExpressionsJson = json['matchExpressions'];
 
-    final tempMatchExpressions = tempMatchExpressionsJson;
+    final List<ScopedResourceSelectorRequirement>? tempMatchExpressions =
+        tempMatchExpressionsJson;
 
     return ScopeSelector(
       matchExpressions: tempMatchExpressions,

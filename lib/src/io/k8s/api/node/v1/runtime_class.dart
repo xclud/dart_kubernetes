@@ -26,14 +26,14 @@ class RuntimeClass {
     final tempOverheadJson = json['overhead'];
     final tempSchedulingJson = json['scheduling'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempHandler = tempHandlerJson;
-    final tempKind = tempKindJson;
-    final tempMetadata =
+    final String? tempApiVersion = tempApiVersionJson;
+    final String tempHandler = tempHandlerJson;
+    final String? tempKind = tempKindJson;
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final tempOverhead =
+    final Overhead? tempOverhead =
         tempOverheadJson != null ? Overhead.fromJson(tempOverheadJson) : null;
-    final tempScheduling = tempSchedulingJson != null
+    final Scheduling? tempScheduling = tempSchedulingJson != null
         ? Scheduling.fromJson(tempSchedulingJson)
         : null;
 

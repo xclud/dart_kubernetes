@@ -34,16 +34,17 @@ class ScaleIOPersistentVolumeSource {
     final tempSystemJson = json['system'];
     final tempVolumeNameJson = json['volumeName'];
 
-    final tempFsType = tempFsTypeJson;
-    final tempGateway = tempGatewayJson;
-    final tempProtectionDomain = tempProtectionDomainJson;
-    final tempReadOnly = tempReadOnlyJson;
-    final tempSecretRef = SecretReference.fromJson(tempSecretRefJson);
-    final tempSslEnabled = tempSslEnabledJson;
-    final tempStorageMode = tempStorageModeJson;
-    final tempStoragePool = tempStoragePoolJson;
-    final tempSystem = tempSystemJson;
-    final tempVolumeName = tempVolumeNameJson;
+    final String? tempFsType = tempFsTypeJson;
+    final String tempGateway = tempGatewayJson;
+    final String? tempProtectionDomain = tempProtectionDomainJson;
+    final bool? tempReadOnly = tempReadOnlyJson;
+    final SecretReference tempSecretRef =
+        SecretReference.fromJson(tempSecretRefJson);
+    final bool? tempSslEnabled = tempSslEnabledJson;
+    final String? tempStorageMode = tempStorageModeJson;
+    final String? tempStoragePool = tempStoragePoolJson;
+    final String tempSystem = tempSystemJson;
+    final String? tempVolumeName = tempVolumeNameJson;
 
     return ScaleIOPersistentVolumeSource(
       fsType: tempFsType,

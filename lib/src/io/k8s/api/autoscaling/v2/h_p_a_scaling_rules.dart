@@ -21,9 +21,10 @@ class HPAScalingRules {
     final tempStabilizationWindowSecondsJson =
         json['stabilizationWindowSeconds'];
 
-    final tempPolicies = tempPoliciesJson;
-    final tempSelectPolicy = tempSelectPolicyJson;
-    final tempStabilizationWindowSeconds = tempStabilizationWindowSecondsJson;
+    final List<HPAScalingPolicy>? tempPolicies = tempPoliciesJson;
+    final String? tempSelectPolicy = tempSelectPolicyJson;
+    final int? tempStabilizationWindowSeconds =
+        tempStabilizationWindowSecondsJson;
 
     return HPAScalingRules(
       policies: tempPolicies,

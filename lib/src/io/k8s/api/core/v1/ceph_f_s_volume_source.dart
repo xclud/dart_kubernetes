@@ -26,14 +26,14 @@ class CephFSVolumeSource {
     final tempSecretRefJson = json['secretRef'];
     final tempUserJson = json['user'];
 
-    final tempMonitors = tempMonitorsJson;
-    final tempPath = tempPathJson;
-    final tempReadOnly = tempReadOnlyJson;
-    final tempSecretFile = tempSecretFileJson;
-    final tempSecretRef = tempSecretRefJson != null
+    final List<String> tempMonitors = tempMonitorsJson;
+    final String? tempPath = tempPathJson;
+    final bool? tempReadOnly = tempReadOnlyJson;
+    final String? tempSecretFile = tempSecretFileJson;
+    final LocalObjectReference? tempSecretRef = tempSecretRefJson != null
         ? LocalObjectReference.fromJson(tempSecretRefJson)
         : null;
-    final tempUser = tempUserJson;
+    final String? tempUser = tempUserJson;
 
     return CephFSVolumeSource(
       monitors: tempMonitors,

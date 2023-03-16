@@ -20,9 +20,9 @@ class ResourceRequirements {
     final tempLimitsJson = json['limits'];
     final tempRequestsJson = json['requests'];
 
-    final tempClaims = tempClaimsJson;
-    final tempLimits = tempLimitsJson;
-    final tempRequests = tempRequestsJson;
+    final List<ResourceClaim>? tempClaims = tempClaimsJson;
+    final Map<String, Object> tempLimits = tempLimitsJson;
+    final Map<String, Object> tempRequests = tempRequestsJson;
 
     return ResourceRequirements(
       claims: tempClaims,

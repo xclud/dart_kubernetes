@@ -18,8 +18,8 @@ class ParamKind {
     final tempApiVersionJson = json['apiVersion'];
     final tempKindJson = json['kind'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempKind = tempKindJson;
+    final String? tempApiVersion = tempApiVersionJson;
+    final String? tempKind = tempKindJson;
 
     return ParamKind(
       apiVersion: tempApiVersion,

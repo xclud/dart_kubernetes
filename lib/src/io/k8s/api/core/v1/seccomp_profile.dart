@@ -18,8 +18,8 @@ class SeccompProfile {
     final tempLocalhostProfileJson = json['localhostProfile'];
     final tempTypeJson = json['type'];
 
-    final tempLocalhostProfile = tempLocalhostProfileJson;
-    final tempType = tempTypeJson;
+    final String? tempLocalhostProfile = tempLocalhostProfileJson;
+    final String tempType = tempTypeJson;
 
     return SeccompProfile(
       localhostProfile: tempLocalhostProfile,

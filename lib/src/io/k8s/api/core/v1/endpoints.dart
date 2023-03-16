@@ -34,11 +34,11 @@ class Endpoints {
     final tempMetadataJson = json['metadata'];
     final tempSubsetsJson = json['subsets'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempKind = tempKindJson;
-    final tempMetadata =
+    final String? tempApiVersion = tempApiVersionJson;
+    final String? tempKind = tempKindJson;
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final tempSubsets = tempSubsetsJson;
+    final List<EndpointSubset>? tempSubsets = tempSubsetsJson;
 
     return Endpoints(
       apiVersion: tempApiVersion,

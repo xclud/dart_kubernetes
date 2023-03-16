@@ -35,28 +35,31 @@ class CSIPersistentVolumeSource {
     final tempVolumeAttributesJson = json['volumeAttributes'];
     final tempVolumeHandleJson = json['volumeHandle'];
 
-    final tempControllerExpandSecretRef =
+    final SecretReference? tempControllerExpandSecretRef =
         tempControllerExpandSecretRefJson != null
             ? SecretReference.fromJson(tempControllerExpandSecretRefJson)
             : null;
-    final tempControllerPublishSecretRef =
+    final SecretReference? tempControllerPublishSecretRef =
         tempControllerPublishSecretRefJson != null
             ? SecretReference.fromJson(tempControllerPublishSecretRefJson)
             : null;
-    final tempDriver = tempDriverJson;
-    final tempFsType = tempFsTypeJson;
-    final tempNodeExpandSecretRef = tempNodeExpandSecretRefJson != null
-        ? SecretReference.fromJson(tempNodeExpandSecretRefJson)
-        : null;
-    final tempNodePublishSecretRef = tempNodePublishSecretRefJson != null
-        ? SecretReference.fromJson(tempNodePublishSecretRefJson)
-        : null;
-    final tempNodeStageSecretRef = tempNodeStageSecretRefJson != null
-        ? SecretReference.fromJson(tempNodeStageSecretRefJson)
-        : null;
-    final tempReadOnly = tempReadOnlyJson;
-    final tempVolumeAttributes = tempVolumeAttributesJson;
-    final tempVolumeHandle = tempVolumeHandleJson;
+    final String tempDriver = tempDriverJson;
+    final String? tempFsType = tempFsTypeJson;
+    final SecretReference? tempNodeExpandSecretRef =
+        tempNodeExpandSecretRefJson != null
+            ? SecretReference.fromJson(tempNodeExpandSecretRefJson)
+            : null;
+    final SecretReference? tempNodePublishSecretRef =
+        tempNodePublishSecretRefJson != null
+            ? SecretReference.fromJson(tempNodePublishSecretRefJson)
+            : null;
+    final SecretReference? tempNodeStageSecretRef =
+        tempNodeStageSecretRefJson != null
+            ? SecretReference.fromJson(tempNodeStageSecretRefJson)
+            : null;
+    final bool? tempReadOnly = tempReadOnlyJson;
+    final Map<String, String> tempVolumeAttributes = tempVolumeAttributesJson;
+    final String tempVolumeHandle = tempVolumeHandleJson;
 
     return CSIPersistentVolumeSource(
       controllerExpandSecretRef: tempControllerExpandSecretRef,

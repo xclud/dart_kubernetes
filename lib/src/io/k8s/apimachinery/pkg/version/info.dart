@@ -32,15 +32,15 @@ class Info {
     final tempMinorJson = json['minor'];
     final tempPlatformJson = json['platform'];
 
-    final tempBuildDate = tempBuildDateJson;
-    final tempCompiler = tempCompilerJson;
-    final tempGitCommit = tempGitCommitJson;
-    final tempGitTreeState = tempGitTreeStateJson;
-    final tempGitVersion = tempGitVersionJson;
-    final tempGoVersion = tempGoVersionJson;
-    final tempMajor = tempMajorJson;
-    final tempMinor = tempMinorJson;
-    final tempPlatform = tempPlatformJson;
+    final String tempBuildDate = tempBuildDateJson;
+    final String tempCompiler = tempCompilerJson;
+    final String tempGitCommit = tempGitCommitJson;
+    final String tempGitTreeState = tempGitTreeStateJson;
+    final String tempGitVersion = tempGitVersionJson;
+    final String tempGoVersion = tempGoVersionJson;
+    final String tempMajor = tempMajorJson;
+    final String tempMinor = tempMinorJson;
+    final String tempPlatform = tempPlatformJson;
 
     return Info(
       buildDate: tempBuildDate,

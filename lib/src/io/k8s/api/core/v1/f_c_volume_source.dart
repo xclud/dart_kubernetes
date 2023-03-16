@@ -24,11 +24,11 @@ class FCVolumeSource {
     final tempTargetWWNsJson = json['targetWWNs'];
     final tempWwidsJson = json['wwids'];
 
-    final tempFsType = tempFsTypeJson;
-    final tempLun = tempLunJson;
-    final tempReadOnly = tempReadOnlyJson;
-    final tempTargetWWNs = tempTargetWWNsJson;
-    final tempWwids = tempWwidsJson;
+    final String? tempFsType = tempFsTypeJson;
+    final int? tempLun = tempLunJson;
+    final bool? tempReadOnly = tempReadOnlyJson;
+    final List<String>? tempTargetWWNs = tempTargetWWNsJson;
+    final List<String>? tempWwids = tempWwidsJson;
 
     return FCVolumeSource(
       fsType: tempFsType,

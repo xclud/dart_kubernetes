@@ -53,28 +53,30 @@ class ServiceSpec {
     final tempSessionAffinityConfigJson = json['sessionAffinityConfig'];
     final tempTypeJson = json['type'];
 
-    final tempAllocateLoadBalancerNodePorts =
+    final bool? tempAllocateLoadBalancerNodePorts =
         tempAllocateLoadBalancerNodePortsJson;
-    final tempClusterIP = tempClusterIPJson;
-    final tempClusterIPs = tempClusterIPsJson;
-    final tempExternalIPs = tempExternalIPsJson;
-    final tempExternalName = tempExternalNameJson;
-    final tempExternalTrafficPolicy = tempExternalTrafficPolicyJson;
-    final tempHealthCheckNodePort = tempHealthCheckNodePortJson;
-    final tempInternalTrafficPolicy = tempInternalTrafficPolicyJson;
-    final tempIpFamilies = tempIpFamiliesJson;
-    final tempIpFamilyPolicy = tempIpFamilyPolicyJson;
-    final tempLoadBalancerClass = tempLoadBalancerClassJson;
-    final tempLoadBalancerIP = tempLoadBalancerIPJson;
-    final tempLoadBalancerSourceRanges = tempLoadBalancerSourceRangesJson;
-    final tempPorts = tempPortsJson;
-    final tempPublishNotReadyAddresses = tempPublishNotReadyAddressesJson;
-    final tempSelector = tempSelectorJson;
-    final tempSessionAffinity = tempSessionAffinityJson;
-    final tempSessionAffinityConfig = tempSessionAffinityConfigJson != null
-        ? SessionAffinityConfig.fromJson(tempSessionAffinityConfigJson)
-        : null;
-    final tempType = tempTypeJson;
+    final String? tempClusterIP = tempClusterIPJson;
+    final List<String>? tempClusterIPs = tempClusterIPsJson;
+    final List<String>? tempExternalIPs = tempExternalIPsJson;
+    final String? tempExternalName = tempExternalNameJson;
+    final String? tempExternalTrafficPolicy = tempExternalTrafficPolicyJson;
+    final int? tempHealthCheckNodePort = tempHealthCheckNodePortJson;
+    final String? tempInternalTrafficPolicy = tempInternalTrafficPolicyJson;
+    final List<String>? tempIpFamilies = tempIpFamiliesJson;
+    final String? tempIpFamilyPolicy = tempIpFamilyPolicyJson;
+    final String? tempLoadBalancerClass = tempLoadBalancerClassJson;
+    final String? tempLoadBalancerIP = tempLoadBalancerIPJson;
+    final List<String>? tempLoadBalancerSourceRanges =
+        tempLoadBalancerSourceRangesJson;
+    final List<ServicePort>? tempPorts = tempPortsJson;
+    final bool? tempPublishNotReadyAddresses = tempPublishNotReadyAddressesJson;
+    final Map<String, String> tempSelector = tempSelectorJson;
+    final String? tempSessionAffinity = tempSessionAffinityJson;
+    final SessionAffinityConfig? tempSessionAffinityConfig =
+        tempSessionAffinityConfigJson != null
+            ? SessionAffinityConfig.fromJson(tempSessionAffinityConfigJson)
+            : null;
+    final String? tempType = tempTypeJson;
 
     return ServiceSpec(
       allocateLoadBalancerNodePorts: tempAllocateLoadBalancerNodePorts,

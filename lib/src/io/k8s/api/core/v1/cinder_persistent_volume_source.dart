@@ -22,12 +22,12 @@ class CinderPersistentVolumeSource {
     final tempSecretRefJson = json['secretRef'];
     final tempVolumeIDJson = json['volumeID'];
 
-    final tempFsType = tempFsTypeJson;
-    final tempReadOnly = tempReadOnlyJson;
-    final tempSecretRef = tempSecretRefJson != null
+    final String? tempFsType = tempFsTypeJson;
+    final bool? tempReadOnly = tempReadOnlyJson;
+    final SecretReference? tempSecretRef = tempSecretRefJson != null
         ? SecretReference.fromJson(tempSecretRefJson)
         : null;
-    final tempVolumeID = tempVolumeIDJson;
+    final String tempVolumeID = tempVolumeIDJson;
 
     return CinderPersistentVolumeSource(
       fsType: tempFsType,

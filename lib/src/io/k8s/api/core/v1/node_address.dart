@@ -18,8 +18,8 @@ class NodeAddress {
     final tempAddressJson = json['address'];
     final tempTypeJson = json['type'];
 
-    final tempAddress = tempAddressJson;
-    final tempType = tempTypeJson;
+    final String tempAddress = tempAddressJson;
+    final String tempType = tempTypeJson;
 
     return NodeAddress(
       address: tempAddress,

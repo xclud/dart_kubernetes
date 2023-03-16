@@ -20,9 +20,9 @@ class MetricValueStatus {
     final tempAverageValueJson = json['averageValue'];
     final tempValueJson = json['value'];
 
-    final tempAverageUtilization = tempAverageUtilizationJson;
-    final tempAverageValue = tempAverageValueJson;
-    final tempValue = tempValueJson;
+    final int? tempAverageUtilization = tempAverageUtilizationJson;
+    final String? tempAverageValue = tempAverageValueJson;
+    final String? tempValue = tempValueJson;
 
     return MetricValueStatus(
       averageUtilization: tempAverageUtilization,

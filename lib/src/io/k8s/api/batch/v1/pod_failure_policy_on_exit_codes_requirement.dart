@@ -21,9 +21,9 @@ class PodFailurePolicyOnExitCodesRequirement {
     final tempOperatorJson = json['operator'];
     final tempValuesJson = json['values'];
 
-    final tempContainerName = tempContainerNameJson;
-    final tempOperator = tempOperatorJson;
-    final tempValues = tempValuesJson;
+    final String? tempContainerName = tempContainerNameJson;
+    final String tempOperator = tempOperatorJson;
+    final List<int> tempValues = tempValuesJson;
 
     return PodFailurePolicyOnExitCodesRequirement(
       containerName: tempContainerName,

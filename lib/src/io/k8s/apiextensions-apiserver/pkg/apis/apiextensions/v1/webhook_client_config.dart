@@ -20,11 +20,11 @@ class WebhookClientConfig {
     final tempServiceJson = json['service'];
     final tempUrlJson = json['url'];
 
-    final tempCaBundle = tempCaBundleJson;
-    final tempService = tempServiceJson != null
+    final String? tempCaBundle = tempCaBundleJson;
+    final ServiceReference? tempService = tempServiceJson != null
         ? ServiceReference.fromJson(tempServiceJson)
         : null;
-    final tempUrl = tempUrlJson;
+    final String? tempUrl = tempUrlJson;
 
     return WebhookClientConfig(
       caBundle: tempCaBundle,

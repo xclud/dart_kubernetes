@@ -37,25 +37,29 @@ class StatefulSetSpec {
     final tempUpdateStrategyJson = json['updateStrategy'];
     final tempVolumeClaimTemplatesJson = json['volumeClaimTemplates'];
 
-    final tempMinReadySeconds = tempMinReadySecondsJson;
-    final tempOrdinals = tempOrdinalsJson != null
+    final int? tempMinReadySeconds = tempMinReadySecondsJson;
+    final StatefulSetOrdinals? tempOrdinals = tempOrdinalsJson != null
         ? StatefulSetOrdinals.fromJson(tempOrdinalsJson)
         : null;
-    final tempPersistentVolumeClaimRetentionPolicy =
+    final StatefulSetPersistentVolumeClaimRetentionPolicy?
+        tempPersistentVolumeClaimRetentionPolicy =
         tempPersistentVolumeClaimRetentionPolicyJson != null
             ? StatefulSetPersistentVolumeClaimRetentionPolicy.fromJson(
                 tempPersistentVolumeClaimRetentionPolicyJson)
             : null;
-    final tempPodManagementPolicy = tempPodManagementPolicyJson;
-    final tempReplicas = tempReplicasJson;
-    final tempRevisionHistoryLimit = tempRevisionHistoryLimitJson;
-    final tempSelector = LabelSelector.fromJson(tempSelectorJson);
-    final tempServiceName = tempServiceNameJson;
-    final tempTemplate = PodTemplateSpec.fromJson(tempTemplateJson);
-    final tempUpdateStrategy = tempUpdateStrategyJson != null
-        ? StatefulSetUpdateStrategy.fromJson(tempUpdateStrategyJson)
-        : null;
-    final tempVolumeClaimTemplates = tempVolumeClaimTemplatesJson;
+    final String? tempPodManagementPolicy = tempPodManagementPolicyJson;
+    final int? tempReplicas = tempReplicasJson;
+    final int? tempRevisionHistoryLimit = tempRevisionHistoryLimitJson;
+    final LabelSelector tempSelector = LabelSelector.fromJson(tempSelectorJson);
+    final String tempServiceName = tempServiceNameJson;
+    final PodTemplateSpec tempTemplate =
+        PodTemplateSpec.fromJson(tempTemplateJson);
+    final StatefulSetUpdateStrategy? tempUpdateStrategy =
+        tempUpdateStrategyJson != null
+            ? StatefulSetUpdateStrategy.fromJson(tempUpdateStrategyJson)
+            : null;
+    final List<PersistentVolumeClaim>? tempVolumeClaimTemplates =
+        tempVolumeClaimTemplatesJson;
 
     return StatefulSetSpec(
       minReadySeconds: tempMinReadySeconds,

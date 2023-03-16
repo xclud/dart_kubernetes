@@ -16,7 +16,8 @@ class PriorityLevelConfigurationStatus {
   factory PriorityLevelConfigurationStatus.fromJson(Map<String, dynamic> json) {
     final tempConditionsJson = json['conditions'];
 
-    final tempConditions = tempConditionsJson;
+    final List<PriorityLevelConfigurationCondition>? tempConditions =
+        tempConditionsJson;
 
     return PriorityLevelConfigurationStatus(
       conditions: tempConditions,

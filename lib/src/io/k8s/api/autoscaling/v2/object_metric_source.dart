@@ -20,10 +20,11 @@ class ObjectMetricSource {
     final tempMetricJson = json['metric'];
     final tempTargetJson = json['target'];
 
-    final tempDescribedObject =
+    final CrossVersionObjectReference tempDescribedObject =
         CrossVersionObjectReference.fromJson(tempDescribedObjectJson);
-    final tempMetric = MetricIdentifier.fromJson(tempMetricJson);
-    final tempTarget = MetricTarget.fromJson(tempTargetJson);
+    final MetricIdentifier tempMetric =
+        MetricIdentifier.fromJson(tempMetricJson);
+    final MetricTarget tempTarget = MetricTarget.fromJson(tempTargetJson);
 
     return ObjectMetricSource(
       describedObject: tempDescribedObject,

@@ -24,11 +24,11 @@ class ResourcePolicyRule {
     final tempResourcesJson = json['resources'];
     final tempVerbsJson = json['verbs'];
 
-    final tempApiGroups = tempApiGroupsJson;
-    final tempClusterScope = tempClusterScopeJson;
-    final tempNamespaces = tempNamespacesJson;
-    final tempResources = tempResourcesJson;
-    final tempVerbs = tempVerbsJson;
+    final List<String> tempApiGroups = tempApiGroupsJson;
+    final bool? tempClusterScope = tempClusterScopeJson;
+    final List<String>? tempNamespaces = tempNamespacesJson;
+    final List<String> tempResources = tempResourcesJson;
+    final List<String> tempVerbs = tempVerbsJson;
 
     return ResourcePolicyRule(
       apiGroups: tempApiGroups,

@@ -22,10 +22,10 @@ class TokenReviewStatus {
     final tempErrorJson = json['error'];
     final tempUserJson = json['user'];
 
-    final tempAudiences = tempAudiencesJson;
-    final tempAuthenticated = tempAuthenticatedJson;
-    final tempError = tempErrorJson;
-    final tempUser =
+    final List<String>? tempAudiences = tempAudiencesJson;
+    final bool? tempAuthenticated = tempAuthenticatedJson;
+    final String? tempError = tempErrorJson;
+    final UserInfo? tempUser =
         tempUserJson != null ? UserInfo.fromJson(tempUserJson) : null;
 
     return TokenReviewStatus(

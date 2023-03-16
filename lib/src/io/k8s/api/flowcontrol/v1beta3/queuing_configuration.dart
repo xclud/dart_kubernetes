@@ -20,9 +20,9 @@ class QueuingConfiguration {
     final tempQueueLengthLimitJson = json['queueLengthLimit'];
     final tempQueuesJson = json['queues'];
 
-    final tempHandSize = tempHandSizeJson;
-    final tempQueueLengthLimit = tempQueueLengthLimitJson;
-    final tempQueues = tempQueuesJson;
+    final int? tempHandSize = tempHandSizeJson;
+    final int? tempQueueLengthLimit = tempQueueLengthLimitJson;
+    final int? tempQueues = tempQueuesJson;
 
     return QueuingConfiguration(
       handSize: tempHandSize,

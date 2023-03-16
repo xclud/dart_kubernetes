@@ -26,12 +26,12 @@ class StatusDetails {
     final tempRetryAfterSecondsJson = json['retryAfterSeconds'];
     final tempUidJson = json['uid'];
 
-    final tempCauses = tempCausesJson;
-    final tempGroup = tempGroupJson;
-    final tempKind = tempKindJson;
-    final tempName = tempNameJson;
-    final tempRetryAfterSeconds = tempRetryAfterSecondsJson;
-    final tempUid = tempUidJson;
+    final List<StatusCause>? tempCauses = tempCausesJson;
+    final String? tempGroup = tempGroupJson;
+    final String? tempKind = tempKindJson;
+    final String? tempName = tempNameJson;
+    final int? tempRetryAfterSeconds = tempRetryAfterSecondsJson;
+    final String? tempUid = tempUidJson;
 
     return StatusDetails(
       causes: tempCauses,

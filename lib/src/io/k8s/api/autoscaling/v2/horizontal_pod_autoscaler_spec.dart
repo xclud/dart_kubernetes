@@ -24,13 +24,14 @@ class HorizontalPodAutoscalerSpec {
     final tempMinReplicasJson = json['minReplicas'];
     final tempScaleTargetRefJson = json['scaleTargetRef'];
 
-    final tempBehavior = tempBehaviorJson != null
-        ? HorizontalPodAutoscalerBehavior.fromJson(tempBehaviorJson)
-        : null;
-    final tempMaxReplicas = tempMaxReplicasJson;
-    final tempMetrics = tempMetricsJson;
-    final tempMinReplicas = tempMinReplicasJson;
-    final tempScaleTargetRef =
+    final HorizontalPodAutoscalerBehavior? tempBehavior =
+        tempBehaviorJson != null
+            ? HorizontalPodAutoscalerBehavior.fromJson(tempBehaviorJson)
+            : null;
+    final int tempMaxReplicas = tempMaxReplicasJson;
+    final List<MetricSpec>? tempMetrics = tempMetricsJson;
+    final int? tempMinReplicas = tempMinReplicasJson;
+    final CrossVersionObjectReference tempScaleTargetRef =
         CrossVersionObjectReference.fromJson(tempScaleTargetRefJson);
 
     return HorizontalPodAutoscalerSpec(

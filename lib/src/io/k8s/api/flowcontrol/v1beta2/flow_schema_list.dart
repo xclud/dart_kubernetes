@@ -22,10 +22,10 @@ class FlowSchemaList {
     final tempKindJson = json['kind'];
     final tempMetadataJson = json['metadata'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempItems = tempItemsJson;
-    final tempKind = tempKindJson;
-    final tempMetadata =
+    final String? tempApiVersion = tempApiVersionJson;
+    final List<FlowSchema> tempItems = tempItemsJson;
+    final String? tempKind = tempKindJson;
+    final ListMeta? tempMetadata =
         tempMetadataJson != null ? ListMeta.fromJson(tempMetadataJson) : null;
 
     return FlowSchemaList(

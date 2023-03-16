@@ -20,9 +20,9 @@ class PersistentVolumeStatus {
     final tempPhaseJson = json['phase'];
     final tempReasonJson = json['reason'];
 
-    final tempMessage = tempMessageJson;
-    final tempPhase = tempPhaseJson;
-    final tempReason = tempReasonJson;
+    final String? tempMessage = tempMessageJson;
+    final String? tempPhase = tempPhaseJson;
+    final String? tempReason = tempReasonJson;
 
     return PersistentVolumeStatus(
       message: tempMessage,

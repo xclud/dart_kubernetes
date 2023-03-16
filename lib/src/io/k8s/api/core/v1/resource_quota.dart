@@ -24,13 +24,13 @@ class ResourceQuota {
     final tempSpecJson = json['spec'];
     final tempStatusJson = json['status'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempKind = tempKindJson;
-    final tempMetadata =
+    final String? tempApiVersion = tempApiVersionJson;
+    final String? tempKind = tempKindJson;
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final tempSpec =
+    final ResourceQuotaSpec? tempSpec =
         tempSpecJson != null ? ResourceQuotaSpec.fromJson(tempSpecJson) : null;
-    final tempStatus = tempStatusJson != null
+    final ResourceQuotaStatus? tempStatus = tempStatusJson != null
         ? ResourceQuotaStatus.fromJson(tempStatusJson)
         : null;
 

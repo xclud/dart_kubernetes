@@ -18,8 +18,8 @@ class ValidationRule {
     final tempMessageJson = json['message'];
     final tempRuleJson = json['rule'];
 
-    final tempMessage = tempMessageJson;
-    final tempRule = tempRuleJson;
+    final String? tempMessage = tempMessageJson;
+    final String tempRule = tempRuleJson;
 
     return ValidationRule(
       message: tempMessage,

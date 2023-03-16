@@ -16,7 +16,7 @@ class NodeDaemonEndpoints {
   factory NodeDaemonEndpoints.fromJson(Map<String, dynamic> json) {
     final tempKubeletEndpointJson = json['kubeletEndpoint'];
 
-    final tempKubeletEndpoint = tempKubeletEndpointJson != null
+    final DaemonEndpoint? tempKubeletEndpoint = tempKubeletEndpointJson != null
         ? DaemonEndpoint.fromJson(tempKubeletEndpointJson)
         : null;
 

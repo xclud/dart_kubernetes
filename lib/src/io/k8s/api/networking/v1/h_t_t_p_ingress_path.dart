@@ -20,9 +20,9 @@ class HTTPIngressPath {
     final tempPathJson = json['path'];
     final tempPathTypeJson = json['pathType'];
 
-    final tempBackend = IngressBackend.fromJson(tempBackendJson);
-    final tempPath = tempPathJson;
-    final tempPathType = tempPathTypeJson;
+    final IngressBackend tempBackend = IngressBackend.fromJson(tempBackendJson);
+    final String? tempPath = tempPathJson;
+    final String tempPathType = tempPathTypeJson;
 
     return HTTPIngressPath(
       backend: tempBackend,

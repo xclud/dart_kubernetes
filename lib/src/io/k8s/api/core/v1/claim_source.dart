@@ -20,8 +20,9 @@ class ClaimSource {
     final tempResourceClaimNameJson = json['resourceClaimName'];
     final tempResourceClaimTemplateNameJson = json['resourceClaimTemplateName'];
 
-    final tempResourceClaimName = tempResourceClaimNameJson;
-    final tempResourceClaimTemplateName = tempResourceClaimTemplateNameJson;
+    final String? tempResourceClaimName = tempResourceClaimNameJson;
+    final String? tempResourceClaimTemplateName =
+        tempResourceClaimTemplateNameJson;
 
     return ClaimSource(
       resourceClaimName: tempResourceClaimName,

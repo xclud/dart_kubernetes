@@ -20,11 +20,14 @@ class PodFailurePolicyRule {
     final tempOnExitCodesJson = json['onExitCodes'];
     final tempOnPodConditionsJson = json['onPodConditions'];
 
-    final tempAction = tempActionJson;
-    final tempOnExitCodes = tempOnExitCodesJson != null
-        ? PodFailurePolicyOnExitCodesRequirement.fromJson(tempOnExitCodesJson)
-        : null;
-    final tempOnPodConditions = tempOnPodConditionsJson;
+    final String tempAction = tempActionJson;
+    final PodFailurePolicyOnExitCodesRequirement? tempOnExitCodes =
+        tempOnExitCodesJson != null
+            ? PodFailurePolicyOnExitCodesRequirement.fromJson(
+                tempOnExitCodesJson)
+            : null;
+    final List<PodFailurePolicyOnPodConditionsPattern> tempOnPodConditions =
+        tempOnPodConditionsJson;
 
     return PodFailurePolicyRule(
       action: tempAction,

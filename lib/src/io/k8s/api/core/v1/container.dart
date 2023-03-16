@@ -58,40 +58,41 @@ class Container {
     final tempVolumeMountsJson = json['volumeMounts'];
     final tempWorkingDirJson = json['workingDir'];
 
-    final tempArgs = tempArgsJson;
-    final tempCommand = tempCommandJson;
-    final tempEnv = tempEnvJson;
-    final tempEnvFrom = tempEnvFromJson;
-    final tempImage = tempImageJson;
-    final tempImagePullPolicy = tempImagePullPolicyJson;
-    final tempLifecycle = tempLifecycleJson != null
+    final List<String>? tempArgs = tempArgsJson;
+    final List<String>? tempCommand = tempCommandJson;
+    final List<EnvVar>? tempEnv = tempEnvJson;
+    final List<EnvFromSource>? tempEnvFrom = tempEnvFromJson;
+    final String? tempImage = tempImageJson;
+    final String? tempImagePullPolicy = tempImagePullPolicyJson;
+    final Lifecycle? tempLifecycle = tempLifecycleJson != null
         ? Lifecycle.fromJson(tempLifecycleJson)
         : null;
-    final tempLivenessProbe = tempLivenessProbeJson != null
+    final Probe? tempLivenessProbe = tempLivenessProbeJson != null
         ? Probe.fromJson(tempLivenessProbeJson)
         : null;
-    final tempName = tempNameJson;
-    final tempPorts = tempPortsJson;
-    final tempReadinessProbe = tempReadinessProbeJson != null
+    final String tempName = tempNameJson;
+    final List<ContainerPort>? tempPorts = tempPortsJson;
+    final Probe? tempReadinessProbe = tempReadinessProbeJson != null
         ? Probe.fromJson(tempReadinessProbeJson)
         : null;
-    final tempResources = tempResourcesJson != null
+    final ResourceRequirements? tempResources = tempResourcesJson != null
         ? ResourceRequirements.fromJson(tempResourcesJson)
         : null;
-    final tempSecurityContext = tempSecurityContextJson != null
+    final SecurityContext? tempSecurityContext = tempSecurityContextJson != null
         ? SecurityContext.fromJson(tempSecurityContextJson)
         : null;
-    final tempStartupProbe = tempStartupProbeJson != null
+    final Probe? tempStartupProbe = tempStartupProbeJson != null
         ? Probe.fromJson(tempStartupProbeJson)
         : null;
-    final tempStdin = tempStdinJson;
-    final tempStdinOnce = tempStdinOnceJson;
-    final tempTerminationMessagePath = tempTerminationMessagePathJson;
-    final tempTerminationMessagePolicy = tempTerminationMessagePolicyJson;
-    final tempTty = tempTtyJson;
-    final tempVolumeDevices = tempVolumeDevicesJson;
-    final tempVolumeMounts = tempVolumeMountsJson;
-    final tempWorkingDir = tempWorkingDirJson;
+    final bool? tempStdin = tempStdinJson;
+    final bool? tempStdinOnce = tempStdinOnceJson;
+    final String? tempTerminationMessagePath = tempTerminationMessagePathJson;
+    final String? tempTerminationMessagePolicy =
+        tempTerminationMessagePolicyJson;
+    final bool? tempTty = tempTtyJson;
+    final List<VolumeDevice>? tempVolumeDevices = tempVolumeDevicesJson;
+    final List<VolumeMount>? tempVolumeMounts = tempVolumeMountsJson;
+    final String? tempWorkingDir = tempWorkingDirJson;
 
     return Container(
       args: tempArgs,

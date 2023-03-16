@@ -20,11 +20,11 @@ class ResourceQuotaSpec {
     final tempScopeSelectorJson = json['scopeSelector'];
     final tempScopesJson = json['scopes'];
 
-    final tempHard = tempHardJson;
-    final tempScopeSelector = tempScopeSelectorJson != null
+    final Map<String, Object> tempHard = tempHardJson;
+    final ScopeSelector? tempScopeSelector = tempScopeSelectorJson != null
         ? ScopeSelector.fromJson(tempScopeSelectorJson)
         : null;
-    final tempScopes = tempScopesJson;
+    final List<String>? tempScopes = tempScopesJson;
 
     return ResourceQuotaSpec(
       hard: tempHard,

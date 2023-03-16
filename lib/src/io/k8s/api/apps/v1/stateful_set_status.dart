@@ -34,16 +34,16 @@ class StatefulSetStatus {
     final tempUpdateRevisionJson = json['updateRevision'];
     final tempUpdatedReplicasJson = json['updatedReplicas'];
 
-    final tempAvailableReplicas = tempAvailableReplicasJson;
-    final tempCollisionCount = tempCollisionCountJson;
-    final tempConditions = tempConditionsJson;
-    final tempCurrentReplicas = tempCurrentReplicasJson;
-    final tempCurrentRevision = tempCurrentRevisionJson;
-    final tempObservedGeneration = tempObservedGenerationJson;
-    final tempReadyReplicas = tempReadyReplicasJson;
-    final tempReplicas = tempReplicasJson;
-    final tempUpdateRevision = tempUpdateRevisionJson;
-    final tempUpdatedReplicas = tempUpdatedReplicasJson;
+    final int? tempAvailableReplicas = tempAvailableReplicasJson;
+    final int? tempCollisionCount = tempCollisionCountJson;
+    final List<StatefulSetCondition>? tempConditions = tempConditionsJson;
+    final int? tempCurrentReplicas = tempCurrentReplicasJson;
+    final String? tempCurrentRevision = tempCurrentRevisionJson;
+    final int? tempObservedGeneration = tempObservedGenerationJson;
+    final int? tempReadyReplicas = tempReadyReplicasJson;
+    final int tempReplicas = tempReplicasJson;
+    final String? tempUpdateRevision = tempUpdateRevisionJson;
+    final int? tempUpdatedReplicas = tempUpdatedReplicasJson;
 
     return StatefulSetStatus(
       availableReplicas: tempAvailableReplicas,

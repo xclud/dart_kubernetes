@@ -18,8 +18,8 @@ class CustomResourceConversion {
     final tempStrategyJson = json['strategy'];
     final tempWebhookJson = json['webhook'];
 
-    final tempStrategy = tempStrategyJson;
-    final tempWebhook = tempWebhookJson != null
+    final String tempStrategy = tempStrategyJson;
+    final WebhookConversion? tempWebhook = tempWebhookJson != null
         ? WebhookConversion.fromJson(tempWebhookJson)
         : null;
 

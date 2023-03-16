@@ -22,13 +22,14 @@ class Subject {
     final tempServiceAccountJson = json['serviceAccount'];
     final tempUserJson = json['user'];
 
-    final tempGroup =
+    final GroupSubject? tempGroup =
         tempGroupJson != null ? GroupSubject.fromJson(tempGroupJson) : null;
-    final tempKind = tempKindJson;
-    final tempServiceAccount = tempServiceAccountJson != null
-        ? ServiceAccountSubject.fromJson(tempServiceAccountJson)
-        : null;
-    final tempUser =
+    final String tempKind = tempKindJson;
+    final ServiceAccountSubject? tempServiceAccount =
+        tempServiceAccountJson != null
+            ? ServiceAccountSubject.fromJson(tempServiceAccountJson)
+            : null;
+    final UserSubject? tempUser =
         tempUserJson != null ? UserSubject.fromJson(tempUserJson) : null;
 
     return Subject(

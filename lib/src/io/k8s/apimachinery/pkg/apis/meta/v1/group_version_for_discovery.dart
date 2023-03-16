@@ -18,8 +18,8 @@ class GroupVersionForDiscovery {
     final tempGroupVersionJson = json['groupVersion'];
     final tempVersionJson = json['version'];
 
-    final tempGroupVersion = tempGroupVersionJson;
-    final tempVersion = tempVersionJson;
+    final String tempGroupVersion = tempGroupVersionJson;
+    final String tempVersion = tempVersionJson;
 
     return GroupVersionForDiscovery(
       groupVersion: tempGroupVersion,

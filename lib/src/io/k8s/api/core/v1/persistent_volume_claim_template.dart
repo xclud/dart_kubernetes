@@ -18,9 +18,10 @@ class PersistentVolumeClaimTemplate {
     final tempMetadataJson = json['metadata'];
     final tempSpecJson = json['spec'];
 
-    final tempMetadata =
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final tempSpec = PersistentVolumeClaimSpec.fromJson(tempSpecJson);
+    final PersistentVolumeClaimSpec tempSpec =
+        PersistentVolumeClaimSpec.fromJson(tempSpecJson);
 
     return PersistentVolumeClaimTemplate(
       metadata: tempMetadata,

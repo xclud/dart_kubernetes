@@ -18,8 +18,8 @@ class ProjectedVolumeSource {
     final tempDefaultModeJson = json['defaultMode'];
     final tempSourcesJson = json['sources'];
 
-    final tempDefaultMode = tempDefaultModeJson;
-    final tempSources = tempSourcesJson;
+    final int? tempDefaultMode = tempDefaultModeJson;
+    final List<VolumeProjection>? tempSources = tempSourcesJson;
 
     return ProjectedVolumeSource(
       defaultMode: tempDefaultMode,

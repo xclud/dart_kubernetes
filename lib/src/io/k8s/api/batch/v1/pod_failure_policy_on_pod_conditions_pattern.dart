@@ -19,8 +19,8 @@ class PodFailurePolicyOnPodConditionsPattern {
     final tempStatusJson = json['status'];
     final tempTypeJson = json['type'];
 
-    final tempStatus = tempStatusJson;
-    final tempType = tempTypeJson;
+    final String tempStatus = tempStatusJson;
+    final String tempType = tempTypeJson;
 
     return PodFailurePolicyOnPodConditionsPattern(
       status: tempStatus,

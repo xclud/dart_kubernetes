@@ -22,10 +22,10 @@ class SubjectAccessReviewStatus {
     final tempEvaluationErrorJson = json['evaluationError'];
     final tempReasonJson = json['reason'];
 
-    final tempAllowed = tempAllowedJson;
-    final tempDenied = tempDeniedJson;
-    final tempEvaluationError = tempEvaluationErrorJson;
-    final tempReason = tempReasonJson;
+    final bool tempAllowed = tempAllowedJson;
+    final bool? tempDenied = tempDeniedJson;
+    final String? tempEvaluationError = tempEvaluationErrorJson;
+    final String? tempReason = tempReasonJson;
 
     return SubjectAccessReviewStatus(
       allowed: tempAllowed,

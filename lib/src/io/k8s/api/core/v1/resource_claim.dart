@@ -16,7 +16,7 @@ class ResourceClaim {
   factory ResourceClaim.fromJson(Map<String, dynamic> json) {
     final tempNameJson = json['name'];
 
-    final tempName = tempNameJson;
+    final String tempName = tempNameJson;
 
     return ResourceClaim(
       name: tempName,

@@ -22,14 +22,15 @@ class PodAffinityTerm {
     final tempNamespacesJson = json['namespaces'];
     final tempTopologyKeyJson = json['topologyKey'];
 
-    final tempLabelSelector = tempLabelSelectorJson != null
+    final LabelSelector? tempLabelSelector = tempLabelSelectorJson != null
         ? LabelSelector.fromJson(tempLabelSelectorJson)
         : null;
-    final tempNamespaceSelector = tempNamespaceSelectorJson != null
-        ? LabelSelector.fromJson(tempNamespaceSelectorJson)
-        : null;
-    final tempNamespaces = tempNamespacesJson;
-    final tempTopologyKey = tempTopologyKeyJson;
+    final LabelSelector? tempNamespaceSelector =
+        tempNamespaceSelectorJson != null
+            ? LabelSelector.fromJson(tempNamespaceSelectorJson)
+            : null;
+    final List<String>? tempNamespaces = tempNamespacesJson;
+    final String tempTopologyKey = tempTopologyKeyJson;
 
     return PodAffinityTerm(
       labelSelector: tempLabelSelector,

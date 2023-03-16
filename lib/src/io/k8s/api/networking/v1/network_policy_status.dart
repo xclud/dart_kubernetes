@@ -16,7 +16,7 @@ class NetworkPolicyStatus {
   factory NetworkPolicyStatus.fromJson(Map<String, dynamic> json) {
     final tempConditionsJson = json['conditions'];
 
-    final tempConditions = tempConditionsJson;
+    final List<Condition>? tempConditions = tempConditionsJson;
 
     return NetworkPolicyStatus(
       conditions: tempConditions,

@@ -34,16 +34,16 @@ class NodeSystemInfo {
     final tempOsImageJson = json['osImage'];
     final tempSystemUUIDJson = json['systemUUID'];
 
-    final tempArchitecture = tempArchitectureJson;
-    final tempBootID = tempBootIDJson;
-    final tempContainerRuntimeVersion = tempContainerRuntimeVersionJson;
-    final tempKernelVersion = tempKernelVersionJson;
-    final tempKubeProxyVersion = tempKubeProxyVersionJson;
-    final tempKubeletVersion = tempKubeletVersionJson;
-    final tempMachineID = tempMachineIDJson;
-    final tempOperatingSystem = tempOperatingSystemJson;
-    final tempOsImage = tempOsImageJson;
-    final tempSystemUUID = tempSystemUUIDJson;
+    final String tempArchitecture = tempArchitectureJson;
+    final String tempBootID = tempBootIDJson;
+    final String tempContainerRuntimeVersion = tempContainerRuntimeVersionJson;
+    final String tempKernelVersion = tempKernelVersionJson;
+    final String tempKubeProxyVersion = tempKubeProxyVersionJson;
+    final String tempKubeletVersion = tempKubeletVersionJson;
+    final String tempMachineID = tempMachineIDJson;
+    final String tempOperatingSystem = tempOperatingSystemJson;
+    final String tempOsImage = tempOsImageJson;
+    final String tempSystemUUID = tempSystemUUIDJson;
 
     return NodeSystemInfo(
       architecture: tempArchitecture,

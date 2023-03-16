@@ -20,9 +20,9 @@ class ResourceFieldSelector {
     final tempDivisorJson = json['divisor'];
     final tempResourceJson = json['resource'];
 
-    final tempContainerName = tempContainerNameJson;
-    final tempDivisor = tempDivisorJson;
-    final tempResource = tempResourceJson;
+    final String? tempContainerName = tempContainerNameJson;
+    final String? tempDivisor = tempDivisorJson;
+    final String tempResource = tempResourceJson;
 
     return ResourceFieldSelector(
       containerName: tempContainerName,

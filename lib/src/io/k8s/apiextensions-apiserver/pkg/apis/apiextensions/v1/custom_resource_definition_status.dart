@@ -20,11 +20,13 @@ class CustomResourceDefinitionStatus {
     final tempConditionsJson = json['conditions'];
     final tempStoredVersionsJson = json['storedVersions'];
 
-    final tempAcceptedNames = tempAcceptedNamesJson != null
-        ? CustomResourceDefinitionNames.fromJson(tempAcceptedNamesJson)
-        : null;
-    final tempConditions = tempConditionsJson;
-    final tempStoredVersions = tempStoredVersionsJson;
+    final CustomResourceDefinitionNames? tempAcceptedNames =
+        tempAcceptedNamesJson != null
+            ? CustomResourceDefinitionNames.fromJson(tempAcceptedNamesJson)
+            : null;
+    final List<CustomResourceDefinitionCondition>? tempConditions =
+        tempConditionsJson;
+    final List<String>? tempStoredVersions = tempStoredVersionsJson;
 
     return CustomResourceDefinitionStatus(
       acceptedNames: tempAcceptedNames,

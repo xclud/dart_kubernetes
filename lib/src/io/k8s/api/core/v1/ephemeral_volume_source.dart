@@ -16,9 +16,11 @@ class EphemeralVolumeSource {
   factory EphemeralVolumeSource.fromJson(Map<String, dynamic> json) {
     final tempVolumeClaimTemplateJson = json['volumeClaimTemplate'];
 
-    final tempVolumeClaimTemplate = tempVolumeClaimTemplateJson != null
-        ? PersistentVolumeClaimTemplate.fromJson(tempVolumeClaimTemplateJson)
-        : null;
+    final PersistentVolumeClaimTemplate? tempVolumeClaimTemplate =
+        tempVolumeClaimTemplateJson != null
+            ? PersistentVolumeClaimTemplate.fromJson(
+                tempVolumeClaimTemplateJson)
+            : null;
 
     return EphemeralVolumeSource(
       volumeClaimTemplate: tempVolumeClaimTemplate,

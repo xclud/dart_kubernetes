@@ -18,8 +18,8 @@ class TopologySelectorLabelRequirement {
     final tempKeyJson = json['key'];
     final tempValuesJson = json['values'];
 
-    final tempKey = tempKeyJson;
-    final tempValues = tempValuesJson;
+    final String tempKey = tempKeyJson;
+    final List<String> tempValues = tempValuesJson;
 
     return TopologySelectorLabelRequirement(
       key: tempKey,

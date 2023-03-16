@@ -18,8 +18,8 @@ class TokenReviewSpec {
     final tempAudiencesJson = json['audiences'];
     final tempTokenJson = json['token'];
 
-    final tempAudiences = tempAudiencesJson;
-    final tempToken = tempTokenJson;
+    final List<String>? tempAudiences = tempAudiencesJson;
+    final String? tempToken = tempTokenJson;
 
     return TokenReviewSpec(
       audiences: tempAudiences,

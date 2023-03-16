@@ -18,8 +18,8 @@ class RollingUpdateDaemonSet {
     final tempMaxSurgeJson = json['maxSurge'];
     final tempMaxUnavailableJson = json['maxUnavailable'];
 
-    final tempMaxSurge = tempMaxSurgeJson;
-    final tempMaxUnavailable = tempMaxUnavailableJson;
+    final String? tempMaxSurge = tempMaxSurgeJson;
+    final String? tempMaxUnavailable = tempMaxUnavailableJson;
 
     return RollingUpdateDaemonSet(
       maxSurge: tempMaxSurge,

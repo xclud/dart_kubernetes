@@ -20,13 +20,13 @@ class Affinity {
     final tempPodAffinityJson = json['podAffinity'];
     final tempPodAntiAffinityJson = json['podAntiAffinity'];
 
-    final tempNodeAffinity = tempNodeAffinityJson != null
+    final NodeAffinity? tempNodeAffinity = tempNodeAffinityJson != null
         ? NodeAffinity.fromJson(tempNodeAffinityJson)
         : null;
-    final tempPodAffinity = tempPodAffinityJson != null
+    final PodAffinity? tempPodAffinity = tempPodAffinityJson != null
         ? PodAffinity.fromJson(tempPodAffinityJson)
         : null;
-    final tempPodAntiAffinity = tempPodAntiAffinityJson != null
+    final PodAntiAffinity? tempPodAntiAffinity = tempPodAntiAffinityJson != null
         ? PodAntiAffinity.fromJson(tempPodAntiAffinityJson)
         : null;
 

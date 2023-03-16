@@ -26,12 +26,13 @@ class LimitRangeItem {
     final tempMinJson = json['min'];
     final tempTypeJson = json['type'];
 
-    final tempDefault = tempDefaultJson;
-    final tempDefaultRequest = tempDefaultRequestJson;
-    final tempMax = tempMaxJson;
-    final tempMaxLimitRequestRatio = tempMaxLimitRequestRatioJson;
-    final tempMin = tempMinJson;
-    final tempType = tempTypeJson;
+    final Map<String, Object> tempDefault = tempDefaultJson;
+    final Map<String, Object> tempDefaultRequest = tempDefaultRequestJson;
+    final Map<String, Object> tempMax = tempMaxJson;
+    final Map<String, Object> tempMaxLimitRequestRatio =
+        tempMaxLimitRequestRatioJson;
+    final Map<String, Object> tempMin = tempMinJson;
+    final String tempType = tempTypeJson;
 
     return LimitRangeItem(
       $default: tempDefault,

@@ -24,10 +24,10 @@ class ConfigMapVolumeSource {
     final tempNameJson = json['name'];
     final tempOptionalJson = json['optional'];
 
-    final tempDefaultMode = tempDefaultModeJson;
-    final tempItems = tempItemsJson;
-    final tempName = tempNameJson;
-    final tempOptional = tempOptionalJson;
+    final int? tempDefaultMode = tempDefaultModeJson;
+    final List<KeyToPath>? tempItems = tempItemsJson;
+    final String? tempName = tempNameJson;
+    final bool? tempOptional = tempOptionalJson;
 
     return ConfigMapVolumeSource(
       defaultMode: tempDefaultMode,

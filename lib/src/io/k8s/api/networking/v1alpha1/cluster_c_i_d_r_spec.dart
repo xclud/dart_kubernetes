@@ -22,12 +22,12 @@ class ClusterCIDRSpec {
     final tempNodeSelectorJson = json['nodeSelector'];
     final tempPerNodeHostBitsJson = json['perNodeHostBits'];
 
-    final tempIpv4 = tempIpv4Json;
-    final tempIpv6 = tempIpv6Json;
-    final tempNodeSelector = tempNodeSelectorJson != null
+    final String? tempIpv4 = tempIpv4Json;
+    final String? tempIpv6 = tempIpv6Json;
+    final NodeSelector? tempNodeSelector = tempNodeSelectorJson != null
         ? NodeSelector.fromJson(tempNodeSelectorJson)
         : null;
-    final tempPerNodeHostBits = tempPerNodeHostBitsJson;
+    final int tempPerNodeHostBits = tempPerNodeHostBitsJson;
 
     return ClusterCIDRSpec(
       ipv4: tempIpv4,

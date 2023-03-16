@@ -28,15 +28,15 @@ class DeleteOptions {
     final tempPreconditionsJson = json['preconditions'];
     final tempPropagationPolicyJson = json['propagationPolicy'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempDryRun = tempDryRunJson;
-    final tempGracePeriodSeconds = tempGracePeriodSecondsJson;
-    final tempKind = tempKindJson;
-    final tempOrphanDependents = tempOrphanDependentsJson;
-    final tempPreconditions = tempPreconditionsJson != null
+    final String? tempApiVersion = tempApiVersionJson;
+    final List<String>? tempDryRun = tempDryRunJson;
+    final int? tempGracePeriodSeconds = tempGracePeriodSecondsJson;
+    final String? tempKind = tempKindJson;
+    final bool? tempOrphanDependents = tempOrphanDependentsJson;
+    final Preconditions? tempPreconditions = tempPreconditionsJson != null
         ? Preconditions.fromJson(tempPreconditionsJson)
         : null;
-    final tempPropagationPolicy = tempPropagationPolicyJson;
+    final String? tempPropagationPolicy = tempPropagationPolicyJson;
 
     return DeleteOptions(
       apiVersion: tempApiVersion,

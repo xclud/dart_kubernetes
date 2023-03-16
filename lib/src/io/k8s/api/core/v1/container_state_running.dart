@@ -16,7 +16,7 @@ class ContainerStateRunning {
   factory ContainerStateRunning.fromJson(Map<String, dynamic> json) {
     final tempStartedAtJson = json['startedAt'];
 
-    final tempStartedAt =
+    final DateTime? tempStartedAt =
         tempStartedAtJson != null ? DateTime.tryParse(tempStartedAtJson) : null;
 
     return ContainerStateRunning(

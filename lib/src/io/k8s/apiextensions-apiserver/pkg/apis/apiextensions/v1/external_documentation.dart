@@ -18,8 +18,8 @@ class ExternalDocumentation {
     final tempDescriptionJson = json['description'];
     final tempUrlJson = json['url'];
 
-    final tempDescription = tempDescriptionJson;
-    final tempUrl = tempUrlJson;
+    final String? tempDescription = tempDescriptionJson;
+    final String? tempUrl = tempUrlJson;
 
     return ExternalDocumentation(
       description: tempDescription,

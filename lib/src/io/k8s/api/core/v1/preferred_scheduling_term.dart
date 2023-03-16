@@ -18,8 +18,9 @@ class PreferredSchedulingTerm {
     final tempPreferenceJson = json['preference'];
     final tempWeightJson = json['weight'];
 
-    final tempPreference = NodeSelectorTerm.fromJson(tempPreferenceJson);
-    final tempWeight = tempWeightJson;
+    final NodeSelectorTerm tempPreference =
+        NodeSelectorTerm.fromJson(tempPreferenceJson);
+    final int tempWeight = tempWeightJson;
 
     return PreferredSchedulingTerm(
       preference: tempPreference,

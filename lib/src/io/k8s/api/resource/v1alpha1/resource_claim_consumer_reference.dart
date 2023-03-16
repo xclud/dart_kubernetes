@@ -22,10 +22,10 @@ class ResourceClaimConsumerReference {
     final tempResourceJson = json['resource'];
     final tempUidJson = json['uid'];
 
-    final tempApiGroup = tempApiGroupJson;
-    final tempName = tempNameJson;
-    final tempResource = tempResourceJson;
-    final tempUid = tempUidJson;
+    final String? tempApiGroup = tempApiGroupJson;
+    final String tempName = tempNameJson;
+    final String tempResource = tempResourceJson;
+    final String tempUid = tempUidJson;
 
     return ResourceClaimConsumerReference(
       apiGroup: tempApiGroup,

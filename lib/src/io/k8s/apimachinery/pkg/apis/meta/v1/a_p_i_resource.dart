@@ -34,16 +34,16 @@ class APIResource {
     final tempVerbsJson = json['verbs'];
     final tempVersionJson = json['version'];
 
-    final tempCategories = tempCategoriesJson;
-    final tempGroup = tempGroupJson;
-    final tempKind = tempKindJson;
-    final tempName = tempNameJson;
-    final tempNamespaced = tempNamespacedJson;
-    final tempShortNames = tempShortNamesJson;
-    final tempSingularName = tempSingularNameJson;
-    final tempStorageVersionHash = tempStorageVersionHashJson;
-    final tempVerbs = tempVerbsJson;
-    final tempVersion = tempVersionJson;
+    final List<String>? tempCategories = tempCategoriesJson;
+    final String? tempGroup = tempGroupJson;
+    final String tempKind = tempKindJson;
+    final String tempName = tempNameJson;
+    final bool tempNamespaced = tempNamespacedJson;
+    final List<String>? tempShortNames = tempShortNamesJson;
+    final String tempSingularName = tempSingularNameJson;
+    final String? tempStorageVersionHash = tempStorageVersionHashJson;
+    final List<String> tempVerbs = tempVerbsJson;
+    final String? tempVersion = tempVersionJson;
 
     return APIResource(
       categories: tempCategories,

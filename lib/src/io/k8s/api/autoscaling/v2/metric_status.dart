@@ -26,21 +26,22 @@ class MetricStatus {
     final tempResourceJson = json['resource'];
     final tempTypeJson = json['type'];
 
-    final tempContainerResource = tempContainerResourceJson != null
-        ? ContainerResourceMetricStatus.fromJson(tempContainerResourceJson)
-        : null;
-    final tempExternal = tempExternalJson != null
+    final ContainerResourceMetricStatus? tempContainerResource =
+        tempContainerResourceJson != null
+            ? ContainerResourceMetricStatus.fromJson(tempContainerResourceJson)
+            : null;
+    final ExternalMetricStatus? tempExternal = tempExternalJson != null
         ? ExternalMetricStatus.fromJson(tempExternalJson)
         : null;
-    final tempObject = tempObjectJson != null
+    final ObjectMetricStatus? tempObject = tempObjectJson != null
         ? ObjectMetricStatus.fromJson(tempObjectJson)
         : null;
-    final tempPods =
+    final PodsMetricStatus? tempPods =
         tempPodsJson != null ? PodsMetricStatus.fromJson(tempPodsJson) : null;
-    final tempResource = tempResourceJson != null
+    final ResourceMetricStatus? tempResource = tempResourceJson != null
         ? ResourceMetricStatus.fromJson(tempResourceJson)
         : null;
-    final tempType = tempTypeJson;
+    final String tempType = tempTypeJson;
 
     return MetricStatus(
       containerResource: tempContainerResource,

@@ -30,9 +30,10 @@ class EndpointSubset {
     final tempNotReadyAddressesJson = json['notReadyAddresses'];
     final tempPortsJson = json['ports'];
 
-    final tempAddresses = tempAddressesJson;
-    final tempNotReadyAddresses = tempNotReadyAddressesJson;
-    final tempPorts = tempPortsJson;
+    final List<EndpointAddress>? tempAddresses = tempAddressesJson;
+    final List<EndpointAddress>? tempNotReadyAddresses =
+        tempNotReadyAddressesJson;
+    final List<EndpointPort>? tempPorts = tempPortsJson;
 
     return EndpointSubset(
       addresses: tempAddresses,

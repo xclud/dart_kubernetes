@@ -18,8 +18,8 @@ class ContainerStateWaiting {
     final tempMessageJson = json['message'];
     final tempReasonJson = json['reason'];
 
-    final tempMessage = tempMessageJson;
-    final tempReason = tempReasonJson;
+    final String? tempMessage = tempMessageJson;
+    final String? tempReason = tempReasonJson;
 
     return ContainerStateWaiting(
       message: tempMessage,

@@ -20,9 +20,10 @@ class NodeAffinity {
     final tempRequiredDuringSchedulingIgnoredDuringExecutionJson =
         json['requiredDuringSchedulingIgnoredDuringExecution'];
 
-    final tempPreferredDuringSchedulingIgnoredDuringExecution =
+    final List<PreferredSchedulingTerm>?
+        tempPreferredDuringSchedulingIgnoredDuringExecution =
         tempPreferredDuringSchedulingIgnoredDuringExecutionJson;
-    final tempRequiredDuringSchedulingIgnoredDuringExecution =
+    final NodeSelector? tempRequiredDuringSchedulingIgnoredDuringExecution =
         tempRequiredDuringSchedulingIgnoredDuringExecutionJson != null
             ? NodeSelector.fromJson(
                 tempRequiredDuringSchedulingIgnoredDuringExecutionJson)

@@ -18,10 +18,11 @@ class IngressClassSpec {
     final tempControllerJson = json['controller'];
     final tempParametersJson = json['parameters'];
 
-    final tempController = tempControllerJson;
-    final tempParameters = tempParametersJson != null
-        ? IngressClassParametersReference.fromJson(tempParametersJson)
-        : null;
+    final String? tempController = tempControllerJson;
+    final IngressClassParametersReference? tempParameters =
+        tempParametersJson != null
+            ? IngressClassParametersReference.fromJson(tempParametersJson)
+            : null;
 
     return IngressClassSpec(
       controller: tempController,

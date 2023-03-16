@@ -25,10 +25,10 @@ class LimitedPriorityLevelConfiguration {
     final tempLendablePercentJson = json['lendablePercent'];
     final tempLimitResponseJson = json['limitResponse'];
 
-    final tempAssuredConcurrencyShares = tempAssuredConcurrencySharesJson;
-    final tempBorrowingLimitPercent = tempBorrowingLimitPercentJson;
-    final tempLendablePercent = tempLendablePercentJson;
-    final tempLimitResponse = tempLimitResponseJson != null
+    final int? tempAssuredConcurrencyShares = tempAssuredConcurrencySharesJson;
+    final int? tempBorrowingLimitPercent = tempBorrowingLimitPercentJson;
+    final int? tempLendablePercent = tempLendablePercentJson;
+    final LimitResponse? tempLimitResponse = tempLimitResponseJson != null
         ? LimitResponse.fromJson(tempLimitResponseJson)
         : null;
 

@@ -18,8 +18,8 @@ class ServiceStatus {
     final tempConditionsJson = json['conditions'];
     final tempLoadBalancerJson = json['loadBalancer'];
 
-    final tempConditions = tempConditionsJson;
-    final tempLoadBalancer = tempLoadBalancerJson != null
+    final List<Condition>? tempConditions = tempConditionsJson;
+    final LoadBalancerStatus? tempLoadBalancer = tempLoadBalancerJson != null
         ? LoadBalancerStatus.fromJson(tempLoadBalancerJson)
         : null;
 

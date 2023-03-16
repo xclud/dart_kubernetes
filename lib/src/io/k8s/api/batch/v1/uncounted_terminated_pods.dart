@@ -18,8 +18,8 @@ class UncountedTerminatedPods {
     final tempFailedJson = json['failed'];
     final tempSucceededJson = json['succeeded'];
 
-    final tempFailed = tempFailedJson;
-    final tempSucceeded = tempSucceededJson;
+    final List<String>? tempFailed = tempFailedJson;
+    final List<String>? tempSucceeded = tempSucceededJson;
 
     return UncountedTerminatedPods(
       failed: tempFailed,

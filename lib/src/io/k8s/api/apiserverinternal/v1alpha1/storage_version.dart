@@ -24,12 +24,14 @@ class StorageVersion {
     final tempSpecJson = json['spec'];
     final tempStatusJson = json['status'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempKind = tempKindJson;
-    final tempMetadata =
+    final String? tempApiVersion = tempApiVersionJson;
+    final String? tempKind = tempKindJson;
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final tempSpec = StorageVersionSpec.fromJson(tempSpecJson);
-    final tempStatus = StorageVersionStatus.fromJson(tempStatusJson);
+    final StorageVersionSpec tempSpec =
+        StorageVersionSpec.fromJson(tempSpecJson);
+    final StorageVersionStatus tempStatus =
+        StorageVersionStatus.fromJson(tempStatusJson);
 
     return StorageVersion(
       apiVersion: tempApiVersion,

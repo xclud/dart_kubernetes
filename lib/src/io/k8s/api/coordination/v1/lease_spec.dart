@@ -24,11 +24,11 @@ class LeaseSpec {
     final tempLeaseTransitionsJson = json['leaseTransitions'];
     final tempRenewTimeJson = json['renewTime'];
 
-    final tempAcquireTime = tempAcquireTimeJson;
-    final tempHolderIdentity = tempHolderIdentityJson;
-    final tempLeaseDurationSeconds = tempLeaseDurationSecondsJson;
-    final tempLeaseTransitions = tempLeaseTransitionsJson;
-    final tempRenewTime = tempRenewTimeJson;
+    final String? tempAcquireTime = tempAcquireTimeJson;
+    final String? tempHolderIdentity = tempHolderIdentityJson;
+    final int? tempLeaseDurationSeconds = tempLeaseDurationSecondsJson;
+    final int? tempLeaseTransitions = tempLeaseTransitionsJson;
+    final String? tempRenewTime = tempRenewTimeJson;
 
     return LeaseSpec(
       acquireTime: tempAcquireTime,

@@ -16,7 +16,7 @@ class NodeConfigSource {
   factory NodeConfigSource.fromJson(Map<String, dynamic> json) {
     final tempConfigMapJson = json['configMap'];
 
-    final tempConfigMap = tempConfigMapJson != null
+    final ConfigMapNodeConfigSource? tempConfigMap = tempConfigMapJson != null
         ? ConfigMapNodeConfigSource.fromJson(tempConfigMapJson)
         : null;
 

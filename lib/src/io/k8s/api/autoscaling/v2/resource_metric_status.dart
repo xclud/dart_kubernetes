@@ -18,8 +18,9 @@ class ResourceMetricStatus {
     final tempCurrentJson = json['current'];
     final tempNameJson = json['name'];
 
-    final tempCurrent = MetricValueStatus.fromJson(tempCurrentJson);
-    final tempName = tempNameJson;
+    final MetricValueStatus tempCurrent =
+        MetricValueStatus.fromJson(tempCurrentJson);
+    final String tempName = tempNameJson;
 
     return ResourceMetricStatus(
       current: tempCurrent,

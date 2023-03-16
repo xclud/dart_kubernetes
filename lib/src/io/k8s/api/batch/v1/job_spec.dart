@@ -36,21 +36,23 @@ class JobSpec {
     final tempTemplateJson = json['template'];
     final tempTtlSecondsAfterFinishedJson = json['ttlSecondsAfterFinished'];
 
-    final tempActiveDeadlineSeconds = tempActiveDeadlineSecondsJson;
-    final tempBackoffLimit = tempBackoffLimitJson;
-    final tempCompletionMode = tempCompletionModeJson;
-    final tempCompletions = tempCompletionsJson;
-    final tempManualSelector = tempManualSelectorJson;
-    final tempParallelism = tempParallelismJson;
-    final tempPodFailurePolicy = tempPodFailurePolicyJson != null
-        ? PodFailurePolicy.fromJson(tempPodFailurePolicyJson)
-        : null;
-    final tempSelector = tempSelectorJson != null
+    final int? tempActiveDeadlineSeconds = tempActiveDeadlineSecondsJson;
+    final int? tempBackoffLimit = tempBackoffLimitJson;
+    final String? tempCompletionMode = tempCompletionModeJson;
+    final int? tempCompletions = tempCompletionsJson;
+    final bool? tempManualSelector = tempManualSelectorJson;
+    final int? tempParallelism = tempParallelismJson;
+    final PodFailurePolicy? tempPodFailurePolicy =
+        tempPodFailurePolicyJson != null
+            ? PodFailurePolicy.fromJson(tempPodFailurePolicyJson)
+            : null;
+    final LabelSelector? tempSelector = tempSelectorJson != null
         ? LabelSelector.fromJson(tempSelectorJson)
         : null;
-    final tempSuspend = tempSuspendJson;
-    final tempTemplate = PodTemplateSpec.fromJson(tempTemplateJson);
-    final tempTtlSecondsAfterFinished = tempTtlSecondsAfterFinishedJson;
+    final bool? tempSuspend = tempSuspendJson;
+    final PodTemplateSpec tempTemplate =
+        PodTemplateSpec.fromJson(tempTemplateJson);
+    final int? tempTtlSecondsAfterFinished = tempTtlSecondsAfterFinishedJson;
 
     return JobSpec(
       activeDeadlineSeconds: tempActiveDeadlineSeconds,

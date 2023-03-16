@@ -26,12 +26,12 @@ class NamedRuleWithOperations {
     final tempResourcesJson = json['resources'];
     final tempScopeJson = json['scope'];
 
-    final tempApiGroups = tempApiGroupsJson;
-    final tempApiVersions = tempApiVersionsJson;
-    final tempOperations = tempOperationsJson;
-    final tempResourceNames = tempResourceNamesJson;
-    final tempResources = tempResourcesJson;
-    final tempScope = tempScopeJson;
+    final List<String>? tempApiGroups = tempApiGroupsJson;
+    final List<String>? tempApiVersions = tempApiVersionsJson;
+    final List<String>? tempOperations = tempOperationsJson;
+    final List<String>? tempResourceNames = tempResourceNamesJson;
+    final List<String>? tempResources = tempResourcesJson;
+    final String? tempScope = tempScopeJson;
 
     return NamedRuleWithOperations(
       apiGroups: tempApiGroups,

@@ -24,11 +24,11 @@ class RuleWithOperations {
     final tempResourcesJson = json['resources'];
     final tempScopeJson = json['scope'];
 
-    final tempApiGroups = tempApiGroupsJson;
-    final tempApiVersions = tempApiVersionsJson;
-    final tempOperations = tempOperationsJson;
-    final tempResources = tempResourcesJson;
-    final tempScope = tempScopeJson;
+    final List<String>? tempApiGroups = tempApiGroupsJson;
+    final List<String>? tempApiVersions = tempApiVersionsJson;
+    final List<String>? tempOperations = tempOperationsJson;
+    final List<String>? tempResources = tempResourcesJson;
+    final String? tempScope = tempScopeJson;
 
     return RuleWithOperations(
       apiGroups: tempApiGroups,

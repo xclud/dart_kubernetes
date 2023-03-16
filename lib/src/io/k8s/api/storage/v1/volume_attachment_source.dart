@@ -18,10 +18,11 @@ class VolumeAttachmentSource {
     final tempInlineVolumeSpecJson = json['inlineVolumeSpec'];
     final tempPersistentVolumeNameJson = json['persistentVolumeName'];
 
-    final tempInlineVolumeSpec = tempInlineVolumeSpecJson != null
-        ? PersistentVolumeSpec.fromJson(tempInlineVolumeSpecJson)
-        : null;
-    final tempPersistentVolumeName = tempPersistentVolumeNameJson;
+    final PersistentVolumeSpec? tempInlineVolumeSpec =
+        tempInlineVolumeSpecJson != null
+            ? PersistentVolumeSpec.fromJson(tempInlineVolumeSpecJson)
+            : null;
+    final String? tempPersistentVolumeName = tempPersistentVolumeNameJson;
 
     return VolumeAttachmentSource(
       inlineVolumeSpec: tempInlineVolumeSpec,

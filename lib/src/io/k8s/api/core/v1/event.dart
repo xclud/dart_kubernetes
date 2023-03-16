@@ -48,31 +48,32 @@ class Event {
     final tempSourceJson = json['source'];
     final tempTypeJson = json['type'];
 
-    final tempAction = tempActionJson;
-    final tempApiVersion = tempApiVersionJson;
-    final tempCount = tempCountJson;
-    final tempEventTime = tempEventTimeJson;
-    final tempFirstTimestamp = tempFirstTimestampJson != null
+    final String? tempAction = tempActionJson;
+    final String? tempApiVersion = tempApiVersionJson;
+    final int? tempCount = tempCountJson;
+    final String? tempEventTime = tempEventTimeJson;
+    final DateTime? tempFirstTimestamp = tempFirstTimestampJson != null
         ? DateTime.tryParse(tempFirstTimestampJson)
         : null;
-    final tempInvolvedObject = ObjectReference.fromJson(tempInvolvedObjectJson);
-    final tempKind = tempKindJson;
-    final tempLastTimestamp = tempLastTimestampJson != null
+    final ObjectReference tempInvolvedObject =
+        ObjectReference.fromJson(tempInvolvedObjectJson);
+    final String? tempKind = tempKindJson;
+    final DateTime? tempLastTimestamp = tempLastTimestampJson != null
         ? DateTime.tryParse(tempLastTimestampJson)
         : null;
-    final tempMessage = tempMessageJson;
-    final tempMetadata = ObjectMeta.fromJson(tempMetadataJson);
-    final tempReason = tempReasonJson;
-    final tempRelated = tempRelatedJson != null
+    final String? tempMessage = tempMessageJson;
+    final ObjectMeta tempMetadata = ObjectMeta.fromJson(tempMetadataJson);
+    final String? tempReason = tempReasonJson;
+    final ObjectReference? tempRelated = tempRelatedJson != null
         ? ObjectReference.fromJson(tempRelatedJson)
         : null;
-    final tempReportingComponent = tempReportingComponentJson;
-    final tempReportingInstance = tempReportingInstanceJson;
-    final tempSeries =
+    final String? tempReportingComponent = tempReportingComponentJson;
+    final String? tempReportingInstance = tempReportingInstanceJson;
+    final EventSeries? tempSeries =
         tempSeriesJson != null ? EventSeries.fromJson(tempSeriesJson) : null;
-    final tempSource =
+    final EventSource? tempSource =
         tempSourceJson != null ? EventSource.fromJson(tempSourceJson) : null;
-    final tempType = tempTypeJson;
+    final String? tempType = tempTypeJson;
 
     return Event(
       action: tempAction,

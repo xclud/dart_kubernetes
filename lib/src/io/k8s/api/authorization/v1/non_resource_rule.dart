@@ -18,8 +18,8 @@ class NonResourceRule {
     final tempNonResourceURLsJson = json['nonResourceURLs'];
     final tempVerbsJson = json['verbs'];
 
-    final tempNonResourceURLs = tempNonResourceURLsJson;
-    final tempVerbs = tempVerbsJson;
+    final List<String>? tempNonResourceURLs = tempNonResourceURLsJson;
+    final List<String> tempVerbs = tempVerbsJson;
 
     return NonResourceRule(
       nonResourceURLs: tempNonResourceURLs,

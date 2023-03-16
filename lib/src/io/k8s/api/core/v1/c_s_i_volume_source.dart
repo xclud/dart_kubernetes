@@ -24,13 +24,14 @@ class CSIVolumeSource {
     final tempReadOnlyJson = json['readOnly'];
     final tempVolumeAttributesJson = json['volumeAttributes'];
 
-    final tempDriver = tempDriverJson;
-    final tempFsType = tempFsTypeJson;
-    final tempNodePublishSecretRef = tempNodePublishSecretRefJson != null
-        ? LocalObjectReference.fromJson(tempNodePublishSecretRefJson)
-        : null;
-    final tempReadOnly = tempReadOnlyJson;
-    final tempVolumeAttributes = tempVolumeAttributesJson;
+    final String tempDriver = tempDriverJson;
+    final String? tempFsType = tempFsTypeJson;
+    final LocalObjectReference? tempNodePublishSecretRef =
+        tempNodePublishSecretRefJson != null
+            ? LocalObjectReference.fromJson(tempNodePublishSecretRefJson)
+            : null;
+    final bool? tempReadOnly = tempReadOnlyJson;
+    final Map<String, String> tempVolumeAttributes = tempVolumeAttributesJson;
 
     return CSIVolumeSource(
       driver: tempDriver,

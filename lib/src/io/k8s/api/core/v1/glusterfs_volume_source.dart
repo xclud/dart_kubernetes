@@ -20,9 +20,9 @@ class GlusterfsVolumeSource {
     final tempPathJson = json['path'];
     final tempReadOnlyJson = json['readOnly'];
 
-    final tempEndpoints = tempEndpointsJson;
-    final tempPath = tempPathJson;
-    final tempReadOnly = tempReadOnlyJson;
+    final String tempEndpoints = tempEndpointsJson;
+    final String tempPath = tempPathJson;
+    final bool? tempReadOnly = tempReadOnlyJson;
 
     return GlusterfsVolumeSource(
       endpoints: tempEndpoints,

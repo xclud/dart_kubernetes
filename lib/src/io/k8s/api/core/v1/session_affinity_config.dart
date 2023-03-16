@@ -16,7 +16,7 @@ class SessionAffinityConfig {
   factory SessionAffinityConfig.fromJson(Map<String, dynamic> json) {
     final tempClientIPJson = json['clientIP'];
 
-    final tempClientIP = tempClientIPJson != null
+    final ClientIPConfig? tempClientIP = tempClientIPJson != null
         ? ClientIPConfig.fromJson(tempClientIPJson)
         : null;
 

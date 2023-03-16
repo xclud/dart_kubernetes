@@ -20,11 +20,11 @@ class EnvFromSource {
     final tempPrefixJson = json['prefix'];
     final tempSecretRefJson = json['secretRef'];
 
-    final tempConfigMapRef = tempConfigMapRefJson != null
+    final ConfigMapEnvSource? tempConfigMapRef = tempConfigMapRefJson != null
         ? ConfigMapEnvSource.fromJson(tempConfigMapRefJson)
         : null;
-    final tempPrefix = tempPrefixJson;
-    final tempSecretRef = tempSecretRefJson != null
+    final String? tempPrefix = tempPrefixJson;
+    final SecretEnvSource? tempSecretRef = tempSecretRefJson != null
         ? SecretEnvSource.fromJson(tempSecretRefJson)
         : null;
 

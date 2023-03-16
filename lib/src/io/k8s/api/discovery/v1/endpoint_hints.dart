@@ -16,7 +16,7 @@ class EndpointHints {
   factory EndpointHints.fromJson(Map<String, dynamic> json) {
     final tempForZonesJson = json['forZones'];
 
-    final tempForZones = tempForZonesJson;
+    final List<ForZone>? tempForZones = tempForZonesJson;
 
     return EndpointHints(
       forZones: tempForZones,

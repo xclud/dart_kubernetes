@@ -18,8 +18,8 @@ class NetworkPolicyIngressRule {
     final tempFromJson = json['from'];
     final tempPortsJson = json['ports'];
 
-    final tempFrom = tempFromJson;
-    final tempPorts = tempPortsJson;
+    final List<NetworkPolicyPeer>? tempFrom = tempFromJson;
+    final List<NetworkPolicyPort>? tempPorts = tempPortsJson;
 
     return NetworkPolicyIngressRule(
       from: tempFrom,

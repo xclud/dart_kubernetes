@@ -18,8 +18,8 @@ class FlockerVolumeSource {
     final tempDatasetNameJson = json['datasetName'];
     final tempDatasetUUIDJson = json['datasetUUID'];
 
-    final tempDatasetName = tempDatasetNameJson;
-    final tempDatasetUUID = tempDatasetUUIDJson;
+    final String? tempDatasetName = tempDatasetNameJson;
+    final String? tempDatasetUUID = tempDatasetUUIDJson;
 
     return FlockerVolumeSource(
       datasetName: tempDatasetName,

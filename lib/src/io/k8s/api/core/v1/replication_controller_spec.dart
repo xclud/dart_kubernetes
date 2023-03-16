@@ -22,10 +22,10 @@ class ReplicationControllerSpec {
     final tempSelectorJson = json['selector'];
     final tempTemplateJson = json['template'];
 
-    final tempMinReadySeconds = tempMinReadySecondsJson;
-    final tempReplicas = tempReplicasJson;
-    final tempSelector = tempSelectorJson;
-    final tempTemplate = tempTemplateJson != null
+    final int? tempMinReadySeconds = tempMinReadySecondsJson;
+    final int? tempReplicas = tempReplicasJson;
+    final Map<String, String> tempSelector = tempSelectorJson;
+    final PodTemplateSpec? tempTemplate = tempTemplateJson != null
         ? PodTemplateSpec.fromJson(tempTemplateJson)
         : null;
 

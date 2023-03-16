@@ -24,13 +24,13 @@ class ReplicaSetCondition {
     final tempStatusJson = json['status'];
     final tempTypeJson = json['type'];
 
-    final tempLastTransitionTime = tempLastTransitionTimeJson != null
+    final DateTime? tempLastTransitionTime = tempLastTransitionTimeJson != null
         ? DateTime.tryParse(tempLastTransitionTimeJson)
         : null;
-    final tempMessage = tempMessageJson;
-    final tempReason = tempReasonJson;
-    final tempStatus = tempStatusJson;
-    final tempType = tempTypeJson;
+    final String? tempMessage = tempMessageJson;
+    final String? tempReason = tempReasonJson;
+    final String tempStatus = tempStatusJson;
+    final String tempType = tempTypeJson;
 
     return ReplicaSetCondition(
       lastTransitionTime: tempLastTransitionTime,

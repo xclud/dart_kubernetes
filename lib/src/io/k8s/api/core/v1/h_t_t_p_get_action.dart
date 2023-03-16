@@ -24,11 +24,11 @@ class HTTPGetAction {
     final tempPortJson = json['port'];
     final tempSchemeJson = json['scheme'];
 
-    final tempHost = tempHostJson;
-    final tempHttpHeaders = tempHttpHeadersJson;
-    final tempPath = tempPathJson;
-    final tempPort = tempPortJson;
-    final tempScheme = tempSchemeJson;
+    final String? tempHost = tempHostJson;
+    final List<HTTPHeader>? tempHttpHeaders = tempHttpHeadersJson;
+    final String? tempPath = tempPathJson;
+    final String tempPort = tempPortJson;
+    final String? tempScheme = tempSchemeJson;
 
     return HTTPGetAction(
       host: tempHost,

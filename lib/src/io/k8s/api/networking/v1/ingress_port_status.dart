@@ -20,9 +20,9 @@ class IngressPortStatus {
     final tempPortJson = json['port'];
     final tempProtocolJson = json['protocol'];
 
-    final tempError = tempErrorJson;
-    final tempPort = tempPortJson;
-    final tempProtocol = tempProtocolJson;
+    final String? tempError = tempErrorJson;
+    final int tempPort = tempPortJson;
+    final String tempProtocol = tempProtocolJson;
 
     return IngressPortStatus(
       error: tempError,

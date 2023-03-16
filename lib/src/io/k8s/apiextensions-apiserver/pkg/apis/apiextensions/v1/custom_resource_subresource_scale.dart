@@ -20,9 +20,9 @@ class CustomResourceSubresourceScale {
     final tempSpecReplicasPathJson = json['specReplicasPath'];
     final tempStatusReplicasPathJson = json['statusReplicasPath'];
 
-    final tempLabelSelectorPath = tempLabelSelectorPathJson;
-    final tempSpecReplicasPath = tempSpecReplicasPathJson;
-    final tempStatusReplicasPath = tempStatusReplicasPathJson;
+    final String? tempLabelSelectorPath = tempLabelSelectorPathJson;
+    final String tempSpecReplicasPath = tempSpecReplicasPathJson;
+    final String tempStatusReplicasPath = tempStatusReplicasPathJson;
 
     return CustomResourceSubresourceScale(
       labelSelectorPath: tempLabelSelectorPath,

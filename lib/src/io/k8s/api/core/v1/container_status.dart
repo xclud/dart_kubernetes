@@ -32,17 +32,17 @@ class ContainerStatus {
     final tempStartedJson = json['started'];
     final tempStateJson = json['state'];
 
-    final tempContainerID = tempContainerIDJson;
-    final tempImage = tempImageJson;
-    final tempImageID = tempImageIDJson;
-    final tempLastState = tempLastStateJson != null
+    final String? tempContainerID = tempContainerIDJson;
+    final String tempImage = tempImageJson;
+    final String tempImageID = tempImageIDJson;
+    final ContainerState? tempLastState = tempLastStateJson != null
         ? ContainerState.fromJson(tempLastStateJson)
         : null;
-    final tempName = tempNameJson;
-    final tempReady = tempReadyJson;
-    final tempRestartCount = tempRestartCountJson;
-    final tempStarted = tempStartedJson;
-    final tempState =
+    final String tempName = tempNameJson;
+    final bool tempReady = tempReadyJson;
+    final int tempRestartCount = tempRestartCountJson;
+    final bool? tempStarted = tempStartedJson;
+    final ContainerState? tempState =
         tempStateJson != null ? ContainerState.fromJson(tempStateJson) : null;
 
     return ContainerStatus(

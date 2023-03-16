@@ -18,8 +18,8 @@ class VolumeError {
     final tempMessageJson = json['message'];
     final tempTimeJson = json['time'];
 
-    final tempMessage = tempMessageJson;
-    final tempTime =
+    final String? tempMessage = tempMessageJson;
+    final DateTime? tempTime =
         tempTimeJson != null ? DateTime.tryParse(tempTimeJson) : null;
 
     return VolumeError(

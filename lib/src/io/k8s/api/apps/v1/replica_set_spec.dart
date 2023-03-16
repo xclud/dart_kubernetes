@@ -22,10 +22,10 @@ class ReplicaSetSpec {
     final tempSelectorJson = json['selector'];
     final tempTemplateJson = json['template'];
 
-    final tempMinReadySeconds = tempMinReadySecondsJson;
-    final tempReplicas = tempReplicasJson;
-    final tempSelector = LabelSelector.fromJson(tempSelectorJson);
-    final tempTemplate = tempTemplateJson != null
+    final int? tempMinReadySeconds = tempMinReadySecondsJson;
+    final int? tempReplicas = tempReplicasJson;
+    final LabelSelector tempSelector = LabelSelector.fromJson(tempSelectorJson);
+    final PodTemplateSpec? tempTemplate = tempTemplateJson != null
         ? PodTemplateSpec.fromJson(tempTemplateJson)
         : null;
 

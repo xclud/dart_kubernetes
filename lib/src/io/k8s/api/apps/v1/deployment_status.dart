@@ -30,14 +30,14 @@ class DeploymentStatus {
     final tempUnavailableReplicasJson = json['unavailableReplicas'];
     final tempUpdatedReplicasJson = json['updatedReplicas'];
 
-    final tempAvailableReplicas = tempAvailableReplicasJson;
-    final tempCollisionCount = tempCollisionCountJson;
-    final tempConditions = tempConditionsJson;
-    final tempObservedGeneration = tempObservedGenerationJson;
-    final tempReadyReplicas = tempReadyReplicasJson;
-    final tempReplicas = tempReplicasJson;
-    final tempUnavailableReplicas = tempUnavailableReplicasJson;
-    final tempUpdatedReplicas = tempUpdatedReplicasJson;
+    final int? tempAvailableReplicas = tempAvailableReplicasJson;
+    final int? tempCollisionCount = tempCollisionCountJson;
+    final List<DeploymentCondition>? tempConditions = tempConditionsJson;
+    final int? tempObservedGeneration = tempObservedGenerationJson;
+    final int? tempReadyReplicas = tempReadyReplicasJson;
+    final int? tempReplicas = tempReplicasJson;
+    final int? tempUnavailableReplicas = tempUnavailableReplicasJson;
+    final int? tempUpdatedReplicas = tempUpdatedReplicasJson;
 
     return DeploymentStatus(
       availableReplicas: tempAvailableReplicas,

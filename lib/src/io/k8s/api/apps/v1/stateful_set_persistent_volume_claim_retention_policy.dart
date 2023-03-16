@@ -19,8 +19,8 @@ class StatefulSetPersistentVolumeClaimRetentionPolicy {
     final tempWhenDeletedJson = json['whenDeleted'];
     final tempWhenScaledJson = json['whenScaled'];
 
-    final tempWhenDeleted = tempWhenDeletedJson;
-    final tempWhenScaled = tempWhenScaledJson;
+    final String? tempWhenDeleted = tempWhenDeletedJson;
+    final String? tempWhenScaled = tempWhenScaledJson;
 
     return StatefulSetPersistentVolumeClaimRetentionPolicy(
       whenDeleted: tempWhenDeleted,

@@ -45,25 +45,26 @@ class ObjectMeta {
     final tempSelfLinkJson = json['selfLink'];
     final tempUidJson = json['uid'];
 
-    final tempAnnotations = tempAnnotationsJson;
-    final tempCreationTimestamp = tempCreationTimestampJson != null
+    final Map<String, String> tempAnnotations = tempAnnotationsJson;
+    final DateTime? tempCreationTimestamp = tempCreationTimestampJson != null
         ? DateTime.tryParse(tempCreationTimestampJson)
         : null;
-    final tempDeletionGracePeriodSeconds = tempDeletionGracePeriodSecondsJson;
-    final tempDeletionTimestamp = tempDeletionTimestampJson != null
+    final int? tempDeletionGracePeriodSeconds =
+        tempDeletionGracePeriodSecondsJson;
+    final DateTime? tempDeletionTimestamp = tempDeletionTimestampJson != null
         ? DateTime.tryParse(tempDeletionTimestampJson)
         : null;
-    final tempFinalizers = tempFinalizersJson;
-    final tempGenerateName = tempGenerateNameJson;
-    final tempGeneration = tempGenerationJson;
-    final tempLabels = tempLabelsJson;
-    final tempManagedFields = tempManagedFieldsJson;
-    final tempName = tempNameJson;
-    final tempNamespace = tempNamespaceJson;
-    final tempOwnerReferences = tempOwnerReferencesJson;
-    final tempResourceVersion = tempResourceVersionJson;
-    final tempSelfLink = tempSelfLinkJson;
-    final tempUid = tempUidJson;
+    final List<String>? tempFinalizers = tempFinalizersJson;
+    final String? tempGenerateName = tempGenerateNameJson;
+    final int? tempGeneration = tempGenerationJson;
+    final Map<String, String> tempLabels = tempLabelsJson;
+    final List<ManagedFieldsEntry>? tempManagedFields = tempManagedFieldsJson;
+    final String? tempName = tempNameJson;
+    final String? tempNamespace = tempNamespaceJson;
+    final List<OwnerReference>? tempOwnerReferences = tempOwnerReferencesJson;
+    final String? tempResourceVersion = tempResourceVersionJson;
+    final String? tempSelfLink = tempSelfLinkJson;
+    final String? tempUid = tempUidJson;
 
     return ObjectMeta(
       annotations: tempAnnotations,

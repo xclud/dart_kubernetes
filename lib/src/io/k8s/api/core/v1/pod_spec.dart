@@ -94,52 +94,58 @@ class PodSpec {
     final tempTopologySpreadConstraintsJson = json['topologySpreadConstraints'];
     final tempVolumesJson = json['volumes'];
 
-    final tempActiveDeadlineSeconds = tempActiveDeadlineSecondsJson;
-    final tempAffinity =
+    final int? tempActiveDeadlineSeconds = tempActiveDeadlineSecondsJson;
+    final Affinity? tempAffinity =
         tempAffinityJson != null ? Affinity.fromJson(tempAffinityJson) : null;
-    final tempAutomountServiceAccountToken =
+    final bool? tempAutomountServiceAccountToken =
         tempAutomountServiceAccountTokenJson;
-    final tempContainers = tempContainersJson;
-    final tempDnsConfig = tempDnsConfigJson != null
+    final List<Container> tempContainers = tempContainersJson;
+    final PodDNSConfig? tempDnsConfig = tempDnsConfigJson != null
         ? PodDNSConfig.fromJson(tempDnsConfigJson)
         : null;
-    final tempDnsPolicy = tempDnsPolicyJson;
-    final tempEnableServiceLinks = tempEnableServiceLinksJson;
-    final tempEphemeralContainers = tempEphemeralContainersJson;
-    final tempHostAliases = tempHostAliasesJson;
-    final tempHostIPC = tempHostIPCJson;
-    final tempHostNetwork = tempHostNetworkJson;
-    final tempHostPID = tempHostPIDJson;
-    final tempHostUsers = tempHostUsersJson;
-    final tempHostname = tempHostnameJson;
-    final tempImagePullSecrets = tempImagePullSecretsJson;
-    final tempInitContainers = tempInitContainersJson;
-    final tempNodeName = tempNodeNameJson;
-    final tempNodeSelector = tempNodeSelectorJson;
-    final tempOs = tempOsJson != null ? PodOS.fromJson(tempOsJson) : null;
-    final tempOverhead = tempOverheadJson;
-    final tempPreemptionPolicy = tempPreemptionPolicyJson;
-    final tempPriority = tempPriorityJson;
-    final tempPriorityClassName = tempPriorityClassNameJson;
-    final tempReadinessGates = tempReadinessGatesJson;
-    final tempResourceClaims = tempResourceClaimsJson;
-    final tempRestartPolicy = tempRestartPolicyJson;
-    final tempRuntimeClassName = tempRuntimeClassNameJson;
-    final tempSchedulerName = tempSchedulerNameJson;
-    final tempSchedulingGates = tempSchedulingGatesJson;
-    final tempSecurityContext = tempSecurityContextJson != null
-        ? PodSecurityContext.fromJson(tempSecurityContextJson)
-        : null;
-    final tempServiceAccount = tempServiceAccountJson;
-    final tempServiceAccountName = tempServiceAccountNameJson;
-    final tempSetHostnameAsFQDN = tempSetHostnameAsFQDNJson;
-    final tempShareProcessNamespace = tempShareProcessNamespaceJson;
-    final tempSubdomain = tempSubdomainJson;
-    final tempTerminationGracePeriodSeconds =
+    final String? tempDnsPolicy = tempDnsPolicyJson;
+    final bool? tempEnableServiceLinks = tempEnableServiceLinksJson;
+    final List<EphemeralContainer>? tempEphemeralContainers =
+        tempEphemeralContainersJson;
+    final List<HostAlias>? tempHostAliases = tempHostAliasesJson;
+    final bool? tempHostIPC = tempHostIPCJson;
+    final bool? tempHostNetwork = tempHostNetworkJson;
+    final bool? tempHostPID = tempHostPIDJson;
+    final bool? tempHostUsers = tempHostUsersJson;
+    final String? tempHostname = tempHostnameJson;
+    final List<LocalObjectReference>? tempImagePullSecrets =
+        tempImagePullSecretsJson;
+    final List<Container>? tempInitContainers = tempInitContainersJson;
+    final String? tempNodeName = tempNodeNameJson;
+    final Map<String, String> tempNodeSelector = tempNodeSelectorJson;
+    final PodOS? tempOs =
+        tempOsJson != null ? PodOS.fromJson(tempOsJson) : null;
+    final Map<String, Object> tempOverhead = tempOverheadJson;
+    final String? tempPreemptionPolicy = tempPreemptionPolicyJson;
+    final int? tempPriority = tempPriorityJson;
+    final String? tempPriorityClassName = tempPriorityClassNameJson;
+    final List<PodReadinessGate>? tempReadinessGates = tempReadinessGatesJson;
+    final List<PodResourceClaim>? tempResourceClaims = tempResourceClaimsJson;
+    final String? tempRestartPolicy = tempRestartPolicyJson;
+    final String? tempRuntimeClassName = tempRuntimeClassNameJson;
+    final String? tempSchedulerName = tempSchedulerNameJson;
+    final List<PodSchedulingGate>? tempSchedulingGates =
+        tempSchedulingGatesJson;
+    final PodSecurityContext? tempSecurityContext =
+        tempSecurityContextJson != null
+            ? PodSecurityContext.fromJson(tempSecurityContextJson)
+            : null;
+    final String? tempServiceAccount = tempServiceAccountJson;
+    final String? tempServiceAccountName = tempServiceAccountNameJson;
+    final bool? tempSetHostnameAsFQDN = tempSetHostnameAsFQDNJson;
+    final bool? tempShareProcessNamespace = tempShareProcessNamespaceJson;
+    final String? tempSubdomain = tempSubdomainJson;
+    final int? tempTerminationGracePeriodSeconds =
         tempTerminationGracePeriodSecondsJson;
-    final tempTolerations = tempTolerationsJson;
-    final tempTopologySpreadConstraints = tempTopologySpreadConstraintsJson;
-    final tempVolumes = tempVolumesJson;
+    final List<Toleration>? tempTolerations = tempTolerationsJson;
+    final List<TopologySpreadConstraint>? tempTopologySpreadConstraints =
+        tempTopologySpreadConstraintsJson;
+    final List<Volume>? tempVolumes = tempVolumesJson;
 
     return PodSpec(
       activeDeadlineSeconds: tempActiveDeadlineSeconds,

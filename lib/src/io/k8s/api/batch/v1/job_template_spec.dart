@@ -18,9 +18,9 @@ class JobTemplateSpec {
     final tempMetadataJson = json['metadata'];
     final tempSpecJson = json['spec'];
 
-    final tempMetadata =
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final tempSpec =
+    final JobSpec? tempSpec =
         tempSpecJson != null ? JobSpec.fromJson(tempSpecJson) : null;
 
     return JobTemplateSpec(

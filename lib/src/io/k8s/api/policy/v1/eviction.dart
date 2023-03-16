@@ -22,12 +22,12 @@ class Eviction {
     final tempKindJson = json['kind'];
     final tempMetadataJson = json['metadata'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempDeleteOptions = tempDeleteOptionsJson != null
+    final String? tempApiVersion = tempApiVersionJson;
+    final DeleteOptions? tempDeleteOptions = tempDeleteOptionsJson != null
         ? DeleteOptions.fromJson(tempDeleteOptionsJson)
         : null;
-    final tempKind = tempKindJson;
-    final tempMetadata =
+    final String? tempKind = tempKindJson;
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
 
     return Eviction(

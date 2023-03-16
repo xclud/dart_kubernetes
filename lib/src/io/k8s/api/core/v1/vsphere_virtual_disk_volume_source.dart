@@ -22,10 +22,10 @@ class VsphereVirtualDiskVolumeSource {
     final tempStoragePolicyNameJson = json['storagePolicyName'];
     final tempVolumePathJson = json['volumePath'];
 
-    final tempFsType = tempFsTypeJson;
-    final tempStoragePolicyID = tempStoragePolicyIDJson;
-    final tempStoragePolicyName = tempStoragePolicyNameJson;
-    final tempVolumePath = tempVolumePathJson;
+    final String? tempFsType = tempFsTypeJson;
+    final String? tempStoragePolicyID = tempStoragePolicyIDJson;
+    final String? tempStoragePolicyName = tempStoragePolicyNameJson;
+    final String tempVolumePath = tempVolumePathJson;
 
     return VsphereVirtualDiskVolumeSource(
       fsType: tempFsType,

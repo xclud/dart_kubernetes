@@ -26,12 +26,12 @@ class VolumeMount {
     final tempSubPathJson = json['subPath'];
     final tempSubPathExprJson = json['subPathExpr'];
 
-    final tempMountPath = tempMountPathJson;
-    final tempMountPropagation = tempMountPropagationJson;
-    final tempName = tempNameJson;
-    final tempReadOnly = tempReadOnlyJson;
-    final tempSubPath = tempSubPathJson;
-    final tempSubPathExpr = tempSubPathExprJson;
+    final String tempMountPath = tempMountPathJson;
+    final String? tempMountPropagation = tempMountPropagationJson;
+    final String tempName = tempNameJson;
+    final bool? tempReadOnly = tempReadOnlyJson;
+    final String? tempSubPath = tempSubPathJson;
+    final String? tempSubPathExpr = tempSubPathExprJson;
 
     return VolumeMount(
       mountPath: tempMountPath,

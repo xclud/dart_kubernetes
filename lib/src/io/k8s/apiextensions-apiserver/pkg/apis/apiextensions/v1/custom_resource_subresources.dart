@@ -18,10 +18,10 @@ class CustomResourceSubresources {
     final tempScaleJson = json['scale'];
     final tempStatusJson = json['status'];
 
-    final tempScale = tempScaleJson != null
+    final CustomResourceSubresourceScale? tempScale = tempScaleJson != null
         ? CustomResourceSubresourceScale.fromJson(tempScaleJson)
         : null;
-    final tempStatus = tempStatusJson != null
+    final CustomResourceSubresourceStatus? tempStatus = tempStatusJson != null
         ? CustomResourceSubresourceStatus.fromJson(tempStatusJson)
         : null;
 

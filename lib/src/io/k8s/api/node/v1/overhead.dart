@@ -16,7 +16,7 @@ class Overhead {
   factory Overhead.fromJson(Map<String, dynamic> json) {
     final tempPodFixedJson = json['podFixed'];
 
-    final tempPodFixed = tempPodFixedJson;
+    final Map<String, Object> tempPodFixed = tempPodFixedJson;
 
     return Overhead(
       podFixed: tempPodFixed,

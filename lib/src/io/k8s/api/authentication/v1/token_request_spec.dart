@@ -20,11 +20,12 @@ class TokenRequestSpec {
     final tempBoundObjectRefJson = json['boundObjectRef'];
     final tempExpirationSecondsJson = json['expirationSeconds'];
 
-    final tempAudiences = tempAudiencesJson;
-    final tempBoundObjectRef = tempBoundObjectRefJson != null
-        ? BoundObjectReference.fromJson(tempBoundObjectRefJson)
-        : null;
-    final tempExpirationSeconds = tempExpirationSecondsJson;
+    final List<String> tempAudiences = tempAudiencesJson;
+    final BoundObjectReference? tempBoundObjectRef =
+        tempBoundObjectRefJson != null
+            ? BoundObjectReference.fromJson(tempBoundObjectRefJson)
+            : null;
+    final int? tempExpirationSeconds = tempExpirationSecondsJson;
 
     return TokenRequestSpec(
       audiences: tempAudiences,

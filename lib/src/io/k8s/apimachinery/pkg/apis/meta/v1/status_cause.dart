@@ -20,9 +20,9 @@ class StatusCause {
     final tempMessageJson = json['message'];
     final tempReasonJson = json['reason'];
 
-    final tempField = tempFieldJson;
-    final tempMessage = tempMessageJson;
-    final tempReason = tempReasonJson;
+    final String? tempField = tempFieldJson;
+    final String? tempMessage = tempMessageJson;
+    final String? tempReason = tempReasonJson;
 
     return StatusCause(
       field: tempField,

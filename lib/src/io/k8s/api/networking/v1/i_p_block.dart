@@ -18,8 +18,8 @@ class IPBlock {
     final tempCidrJson = json['cidr'];
     final tempExceptJson = json['except'];
 
-    final tempCidr = tempCidrJson;
-    final tempExcept = tempExceptJson;
+    final String tempCidr = tempCidrJson;
+    final List<String>? tempExcept = tempExceptJson;
 
     return IPBlock(
       cidr: tempCidr,

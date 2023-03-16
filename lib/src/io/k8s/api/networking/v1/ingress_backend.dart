@@ -18,10 +18,10 @@ class IngressBackend {
     final tempResourceJson = json['resource'];
     final tempServiceJson = json['service'];
 
-    final tempResource = tempResourceJson != null
+    final TypedLocalObjectReference? tempResource = tempResourceJson != null
         ? TypedLocalObjectReference.fromJson(tempResourceJson)
         : null;
-    final tempService = tempServiceJson != null
+    final IngressServiceBackend? tempService = tempServiceJson != null
         ? IngressServiceBackend.fromJson(tempServiceJson)
         : null;
 

@@ -31,14 +31,16 @@ class CronJobSpec {
     final tempSuspendJson = json['suspend'];
     final tempTimeZoneJson = json['timeZone'];
 
-    final tempConcurrencyPolicy = tempConcurrencyPolicyJson;
-    final tempFailedJobsHistoryLimit = tempFailedJobsHistoryLimitJson;
-    final tempJobTemplate = JobTemplateSpec.fromJson(tempJobTemplateJson);
-    final tempSchedule = tempScheduleJson;
-    final tempStartingDeadlineSeconds = tempStartingDeadlineSecondsJson;
-    final tempSuccessfulJobsHistoryLimit = tempSuccessfulJobsHistoryLimitJson;
-    final tempSuspend = tempSuspendJson;
-    final tempTimeZone = tempTimeZoneJson;
+    final String? tempConcurrencyPolicy = tempConcurrencyPolicyJson;
+    final int? tempFailedJobsHistoryLimit = tempFailedJobsHistoryLimitJson;
+    final JobTemplateSpec tempJobTemplate =
+        JobTemplateSpec.fromJson(tempJobTemplateJson);
+    final String tempSchedule = tempScheduleJson;
+    final int? tempStartingDeadlineSeconds = tempStartingDeadlineSecondsJson;
+    final int? tempSuccessfulJobsHistoryLimit =
+        tempSuccessfulJobsHistoryLimitJson;
+    final bool? tempSuspend = tempSuspendJson;
+    final String? tempTimeZone = tempTimeZoneJson;
 
     return CronJobSpec(
       concurrencyPolicy: tempConcurrencyPolicy,

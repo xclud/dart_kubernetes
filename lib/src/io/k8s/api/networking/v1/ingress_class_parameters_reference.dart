@@ -24,11 +24,11 @@ class IngressClassParametersReference {
     final tempNamespaceJson = json['namespace'];
     final tempScopeJson = json['scope'];
 
-    final tempApiGroup = tempApiGroupJson;
-    final tempKind = tempKindJson;
-    final tempName = tempNameJson;
-    final tempNamespace = tempNamespaceJson;
-    final tempScope = tempScopeJson;
+    final String? tempApiGroup = tempApiGroupJson;
+    final String tempKind = tempKindJson;
+    final String tempName = tempNameJson;
+    final String? tempNamespace = tempNamespaceJson;
+    final String? tempScope = tempScopeJson;
 
     return IngressClassParametersReference(
       apiGroup: tempApiGroup,

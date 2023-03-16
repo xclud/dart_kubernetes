@@ -18,8 +18,8 @@ class LocalVolumeSource {
     final tempFsTypeJson = json['fsType'];
     final tempPathJson = json['path'];
 
-    final tempFsType = tempFsTypeJson;
-    final tempPath = tempPathJson;
+    final String? tempFsType = tempFsTypeJson;
+    final String tempPath = tempPathJson;
 
     return LocalVolumeSource(
       fsType: tempFsType,

@@ -16,7 +16,7 @@ class ScaleSpec {
   factory ScaleSpec.fromJson(Map<String, dynamic> json) {
     final tempReplicasJson = json['replicas'];
 
-    final tempReplicas = tempReplicasJson;
+    final int? tempReplicas = tempReplicasJson;
 
     return ScaleSpec(
       replicas: tempReplicas,

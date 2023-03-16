@@ -26,12 +26,12 @@ class AzureDiskVolumeSource {
     final tempKindJson = json['kind'];
     final tempReadOnlyJson = json['readOnly'];
 
-    final tempCachingMode = tempCachingModeJson;
-    final tempDiskName = tempDiskNameJson;
-    final tempDiskURI = tempDiskURIJson;
-    final tempFsType = tempFsTypeJson;
-    final tempKind = tempKindJson;
-    final tempReadOnly = tempReadOnlyJson;
+    final String? tempCachingMode = tempCachingModeJson;
+    final String tempDiskName = tempDiskNameJson;
+    final String tempDiskURI = tempDiskURIJson;
+    final String? tempFsType = tempFsTypeJson;
+    final String? tempKind = tempKindJson;
+    final bool? tempReadOnly = tempReadOnlyJson;
 
     return AzureDiskVolumeSource(
       cachingMode: tempCachingMode,

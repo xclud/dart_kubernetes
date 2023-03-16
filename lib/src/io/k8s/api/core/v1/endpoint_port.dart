@@ -22,10 +22,10 @@ class EndpointPort {
     final tempPortJson = json['port'];
     final tempProtocolJson = json['protocol'];
 
-    final tempAppProtocol = tempAppProtocolJson;
-    final tempName = tempNameJson;
-    final tempPort = tempPortJson;
-    final tempProtocol = tempProtocolJson;
+    final String? tempAppProtocol = tempAppProtocolJson;
+    final String? tempName = tempNameJson;
+    final int tempPort = tempPortJson;
+    final String? tempProtocol = tempProtocolJson;
 
     return EndpointPort(
       appProtocol: tempAppProtocol,

@@ -22,14 +22,14 @@ class NodeConfigStatus {
     final tempErrorJson = json['error'];
     final tempLastKnownGoodJson = json['lastKnownGood'];
 
-    final tempActive = tempActiveJson != null
+    final NodeConfigSource? tempActive = tempActiveJson != null
         ? NodeConfigSource.fromJson(tempActiveJson)
         : null;
-    final tempAssigned = tempAssignedJson != null
+    final NodeConfigSource? tempAssigned = tempAssignedJson != null
         ? NodeConfigSource.fromJson(tempAssignedJson)
         : null;
-    final tempError = tempErrorJson;
-    final tempLastKnownGood = tempLastKnownGoodJson != null
+    final String? tempError = tempErrorJson;
+    final NodeConfigSource? tempLastKnownGood = tempLastKnownGoodJson != null
         ? NodeConfigSource.fromJson(tempLastKnownGoodJson)
         : null;
 

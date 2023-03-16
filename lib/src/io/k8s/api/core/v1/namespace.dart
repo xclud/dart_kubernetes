@@ -24,13 +24,13 @@ class Namespace {
     final tempSpecJson = json['spec'];
     final tempStatusJson = json['status'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempKind = tempKindJson;
-    final tempMetadata =
+    final String? tempApiVersion = tempApiVersionJson;
+    final String? tempKind = tempKindJson;
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final tempSpec =
+    final NamespaceSpec? tempSpec =
         tempSpecJson != null ? NamespaceSpec.fromJson(tempSpecJson) : null;
-    final tempStatus = tempStatusJson != null
+    final NamespaceStatus? tempStatus = tempStatusJson != null
         ? NamespaceStatus.fromJson(tempStatusJson)
         : null;
 

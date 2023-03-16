@@ -18,10 +18,10 @@ class HorizontalPodAutoscalerBehavior {
     final tempScaleDownJson = json['scaleDown'];
     final tempScaleUpJson = json['scaleUp'];
 
-    final tempScaleDown = tempScaleDownJson != null
+    final HPAScalingRules? tempScaleDown = tempScaleDownJson != null
         ? HPAScalingRules.fromJson(tempScaleDownJson)
         : null;
-    final tempScaleUp = tempScaleUpJson != null
+    final HPAScalingRules? tempScaleUp = tempScaleUpJson != null
         ? HPAScalingRules.fromJson(tempScaleUpJson)
         : null;
 

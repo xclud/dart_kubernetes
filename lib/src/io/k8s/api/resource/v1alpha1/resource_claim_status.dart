@@ -22,12 +22,13 @@ class ResourceClaimStatus {
     final tempDriverNameJson = json['driverName'];
     final tempReservedForJson = json['reservedFor'];
 
-    final tempAllocation = tempAllocationJson != null
+    final AllocationResult? tempAllocation = tempAllocationJson != null
         ? AllocationResult.fromJson(tempAllocationJson)
         : null;
-    final tempDeallocationRequested = tempDeallocationRequestedJson;
-    final tempDriverName = tempDriverNameJson;
-    final tempReservedFor = tempReservedForJson;
+    final bool? tempDeallocationRequested = tempDeallocationRequestedJson;
+    final String? tempDriverName = tempDriverNameJson;
+    final List<ResourceClaimConsumerReference>? tempReservedFor =
+        tempReservedForJson;
 
     return ResourceClaimStatus(
       allocation: tempAllocation,

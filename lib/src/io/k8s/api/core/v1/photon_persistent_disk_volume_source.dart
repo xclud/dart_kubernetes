@@ -18,8 +18,8 @@ class PhotonPersistentDiskVolumeSource {
     final tempFsTypeJson = json['fsType'];
     final tempPdIDJson = json['pdID'];
 
-    final tempFsType = tempFsTypeJson;
-    final tempPdID = tempPdIDJson;
+    final String? tempFsType = tempFsTypeJson;
+    final String tempPdID = tempPdIDJson;
 
     return PhotonPersistentDiskVolumeSource(
       fsType: tempFsType,

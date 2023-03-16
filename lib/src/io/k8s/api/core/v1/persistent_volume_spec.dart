@@ -75,85 +75,94 @@ class PersistentVolumeSpec {
     final tempVolumeModeJson = json['volumeMode'];
     final tempVsphereVolumeJson = json['vsphereVolume'];
 
-    final tempAccessModes = tempAccessModesJson;
-    final tempAwsElasticBlockStore = tempAwsElasticBlockStoreJson != null
-        ? AWSElasticBlockStoreVolumeSource.fromJson(
-            tempAwsElasticBlockStoreJson)
-        : null;
-    final tempAzureDisk = tempAzureDiskJson != null
+    final List<String>? tempAccessModes = tempAccessModesJson;
+    final AWSElasticBlockStoreVolumeSource? tempAwsElasticBlockStore =
+        tempAwsElasticBlockStoreJson != null
+            ? AWSElasticBlockStoreVolumeSource.fromJson(
+                tempAwsElasticBlockStoreJson)
+            : null;
+    final AzureDiskVolumeSource? tempAzureDisk = tempAzureDiskJson != null
         ? AzureDiskVolumeSource.fromJson(tempAzureDiskJson)
         : null;
-    final tempAzureFile = tempAzureFileJson != null
-        ? AzureFilePersistentVolumeSource.fromJson(tempAzureFileJson)
-        : null;
-    final tempCapacity = tempCapacityJson;
-    final tempCephfs = tempCephfsJson != null
+    final AzureFilePersistentVolumeSource? tempAzureFile =
+        tempAzureFileJson != null
+            ? AzureFilePersistentVolumeSource.fromJson(tempAzureFileJson)
+            : null;
+    final Map<String, Object> tempCapacity = tempCapacityJson;
+    final CephFSPersistentVolumeSource? tempCephfs = tempCephfsJson != null
         ? CephFSPersistentVolumeSource.fromJson(tempCephfsJson)
         : null;
-    final tempCinder = tempCinderJson != null
+    final CinderPersistentVolumeSource? tempCinder = tempCinderJson != null
         ? CinderPersistentVolumeSource.fromJson(tempCinderJson)
         : null;
-    final tempClaimRef = tempClaimRefJson != null
+    final ObjectReference? tempClaimRef = tempClaimRefJson != null
         ? ObjectReference.fromJson(tempClaimRefJson)
         : null;
-    final tempCsi = tempCsiJson != null
+    final CSIPersistentVolumeSource? tempCsi = tempCsiJson != null
         ? CSIPersistentVolumeSource.fromJson(tempCsiJson)
         : null;
-    final tempFc =
+    final FCVolumeSource? tempFc =
         tempFcJson != null ? FCVolumeSource.fromJson(tempFcJson) : null;
-    final tempFlexVolume = tempFlexVolumeJson != null
-        ? FlexPersistentVolumeSource.fromJson(tempFlexVolumeJson)
-        : null;
-    final tempFlocker = tempFlockerJson != null
+    final FlexPersistentVolumeSource? tempFlexVolume =
+        tempFlexVolumeJson != null
+            ? FlexPersistentVolumeSource.fromJson(tempFlexVolumeJson)
+            : null;
+    final FlockerVolumeSource? tempFlocker = tempFlockerJson != null
         ? FlockerVolumeSource.fromJson(tempFlockerJson)
         : null;
-    final tempGcePersistentDisk = tempGcePersistentDiskJson != null
-        ? GCEPersistentDiskVolumeSource.fromJson(tempGcePersistentDiskJson)
-        : null;
-    final tempGlusterfs = tempGlusterfsJson != null
-        ? GlusterfsPersistentVolumeSource.fromJson(tempGlusterfsJson)
-        : null;
-    final tempHostPath = tempHostPathJson != null
+    final GCEPersistentDiskVolumeSource? tempGcePersistentDisk =
+        tempGcePersistentDiskJson != null
+            ? GCEPersistentDiskVolumeSource.fromJson(tempGcePersistentDiskJson)
+            : null;
+    final GlusterfsPersistentVolumeSource? tempGlusterfs =
+        tempGlusterfsJson != null
+            ? GlusterfsPersistentVolumeSource.fromJson(tempGlusterfsJson)
+            : null;
+    final HostPathVolumeSource? tempHostPath = tempHostPathJson != null
         ? HostPathVolumeSource.fromJson(tempHostPathJson)
         : null;
-    final tempIscsi = tempIscsiJson != null
+    final ISCSIPersistentVolumeSource? tempIscsi = tempIscsiJson != null
         ? ISCSIPersistentVolumeSource.fromJson(tempIscsiJson)
         : null;
-    final tempLocal = tempLocalJson != null
+    final LocalVolumeSource? tempLocal = tempLocalJson != null
         ? LocalVolumeSource.fromJson(tempLocalJson)
         : null;
-    final tempMountOptions = tempMountOptionsJson;
-    final tempNfs =
+    final List<String>? tempMountOptions = tempMountOptionsJson;
+    final NFSVolumeSource? tempNfs =
         tempNfsJson != null ? NFSVolumeSource.fromJson(tempNfsJson) : null;
-    final tempNodeAffinity = tempNodeAffinityJson != null
+    final VolumeNodeAffinity? tempNodeAffinity = tempNodeAffinityJson != null
         ? VolumeNodeAffinity.fromJson(tempNodeAffinityJson)
         : null;
-    final tempPersistentVolumeReclaimPolicy =
+    final String? tempPersistentVolumeReclaimPolicy =
         tempPersistentVolumeReclaimPolicyJson;
-    final tempPhotonPersistentDisk = tempPhotonPersistentDiskJson != null
-        ? PhotonPersistentDiskVolumeSource.fromJson(
-            tempPhotonPersistentDiskJson)
-        : null;
-    final tempPortworxVolume = tempPortworxVolumeJson != null
-        ? PortworxVolumeSource.fromJson(tempPortworxVolumeJson)
-        : null;
-    final tempQuobyte = tempQuobyteJson != null
+    final PhotonPersistentDiskVolumeSource? tempPhotonPersistentDisk =
+        tempPhotonPersistentDiskJson != null
+            ? PhotonPersistentDiskVolumeSource.fromJson(
+                tempPhotonPersistentDiskJson)
+            : null;
+    final PortworxVolumeSource? tempPortworxVolume =
+        tempPortworxVolumeJson != null
+            ? PortworxVolumeSource.fromJson(tempPortworxVolumeJson)
+            : null;
+    final QuobyteVolumeSource? tempQuobyte = tempQuobyteJson != null
         ? QuobyteVolumeSource.fromJson(tempQuobyteJson)
         : null;
-    final tempRbd = tempRbdJson != null
+    final RBDPersistentVolumeSource? tempRbd = tempRbdJson != null
         ? RBDPersistentVolumeSource.fromJson(tempRbdJson)
         : null;
-    final tempScaleIO = tempScaleIOJson != null
+    final ScaleIOPersistentVolumeSource? tempScaleIO = tempScaleIOJson != null
         ? ScaleIOPersistentVolumeSource.fromJson(tempScaleIOJson)
         : null;
-    final tempStorageClassName = tempStorageClassNameJson;
-    final tempStorageos = tempStorageosJson != null
-        ? StorageOSPersistentVolumeSource.fromJson(tempStorageosJson)
-        : null;
-    final tempVolumeMode = tempVolumeModeJson;
-    final tempVsphereVolume = tempVsphereVolumeJson != null
-        ? VsphereVirtualDiskVolumeSource.fromJson(tempVsphereVolumeJson)
-        : null;
+    final String? tempStorageClassName = tempStorageClassNameJson;
+    final StorageOSPersistentVolumeSource? tempStorageos =
+        tempStorageosJson != null
+            ? StorageOSPersistentVolumeSource.fromJson(tempStorageosJson)
+            : null;
+    final String? tempVolumeMode = tempVolumeModeJson;
+    final VsphereVirtualDiskVolumeSource? tempVsphereVolume =
+        tempVsphereVolumeJson != null
+            ? VsphereVirtualDiskVolumeSource.fromJson(tempVsphereVolumeJson)
+            : null;
 
     return PersistentVolumeSpec(
       accessModes: tempAccessModes,

@@ -22,11 +22,11 @@ class CSINode {
     final tempMetadataJson = json['metadata'];
     final tempSpecJson = json['spec'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempKind = tempKindJson;
-    final tempMetadata =
+    final String? tempApiVersion = tempApiVersionJson;
+    final String? tempKind = tempKindJson;
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final tempSpec = CSINodeSpec.fromJson(tempSpecJson);
+    final CSINodeSpec tempSpec = CSINodeSpec.fromJson(tempSpecJson);
 
     return CSINode(
       apiVersion: tempApiVersion,

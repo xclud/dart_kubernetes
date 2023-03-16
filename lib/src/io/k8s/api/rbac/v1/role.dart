@@ -22,11 +22,11 @@ class Role {
     final tempMetadataJson = json['metadata'];
     final tempRulesJson = json['rules'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempKind = tempKindJson;
-    final tempMetadata =
+    final String? tempApiVersion = tempApiVersionJson;
+    final String? tempKind = tempKindJson;
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final tempRules = tempRulesJson;
+    final List<PolicyRule>? tempRules = tempRulesJson;
 
     return Role(
       apiVersion: tempApiVersion,

@@ -16,7 +16,7 @@ class ClientIPConfig {
   factory ClientIPConfig.fromJson(Map<String, dynamic> json) {
     final tempTimeoutSecondsJson = json['timeoutSeconds'];
 
-    final tempTimeoutSeconds = tempTimeoutSecondsJson;
+    final int? tempTimeoutSeconds = tempTimeoutSecondsJson;
 
     return ClientIPConfig(
       timeoutSeconds: tempTimeoutSeconds,

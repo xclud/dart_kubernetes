@@ -20,9 +20,9 @@ class NetworkPolicyPort {
     final tempPortJson = json['port'];
     final tempProtocolJson = json['protocol'];
 
-    final tempEndPort = tempEndPortJson;
-    final tempPort = tempPortJson;
-    final tempProtocol = tempProtocolJson;
+    final int? tempEndPort = tempEndPortJson;
+    final String? tempPort = tempPortJson;
+    final String? tempProtocol = tempProtocolJson;
 
     return NetworkPolicyPort(
       endPort: tempEndPort,

@@ -18,10 +18,11 @@ class StatefulSetUpdateStrategy {
     final tempRollingUpdateJson = json['rollingUpdate'];
     final tempTypeJson = json['type'];
 
-    final tempRollingUpdate = tempRollingUpdateJson != null
-        ? RollingUpdateStatefulSetStrategy.fromJson(tempRollingUpdateJson)
-        : null;
-    final tempType = tempTypeJson;
+    final RollingUpdateStatefulSetStrategy? tempRollingUpdate =
+        tempRollingUpdateJson != null
+            ? RollingUpdateStatefulSetStrategy.fromJson(tempRollingUpdateJson)
+            : null;
+    final String? tempType = tempTypeJson;
 
     return StatefulSetUpdateStrategy(
       rollingUpdate: tempRollingUpdate,

@@ -22,9 +22,9 @@ class ConfigMapProjection {
     final tempNameJson = json['name'];
     final tempOptionalJson = json['optional'];
 
-    final tempItems = tempItemsJson;
-    final tempName = tempNameJson;
-    final tempOptional = tempOptionalJson;
+    final List<KeyToPath>? tempItems = tempItemsJson;
+    final String? tempName = tempNameJson;
+    final bool? tempOptional = tempOptionalJson;
 
     return ConfigMapProjection(
       items: tempItems,

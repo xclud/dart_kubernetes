@@ -18,8 +18,10 @@ class ExternalMetricStatus {
     final tempCurrentJson = json['current'];
     final tempMetricJson = json['metric'];
 
-    final tempCurrent = MetricValueStatus.fromJson(tempCurrentJson);
-    final tempMetric = MetricIdentifier.fromJson(tempMetricJson);
+    final MetricValueStatus tempCurrent =
+        MetricValueStatus.fromJson(tempCurrentJson);
+    final MetricIdentifier tempMetric =
+        MetricIdentifier.fromJson(tempMetricJson);
 
     return ExternalMetricStatus(
       current: tempCurrent,

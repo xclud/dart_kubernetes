@@ -22,14 +22,15 @@ class DownwardAPIVolumeFile {
     final tempPathJson = json['path'];
     final tempResourceFieldRefJson = json['resourceFieldRef'];
 
-    final tempFieldRef = tempFieldRefJson != null
+    final ObjectFieldSelector? tempFieldRef = tempFieldRefJson != null
         ? ObjectFieldSelector.fromJson(tempFieldRefJson)
         : null;
-    final tempMode = tempModeJson;
-    final tempPath = tempPathJson;
-    final tempResourceFieldRef = tempResourceFieldRefJson != null
-        ? ResourceFieldSelector.fromJson(tempResourceFieldRefJson)
-        : null;
+    final int? tempMode = tempModeJson;
+    final String tempPath = tempPathJson;
+    final ResourceFieldSelector? tempResourceFieldRef =
+        tempResourceFieldRefJson != null
+            ? ResourceFieldSelector.fromJson(tempResourceFieldRefJson)
+            : null;
 
     return DownwardAPIVolumeFile(
       fieldRef: tempFieldRef,

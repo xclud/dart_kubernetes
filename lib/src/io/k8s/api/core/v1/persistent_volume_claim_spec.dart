@@ -30,22 +30,23 @@ class PersistentVolumeClaimSpec {
     final tempVolumeModeJson = json['volumeMode'];
     final tempVolumeNameJson = json['volumeName'];
 
-    final tempAccessModes = tempAccessModesJson;
-    final tempDataSource = tempDataSourceJson != null
+    final List<String>? tempAccessModes = tempAccessModesJson;
+    final TypedLocalObjectReference? tempDataSource = tempDataSourceJson != null
         ? TypedLocalObjectReference.fromJson(tempDataSourceJson)
         : null;
-    final tempDataSourceRef = tempDataSourceRefJson != null
-        ? TypedObjectReference.fromJson(tempDataSourceRefJson)
-        : null;
-    final tempResources = tempResourcesJson != null
+    final TypedObjectReference? tempDataSourceRef =
+        tempDataSourceRefJson != null
+            ? TypedObjectReference.fromJson(tempDataSourceRefJson)
+            : null;
+    final ResourceRequirements? tempResources = tempResourcesJson != null
         ? ResourceRequirements.fromJson(tempResourcesJson)
         : null;
-    final tempSelector = tempSelectorJson != null
+    final LabelSelector? tempSelector = tempSelectorJson != null
         ? LabelSelector.fromJson(tempSelectorJson)
         : null;
-    final tempStorageClassName = tempStorageClassNameJson;
-    final tempVolumeMode = tempVolumeModeJson;
-    final tempVolumeName = tempVolumeNameJson;
+    final String? tempStorageClassName = tempStorageClassNameJson;
+    final String? tempVolumeMode = tempVolumeModeJson;
+    final String? tempVolumeName = tempVolumeNameJson;
 
     return PersistentVolumeClaimSpec(
       accessModes: tempAccessModes,

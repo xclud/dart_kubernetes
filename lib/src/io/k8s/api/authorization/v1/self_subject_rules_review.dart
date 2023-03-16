@@ -24,12 +24,13 @@ class SelfSubjectRulesReview {
     final tempSpecJson = json['spec'];
     final tempStatusJson = json['status'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempKind = tempKindJson;
-    final tempMetadata =
+    final String? tempApiVersion = tempApiVersionJson;
+    final String? tempKind = tempKindJson;
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final tempSpec = SelfSubjectRulesReviewSpec.fromJson(tempSpecJson);
-    final tempStatus = tempStatusJson != null
+    final SelfSubjectRulesReviewSpec tempSpec =
+        SelfSubjectRulesReviewSpec.fromJson(tempSpecJson);
+    final SubjectRulesReviewStatus? tempStatus = tempStatusJson != null
         ? SubjectRulesReviewStatus.fromJson(tempStatusJson)
         : null;
 

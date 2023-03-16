@@ -16,7 +16,7 @@ class StatefulSetOrdinals {
   factory StatefulSetOrdinals.fromJson(Map<String, dynamic> json) {
     final tempStartJson = json['start'];
 
-    final tempStart = tempStartJson;
+    final int? tempStart = tempStartJson;
 
     return StatefulSetOrdinals(
       start: tempStart,

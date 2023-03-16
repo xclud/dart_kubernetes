@@ -21,12 +21,12 @@ class ValidatingAdmissionPolicyBindingSpec {
     final tempParamRefJson = json['paramRef'];
     final tempPolicyNameJson = json['policyName'];
 
-    final tempMatchResources = tempMatchResourcesJson != null
+    final MatchResources? tempMatchResources = tempMatchResourcesJson != null
         ? MatchResources.fromJson(tempMatchResourcesJson)
         : null;
-    final tempParamRef =
+    final ParamRef? tempParamRef =
         tempParamRefJson != null ? ParamRef.fromJson(tempParamRefJson) : null;
-    final tempPolicyName = tempPolicyNameJson;
+    final String? tempPolicyName = tempPolicyNameJson;
 
     return ValidatingAdmissionPolicyBindingSpec(
       matchResources: tempMatchResources,

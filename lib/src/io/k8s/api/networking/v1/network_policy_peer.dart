@@ -20,12 +20,13 @@ class NetworkPolicyPeer {
     final tempNamespaceSelectorJson = json['namespaceSelector'];
     final tempPodSelectorJson = json['podSelector'];
 
-    final tempIpBlock =
+    final IPBlock? tempIpBlock =
         tempIpBlockJson != null ? IPBlock.fromJson(tempIpBlockJson) : null;
-    final tempNamespaceSelector = tempNamespaceSelectorJson != null
-        ? LabelSelector.fromJson(tempNamespaceSelectorJson)
-        : null;
-    final tempPodSelector = tempPodSelectorJson != null
+    final LabelSelector? tempNamespaceSelector =
+        tempNamespaceSelectorJson != null
+            ? LabelSelector.fromJson(tempNamespaceSelectorJson)
+            : null;
+    final LabelSelector? tempPodSelector = tempPodSelectorJson != null
         ? LabelSelector.fromJson(tempPodSelectorJson)
         : null;
 

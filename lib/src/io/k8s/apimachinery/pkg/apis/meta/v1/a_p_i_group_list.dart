@@ -20,9 +20,9 @@ class APIGroupList {
     final tempGroupsJson = json['groups'];
     final tempKindJson = json['kind'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempGroups = tempGroupsJson;
-    final tempKind = tempKindJson;
+    final String? tempApiVersion = tempApiVersionJson;
+    final List<APIGroup> tempGroups = tempGroupsJson;
+    final String? tempKind = tempKindJson;
 
     return APIGroupList(
       apiVersion: tempApiVersion,

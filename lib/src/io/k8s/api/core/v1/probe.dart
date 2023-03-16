@@ -35,23 +35,23 @@ class Probe {
         json['terminationGracePeriodSeconds'];
     final tempTimeoutSecondsJson = json['timeoutSeconds'];
 
-    final tempExec =
+    final ExecAction? tempExec =
         tempExecJson != null ? ExecAction.fromJson(tempExecJson) : null;
-    final tempFailureThreshold = tempFailureThresholdJson;
-    final tempGrpc =
+    final int? tempFailureThreshold = tempFailureThresholdJson;
+    final GRPCAction? tempGrpc =
         tempGrpcJson != null ? GRPCAction.fromJson(tempGrpcJson) : null;
-    final tempHttpGet = tempHttpGetJson != null
+    final HTTPGetAction? tempHttpGet = tempHttpGetJson != null
         ? HTTPGetAction.fromJson(tempHttpGetJson)
         : null;
-    final tempInitialDelaySeconds = tempInitialDelaySecondsJson;
-    final tempPeriodSeconds = tempPeriodSecondsJson;
-    final tempSuccessThreshold = tempSuccessThresholdJson;
-    final tempTcpSocket = tempTcpSocketJson != null
+    final int? tempInitialDelaySeconds = tempInitialDelaySecondsJson;
+    final int? tempPeriodSeconds = tempPeriodSecondsJson;
+    final int? tempSuccessThreshold = tempSuccessThresholdJson;
+    final TCPSocketAction? tempTcpSocket = tempTcpSocketJson != null
         ? TCPSocketAction.fromJson(tempTcpSocketJson)
         : null;
-    final tempTerminationGracePeriodSeconds =
+    final int? tempTerminationGracePeriodSeconds =
         tempTerminationGracePeriodSecondsJson;
-    final tempTimeoutSeconds = tempTimeoutSecondsJson;
+    final int? tempTimeoutSeconds = tempTimeoutSecondsJson;
 
     return Probe(
       exec: tempExec,

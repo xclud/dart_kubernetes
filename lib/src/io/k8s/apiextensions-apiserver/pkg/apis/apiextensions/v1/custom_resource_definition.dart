@@ -24,12 +24,13 @@ class CustomResourceDefinition {
     final tempSpecJson = json['spec'];
     final tempStatusJson = json['status'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempKind = tempKindJson;
-    final tempMetadata =
+    final String? tempApiVersion = tempApiVersionJson;
+    final String? tempKind = tempKindJson;
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final tempSpec = CustomResourceDefinitionSpec.fromJson(tempSpecJson);
-    final tempStatus = tempStatusJson != null
+    final CustomResourceDefinitionSpec tempSpec =
+        CustomResourceDefinitionSpec.fromJson(tempSpecJson);
+    final CustomResourceDefinitionStatus? tempStatus = tempStatusJson != null
         ? CustomResourceDefinitionStatus.fromJson(tempStatusJson)
         : null;
 

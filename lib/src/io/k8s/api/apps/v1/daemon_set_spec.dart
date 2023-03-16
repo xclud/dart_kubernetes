@@ -24,13 +24,15 @@ class DaemonSetSpec {
     final tempTemplateJson = json['template'];
     final tempUpdateStrategyJson = json['updateStrategy'];
 
-    final tempMinReadySeconds = tempMinReadySecondsJson;
-    final tempRevisionHistoryLimit = tempRevisionHistoryLimitJson;
-    final tempSelector = LabelSelector.fromJson(tempSelectorJson);
-    final tempTemplate = PodTemplateSpec.fromJson(tempTemplateJson);
-    final tempUpdateStrategy = tempUpdateStrategyJson != null
-        ? DaemonSetUpdateStrategy.fromJson(tempUpdateStrategyJson)
-        : null;
+    final int? tempMinReadySeconds = tempMinReadySecondsJson;
+    final int? tempRevisionHistoryLimit = tempRevisionHistoryLimitJson;
+    final LabelSelector tempSelector = LabelSelector.fromJson(tempSelectorJson);
+    final PodTemplateSpec tempTemplate =
+        PodTemplateSpec.fromJson(tempTemplateJson);
+    final DaemonSetUpdateStrategy? tempUpdateStrategy =
+        tempUpdateStrategyJson != null
+            ? DaemonSetUpdateStrategy.fromJson(tempUpdateStrategyJson)
+            : null;
 
     return DaemonSetSpec(
       minReadySeconds: tempMinReadySeconds,

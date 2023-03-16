@@ -18,8 +18,8 @@ class Scheduling {
     final tempNodeSelectorJson = json['nodeSelector'];
     final tempTolerationsJson = json['tolerations'];
 
-    final tempNodeSelector = tempNodeSelectorJson;
-    final tempTolerations = tempTolerationsJson;
+    final Map<String, String> tempNodeSelector = tempNodeSelectorJson;
+    final List<Toleration>? tempTolerations = tempTolerationsJson;
 
     return Scheduling(
       nodeSelector: tempNodeSelector,

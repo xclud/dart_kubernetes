@@ -24,14 +24,14 @@ class PersistentVolumeClaim {
     final tempSpecJson = json['spec'];
     final tempStatusJson = json['status'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempKind = tempKindJson;
-    final tempMetadata =
+    final String? tempApiVersion = tempApiVersionJson;
+    final String? tempKind = tempKindJson;
+    final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final tempSpec = tempSpecJson != null
+    final PersistentVolumeClaimSpec? tempSpec = tempSpecJson != null
         ? PersistentVolumeClaimSpec.fromJson(tempSpecJson)
         : null;
-    final tempStatus = tempStatusJson != null
+    final PersistentVolumeClaimStatus? tempStatus = tempStatusJson != null
         ? PersistentVolumeClaimStatus.fromJson(tempStatusJson)
         : null;
 

@@ -22,10 +22,10 @@ class APIResourceList {
     final tempKindJson = json['kind'];
     final tempResourcesJson = json['resources'];
 
-    final tempApiVersion = tempApiVersionJson;
-    final tempGroupVersion = tempGroupVersionJson;
-    final tempKind = tempKindJson;
-    final tempResources = tempResourcesJson;
+    final String? tempApiVersion = tempApiVersionJson;
+    final String tempGroupVersion = tempGroupVersionJson;
+    final String? tempKind = tempKindJson;
+    final List<APIResource> tempResources = tempResourcesJson;
 
     return APIResourceList(
       apiVersion: tempApiVersion,

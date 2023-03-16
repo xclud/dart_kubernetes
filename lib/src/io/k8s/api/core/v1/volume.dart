@@ -74,93 +74,99 @@ class Volume {
     final tempStorageosJson = json['storageos'];
     final tempVsphereVolumeJson = json['vsphereVolume'];
 
-    final tempAwsElasticBlockStore = tempAwsElasticBlockStoreJson != null
-        ? AWSElasticBlockStoreVolumeSource.fromJson(
-            tempAwsElasticBlockStoreJson)
-        : null;
-    final tempAzureDisk = tempAzureDiskJson != null
+    final AWSElasticBlockStoreVolumeSource? tempAwsElasticBlockStore =
+        tempAwsElasticBlockStoreJson != null
+            ? AWSElasticBlockStoreVolumeSource.fromJson(
+                tempAwsElasticBlockStoreJson)
+            : null;
+    final AzureDiskVolumeSource? tempAzureDisk = tempAzureDiskJson != null
         ? AzureDiskVolumeSource.fromJson(tempAzureDiskJson)
         : null;
-    final tempAzureFile = tempAzureFileJson != null
+    final AzureFileVolumeSource? tempAzureFile = tempAzureFileJson != null
         ? AzureFileVolumeSource.fromJson(tempAzureFileJson)
         : null;
-    final tempCephfs = tempCephfsJson != null
+    final CephFSVolumeSource? tempCephfs = tempCephfsJson != null
         ? CephFSVolumeSource.fromJson(tempCephfsJson)
         : null;
-    final tempCinder = tempCinderJson != null
+    final CinderVolumeSource? tempCinder = tempCinderJson != null
         ? CinderVolumeSource.fromJson(tempCinderJson)
         : null;
-    final tempConfigMap = tempConfigMapJson != null
+    final ConfigMapVolumeSource? tempConfigMap = tempConfigMapJson != null
         ? ConfigMapVolumeSource.fromJson(tempConfigMapJson)
         : null;
-    final tempCsi =
+    final CSIVolumeSource? tempCsi =
         tempCsiJson != null ? CSIVolumeSource.fromJson(tempCsiJson) : null;
-    final tempDownwardAPI = tempDownwardAPIJson != null
+    final DownwardAPIVolumeSource? tempDownwardAPI = tempDownwardAPIJson != null
         ? DownwardAPIVolumeSource.fromJson(tempDownwardAPIJson)
         : null;
-    final tempEmptyDir = tempEmptyDirJson != null
+    final EmptyDirVolumeSource? tempEmptyDir = tempEmptyDirJson != null
         ? EmptyDirVolumeSource.fromJson(tempEmptyDirJson)
         : null;
-    final tempEphemeral = tempEphemeralJson != null
+    final EphemeralVolumeSource? tempEphemeral = tempEphemeralJson != null
         ? EphemeralVolumeSource.fromJson(tempEphemeralJson)
         : null;
-    final tempFc =
+    final FCVolumeSource? tempFc =
         tempFcJson != null ? FCVolumeSource.fromJson(tempFcJson) : null;
-    final tempFlexVolume = tempFlexVolumeJson != null
+    final FlexVolumeSource? tempFlexVolume = tempFlexVolumeJson != null
         ? FlexVolumeSource.fromJson(tempFlexVolumeJson)
         : null;
-    final tempFlocker = tempFlockerJson != null
+    final FlockerVolumeSource? tempFlocker = tempFlockerJson != null
         ? FlockerVolumeSource.fromJson(tempFlockerJson)
         : null;
-    final tempGcePersistentDisk = tempGcePersistentDiskJson != null
-        ? GCEPersistentDiskVolumeSource.fromJson(tempGcePersistentDiskJson)
-        : null;
-    final tempGitRepo = tempGitRepoJson != null
+    final GCEPersistentDiskVolumeSource? tempGcePersistentDisk =
+        tempGcePersistentDiskJson != null
+            ? GCEPersistentDiskVolumeSource.fromJson(tempGcePersistentDiskJson)
+            : null;
+    final GitRepoVolumeSource? tempGitRepo = tempGitRepoJson != null
         ? GitRepoVolumeSource.fromJson(tempGitRepoJson)
         : null;
-    final tempGlusterfs = tempGlusterfsJson != null
+    final GlusterfsVolumeSource? tempGlusterfs = tempGlusterfsJson != null
         ? GlusterfsVolumeSource.fromJson(tempGlusterfsJson)
         : null;
-    final tempHostPath = tempHostPathJson != null
+    final HostPathVolumeSource? tempHostPath = tempHostPathJson != null
         ? HostPathVolumeSource.fromJson(tempHostPathJson)
         : null;
-    final tempIscsi = tempIscsiJson != null
+    final ISCSIVolumeSource? tempIscsi = tempIscsiJson != null
         ? ISCSIVolumeSource.fromJson(tempIscsiJson)
         : null;
-    final tempName = tempNameJson;
-    final tempNfs =
+    final String tempName = tempNameJson;
+    final NFSVolumeSource? tempNfs =
         tempNfsJson != null ? NFSVolumeSource.fromJson(tempNfsJson) : null;
-    final tempPersistentVolumeClaim = tempPersistentVolumeClaimJson != null
-        ? PersistentVolumeClaimVolumeSource.fromJson(
-            tempPersistentVolumeClaimJson)
-        : null;
-    final tempPhotonPersistentDisk = tempPhotonPersistentDiskJson != null
-        ? PhotonPersistentDiskVolumeSource.fromJson(
-            tempPhotonPersistentDiskJson)
-        : null;
-    final tempPortworxVolume = tempPortworxVolumeJson != null
-        ? PortworxVolumeSource.fromJson(tempPortworxVolumeJson)
-        : null;
-    final tempProjected = tempProjectedJson != null
+    final PersistentVolumeClaimVolumeSource? tempPersistentVolumeClaim =
+        tempPersistentVolumeClaimJson != null
+            ? PersistentVolumeClaimVolumeSource.fromJson(
+                tempPersistentVolumeClaimJson)
+            : null;
+    final PhotonPersistentDiskVolumeSource? tempPhotonPersistentDisk =
+        tempPhotonPersistentDiskJson != null
+            ? PhotonPersistentDiskVolumeSource.fromJson(
+                tempPhotonPersistentDiskJson)
+            : null;
+    final PortworxVolumeSource? tempPortworxVolume =
+        tempPortworxVolumeJson != null
+            ? PortworxVolumeSource.fromJson(tempPortworxVolumeJson)
+            : null;
+    final ProjectedVolumeSource? tempProjected = tempProjectedJson != null
         ? ProjectedVolumeSource.fromJson(tempProjectedJson)
         : null;
-    final tempQuobyte = tempQuobyteJson != null
+    final QuobyteVolumeSource? tempQuobyte = tempQuobyteJson != null
         ? QuobyteVolumeSource.fromJson(tempQuobyteJson)
         : null;
-    final tempRbd =
+    final RBDVolumeSource? tempRbd =
         tempRbdJson != null ? RBDVolumeSource.fromJson(tempRbdJson) : null;
-    final tempScaleIO = tempScaleIOJson != null
+    final ScaleIOVolumeSource? tempScaleIO = tempScaleIOJson != null
         ? ScaleIOVolumeSource.fromJson(tempScaleIOJson)
         : null;
-    final tempSecret = tempSecretJson != null
+    final SecretVolumeSource? tempSecret = tempSecretJson != null
         ? SecretVolumeSource.fromJson(tempSecretJson)
         : null;
-    final tempStorageos = tempStorageosJson != null
+    final StorageOSVolumeSource? tempStorageos = tempStorageosJson != null
         ? StorageOSVolumeSource.fromJson(tempStorageosJson)
         : null;
-    final tempVsphereVolume = tempVsphereVolumeJson != null
-        ? VsphereVirtualDiskVolumeSource.fromJson(tempVsphereVolumeJson)
-        : null;
+    final VsphereVirtualDiskVolumeSource? tempVsphereVolume =
+        tempVsphereVolumeJson != null
+            ? VsphereVirtualDiskVolumeSource.fromJson(tempVsphereVolumeJson)
+            : null;
 
     return Volume(
       awsElasticBlockStore: tempAwsElasticBlockStore,

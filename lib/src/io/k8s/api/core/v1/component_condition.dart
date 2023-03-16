@@ -22,10 +22,10 @@ class ComponentCondition {
     final tempStatusJson = json['status'];
     final tempTypeJson = json['type'];
 
-    final tempError = tempErrorJson;
-    final tempMessage = tempMessageJson;
-    final tempStatus = tempStatusJson;
-    final tempType = tempTypeJson;
+    final String? tempError = tempErrorJson;
+    final String? tempMessage = tempMessageJson;
+    final String tempStatus = tempStatusJson;
+    final String tempType = tempTypeJson;
 
     return ComponentCondition(
       error: tempError,

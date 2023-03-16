@@ -26,14 +26,15 @@ class HorizontalPodAutoscalerStatus {
     final tempLastScaleTimeJson = json['lastScaleTime'];
     final tempObservedGenerationJson = json['observedGeneration'];
 
-    final tempConditions = tempConditionsJson;
-    final tempCurrentMetrics = tempCurrentMetricsJson;
-    final tempCurrentReplicas = tempCurrentReplicasJson;
-    final tempDesiredReplicas = tempDesiredReplicasJson;
-    final tempLastScaleTime = tempLastScaleTimeJson != null
+    final List<HorizontalPodAutoscalerCondition>? tempConditions =
+        tempConditionsJson;
+    final List<MetricStatus>? tempCurrentMetrics = tempCurrentMetricsJson;
+    final int? tempCurrentReplicas = tempCurrentReplicasJson;
+    final int tempDesiredReplicas = tempDesiredReplicasJson;
+    final DateTime? tempLastScaleTime = tempLastScaleTimeJson != null
         ? DateTime.tryParse(tempLastScaleTimeJson)
         : null;
-    final tempObservedGeneration = tempObservedGenerationJson;
+    final int? tempObservedGeneration = tempObservedGenerationJson;
 
     return HorizontalPodAutoscalerStatus(
       conditions: tempConditions,

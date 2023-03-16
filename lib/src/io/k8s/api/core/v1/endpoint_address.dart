@@ -22,10 +22,10 @@ class EndpointAddress {
     final tempNodeNameJson = json['nodeName'];
     final tempTargetRefJson = json['targetRef'];
 
-    final tempHostname = tempHostnameJson;
-    final tempIp = tempIpJson;
-    final tempNodeName = tempNodeNameJson;
-    final tempTargetRef = tempTargetRefJson != null
+    final String? tempHostname = tempHostnameJson;
+    final String tempIp = tempIpJson;
+    final String? tempNodeName = tempNodeNameJson;
+    final ObjectReference? tempTargetRef = tempTargetRefJson != null
         ? ObjectReference.fromJson(tempTargetRefJson)
         : null;
 

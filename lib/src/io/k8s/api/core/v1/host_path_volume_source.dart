@@ -18,8 +18,8 @@ class HostPathVolumeSource {
     final tempPathJson = json['path'];
     final tempTypeJson = json['type'];
 
-    final tempPath = tempPathJson;
-    final tempType = tempTypeJson;
+    final String tempPath = tempPathJson;
+    final String? tempType = tempTypeJson;
 
     return HostPathVolumeSource(
       path: tempPath,

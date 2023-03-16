@@ -20,8 +20,8 @@ class ConfigMapEnvSource {
     final tempNameJson = json['name'];
     final tempOptionalJson = json['optional'];
 
-    final tempName = tempNameJson;
-    final tempOptional = tempOptionalJson;
+    final String? tempName = tempNameJson;
+    final bool? tempOptional = tempOptionalJson;
 
     return ConfigMapEnvSource(
       name: tempName,

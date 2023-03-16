@@ -18,8 +18,8 @@ class EmptyDirVolumeSource {
     final tempMediumJson = json['medium'];
     final tempSizeLimitJson = json['sizeLimit'];
 
-    final tempMedium = tempMediumJson;
-    final tempSizeLimit = tempSizeLimitJson;
+    final String? tempMedium = tempMediumJson;
+    final String? tempSizeLimit = tempSizeLimitJson;
 
     return EmptyDirVolumeSource(
       medium: tempMedium,

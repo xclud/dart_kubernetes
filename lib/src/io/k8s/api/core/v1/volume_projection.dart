@@ -22,18 +22,20 @@ class VolumeProjection {
     final tempSecretJson = json['secret'];
     final tempServiceAccountTokenJson = json['serviceAccountToken'];
 
-    final tempConfigMap = tempConfigMapJson != null
+    final ConfigMapProjection? tempConfigMap = tempConfigMapJson != null
         ? ConfigMapProjection.fromJson(tempConfigMapJson)
         : null;
-    final tempDownwardAPI = tempDownwardAPIJson != null
+    final DownwardAPIProjection? tempDownwardAPI = tempDownwardAPIJson != null
         ? DownwardAPIProjection.fromJson(tempDownwardAPIJson)
         : null;
-    final tempSecret = tempSecretJson != null
+    final SecretProjection? tempSecret = tempSecretJson != null
         ? SecretProjection.fromJson(tempSecretJson)
         : null;
-    final tempServiceAccountToken = tempServiceAccountTokenJson != null
-        ? ServiceAccountTokenProjection.fromJson(tempServiceAccountTokenJson)
-        : null;
+    final ServiceAccountTokenProjection? tempServiceAccountToken =
+        tempServiceAccountTokenJson != null
+            ? ServiceAccountTokenProjection.fromJson(
+                tempServiceAccountTokenJson)
+            : null;
 
     return VolumeProjection(
       configMap: tempConfigMap,

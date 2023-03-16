@@ -24,15 +24,18 @@ class MatchResources {
     final tempObjectSelectorJson = json['objectSelector'];
     final tempResourceRulesJson = json['resourceRules'];
 
-    final tempExcludeResourceRules = tempExcludeResourceRulesJson;
-    final tempMatchPolicy = tempMatchPolicyJson;
-    final tempNamespaceSelector = tempNamespaceSelectorJson != null
-        ? LabelSelector.fromJson(tempNamespaceSelectorJson)
-        : null;
-    final tempObjectSelector = tempObjectSelectorJson != null
+    final List<NamedRuleWithOperations>? tempExcludeResourceRules =
+        tempExcludeResourceRulesJson;
+    final String? tempMatchPolicy = tempMatchPolicyJson;
+    final LabelSelector? tempNamespaceSelector =
+        tempNamespaceSelectorJson != null
+            ? LabelSelector.fromJson(tempNamespaceSelectorJson)
+            : null;
+    final LabelSelector? tempObjectSelector = tempObjectSelectorJson != null
         ? LabelSelector.fromJson(tempObjectSelectorJson)
         : null;
-    final tempResourceRules = tempResourceRulesJson;
+    final List<NamedRuleWithOperations>? tempResourceRules =
+        tempResourceRulesJson;
 
     return MatchResources(
       excludeResourceRules: tempExcludeResourceRules,

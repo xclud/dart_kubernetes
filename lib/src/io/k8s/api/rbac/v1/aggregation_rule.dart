@@ -16,7 +16,8 @@ class AggregationRule {
   factory AggregationRule.fromJson(Map<String, dynamic> json) {
     final tempClusterRoleSelectorsJson = json['clusterRoleSelectors'];
 
-    final tempClusterRoleSelectors = tempClusterRoleSelectorsJson;
+    final List<LabelSelector>? tempClusterRoleSelectors =
+        tempClusterRoleSelectorsJson;
 
     return AggregationRule(
       clusterRoleSelectors: tempClusterRoleSelectors,

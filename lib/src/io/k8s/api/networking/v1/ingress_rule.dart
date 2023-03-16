@@ -18,8 +18,8 @@ class IngressRule {
     final tempHostJson = json['host'];
     final tempHttpJson = json['http'];
 
-    final tempHost = tempHostJson;
-    final tempHttp = tempHttpJson != null
+    final String? tempHost = tempHostJson;
+    final HTTPIngressRuleValue? tempHttp = tempHttpJson != null
         ? HTTPIngressRuleValue.fromJson(tempHttpJson)
         : null;
 
