@@ -24,15 +24,21 @@ class NetworkPolicySpec {
 
     final List<NetworkPolicyEgressRule>? tempEgress = tempEgressJson != null
         ? List<dynamic>.from(tempEgressJson)
-            .map((e) =>
-                NetworkPolicyEgressRule.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => NetworkPolicyEgressRule.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 
     final List<NetworkPolicyIngressRule>? tempIngress = tempIngressJson != null
         ? List<dynamic>.from(tempIngressJson)
-            .map((e) =>
-                NetworkPolicyIngressRule.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => NetworkPolicyIngressRule.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

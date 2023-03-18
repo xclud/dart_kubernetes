@@ -33,8 +33,11 @@ class CustomResourceDefinitionVersion {
     final List<CustomResourceColumnDefinition>? tempAdditionalPrinterColumns =
         tempAdditionalPrinterColumnsJson != null
             ? List<dynamic>.from(tempAdditionalPrinterColumnsJson)
-                .map((e) => CustomResourceColumnDefinition.fromJson(
-                    Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => CustomResourceColumnDefinition.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 

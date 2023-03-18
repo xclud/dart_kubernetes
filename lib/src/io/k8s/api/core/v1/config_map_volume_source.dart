@@ -28,7 +28,11 @@ class ConfigMapVolumeSource {
 
     final List<KeyToPath>? tempItems = tempItemsJson != null
         ? List<dynamic>.from(tempItemsJson)
-            .map((e) => KeyToPath.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => KeyToPath.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

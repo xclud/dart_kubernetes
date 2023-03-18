@@ -22,6 +22,7 @@ class EphemeralContainer {
     required this.name,
     this.ports,
     this.readinessProbe,
+    this.resizePolicy,
     this.resources,
     this.securityContext,
     this.startupProbe,
@@ -49,6 +50,7 @@ class EphemeralContainer {
     final tempNameJson = json['name'];
     final tempPortsJson = json['ports'];
     final tempReadinessProbeJson = json['readinessProbe'];
+    final tempResizePolicyJson = json['resizePolicy'];
     final tempResourcesJson = json['resources'];
     final tempSecurityContextJson = json['securityContext'];
     final tempStartupProbeJson = json['startupProbe'];
@@ -69,13 +71,21 @@ class EphemeralContainer {
 
     final List<EnvVar>? tempEnv = tempEnvJson != null
         ? List<dynamic>.from(tempEnvJson)
-            .map((e) => EnvVar.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => EnvVar.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 
     final List<EnvFromSource>? tempEnvFrom = tempEnvFromJson != null
         ? List<dynamic>.from(tempEnvFromJson)
-            .map((e) => EnvFromSource.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => EnvFromSource.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 
@@ -91,13 +101,29 @@ class EphemeralContainer {
 
     final List<ContainerPort>? tempPorts = tempPortsJson != null
         ? List<dynamic>.from(tempPortsJson)
-            .map((e) => ContainerPort.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => ContainerPort.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 
     final Probe? tempReadinessProbe = tempReadinessProbeJson != null
         ? Probe.fromJson(tempReadinessProbeJson)
         : null;
+
+    final List<ContainerResizePolicy>? tempResizePolicy =
+        tempResizePolicyJson != null
+            ? List<dynamic>.from(tempResizePolicyJson)
+                .map(
+                  (e) => ContainerResizePolicy.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
+                .toList()
+            : null;
+
     final ResourceRequirements? tempResources = tempResourcesJson != null
         ? ResourceRequirements.fromJson(tempResourcesJson)
         : null;
@@ -117,13 +143,21 @@ class EphemeralContainer {
 
     final List<VolumeDevice>? tempVolumeDevices = tempVolumeDevicesJson != null
         ? List<dynamic>.from(tempVolumeDevicesJson)
-            .map((e) => VolumeDevice.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => VolumeDevice.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 
     final List<VolumeMount>? tempVolumeMounts = tempVolumeMountsJson != null
         ? List<dynamic>.from(tempVolumeMountsJson)
-            .map((e) => VolumeMount.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => VolumeMount.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 
@@ -141,6 +175,7 @@ class EphemeralContainer {
       name: tempName,
       ports: tempPorts,
       readinessProbe: tempReadinessProbe,
+      resizePolicy: tempResizePolicy,
       resources: tempResources,
       securityContext: tempSecurityContext,
       startupProbe: tempStartupProbe,
@@ -188,6 +223,9 @@ class EphemeralContainer {
 
   /// Probes are not allowed for ephemeral containers.
   final Probe? readinessProbe;
+
+  /// Resources resize policy for the container.
+  final List<ContainerResizePolicy>? resizePolicy;
 
   /// Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
   final ResourceRequirements? resources;
@@ -242,6 +280,7 @@ class EphemeralContainer {
     final tempName = name;
     final tempPorts = ports;
     final tempReadinessProbe = readinessProbe;
+    final tempResizePolicy = resizePolicy;
     final tempResources = resources;
     final tempSecurityContext = securityContext;
     final tempStartupProbe = startupProbe;
@@ -295,6 +334,10 @@ class EphemeralContainer {
 
     if (tempReadinessProbe != null) {
       jsonData['readinessProbe'] = tempReadinessProbe.toJson();
+    }
+
+    if (tempResizePolicy != null) {
+      jsonData['resizePolicy'] = tempResizePolicy;
     }
 
     if (tempResources != null) {

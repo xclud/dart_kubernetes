@@ -55,10 +55,10 @@ class OwnerReference {
   /// Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds.
   final String kind;
 
-  /// Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names.
+  /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names.
   final String name;
 
-  /// UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids.
+  /// UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids.
   final String uid;
 
   /// Converts a [OwnerReference] instance to JSON data.

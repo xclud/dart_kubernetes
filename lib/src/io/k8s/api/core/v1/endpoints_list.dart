@@ -25,7 +25,11 @@ class EndpointsList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<Endpoints> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => Endpoints.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => Endpoints.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

@@ -3,18 +3,18 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.resource.v1alpha1;
+part of io.k8s.api.resource.v1alpha2;
 
-/// PodSchedulingSpec describes where resources for the Pod are needed.
-class PodSchedulingSpec {
+/// PodSchedulingContextSpec describes where resources for the Pod are needed.
+class PodSchedulingContextSpec {
   /// Default constructor.
-  const PodSchedulingSpec({
+  const PodSchedulingContextSpec({
     this.potentialNodes,
     this.selectedNode,
   });
 
-  /// Creates a [PodSchedulingSpec] from JSON data.
-  factory PodSchedulingSpec.fromJson(Map<String, dynamic> json) {
+  /// Creates a [PodSchedulingContextSpec] from JSON data.
+  factory PodSchedulingContextSpec.fromJson(Map<String, dynamic> json) {
     final tempPotentialNodesJson = json['potentialNodes'];
     final tempSelectedNodeJson = json['selectedNode'];
 
@@ -23,7 +23,7 @@ class PodSchedulingSpec {
         : null;
     final String? tempSelectedNode = tempSelectedNodeJson;
 
-    return PodSchedulingSpec(
+    return PodSchedulingContextSpec(
       potentialNodes: tempPotentialNodes,
       selectedNode: tempSelectedNode,
     );
@@ -37,7 +37,7 @@ class PodSchedulingSpec {
   /// SelectedNode is the node for which allocation of ResourceClaims that are referenced by the Pod and that use "WaitForFirstConsumer" allocation is to be attempted.
   final String? selectedNode;
 
-  /// Converts a [PodSchedulingSpec] instance to JSON data.
+  /// Converts a [PodSchedulingContextSpec] instance to JSON data.
   Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 

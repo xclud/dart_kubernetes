@@ -43,19 +43,19 @@ class HorizontalPodAutoscalerStatus {
     );
   }
 
-  /// current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
+  /// currentCPUUtilizationPercentage is the current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
   final int? currentCPUUtilizationPercentage;
 
-  /// current number of replicas of pods managed by this autoscaler.
+  /// currentReplicas is the current number of replicas of pods managed by this autoscaler.
   final int currentReplicas;
 
-  /// desired number of replicas of pods managed by this autoscaler.
+  /// desiredReplicas is the  desired number of replicas of pods managed by this autoscaler.
   final int desiredReplicas;
 
-  /// last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
+  /// lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
   final DateTime? lastScaleTime;
 
-  /// most recent generation observed by this autoscaler.
+  /// observedGeneration is the most recent generation observed by this autoscaler.
   final int? observedGeneration;
 
   /// Converts a [HorizontalPodAutoscalerStatus] instance to JSON data.

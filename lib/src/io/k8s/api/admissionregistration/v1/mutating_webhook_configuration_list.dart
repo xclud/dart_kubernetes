@@ -24,11 +24,14 @@ class MutatingWebhookConfigurationList {
 
     final String? tempApiVersion = tempApiVersionJson;
 
-    final List<MutatingWebhookConfiguration> tempItems = List<dynamic>.from(
-            tempItemsJson)
-        .map((e) =>
-            MutatingWebhookConfiguration.fromJson(Map<String, dynamic>.from(e)))
-        .toList();
+    final List<MutatingWebhookConfiguration> tempItems =
+        List<dynamic>.from(tempItemsJson)
+            .map(
+              (e) => MutatingWebhookConfiguration.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
+            .toList();
 
     final String? tempKind = tempKindJson;
     final ListMeta? tempMetadata =

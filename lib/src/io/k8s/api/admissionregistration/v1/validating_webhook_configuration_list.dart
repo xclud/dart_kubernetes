@@ -27,8 +27,11 @@ class ValidatingWebhookConfigurationList {
 
     final List<ValidatingWebhookConfiguration> tempItems =
         List<dynamic>.from(tempItemsJson)
-            .map((e) => ValidatingWebhookConfiguration.fromJson(
-                Map<String, dynamic>.from(e)))
+            .map(
+              (e) => ValidatingWebhookConfiguration.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList();
 
     final String? tempKind = tempKindJson;

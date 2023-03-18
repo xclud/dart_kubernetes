@@ -25,7 +25,11 @@ class ServiceAccountList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<ServiceAccount> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => ServiceAccount.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => ServiceAccount.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

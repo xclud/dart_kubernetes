@@ -25,7 +25,11 @@ class DaemonSetList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<DaemonSet> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => DaemonSet.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => DaemonSet.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

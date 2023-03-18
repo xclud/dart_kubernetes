@@ -39,7 +39,11 @@ class NodeSpec {
 
     final List<Taint>? tempTaints = tempTaintsJson != null
         ? List<dynamic>.from(tempTaintsJson)
-            .map((e) => Taint.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => Taint.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

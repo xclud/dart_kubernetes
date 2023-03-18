@@ -23,7 +23,11 @@ class HPAScalingRules {
 
     final List<HPAScalingPolicy>? tempPolicies = tempPoliciesJson != null
         ? List<dynamic>.from(tempPoliciesJson)
-            .map((e) => HPAScalingPolicy.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => HPAScalingPolicy.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 
@@ -44,7 +48,7 @@ class HPAScalingRules {
   /// selectPolicy is used to specify which policy should be used. If not set, the default value Max is used.
   final String? selectPolicy;
 
-  /// StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+  /// stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
   final int? stabilizationWindowSeconds;
 
   /// Converts a [HPAScalingRules] instance to JSON data.

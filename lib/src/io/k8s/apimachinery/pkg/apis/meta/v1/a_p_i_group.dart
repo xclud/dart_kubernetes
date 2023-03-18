@@ -38,15 +38,21 @@ class APIGroup {
     final List<ServerAddressByClientCIDR>? tempServerAddressByClientCIDRs =
         tempServerAddressByClientCIDRsJson != null
             ? List<dynamic>.from(tempServerAddressByClientCIDRsJson)
-                .map((e) => ServerAddressByClientCIDR.fromJson(
-                    Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => ServerAddressByClientCIDR.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 
     final List<GroupVersionForDiscovery> tempVersions =
         List<dynamic>.from(tempVersionsJson)
-            .map((e) =>
-                GroupVersionForDiscovery.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => GroupVersionForDiscovery.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList();
 
     return APIGroup(

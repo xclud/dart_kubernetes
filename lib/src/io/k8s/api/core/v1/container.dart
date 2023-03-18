@@ -20,6 +20,7 @@ class Container {
     required this.name,
     this.ports,
     this.readinessProbe,
+    this.resizePolicy,
     this.resources,
     this.securityContext,
     this.startupProbe,
@@ -46,6 +47,7 @@ class Container {
     final tempNameJson = json['name'];
     final tempPortsJson = json['ports'];
     final tempReadinessProbeJson = json['readinessProbe'];
+    final tempResizePolicyJson = json['resizePolicy'];
     final tempResourcesJson = json['resources'];
     final tempSecurityContextJson = json['securityContext'];
     final tempStartupProbeJson = json['startupProbe'];
@@ -65,13 +67,21 @@ class Container {
 
     final List<EnvVar>? tempEnv = tempEnvJson != null
         ? List<dynamic>.from(tempEnvJson)
-            .map((e) => EnvVar.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => EnvVar.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 
     final List<EnvFromSource>? tempEnvFrom = tempEnvFromJson != null
         ? List<dynamic>.from(tempEnvFromJson)
-            .map((e) => EnvFromSource.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => EnvFromSource.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 
@@ -87,13 +97,29 @@ class Container {
 
     final List<ContainerPort>? tempPorts = tempPortsJson != null
         ? List<dynamic>.from(tempPortsJson)
-            .map((e) => ContainerPort.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => ContainerPort.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 
     final Probe? tempReadinessProbe = tempReadinessProbeJson != null
         ? Probe.fromJson(tempReadinessProbeJson)
         : null;
+
+    final List<ContainerResizePolicy>? tempResizePolicy =
+        tempResizePolicyJson != null
+            ? List<dynamic>.from(tempResizePolicyJson)
+                .map(
+                  (e) => ContainerResizePolicy.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
+                .toList()
+            : null;
+
     final ResourceRequirements? tempResources = tempResourcesJson != null
         ? ResourceRequirements.fromJson(tempResourcesJson)
         : null;
@@ -112,13 +138,21 @@ class Container {
 
     final List<VolumeDevice>? tempVolumeDevices = tempVolumeDevicesJson != null
         ? List<dynamic>.from(tempVolumeDevicesJson)
-            .map((e) => VolumeDevice.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => VolumeDevice.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 
     final List<VolumeMount>? tempVolumeMounts = tempVolumeMountsJson != null
         ? List<dynamic>.from(tempVolumeMountsJson)
-            .map((e) => VolumeMount.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => VolumeMount.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 
@@ -136,6 +170,7 @@ class Container {
       name: tempName,
       ports: tempPorts,
       readinessProbe: tempReadinessProbe,
+      resizePolicy: tempResizePolicy,
       resources: tempResources,
       securityContext: tempSecurityContext,
       startupProbe: tempStartupProbe,
@@ -182,6 +217,9 @@ class Container {
 
   /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes.
   final Probe? readinessProbe;
+
+  /// Resources resize policy for the container.
+  final List<ContainerResizePolicy>? resizePolicy;
 
   /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/.
   final ResourceRequirements? resources;
@@ -231,6 +269,7 @@ class Container {
     final tempName = name;
     final tempPorts = ports;
     final tempReadinessProbe = readinessProbe;
+    final tempResizePolicy = resizePolicy;
     final tempResources = resources;
     final tempSecurityContext = securityContext;
     final tempStartupProbe = startupProbe;
@@ -283,6 +322,10 @@ class Container {
 
     if (tempReadinessProbe != null) {
       jsonData['readinessProbe'] = tempReadinessProbe.toJson();
+    }
+
+    if (tempResizePolicy != null) {
+      jsonData['resizePolicy'] = tempResizePolicy;
     }
 
     if (tempResources != null) {

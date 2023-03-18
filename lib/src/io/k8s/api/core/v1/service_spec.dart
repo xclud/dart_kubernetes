@@ -79,7 +79,11 @@ class ServiceSpec {
 
     final List<ServicePort>? tempPorts = tempPortsJson != null
         ? List<dynamic>.from(tempPortsJson)
-            .map((e) => ServicePort.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => ServicePort.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

@@ -25,7 +25,11 @@ class DeploymentList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<Deployment> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => Deployment.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => Deployment.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

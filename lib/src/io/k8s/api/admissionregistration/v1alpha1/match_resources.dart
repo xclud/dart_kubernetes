@@ -27,8 +27,11 @@ class MatchResources {
     final List<NamedRuleWithOperations>? tempExcludeResourceRules =
         tempExcludeResourceRulesJson != null
             ? List<dynamic>.from(tempExcludeResourceRulesJson)
-                .map((e) => NamedRuleWithOperations.fromJson(
-                    Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => NamedRuleWithOperations.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 
@@ -44,8 +47,11 @@ class MatchResources {
     final List<NamedRuleWithOperations>? tempResourceRules =
         tempResourceRulesJson != null
             ? List<dynamic>.from(tempResourceRulesJson)
-                .map((e) => NamedRuleWithOperations.fromJson(
-                    Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => NamedRuleWithOperations.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 

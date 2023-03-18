@@ -21,16 +21,22 @@ class NodeSelectorTerm {
     final List<NodeSelectorRequirement>? tempMatchExpressions =
         tempMatchExpressionsJson != null
             ? List<dynamic>.from(tempMatchExpressionsJson)
-                .map((e) => NodeSelectorRequirement.fromJson(
-                    Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => NodeSelectorRequirement.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 
     final List<NodeSelectorRequirement>? tempMatchFields =
         tempMatchFieldsJson != null
             ? List<dynamic>.from(tempMatchFieldsJson)
-                .map((e) => NodeSelectorRequirement.fromJson(
-                    Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => NodeSelectorRequirement.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 

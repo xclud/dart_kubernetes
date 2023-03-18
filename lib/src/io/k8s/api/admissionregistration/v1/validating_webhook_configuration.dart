@@ -30,7 +30,10 @@ class ValidatingWebhookConfiguration {
     final List<ValidatingWebhook>? tempWebhooks = tempWebhooksJson != null
         ? List<dynamic>.from(tempWebhooksJson)
             .map(
-                (e) => ValidatingWebhook.fromJson(Map<String, dynamic>.from(e)))
+              (e) => ValidatingWebhook.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

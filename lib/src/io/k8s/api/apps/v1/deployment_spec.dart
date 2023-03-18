@@ -75,7 +75,7 @@ class DeploymentSpec {
   /// The deployment strategy to use to replace existing pods with new ones.
   final DeploymentStrategy? strategy;
 
-  /// Template describes the pods that will be created.
+  /// Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is "Always".
   final PodTemplateSpec template;
 
   /// Converts a [DeploymentSpec] instance to JSON data.

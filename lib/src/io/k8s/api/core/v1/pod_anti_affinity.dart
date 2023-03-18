@@ -25,8 +25,11 @@ class PodAntiAffinity {
         tempPreferredDuringSchedulingIgnoredDuringExecutionJson != null
             ? List<dynamic>.from(
                     tempPreferredDuringSchedulingIgnoredDuringExecutionJson)
-                .map((e) => WeightedPodAffinityTerm.fromJson(
-                    Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => WeightedPodAffinityTerm.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 
@@ -35,8 +38,11 @@ class PodAntiAffinity {
         tempRequiredDuringSchedulingIgnoredDuringExecutionJson != null
             ? List<dynamic>.from(
                     tempRequiredDuringSchedulingIgnoredDuringExecutionJson)
-                .map((e) =>
-                    PodAffinityTerm.fromJson(Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => PodAffinityTerm.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 

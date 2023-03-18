@@ -32,7 +32,11 @@ class HorizontalPodAutoscalerSpec {
 
     final List<MetricSpec>? tempMetrics = tempMetricsJson != null
         ? List<dynamic>.from(tempMetricsJson)
-            .map((e) => MetricSpec.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => MetricSpec.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

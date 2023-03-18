@@ -25,8 +25,11 @@ class NodeAffinity {
         tempPreferredDuringSchedulingIgnoredDuringExecutionJson != null
             ? List<dynamic>.from(
                     tempPreferredDuringSchedulingIgnoredDuringExecutionJson)
-                .map((e) => PreferredSchedulingTerm.fromJson(
-                    Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => PreferredSchedulingTerm.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 

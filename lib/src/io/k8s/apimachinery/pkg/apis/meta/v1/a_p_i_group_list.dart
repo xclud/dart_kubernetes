@@ -23,7 +23,11 @@ class APIGroupList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<APIGroup> tempGroups = List<dynamic>.from(tempGroupsJson)
-        .map((e) => APIGroup.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => APIGroup.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

@@ -20,7 +20,10 @@ class AggregationRule {
         tempClusterRoleSelectorsJson != null
             ? List<dynamic>.from(tempClusterRoleSelectorsJson)
                 .map(
-                    (e) => LabelSelector.fromJson(Map<String, dynamic>.from(e)))
+                  (e) => LabelSelector.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 

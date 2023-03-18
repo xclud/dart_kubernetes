@@ -29,15 +29,22 @@ class HorizontalPodAutoscalerStatus {
     final List<HorizontalPodAutoscalerCondition>? tempConditions =
         tempConditionsJson != null
             ? List<dynamic>.from(tempConditionsJson)
-                .map((e) => HorizontalPodAutoscalerCondition.fromJson(
-                    Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => HorizontalPodAutoscalerCondition.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 
     final List<MetricStatus>? tempCurrentMetrics =
         tempCurrentMetricsJson != null
             ? List<dynamic>.from(tempCurrentMetricsJson)
-                .map((e) => MetricStatus.fromJson(Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => MetricStatus.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 

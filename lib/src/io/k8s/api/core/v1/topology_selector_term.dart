@@ -19,8 +19,11 @@ class TopologySelectorTerm {
     final List<TopologySelectorLabelRequirement>? tempMatchLabelExpressions =
         tempMatchLabelExpressionsJson != null
             ? List<dynamic>.from(tempMatchLabelExpressionsJson)
-                .map((e) => TopologySelectorLabelRequirement.fromJson(
-                    Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => TopologySelectorLabelRequirement.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 

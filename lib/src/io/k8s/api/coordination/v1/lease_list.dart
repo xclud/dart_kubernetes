@@ -25,7 +25,11 @@ class LeaseList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<Lease> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => Lease.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => Lease.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

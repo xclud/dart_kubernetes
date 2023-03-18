@@ -10,25 +10,32 @@ class ValidationRule {
   /// Default constructor.
   const ValidationRule({
     this.message,
+    this.messageExpression,
     required this.rule,
   });
 
   /// Creates a [ValidationRule] from JSON data.
   factory ValidationRule.fromJson(Map<String, dynamic> json) {
     final tempMessageJson = json['message'];
+    final tempMessageExpressionJson = json['messageExpression'];
     final tempRuleJson = json['rule'];
 
     final String? tempMessage = tempMessageJson;
+    final String? tempMessageExpression = tempMessageExpressionJson;
     final String tempRule = tempRuleJson;
 
     return ValidationRule(
       message: tempMessage,
+      messageExpression: tempMessageExpression,
       rule: tempRule,
     );
   }
 
   /// Message represents the message displayed when validation fails. The message is required if the Rule contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host".
   final String? message;
+
+  /// MessageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule; the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")".
+  final String? messageExpression;
 
   /// Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual <= self.spec.maxDesired"}
   ///
@@ -62,10 +69,15 @@ class ValidationRule {
     final jsonData = <String, Object>{};
 
     final tempMessage = message;
+    final tempMessageExpression = messageExpression;
     final tempRule = rule;
 
     if (tempMessage != null) {
       jsonData['message'] = tempMessage;
+    }
+
+    if (tempMessageExpression != null) {
+      jsonData['messageExpression'] = tempMessageExpression;
     }
 
     jsonData['rule'] = tempRule;

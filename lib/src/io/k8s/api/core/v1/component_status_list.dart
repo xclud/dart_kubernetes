@@ -25,7 +25,11 @@ class ComponentStatusList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<ComponentStatus> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => ComponentStatus.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => ComponentStatus.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

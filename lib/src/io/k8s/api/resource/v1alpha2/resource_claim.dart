@@ -3,37 +3,44 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.resource.v1alpha1;
+part of io.k8s.api.resource.v1alpha2;
 
-/// ResourceClaimTemplate is used to produce ResourceClaim objects.
-class ResourceClaimTemplate {
+/// ResourceClaim describes which resources are needed by a resource consumer. Its status tracks whether the resource has been allocated and what the resulting attributes are.
+///
+/// This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+class ResourceClaim {
   /// Default constructor.
-  const ResourceClaimTemplate({
+  const ResourceClaim({
     this.apiVersion,
     this.kind,
     this.metadata,
     required this.spec,
+    this.status,
   });
 
-  /// Creates a [ResourceClaimTemplate] from JSON data.
-  factory ResourceClaimTemplate.fromJson(Map<String, dynamic> json) {
+  /// Creates a [ResourceClaim] from JSON data.
+  factory ResourceClaim.fromJson(Map<String, dynamic> json) {
     final tempApiVersionJson = json['apiVersion'];
     final tempKindJson = json['kind'];
     final tempMetadataJson = json['metadata'];
     final tempSpecJson = json['spec'];
+    final tempStatusJson = json['status'];
 
     final String? tempApiVersion = tempApiVersionJson;
     final String? tempKind = tempKindJson;
     final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final ResourceClaimTemplateSpec tempSpec =
-        ResourceClaimTemplateSpec.fromJson(tempSpecJson);
+    final ResourceClaimSpec tempSpec = ResourceClaimSpec.fromJson(tempSpecJson);
+    final ResourceClaimStatus? tempStatus = tempStatusJson != null
+        ? ResourceClaimStatus.fromJson(tempStatusJson)
+        : null;
 
-    return ResourceClaimTemplate(
+    return ResourceClaim(
       apiVersion: tempApiVersion,
       kind: tempKind,
       metadata: tempMetadata,
       spec: tempSpec,
+      status: tempStatus,
     );
   }
 
@@ -46,12 +53,13 @@ class ResourceClaimTemplate {
   /// Standard object metadata.
   final ObjectMeta? metadata;
 
-  /// Describes the ResourceClaim that is to be generated.
-  ///
-  /// This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
-  final ResourceClaimTemplateSpec spec;
+  /// Spec describes the desired attributes of a resource that then needs to be allocated. It can only be set once when creating the ResourceClaim.
+  final ResourceClaimSpec spec;
 
-  /// Converts a [ResourceClaimTemplate] instance to JSON data.
+  /// Status describes whether the resource is available and with which attributes.
+  final ResourceClaimStatus? status;
+
+  /// Converts a [ResourceClaim] instance to JSON data.
   Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
@@ -59,6 +67,7 @@ class ResourceClaimTemplate {
     final tempKind = kind;
     final tempMetadata = metadata;
     final tempSpec = spec;
+    final tempStatus = status;
 
     if (tempApiVersion != null) {
       jsonData['apiVersion'] = tempApiVersion;
@@ -73,6 +82,10 @@ class ResourceClaimTemplate {
     }
 
     jsonData['spec'] = tempSpec.toJson();
+
+    if (tempStatus != null) {
+      jsonData['status'] = tempStatus.toJson();
+    }
 
     return jsonData;
   }

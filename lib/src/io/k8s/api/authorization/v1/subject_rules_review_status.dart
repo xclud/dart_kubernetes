@@ -27,12 +27,20 @@ class SubjectRulesReviewStatus {
 
     final List<NonResourceRule> tempNonResourceRules =
         List<dynamic>.from(tempNonResourceRulesJson)
-            .map((e) => NonResourceRule.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => NonResourceRule.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList();
 
     final List<ResourceRule> tempResourceRules =
         List<dynamic>.from(tempResourceRulesJson)
-            .map((e) => ResourceRule.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => ResourceRule.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList();
 
     return SubjectRulesReviewStatus(

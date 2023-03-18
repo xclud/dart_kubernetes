@@ -28,7 +28,11 @@ class HTTPGetAction {
 
     final List<HTTPHeader>? tempHttpHeaders = tempHttpHeadersJson != null
         ? List<dynamic>.from(tempHttpHeadersJson)
-            .map((e) => HTTPHeader.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => HTTPHeader.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

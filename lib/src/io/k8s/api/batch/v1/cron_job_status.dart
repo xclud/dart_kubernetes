@@ -22,7 +22,11 @@ class CronJobStatus {
 
     final List<ObjectReference>? tempActive = tempActiveJson != null
         ? List<dynamic>.from(tempActiveJson)
-            .map((e) => ObjectReference.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => ObjectReference.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

@@ -25,7 +25,6 @@ import 'policy_v1.dart' as api_policy_v1;
 import 'rbac_v1.dart' as api_rbac_v1;
 import 'scheduling_v1.dart' as api_scheduling_v1;
 import 'storage_v1.dart' as api_storage_v1;
-import 'storage_v1beta1.dart' as api_storage_v1beta1;
 import 'io_k8s_apimachinery_pkg_version.dart' as apimachinery_pkg_version;
 import 'io_k8s_apiextensions__apiserver_pkg_apis_apiextensions_v1.dart'
     as apiextensions__apiserver_pkg_apis_apiextensions_v1;

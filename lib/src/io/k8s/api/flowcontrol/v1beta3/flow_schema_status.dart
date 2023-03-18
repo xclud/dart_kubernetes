@@ -18,8 +18,11 @@ class FlowSchemaStatus {
 
     final List<FlowSchemaCondition>? tempConditions = tempConditionsJson != null
         ? List<dynamic>.from(tempConditionsJson)
-            .map((e) =>
-                FlowSchemaCondition.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => FlowSchemaCondition.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

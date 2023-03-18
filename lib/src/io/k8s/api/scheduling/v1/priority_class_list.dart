@@ -25,7 +25,11 @@ class PriorityClassList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<PriorityClass> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => PriorityClass.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => PriorityClass.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

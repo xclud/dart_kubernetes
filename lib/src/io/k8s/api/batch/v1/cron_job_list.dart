@@ -25,7 +25,11 @@ class CronJobList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<CronJob> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => CronJob.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => CronJob.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

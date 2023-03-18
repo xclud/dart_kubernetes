@@ -25,7 +25,11 @@ class ReplicaSetList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<ReplicaSet> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => ReplicaSet.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => ReplicaSet.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

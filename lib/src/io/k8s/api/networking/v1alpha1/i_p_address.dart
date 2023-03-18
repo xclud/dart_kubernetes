@@ -3,44 +3,37 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.resource.v1alpha1;
+part of io.k8s.api.networking.v1alpha1;
 
-/// ResourceClaim describes which resources are needed by a resource consumer. Its status tracks whether the resource has been allocated and what the resulting attributes are.
-///
-/// This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
-class ResourceClaim {
+/// IPAddress represents a single IP of a single IP Family. The object is designed to be used by APIs that operate on IP addresses. The object is used by the Service core API for allocation of IP addresses. An IP address can be represented in different formats, to guarantee the uniqueness of the IP, the name of the object is the IP address in canonical format, four decimal digits separated by dots suppressing leading zeros for IPv4 and the representation defined by RFC 5952 for IPv6. Valid: 192.168.1.5 or 2001:db8::1 or 2001:db8:aaaa:bbbb:cccc:dddd:eeee:1 Invalid: 10.01.2.3 or 2001:db8:0:0:0::1.
+class IPAddress {
   /// Default constructor.
-  const ResourceClaim({
+  const IPAddress({
     this.apiVersion,
     this.kind,
     this.metadata,
-    required this.spec,
-    this.status,
+    this.spec,
   });
 
-  /// Creates a [ResourceClaim] from JSON data.
-  factory ResourceClaim.fromJson(Map<String, dynamic> json) {
+  /// Creates a [IPAddress] from JSON data.
+  factory IPAddress.fromJson(Map<String, dynamic> json) {
     final tempApiVersionJson = json['apiVersion'];
     final tempKindJson = json['kind'];
     final tempMetadataJson = json['metadata'];
     final tempSpecJson = json['spec'];
-    final tempStatusJson = json['status'];
 
     final String? tempApiVersion = tempApiVersionJson;
     final String? tempKind = tempKindJson;
     final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final ResourceClaimSpec tempSpec = ResourceClaimSpec.fromJson(tempSpecJson);
-    final ResourceClaimStatus? tempStatus = tempStatusJson != null
-        ? ResourceClaimStatus.fromJson(tempStatusJson)
-        : null;
+    final IPAddressSpec? tempSpec =
+        tempSpecJson != null ? IPAddressSpec.fromJson(tempSpecJson) : null;
 
-    return ResourceClaim(
+    return IPAddress(
       apiVersion: tempApiVersion,
       kind: tempKind,
       metadata: tempMetadata,
       spec: tempSpec,
-      status: tempStatus,
     );
   }
 
@@ -50,16 +43,13 @@ class ResourceClaim {
   /// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds.
   final String? kind;
 
-  /// Standard object metadata.
+  /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
   final ObjectMeta? metadata;
 
-  /// Spec describes the desired attributes of a resource that then needs to be allocated. It can only be set once when creating the ResourceClaim.
-  final ResourceClaimSpec spec;
+  /// spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+  final IPAddressSpec? spec;
 
-  /// Status describes whether the resource is available and with which attributes.
-  final ResourceClaimStatus? status;
-
-  /// Converts a [ResourceClaim] instance to JSON data.
+  /// Converts a [IPAddress] instance to JSON data.
   Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
@@ -67,7 +57,6 @@ class ResourceClaim {
     final tempKind = kind;
     final tempMetadata = metadata;
     final tempSpec = spec;
-    final tempStatus = status;
 
     if (tempApiVersion != null) {
       jsonData['apiVersion'] = tempApiVersion;
@@ -81,10 +70,8 @@ class ResourceClaim {
       jsonData['metadata'] = tempMetadata.toJson();
     }
 
-    jsonData['spec'] = tempSpec.toJson();
-
-    if (tempStatus != null) {
-      jsonData['status'] = tempStatus.toJson();
+    if (tempSpec != null) {
+      jsonData['spec'] = tempSpec.toJson();
     }
 
     return jsonData;

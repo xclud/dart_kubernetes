@@ -31,8 +31,11 @@ class ReplicationControllerStatus {
     final List<ReplicationControllerCondition>? tempConditions =
         tempConditionsJson != null
             ? List<dynamic>.from(tempConditionsJson)
-                .map((e) => ReplicationControllerCondition.fromJson(
-                    Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => ReplicationControllerCondition.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 

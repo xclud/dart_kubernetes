@@ -25,7 +25,11 @@ class CSINodeList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<CSINode> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => CSINode.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => CSINode.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

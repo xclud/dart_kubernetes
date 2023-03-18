@@ -5,7 +5,7 @@
 
 part of io.k8s.api.core.v1;
 
-/// PersistentVolumeClaimCondition contails details about state of pvc.
+/// PersistentVolumeClaimCondition contains details about state of pvc.
 class PersistentVolumeClaimCondition {
   /// Default constructor.
   const PersistentVolumeClaimCondition({

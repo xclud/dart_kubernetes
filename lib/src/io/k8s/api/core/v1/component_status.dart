@@ -26,8 +26,11 @@ class ComponentStatus {
 
     final List<ComponentCondition>? tempConditions = tempConditionsJson != null
         ? List<dynamic>.from(tempConditionsJson)
-            .map((e) =>
-                ComponentCondition.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => ComponentCondition.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

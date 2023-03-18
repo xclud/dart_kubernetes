@@ -35,8 +35,11 @@ class DeploymentStatus {
 
     final List<DeploymentCondition>? tempConditions = tempConditionsJson != null
         ? List<dynamic>.from(tempConditionsJson)
-            .map((e) =>
-                DeploymentCondition.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => DeploymentCondition.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

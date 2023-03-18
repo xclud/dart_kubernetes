@@ -18,7 +18,11 @@ class NetworkPolicyStatus {
 
     final List<Condition>? tempConditions = tempConditionsJson != null
         ? List<dynamic>.from(tempConditionsJson)
-            .map((e) => Condition.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => Condition.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

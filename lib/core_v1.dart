@@ -41,6 +41,7 @@ part 'src/io/k8s/api/core/v1/config_map_volume_source.dart';
 part 'src/io/k8s/api/core/v1/container.dart';
 part 'src/io/k8s/api/core/v1/container_image.dart';
 part 'src/io/k8s/api/core/v1/container_port.dart';
+part 'src/io/k8s/api/core/v1/container_resize_policy.dart';
 part 'src/io/k8s/api/core/v1/container_state.dart';
 part 'src/io/k8s/api/core/v1/container_state_running.dart';
 part 'src/io/k8s/api/core/v1/container_state_terminated.dart';

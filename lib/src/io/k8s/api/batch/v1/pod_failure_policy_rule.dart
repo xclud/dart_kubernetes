@@ -29,8 +29,11 @@ class PodFailurePolicyRule {
 
     final List<PodFailurePolicyOnPodConditionsPattern> tempOnPodConditions =
         List<dynamic>.from(tempOnPodConditionsJson)
-            .map((e) => PodFailurePolicyOnPodConditionsPattern.fromJson(
-                Map<String, dynamic>.from(e)))
+            .map(
+              (e) => PodFailurePolicyOnPodConditionsPattern.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList();
 
     return PodFailurePolicyRule(

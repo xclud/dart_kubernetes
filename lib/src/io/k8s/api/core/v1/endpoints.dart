@@ -41,7 +41,11 @@ class Endpoints {
 
     final List<EndpointSubset>? tempSubsets = tempSubsetsJson != null
         ? List<dynamic>.from(tempSubsetsJson)
-            .map((e) => EndpointSubset.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => EndpointSubset.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

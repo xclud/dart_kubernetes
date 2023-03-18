@@ -21,8 +21,11 @@ class LabelSelector {
     final List<LabelSelectorRequirement>? tempMatchExpressions =
         tempMatchExpressionsJson != null
             ? List<dynamic>.from(tempMatchExpressionsJson)
-                .map((e) => LabelSelectorRequirement.fromJson(
-                    Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => LabelSelectorRequirement.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 

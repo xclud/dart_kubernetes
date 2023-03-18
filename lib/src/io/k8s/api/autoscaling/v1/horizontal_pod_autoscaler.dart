@@ -53,10 +53,10 @@ class HorizontalPodAutoscaler {
   /// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
   final ObjectMeta? metadata;
 
-  /// behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+  /// spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
   final HorizontalPodAutoscalerSpec? spec;
 
-  /// current information about the autoscaler.
+  /// status is the current information about the autoscaler.
   final HorizontalPodAutoscalerStatus? status;
 
   /// Converts a [HorizontalPodAutoscaler] instance to JSON data.

@@ -3,20 +3,20 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.storage.v1beta1;
+part of io.k8s.api.resource.v1alpha2;
 
-/// CSIStorageCapacityList is a collection of CSIStorageCapacity objects.
-class CSIStorageCapacityList {
+/// ResourceClaimList is a collection of claims.
+class ResourceClaimList {
   /// Default constructor.
-  const CSIStorageCapacityList({
+  const ResourceClaimList({
     this.apiVersion,
     required this.items,
     this.kind,
     this.metadata,
   });
 
-  /// Creates a [CSIStorageCapacityList] from JSON data.
-  factory CSIStorageCapacityList.fromJson(Map<String, dynamic> json) {
+  /// Creates a [ResourceClaimList] from JSON data.
+  factory ResourceClaimList.fromJson(Map<String, dynamic> json) {
     final tempApiVersionJson = json['apiVersion'];
     final tempItemsJson = json['items'];
     final tempKindJson = json['kind'];
@@ -24,15 +24,19 @@ class CSIStorageCapacityList {
 
     final String? tempApiVersion = tempApiVersionJson;
 
-    final List<CSIStorageCapacity> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => CSIStorageCapacity.fromJson(Map<String, dynamic>.from(e)))
+    final List<ResourceClaim> tempItems = List<dynamic>.from(tempItemsJson)
+        .map(
+          (e) => ResourceClaim.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;
     final ListMeta? tempMetadata =
         tempMetadataJson != null ? ListMeta.fromJson(tempMetadataJson) : null;
 
-    return CSIStorageCapacityList(
+    return ResourceClaimList(
       apiVersion: tempApiVersion,
       items: tempItems,
       kind: tempKind,
@@ -43,16 +47,16 @@ class CSIStorageCapacityList {
   /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;
 
-  /// items is the list of CSIStorageCapacity objects.
-  final List<CSIStorageCapacity> items;
+  /// Items is the list of resource claims.
+  final List<ResourceClaim> items;
 
   /// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds.
   final String? kind;
 
-  /// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+  /// Standard list metadata.
   final ListMeta? metadata;
 
-  /// Converts a [CSIStorageCapacityList] instance to JSON data.
+  /// Converts a [ResourceClaimList] instance to JSON data.
   Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 

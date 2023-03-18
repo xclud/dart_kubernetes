@@ -25,7 +25,11 @@ class ConfigMapList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<ConfigMap> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => ConfigMap.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => ConfigMap.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

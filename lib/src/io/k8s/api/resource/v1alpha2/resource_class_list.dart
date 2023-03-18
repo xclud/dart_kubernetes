@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.resource.v1alpha1;
+part of io.k8s.api.resource.v1alpha2;
 
 /// ResourceClassList is a collection of classes.
 class ResourceClassList {
@@ -25,7 +25,11 @@ class ResourceClassList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<ResourceClass> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => ResourceClass.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => ResourceClass.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

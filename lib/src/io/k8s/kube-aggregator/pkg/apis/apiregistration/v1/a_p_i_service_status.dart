@@ -18,8 +18,11 @@ class APIServiceStatus {
 
     final List<APIServiceCondition>? tempConditions = tempConditionsJson != null
         ? List<dynamic>.from(tempConditionsJson)
-            .map((e) =>
-                APIServiceCondition.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => APIServiceCondition.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

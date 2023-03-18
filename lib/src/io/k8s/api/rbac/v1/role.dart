@@ -29,7 +29,11 @@ class Role {
 
     final List<PolicyRule>? tempRules = tempRulesJson != null
         ? List<dynamic>.from(tempRulesJson)
-            .map((e) => PolicyRule.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => PolicyRule.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

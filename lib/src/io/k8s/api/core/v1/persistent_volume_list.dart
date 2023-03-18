@@ -25,7 +25,11 @@ class PersistentVolumeList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<PersistentVolume> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => PersistentVolume.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => PersistentVolume.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

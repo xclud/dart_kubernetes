@@ -21,6 +21,7 @@ class PodStatus {
     this.podIPs,
     this.qosClass,
     this.reason,
+    this.resize,
     this.startTime,
   });
 
@@ -39,27 +40,38 @@ class PodStatus {
     final tempPodIPsJson = json['podIPs'];
     final tempQosClassJson = json['qosClass'];
     final tempReasonJson = json['reason'];
+    final tempResizeJson = json['resize'];
     final tempStartTimeJson = json['startTime'];
 
     final List<PodCondition>? tempConditions = tempConditionsJson != null
         ? List<dynamic>.from(tempConditionsJson)
-            .map((e) => PodCondition.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => PodCondition.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 
     final List<ContainerStatus>? tempContainerStatuses =
         tempContainerStatusesJson != null
             ? List<dynamic>.from(tempContainerStatusesJson)
-                .map((e) =>
-                    ContainerStatus.fromJson(Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => ContainerStatus.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 
     final List<ContainerStatus>? tempEphemeralContainerStatuses =
         tempEphemeralContainerStatusesJson != null
             ? List<dynamic>.from(tempEphemeralContainerStatusesJson)
-                .map((e) =>
-                    ContainerStatus.fromJson(Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => ContainerStatus.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 
@@ -68,8 +80,11 @@ class PodStatus {
     final List<ContainerStatus>? tempInitContainerStatuses =
         tempInitContainerStatusesJson != null
             ? List<dynamic>.from(tempInitContainerStatusesJson)
-                .map((e) =>
-                    ContainerStatus.fromJson(Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => ContainerStatus.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 
@@ -80,12 +95,17 @@ class PodStatus {
 
     final List<PodIP>? tempPodIPs = tempPodIPsJson != null
         ? List<dynamic>.from(tempPodIPsJson)
-            .map((e) => PodIP.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => PodIP.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 
     final String? tempQosClass = tempQosClassJson;
     final String? tempReason = tempReasonJson;
+    final String? tempResize = tempResizeJson;
     final DateTime? tempStartTime =
         tempStartTimeJson != null ? DateTime.tryParse(tempStartTimeJson) : null;
 
@@ -102,6 +122,7 @@ class PodStatus {
       podIPs: tempPodIPs,
       qosClass: tempQosClass,
       reason: tempReason,
+      resize: tempResize,
       startTime: tempStartTime,
     );
   }
@@ -146,6 +167,9 @@ class PodStatus {
   /// A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'.
   final String? reason;
 
+  /// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed".
+  final String? resize;
+
   /// RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
   final DateTime? startTime;
 
@@ -165,6 +189,7 @@ class PodStatus {
     final tempPodIPs = podIPs;
     final tempQosClass = qosClass;
     final tempReason = reason;
+    final tempResize = resize;
     final tempStartTime = startTime;
 
     if (tempConditions != null) {
@@ -213,6 +238,10 @@ class PodStatus {
 
     if (tempReason != null) {
       jsonData['reason'] = tempReason;
+    }
+
+    if (tempResize != null) {
+      jsonData['resize'] = tempResize;
     }
 
     if (tempStartTime != null) {

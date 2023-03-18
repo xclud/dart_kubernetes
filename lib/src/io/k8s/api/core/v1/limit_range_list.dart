@@ -25,7 +25,11 @@ class LimitRangeList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<LimitRange> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => LimitRange.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => LimitRange.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

@@ -20,8 +20,11 @@ class NamespaceStatus {
 
     final List<NamespaceCondition>? tempConditions = tempConditionsJson != null
         ? List<dynamic>.from(tempConditionsJson)
-            .map((e) =>
-                NamespaceCondition.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => NamespaceCondition.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

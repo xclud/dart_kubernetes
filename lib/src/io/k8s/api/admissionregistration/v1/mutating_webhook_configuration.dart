@@ -29,7 +29,11 @@ class MutatingWebhookConfiguration {
 
     final List<MutatingWebhook>? tempWebhooks = tempWebhooksJson != null
         ? List<dynamic>.from(tempWebhooksJson)
-            .map((e) => MutatingWebhook.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => MutatingWebhook.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

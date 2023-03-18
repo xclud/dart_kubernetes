@@ -102,7 +102,11 @@ class PodSpec {
 
     final List<Container> tempContainers =
         List<dynamic>.from(tempContainersJson)
-            .map((e) => Container.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => Container.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList();
 
     final PodDNSConfig? tempDnsConfig = tempDnsConfigJson != null
@@ -114,14 +118,21 @@ class PodSpec {
     final List<EphemeralContainer>? tempEphemeralContainers =
         tempEphemeralContainersJson != null
             ? List<dynamic>.from(tempEphemeralContainersJson)
-                .map((e) =>
-                    EphemeralContainer.fromJson(Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => EphemeralContainer.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 
     final List<HostAlias>? tempHostAliases = tempHostAliasesJson != null
         ? List<dynamic>.from(tempHostAliasesJson)
-            .map((e) => HostAlias.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => HostAlias.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 
@@ -134,14 +145,21 @@ class PodSpec {
     final List<LocalObjectReference>? tempImagePullSecrets =
         tempImagePullSecretsJson != null
             ? List<dynamic>.from(tempImagePullSecretsJson)
-                .map((e) =>
-                    LocalObjectReference.fromJson(Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => LocalObjectReference.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 
     final List<Container>? tempInitContainers = tempInitContainersJson != null
         ? List<dynamic>.from(tempInitContainersJson)
-            .map((e) => Container.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => Container.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 
@@ -162,19 +180,27 @@ class PodSpec {
     final int? tempPriority = tempPriorityJson;
     final String? tempPriorityClassName = tempPriorityClassNameJson;
 
-    final List<PodReadinessGate>? tempReadinessGates = tempReadinessGatesJson !=
-            null
-        ? List<dynamic>.from(tempReadinessGatesJson)
-            .map((e) => PodReadinessGate.fromJson(Map<String, dynamic>.from(e)))
-            .toList()
-        : null;
+    final List<PodReadinessGate>? tempReadinessGates =
+        tempReadinessGatesJson != null
+            ? List<dynamic>.from(tempReadinessGatesJson)
+                .map(
+                  (e) => PodReadinessGate.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
+                .toList()
+            : null;
 
-    final List<PodResourceClaim>? tempResourceClaims = tempResourceClaimsJson !=
-            null
-        ? List<dynamic>.from(tempResourceClaimsJson)
-            .map((e) => PodResourceClaim.fromJson(Map<String, dynamic>.from(e)))
-            .toList()
-        : null;
+    final List<PodResourceClaim>? tempResourceClaims =
+        tempResourceClaimsJson != null
+            ? List<dynamic>.from(tempResourceClaimsJson)
+                .map(
+                  (e) => PodResourceClaim.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
+                .toList()
+            : null;
 
     final String? tempRestartPolicy = tempRestartPolicyJson;
     final String? tempRuntimeClassName = tempRuntimeClassNameJson;
@@ -183,8 +209,11 @@ class PodSpec {
     final List<PodSchedulingGate>? tempSchedulingGates =
         tempSchedulingGatesJson != null
             ? List<dynamic>.from(tempSchedulingGatesJson)
-                .map((e) =>
-                    PodSchedulingGate.fromJson(Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => PodSchedulingGate.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 
@@ -202,21 +231,32 @@ class PodSpec {
 
     final List<Toleration>? tempTolerations = tempTolerationsJson != null
         ? List<dynamic>.from(tempTolerationsJson)
-            .map((e) => Toleration.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => Toleration.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 
     final List<TopologySpreadConstraint>? tempTopologySpreadConstraints =
         tempTopologySpreadConstraintsJson != null
             ? List<dynamic>.from(tempTopologySpreadConstraintsJson)
-                .map((e) => TopologySpreadConstraint.fromJson(
-                    Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => TopologySpreadConstraint.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 
     final List<Volume>? tempVolumes = tempVolumesJson != null
         ? List<dynamic>.from(tempVolumesJson)
-            .map((e) => Volume.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => Volume.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 
@@ -346,7 +386,7 @@ class PodSpec {
   /// This field is immutable.
   final List<PodResourceClaim>? resourceClaims;
 
-  /// Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy.
+  /// Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy.
   final String? restartPolicy;
 
   /// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class.

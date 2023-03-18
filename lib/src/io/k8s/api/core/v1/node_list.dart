@@ -25,7 +25,11 @@ class NodeList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<Node> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => Node.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => Node.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

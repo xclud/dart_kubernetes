@@ -25,7 +25,11 @@ class SecretList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<Secret> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => Secret.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => Secret.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

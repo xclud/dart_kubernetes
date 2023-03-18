@@ -26,8 +26,11 @@ class ReplicationControllerList {
 
     final List<ReplicationController> tempItems =
         List<dynamic>.from(tempItemsJson)
-            .map((e) =>
-                ReplicationController.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => ReplicationController.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList();
 
     final String? tempKind = tempKindJson;

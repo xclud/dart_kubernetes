@@ -38,7 +38,11 @@ class NodeStatus {
 
     final List<NodeAddress>? tempAddresses = tempAddressesJson != null
         ? List<dynamic>.from(tempAddressesJson)
-            .map((e) => NodeAddress.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => NodeAddress.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 
@@ -52,7 +56,11 @@ class NodeStatus {
 
     final List<NodeCondition>? tempConditions = tempConditionsJson != null
         ? List<dynamic>.from(tempConditionsJson)
-            .map((e) => NodeCondition.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => NodeCondition.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 
@@ -66,7 +74,11 @@ class NodeStatus {
 
     final List<ContainerImage>? tempImages = tempImagesJson != null
         ? List<dynamic>.from(tempImagesJson)
-            .map((e) => ContainerImage.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => ContainerImage.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 
@@ -75,12 +87,16 @@ class NodeStatus {
         : null;
     final String? tempPhase = tempPhaseJson;
 
-    final List<AttachedVolume>? tempVolumesAttached = tempVolumesAttachedJson !=
-            null
-        ? List<dynamic>.from(tempVolumesAttachedJson)
-            .map((e) => AttachedVolume.fromJson(Map<String, dynamic>.from(e)))
-            .toList()
-        : null;
+    final List<AttachedVolume>? tempVolumesAttached =
+        tempVolumesAttachedJson != null
+            ? List<dynamic>.from(tempVolumesAttachedJson)
+                .map(
+                  (e) => AttachedVolume.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
+                .toList()
+            : null;
 
     final List<String>? tempVolumesInUse = tempVolumesInUseJson != null
         ? List<String>.from(tempVolumesInUseJson)

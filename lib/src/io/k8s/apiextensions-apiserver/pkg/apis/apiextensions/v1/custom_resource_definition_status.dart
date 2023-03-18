@@ -28,8 +28,11 @@ class CustomResourceDefinitionStatus {
     final List<CustomResourceDefinitionCondition>? tempConditions =
         tempConditionsJson != null
             ? List<dynamic>.from(tempConditionsJson)
-                .map((e) => CustomResourceDefinitionCondition.fromJson(
-                    Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => CustomResourceDefinitionCondition.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 

@@ -25,7 +25,11 @@ class JobList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<Job> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => Job.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => Job.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

@@ -25,7 +25,11 @@ class NetworkPolicyList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<NetworkPolicy> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => NetworkPolicy.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => NetworkPolicy.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

@@ -30,8 +30,11 @@ class ReplicaSetStatus {
 
     final List<ReplicaSetCondition>? tempConditions = tempConditionsJson != null
         ? List<dynamic>.from(tempConditionsJson)
-            .map((e) =>
-                ReplicaSetCondition.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => ReplicaSetCondition.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

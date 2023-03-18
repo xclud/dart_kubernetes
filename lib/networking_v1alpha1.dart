@@ -14,3 +14,7 @@ import 'core_v1.dart' show NodeSelector;
 part 'src/io/k8s/api/networking/v1alpha1/cluster_c_i_d_r.dart';
 part 'src/io/k8s/api/networking/v1alpha1/cluster_c_i_d_r_list.dart';
 part 'src/io/k8s/api/networking/v1alpha1/cluster_c_i_d_r_spec.dart';
+part 'src/io/k8s/api/networking/v1alpha1/i_p_address.dart';
+part 'src/io/k8s/api/networking/v1alpha1/i_p_address_list.dart';
+part 'src/io/k8s/api/networking/v1alpha1/i_p_address_spec.dart';
+part 'src/io/k8s/api/networking/v1alpha1/parent_reference.dart';

@@ -34,8 +34,11 @@ class FlowSchemaSpec {
 
     final List<PolicyRulesWithSubjects>? tempRules = tempRulesJson != null
         ? List<dynamic>.from(tempRulesJson)
-            .map((e) =>
-                PolicyRulesWithSubjects.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => PolicyRulesWithSubjects.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

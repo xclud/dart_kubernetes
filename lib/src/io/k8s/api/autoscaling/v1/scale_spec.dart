@@ -23,7 +23,7 @@ class ScaleSpec {
     );
   }
 
-  /// desired number of instances for the scaled object.
+  /// replicas is the desired number of instances for the scaled object.
   final int? replicas;
 
   /// Converts a [ScaleSpec] instance to JSON data.

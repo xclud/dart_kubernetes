@@ -25,7 +25,11 @@ class StatefulSetList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<StatefulSet> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => StatefulSet.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => StatefulSet.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

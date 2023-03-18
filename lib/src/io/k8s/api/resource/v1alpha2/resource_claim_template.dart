@@ -3,69 +3,66 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.resource.v1alpha1;
+part of io.k8s.api.resource.v1alpha2;
 
-/// PodSchedulingList is a collection of Pod scheduling objects.
-class PodSchedulingList {
+/// ResourceClaimTemplate is used to produce ResourceClaim objects.
+class ResourceClaimTemplate {
   /// Default constructor.
-  const PodSchedulingList({
+  const ResourceClaimTemplate({
     this.apiVersion,
-    required this.items,
     this.kind,
     this.metadata,
+    required this.spec,
   });
 
-  /// Creates a [PodSchedulingList] from JSON data.
-  factory PodSchedulingList.fromJson(Map<String, dynamic> json) {
+  /// Creates a [ResourceClaimTemplate] from JSON data.
+  factory ResourceClaimTemplate.fromJson(Map<String, dynamic> json) {
     final tempApiVersionJson = json['apiVersion'];
-    final tempItemsJson = json['items'];
     final tempKindJson = json['kind'];
     final tempMetadataJson = json['metadata'];
+    final tempSpecJson = json['spec'];
 
     final String? tempApiVersion = tempApiVersionJson;
-
-    final List<PodScheduling> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => PodScheduling.fromJson(Map<String, dynamic>.from(e)))
-        .toList();
-
     final String? tempKind = tempKindJson;
-    final ListMeta? tempMetadata =
-        tempMetadataJson != null ? ListMeta.fromJson(tempMetadataJson) : null;
+    final ObjectMeta? tempMetadata =
+        tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
+    final ResourceClaimTemplateSpec tempSpec =
+        ResourceClaimTemplateSpec.fromJson(tempSpecJson);
 
-    return PodSchedulingList(
+    return ResourceClaimTemplate(
       apiVersion: tempApiVersion,
-      items: tempItems,
       kind: tempKind,
       metadata: tempMetadata,
+      spec: tempSpec,
     );
   }
 
   /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources.
   final String? apiVersion;
 
-  /// Items is the list of PodScheduling objects.
-  final List<PodScheduling> items;
-
   /// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds.
   final String? kind;
 
-  /// Standard list metadata.
-  final ListMeta? metadata;
+  /// Standard object metadata.
+  final ObjectMeta? metadata;
 
-  /// Converts a [PodSchedulingList] instance to JSON data.
+  /// Describes the ResourceClaim that is to be generated.
+  ///
+  /// This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
+  final ResourceClaimTemplateSpec spec;
+
+  /// Converts a [ResourceClaimTemplate] instance to JSON data.
   Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
 
     final tempApiVersion = apiVersion;
-    final tempItems = items;
     final tempKind = kind;
     final tempMetadata = metadata;
+    final tempSpec = spec;
 
     if (tempApiVersion != null) {
       jsonData['apiVersion'] = tempApiVersion;
     }
-
-    jsonData['items'] = tempItems;
 
     if (tempKind != null) {
       jsonData['kind'] = tempKind;
@@ -74,6 +71,8 @@ class PodSchedulingList {
     if (tempMetadata != null) {
       jsonData['metadata'] = tempMetadata.toJson();
     }
+
+    jsonData['spec'] = tempSpec.toJson();
 
     return jsonData;
   }

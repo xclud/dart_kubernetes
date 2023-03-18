@@ -23,8 +23,11 @@ class CertificateSigningRequestStatus {
     final List<CertificateSigningRequestCondition>? tempConditions =
         tempConditionsJson != null
             ? List<dynamic>.from(tempConditionsJson)
-                .map((e) => CertificateSigningRequestCondition.fromJson(
-                    Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => CertificateSigningRequestCondition.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 

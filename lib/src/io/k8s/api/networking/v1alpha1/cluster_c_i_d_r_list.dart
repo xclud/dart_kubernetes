@@ -25,7 +25,11 @@ class ClusterCIDRList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<ClusterCIDR> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => ClusterCIDR.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => ClusterCIDR.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

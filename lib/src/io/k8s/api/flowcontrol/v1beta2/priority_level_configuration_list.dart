@@ -24,11 +24,14 @@ class PriorityLevelConfigurationList {
 
     final String? tempApiVersion = tempApiVersionJson;
 
-    final List<PriorityLevelConfiguration> tempItems = List<dynamic>.from(
-            tempItemsJson)
-        .map((e) =>
-            PriorityLevelConfiguration.fromJson(Map<String, dynamic>.from(e)))
-        .toList();
+    final List<PriorityLevelConfiguration> tempItems =
+        List<dynamic>.from(tempItemsJson)
+            .map(
+              (e) => PriorityLevelConfiguration.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
+            .toList();
 
     final String? tempKind = tempKindJson;
     final ListMeta? tempMetadata =

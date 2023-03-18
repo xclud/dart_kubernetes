@@ -1,10 +1,6 @@
 [![pub package](https://img.shields.io/pub/v/kubernetes.svg)](https://pub.dartlang.org/packages/kubernetes)
 
-Kubernetes client for Dart/Flutter.
-
-## Warning
-
-This package is in the early stages of development. This means it's not feature complete, is buggy and the APIs are subject to change. Please use this package for development and testing purposes only.
+A feature-rich and fully-fledged Kubernetes client for Dart/Flutter.
 
 ## Roadmap
 
@@ -24,9 +20,11 @@ The roadmap of the package is as it follows. Please do not hesitate to suggest c
 - [ ] Support [Knative](https://knative.dev) APIs.
 - [ ] Support [Tekton](https://tekton.dev/) CI/CD APIs.
 
-## Compatibility
+## Version Skew Policy
 
-This package is being built and tested against Kubernetes 1.26.0. Older versions will possibly work and future changes and updates will be integrated.
+This package is built and tested against Kubernetes 1.26.3. As similar to Kubernetes itself, outdated Kubernetes components are deprecated and removed from the life-cycle.
+
+For more information please refer to [Version Skew Policy](https://kubernetes.io/releases/version-skew-policy) document.
 
 ## Contribution
 

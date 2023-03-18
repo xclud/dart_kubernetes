@@ -25,7 +25,11 @@ class RuntimeClassList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<RuntimeClass> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => RuntimeClass.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => RuntimeClass.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

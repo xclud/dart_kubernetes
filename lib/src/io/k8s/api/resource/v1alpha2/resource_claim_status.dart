@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.resource.v1alpha1;
+part of io.k8s.api.resource.v1alpha2;
 
 /// ResourceClaimStatus tracks whether the resource has been allocated and what the resulting attributes are.
 class ResourceClaimStatus {
@@ -31,8 +31,11 @@ class ResourceClaimStatus {
     final List<ResourceClaimConsumerReference>? tempReservedFor =
         tempReservedForJson != null
             ? List<dynamic>.from(tempReservedForJson)
-                .map((e) => ResourceClaimConsumerReference.fromJson(
-                    Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => ResourceClaimConsumerReference.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 
@@ -44,7 +47,7 @@ class ResourceClaimStatus {
     );
   }
 
-  /// Allocation is set by the resource driver once a resource has been allocated successfully. If this is not specified, the resource is not yet allocated.
+  /// Allocation is set by the resource driver once a resource or set of resources has been allocated successfully. If this is not specified, the resources have not been allocated yet.
   final AllocationResult? allocation;
 
   /// DeallocationRequested indicates that a ResourceClaim is to be deallocated.

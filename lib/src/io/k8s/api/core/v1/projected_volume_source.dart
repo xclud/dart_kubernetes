@@ -22,7 +22,11 @@ class ProjectedVolumeSource {
 
     final List<VolumeProjection>? tempSources = tempSourcesJson != null
         ? List<dynamic>.from(tempSourcesJson)
-            .map((e) => VolumeProjection.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => VolumeProjection.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

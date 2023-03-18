@@ -25,7 +25,11 @@ class NamespaceList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<Namespace> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => Namespace.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => Namespace.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

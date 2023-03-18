@@ -32,13 +32,13 @@ class ContainerResourceMetricStatus {
     );
   }
 
-  /// Container is the name of the container in the pods of the scaling target.
+  /// container is the name of the container in the pods of the scaling target.
   final String container;
 
   /// current contains the current value for the given metric.
   final MetricValueStatus current;
 
-  /// Name is the name of the resource in question.
+  /// name is the name of the resource in question.
   final String name;
 
   /// Converts a [ContainerResourceMetricStatus] instance to JSON data.

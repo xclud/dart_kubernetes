@@ -25,7 +25,11 @@ class ClusterRoleBindingList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<ClusterRoleBinding> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => ClusterRoleBinding.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => ClusterRoleBinding.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

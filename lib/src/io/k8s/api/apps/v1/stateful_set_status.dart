@@ -40,8 +40,11 @@ class StatefulSetStatus {
     final List<StatefulSetCondition>? tempConditions =
         tempConditionsJson != null
             ? List<dynamic>.from(tempConditionsJson)
-                .map((e) =>
-                    StatefulSetCondition.fromJson(Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => StatefulSetCondition.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 

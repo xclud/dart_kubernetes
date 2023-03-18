@@ -26,8 +26,11 @@ class PodDNSConfig {
 
     final List<PodDNSConfigOption>? tempOptions = tempOptionsJson != null
         ? List<dynamic>.from(tempOptionsJson)
-            .map((e) =>
-                PodDNSConfigOption.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => PodDNSConfigOption.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

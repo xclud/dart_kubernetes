@@ -25,7 +25,11 @@ class EventList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<Event> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => Event.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => Event.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

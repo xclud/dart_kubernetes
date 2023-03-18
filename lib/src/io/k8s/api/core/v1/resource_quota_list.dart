@@ -25,7 +25,11 @@ class ResourceQuotaList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<ResourceQuota> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => ResourceQuota.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => ResourceQuota.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

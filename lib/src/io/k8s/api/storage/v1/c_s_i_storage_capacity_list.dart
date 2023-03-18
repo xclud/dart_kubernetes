@@ -25,7 +25,11 @@ class CSIStorageCapacityList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<CSIStorageCapacity> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => CSIStorageCapacity.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => CSIStorageCapacity.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

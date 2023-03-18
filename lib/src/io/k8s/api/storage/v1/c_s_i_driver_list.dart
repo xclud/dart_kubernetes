@@ -25,7 +25,11 @@ class CSIDriverList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<CSIDriver> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => CSIDriver.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => CSIDriver.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

@@ -32,7 +32,11 @@ class ClusterRoleBinding {
 
     final List<Subject>? tempSubjects = tempSubjectsJson != null
         ? List<dynamic>.from(tempSubjectsJson)
-            .map((e) => Subject.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => Subject.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

@@ -28,8 +28,11 @@ class ValidatingAdmissionPolicyBindingList {
     final List<ValidatingAdmissionPolicyBinding>? tempItems =
         tempItemsJson != null
             ? List<dynamic>.from(tempItemsJson)
-                .map((e) => ValidatingAdmissionPolicyBinding.fromJson(
-                    Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => ValidatingAdmissionPolicyBinding.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 

@@ -37,8 +37,11 @@ class CustomResourceDefinitionSpec {
 
     final List<CustomResourceDefinitionVersion> tempVersions =
         List<dynamic>.from(tempVersionsJson)
-            .map((e) => CustomResourceDefinitionVersion.fromJson(
-                Map<String, dynamic>.from(e)))
+            .map(
+              (e) => CustomResourceDefinitionVersion.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList();
 
     return CustomResourceDefinitionSpec(

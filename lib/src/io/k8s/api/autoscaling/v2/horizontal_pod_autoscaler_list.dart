@@ -26,8 +26,11 @@ class HorizontalPodAutoscalerList {
 
     final List<HorizontalPodAutoscaler> tempItems =
         List<dynamic>.from(tempItemsJson)
-            .map((e) =>
-                HorizontalPodAutoscaler.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => HorizontalPodAutoscaler.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList();
 
     final String? tempKind = tempKindJson;

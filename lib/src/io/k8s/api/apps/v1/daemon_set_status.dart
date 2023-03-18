@@ -38,8 +38,11 @@ class DaemonSetStatus {
 
     final List<DaemonSetCondition>? tempConditions = tempConditionsJson != null
         ? List<dynamic>.from(tempConditionsJson)
-            .map((e) =>
-                DaemonSetCondition.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => DaemonSetCondition.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

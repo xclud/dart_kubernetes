@@ -13,6 +13,7 @@ class ValidatingAdmissionPolicy {
     this.kind,
     this.metadata,
     this.spec,
+    this.status,
   });
 
   /// Creates a [ValidatingAdmissionPolicy] from JSON data.
@@ -21,6 +22,7 @@ class ValidatingAdmissionPolicy {
     final tempKindJson = json['kind'];
     final tempMetadataJson = json['metadata'];
     final tempSpecJson = json['spec'];
+    final tempStatusJson = json['status'];
 
     final String? tempApiVersion = tempApiVersionJson;
     final String? tempKind = tempKindJson;
@@ -29,12 +31,16 @@ class ValidatingAdmissionPolicy {
     final ValidatingAdmissionPolicySpec? tempSpec = tempSpecJson != null
         ? ValidatingAdmissionPolicySpec.fromJson(tempSpecJson)
         : null;
+    final ValidatingAdmissionPolicyStatus? tempStatus = tempStatusJson != null
+        ? ValidatingAdmissionPolicyStatus.fromJson(tempStatusJson)
+        : null;
 
     return ValidatingAdmissionPolicy(
       apiVersion: tempApiVersion,
       kind: tempKind,
       metadata: tempMetadata,
       spec: tempSpec,
+      status: tempStatus,
     );
   }
 
@@ -50,6 +56,9 @@ class ValidatingAdmissionPolicy {
   /// Specification of the desired behavior of the ValidatingAdmissionPolicy.
   final ValidatingAdmissionPolicySpec? spec;
 
+  /// The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+  final ValidatingAdmissionPolicyStatus? status;
+
   /// Converts a [ValidatingAdmissionPolicy] instance to JSON data.
   Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
@@ -58,6 +67,7 @@ class ValidatingAdmissionPolicy {
     final tempKind = kind;
     final tempMetadata = metadata;
     final tempSpec = spec;
+    final tempStatus = status;
 
     if (tempApiVersion != null) {
       jsonData['apiVersion'] = tempApiVersion;
@@ -73,6 +83,10 @@ class ValidatingAdmissionPolicy {
 
     if (tempSpec != null) {
       jsonData['spec'] = tempSpec.toJson();
+    }
+
+    if (tempStatus != null) {
+      jsonData['status'] = tempStatus.toJson();
     }
 
     return jsonData;

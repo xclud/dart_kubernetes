@@ -40,7 +40,11 @@ class JobStatus {
 
     final List<JobCondition>? tempConditions = tempConditionsJson != null
         ? List<dynamic>.from(tempConditionsJson)
-            .map((e) => JobCondition.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => JobCondition.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

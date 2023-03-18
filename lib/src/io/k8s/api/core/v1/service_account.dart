@@ -34,8 +34,11 @@ class ServiceAccount {
     final List<LocalObjectReference>? tempImagePullSecrets =
         tempImagePullSecretsJson != null
             ? List<dynamic>.from(tempImagePullSecretsJson)
-                .map((e) =>
-                    LocalObjectReference.fromJson(Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => LocalObjectReference.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 
@@ -45,7 +48,11 @@ class ServiceAccount {
 
     final List<ObjectReference>? tempSecrets = tempSecretsJson != null
         ? List<dynamic>.from(tempSecretsJson)
-            .map((e) => ObjectReference.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => ObjectReference.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

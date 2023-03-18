@@ -25,7 +25,11 @@ class VolumeAttachmentList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<VolumeAttachment> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => VolumeAttachment.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => VolumeAttachment.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

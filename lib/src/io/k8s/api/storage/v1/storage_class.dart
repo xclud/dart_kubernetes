@@ -41,8 +41,11 @@ class StorageClass {
     final List<TopologySelectorTerm>? tempAllowedTopologies =
         tempAllowedTopologiesJson != null
             ? List<dynamic>.from(tempAllowedTopologiesJson)
-                .map((e) =>
-                    TopologySelectorTerm.fromJson(Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => TopologySelectorTerm.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 

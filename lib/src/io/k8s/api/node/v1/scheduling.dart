@@ -24,7 +24,11 @@ class Scheduling {
 
     final List<Toleration>? tempTolerations = tempTolerationsJson != null
         ? List<dynamic>.from(tempTolerationsJson)
-            .map((e) => Toleration.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => Toleration.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

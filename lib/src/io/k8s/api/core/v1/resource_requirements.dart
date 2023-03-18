@@ -22,7 +22,11 @@ class ResourceRequirements {
 
     final List<ResourceClaim>? tempClaims = tempClaimsJson != null
         ? List<dynamic>.from(tempClaimsJson)
-            .map((e) => ResourceClaim.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => ResourceClaim.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 
@@ -45,7 +49,7 @@ class ResourceRequirements {
   ///
   /// This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
   ///
-  /// This field is immutable.
+  /// This field is immutable. It can only be set for containers.
   final List<ResourceClaim>? claims;
 
   /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/.

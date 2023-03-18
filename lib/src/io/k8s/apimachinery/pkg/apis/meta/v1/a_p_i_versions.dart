@@ -28,8 +28,11 @@ class APIVersions {
 
     final List<ServerAddressByClientCIDR> tempServerAddressByClientCIDRs =
         List<dynamic>.from(tempServerAddressByClientCIDRsJson)
-            .map((e) => ServerAddressByClientCIDR.fromJson(
-                Map<String, dynamic>.from(e)))
+            .map(
+              (e) => ServerAddressByClientCIDR.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList();
 
     final List<String> tempVersions = List<String>.from(tempVersionsJson);

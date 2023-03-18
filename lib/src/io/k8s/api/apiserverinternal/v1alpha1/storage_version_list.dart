@@ -25,7 +25,11 @@ class StorageVersionList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<StorageVersion> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => StorageVersion.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => StorageVersion.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

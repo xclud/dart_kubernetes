@@ -24,10 +24,14 @@ class PodDisruptionBudgetList {
 
     final String? tempApiVersion = tempApiVersionJson;
 
-    final List<PodDisruptionBudget> tempItems = List<dynamic>.from(
-            tempItemsJson)
-        .map((e) => PodDisruptionBudget.fromJson(Map<String, dynamic>.from(e)))
-        .toList();
+    final List<PodDisruptionBudget> tempItems =
+        List<dynamic>.from(tempItemsJson)
+            .map(
+              (e) => PodDisruptionBudget.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
+            .toList();
 
     final String? tempKind = tempKindJson;
     final ListMeta? tempMetadata =

@@ -25,7 +25,11 @@ class RoleList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<Role> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => Role.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => Role.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

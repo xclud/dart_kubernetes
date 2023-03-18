@@ -12,6 +12,7 @@ class ValidatingAdmissionPolicyBindingSpec {
     this.matchResources,
     this.paramRef,
     this.policyName,
+    this.validationActions,
   });
 
   /// Creates a [ValidatingAdmissionPolicyBindingSpec] from JSON data.
@@ -20,6 +21,7 @@ class ValidatingAdmissionPolicyBindingSpec {
     final tempMatchResourcesJson = json['matchResources'];
     final tempParamRefJson = json['paramRef'];
     final tempPolicyNameJson = json['policyName'];
+    final tempValidationActionsJson = json['validationActions'];
 
     final MatchResources? tempMatchResources = tempMatchResourcesJson != null
         ? MatchResources.fromJson(tempMatchResourcesJson)
@@ -27,11 +29,16 @@ class ValidatingAdmissionPolicyBindingSpec {
     final ParamRef? tempParamRef =
         tempParamRefJson != null ? ParamRef.fromJson(tempParamRefJson) : null;
     final String? tempPolicyName = tempPolicyNameJson;
+    final List<String>? tempValidationActions =
+        tempValidationActionsJson != null
+            ? List<String>.from(tempValidationActionsJson)
+            : null;
 
     return ValidatingAdmissionPolicyBindingSpec(
       matchResources: tempMatchResources,
       paramRef: tempParamRef,
       policyName: tempPolicyName,
+      validationActions: tempValidationActions,
     );
   }
 
@@ -44,6 +51,27 @@ class ValidatingAdmissionPolicyBindingSpec {
   /// PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
   final String? policyName;
 
+  /// validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
+  ///
+  /// Failures defined by the ValidatingAdmissionPolicy's FailurePolicy are enforced according to these actions only if the FailurePolicy is set to Fail, otherwise the failures are ignored. This includes compilation errors, runtime errors and misconfigurations of the policy.
+  ///
+  /// validationActions is declared as a set of action values. Order does not matter. validationActions may not contain duplicates of the same action.
+  ///
+  /// The supported actions values are:
+  ///
+  /// "Deny" specifies that a validation failure results in a denied request.
+  ///
+  /// "Warn" specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
+  ///
+  /// "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]"`
+  ///
+  /// Clients should expect to handle additional values by ignoring any values not recognized.
+  ///
+  /// "Deny" and "Warn" may not be used together since this combination needlessly duplicates the validation failure both in the API response body and the HTTP warning headers.
+  ///
+  /// Required.
+  final List<String>? validationActions;
+
   /// Converts a [ValidatingAdmissionPolicyBindingSpec] instance to JSON data.
   Map<String, Object> toJson() {
     final jsonData = <String, Object>{};
@@ -51,6 +79,7 @@ class ValidatingAdmissionPolicyBindingSpec {
     final tempMatchResources = matchResources;
     final tempParamRef = paramRef;
     final tempPolicyName = policyName;
+    final tempValidationActions = validationActions;
 
     if (tempMatchResources != null) {
       jsonData['matchResources'] = tempMatchResources.toJson();
@@ -62,6 +91,10 @@ class ValidatingAdmissionPolicyBindingSpec {
 
     if (tempPolicyName != null) {
       jsonData['policyName'] = tempPolicyName;
+    }
+
+    if (tempValidationActions != null) {
+      jsonData['validationActions'] = tempValidationActions;
     }
 
     return jsonData;

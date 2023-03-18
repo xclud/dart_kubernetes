@@ -28,7 +28,11 @@ class APIResourceList {
 
     final List<APIResource> tempResources =
         List<dynamic>.from(tempResourcesJson)
-            .map((e) => APIResource.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => APIResource.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList();
 
     return APIResourceList(

@@ -31,7 +31,7 @@ class ResourceMetricStatus {
   /// current contains the current value for the given metric.
   final MetricValueStatus current;
 
-  /// Name is the name of the resource in question.
+  /// name is the name of the resource in question.
   final String name;
 
   /// Converts a [ResourceMetricStatus] instance to JSON data.

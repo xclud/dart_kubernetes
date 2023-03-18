@@ -26,8 +26,11 @@ class CustomResourceDefinitionList {
 
     final List<CustomResourceDefinition> tempItems =
         List<dynamic>.from(tempItemsJson)
-            .map((e) =>
-                CustomResourceDefinition.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => CustomResourceDefinition.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList();
 
     final String? tempKind = tempKindJson;

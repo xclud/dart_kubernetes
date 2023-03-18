@@ -70,20 +70,27 @@ class ObjectMeta {
     final List<ManagedFieldsEntry>? tempManagedFields =
         tempManagedFieldsJson != null
             ? List<dynamic>.from(tempManagedFieldsJson)
-                .map((e) =>
-                    ManagedFieldsEntry.fromJson(Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => ManagedFieldsEntry.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 
     final String? tempName = tempNameJson;
     final String? tempNamespace = tempNamespaceJson;
 
-    final List<OwnerReference>? tempOwnerReferences = tempOwnerReferencesJson !=
-            null
-        ? List<dynamic>.from(tempOwnerReferencesJson)
-            .map((e) => OwnerReference.fromJson(Map<String, dynamic>.from(e)))
-            .toList()
-        : null;
+    final List<OwnerReference>? tempOwnerReferences =
+        tempOwnerReferencesJson != null
+            ? List<dynamic>.from(tempOwnerReferencesJson)
+                .map(
+                  (e) => OwnerReference.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
+                .toList()
+            : null;
 
     final String? tempResourceVersion = tempResourceVersionJson;
     final String? tempSelfLink = tempSelfLinkJson;
@@ -108,7 +115,7 @@ class ObjectMeta {
     );
   }
 
-  /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations.
+  /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations.
   final Map<String, String>? annotations;
 
   /// CreationTimestamp is a timestamp representing the server time when this object was created. It is not guaranteed to be set in happens-before order across separate operations. Clients may not set this value. It is represented in RFC3339 form and is in UTC.
@@ -137,18 +144,18 @@ class ObjectMeta {
   /// A sequence number representing a specific generation of the desired state. Populated by the system. Read-only.
   final int? generation;
 
-  /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels.
+  /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels.
   final Map<String, String>? labels;
 
   /// ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like "ci-cd". The set of fields is always in the version that the workflow used when modifying the object.
   final List<ManagedFieldsEntry>? managedFields;
 
-  /// Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names.
+  /// Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names.
   final String? name;
 
   /// Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the "default" namespace, but "default" is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
   ///
-  /// Must be a DNS_LABEL. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/namespaces.
+  /// Must be a DNS_LABEL. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces.
   final String? namespace;
 
   /// List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller.
@@ -164,7 +171,7 @@ class ObjectMeta {
 
   /// UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations.
   ///
-  /// Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-guide/identifiers#uids.
+  /// Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids.
   final String? uid;
 
   /// Converts a [ObjectMeta] instance to JSON data.

@@ -27,10 +27,10 @@ class ScaleStatus {
     );
   }
 
-  /// actual number of observed instances of the scaled object.
+  /// replicas is the actual number of observed instances of the scaled object.
   final int replicas;
 
-  /// label query over pods that should match the replicas count. This is same as the label selector but in the string format to avoid introspection by clients. The string will be in the same format as the query-param syntax. More info about label selectors: http://kubernetes.io/docs/user-guide/labels#label-selectors.
+  /// selector is the label query over pods that should match the replicas count. This is same as the label selector but in the string format to avoid introspection by clients. The string will be in the same format as the query-param syntax. More info about label selectors: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/.
   final String? selector;
 
   /// Converts a [ScaleStatus] instance to JSON data.

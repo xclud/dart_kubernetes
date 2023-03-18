@@ -25,7 +25,11 @@ class PodTemplateList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<PodTemplate> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => PodTemplate.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => PodTemplate.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

@@ -42,8 +42,11 @@ class PersistentVolumeClaimStatus {
     final List<PersistentVolumeClaimCondition>? tempConditions =
         tempConditionsJson != null
             ? List<dynamic>.from(tempConditionsJson)
-                .map((e) => PersistentVolumeClaimCondition.fromJson(
-                    Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => PersistentVolumeClaimCondition.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 

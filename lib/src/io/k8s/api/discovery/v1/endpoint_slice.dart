@@ -30,7 +30,11 @@ class EndpointSlice {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<Endpoint> tempEndpoints = List<dynamic>.from(tempEndpointsJson)
-        .map((e) => Endpoint.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => Endpoint.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;
@@ -39,7 +43,11 @@ class EndpointSlice {
 
     final List<EndpointPort>? tempPorts = tempPortsJson != null
         ? List<dynamic>.from(tempPortsJson)
-            .map((e) => EndpointPort.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => EndpointPort.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

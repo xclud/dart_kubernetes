@@ -19,8 +19,11 @@ class PriorityLevelConfigurationStatus {
     final List<PriorityLevelConfigurationCondition>? tempConditions =
         tempConditionsJson != null
             ? List<dynamic>.from(tempConditionsJson)
-                .map((e) => PriorityLevelConfigurationCondition.fromJson(
-                    Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => PriorityLevelConfigurationCondition.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList()
             : null;
 

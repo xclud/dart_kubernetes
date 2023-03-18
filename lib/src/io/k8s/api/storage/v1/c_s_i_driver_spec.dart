@@ -39,7 +39,11 @@ class CSIDriverSpec {
 
     final List<TokenRequest>? tempTokenRequests = tempTokenRequestsJson != null
         ? List<dynamic>.from(tempTokenRequestsJson)
-            .map((e) => TokenRequest.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => TokenRequest.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

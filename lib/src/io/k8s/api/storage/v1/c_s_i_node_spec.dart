@@ -17,7 +17,11 @@ class CSINodeSpec {
     final tempDriversJson = json['drivers'];
 
     final List<CSINodeDriver> tempDrivers = List<dynamic>.from(tempDriversJson)
-        .map((e) => CSINodeDriver.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => CSINodeDriver.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     return CSINodeSpec(

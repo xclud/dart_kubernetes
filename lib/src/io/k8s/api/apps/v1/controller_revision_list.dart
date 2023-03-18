@@ -25,7 +25,11 @@ class ControllerRevisionList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<ControllerRevision> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => ControllerRevision.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => ControllerRevision.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

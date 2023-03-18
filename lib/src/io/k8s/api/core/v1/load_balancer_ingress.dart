@@ -25,7 +25,11 @@ class LoadBalancerIngress {
 
     final List<PortStatus>? tempPorts = tempPortsJson != null
         ? List<dynamic>.from(tempPortsJson)
-            .map((e) => PortStatus.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => PortStatus.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

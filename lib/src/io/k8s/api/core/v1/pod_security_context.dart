@@ -51,7 +51,11 @@ class PodSecurityContext {
 
     final List<Sysctl>? tempSysctls = tempSysctlsJson != null
         ? List<dynamic>.from(tempSysctlsJson)
-            .map((e) => Sysctl.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => Sysctl.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList()
         : null;
 

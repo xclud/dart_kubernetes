@@ -11,6 +11,7 @@ import 'io_k8s_apimachinery_pkg_apis_meta_v1.dart'
     show LabelSelector, ObjectMeta, ListMeta;
 
 // Parts
+part 'src/io/k8s/api/admissionregistration/v1/match_condition.dart';
 part 'src/io/k8s/api/admissionregistration/v1/mutating_webhook.dart';
 part 'src/io/k8s/api/admissionregistration/v1/mutating_webhook_configuration.dart';
 part 'src/io/k8s/api/admissionregistration/v1/mutating_webhook_configuration_list.dart';

@@ -25,7 +25,11 @@ class IngressClassList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<IngressClass> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => IngressClass.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => IngressClass.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

@@ -73,7 +73,7 @@ class Probe {
   /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
   final int? failureThreshold;
 
-  /// GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
+  /// GRPC specifies an action involving a GRPC port.
   final GRPCAction? grpc;
 
   /// HTTPGet specifies the http request to perform.

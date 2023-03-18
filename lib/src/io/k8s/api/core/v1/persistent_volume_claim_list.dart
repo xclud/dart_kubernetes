@@ -26,8 +26,11 @@ class PersistentVolumeClaimList {
 
     final List<PersistentVolumeClaim> tempItems =
         List<dynamic>.from(tempItemsJson)
-            .map((e) =>
-                PersistentVolumeClaim.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => PersistentVolumeClaim.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
             .toList();
 
     final String? tempKind = tempKindJson;

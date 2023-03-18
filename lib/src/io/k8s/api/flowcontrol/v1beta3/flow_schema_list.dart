@@ -25,7 +25,11 @@ class FlowSchemaList {
     final String? tempApiVersion = tempApiVersionJson;
 
     final List<FlowSchema> tempItems = List<dynamic>.from(tempItemsJson)
-        .map((e) => FlowSchema.fromJson(Map<String, dynamic>.from(e)))
+        .map(
+          (e) => FlowSchema.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
         .toList();
 
     final String? tempKind = tempKindJson;

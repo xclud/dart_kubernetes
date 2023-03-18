@@ -16,10 +16,14 @@ class PodFailurePolicy {
   factory PodFailurePolicy.fromJson(Map<String, dynamic> json) {
     final tempRulesJson = json['rules'];
 
-    final List<PodFailurePolicyRule> tempRules = List<dynamic>.from(
-            tempRulesJson)
-        .map((e) => PodFailurePolicyRule.fromJson(Map<String, dynamic>.from(e)))
-        .toList();
+    final List<PodFailurePolicyRule> tempRules =
+        List<dynamic>.from(tempRulesJson)
+            .map(
+              (e) => PodFailurePolicyRule.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
+            .toList();
 
     return PodFailurePolicy(
       rules: tempRules,
