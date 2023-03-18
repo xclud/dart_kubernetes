@@ -33,9 +33,16 @@ class NodeSpec {
         : null;
     final String? tempExternalID = tempExternalIDJson;
     final String? tempPodCIDR = tempPodCIDRJson;
-    final List<String>? tempPodCIDRs = tempPodCIDRsJson;
+    final List<String>? tempPodCIDRs =
+        tempPodCIDRsJson != null ? List<String>.from(tempPodCIDRsJson) : null;
     final String? tempProviderID = tempProviderIDJson;
-    final List<Taint>? tempTaints = tempTaintsJson;
+
+    final List<Taint>? tempTaints = tempTaintsJson != null
+        ? List<dynamic>.from(tempTaintsJson)
+            .map((e) => Taint.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final bool? tempUnschedulable = tempUnschedulableJson;
 
     return NodeSpec(

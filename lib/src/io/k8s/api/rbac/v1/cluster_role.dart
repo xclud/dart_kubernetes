@@ -31,7 +31,12 @@ class ClusterRole {
     final String? tempKind = tempKindJson;
     final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final List<PolicyRule>? tempRules = tempRulesJson;
+
+    final List<PolicyRule>? tempRules = tempRulesJson != null
+        ? List<dynamic>.from(tempRulesJson)
+            .map((e) => PolicyRule.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
 
     return ClusterRole(
       aggregationRule: tempAggregationRule,

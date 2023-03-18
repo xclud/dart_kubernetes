@@ -23,7 +23,7 @@ class PodFailurePolicyOnExitCodesRequirement {
 
     final String? tempContainerName = tempContainerNameJson;
     final String tempOperator = tempOperatorJson;
-    final List<int> tempValues = tempValuesJson;
+    final List<int> tempValues = List<int>.from(tempValuesJson);
 
     return PodFailurePolicyOnExitCodesRequirement(
       containerName: tempContainerName,

@@ -10,8 +10,8 @@ class NodeStatus {
   /// Default constructor.
   const NodeStatus({
     this.addresses,
-    this.allocatable = const {},
-    this.capacity = const {},
+    this.allocatable,
+    this.capacity,
     this.conditions,
     this.config,
     this.daemonEndpoints,
@@ -36,10 +36,26 @@ class NodeStatus {
     final tempVolumesAttachedJson = json['volumesAttached'];
     final tempVolumesInUseJson = json['volumesInUse'];
 
-    final List<NodeAddress>? tempAddresses = tempAddressesJson;
-    final Map<String, Object> tempAllocatable = tempAllocatableJson;
-    final Map<String, Object> tempCapacity = tempCapacityJson;
-    final List<NodeCondition>? tempConditions = tempConditionsJson;
+    final List<NodeAddress>? tempAddresses = tempAddressesJson != null
+        ? List<dynamic>.from(tempAddressesJson)
+            .map((e) => NodeAddress.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
+    final Map<String, String>? tempAllocatable = tempAllocatableJson != null
+        ? Map<String, String>.from(tempAllocatableJson)
+        : null;
+
+    final Map<String, String>? tempCapacity = tempCapacityJson != null
+        ? Map<String, String>.from(tempCapacityJson)
+        : null;
+
+    final List<NodeCondition>? tempConditions = tempConditionsJson != null
+        ? List<dynamic>.from(tempConditionsJson)
+            .map((e) => NodeCondition.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final NodeConfigStatus? tempConfig = tempConfigJson != null
         ? NodeConfigStatus.fromJson(tempConfigJson)
         : null;
@@ -47,13 +63,28 @@ class NodeStatus {
         tempDaemonEndpointsJson != null
             ? NodeDaemonEndpoints.fromJson(tempDaemonEndpointsJson)
             : null;
-    final List<ContainerImage>? tempImages = tempImagesJson;
+
+    final List<ContainerImage>? tempImages = tempImagesJson != null
+        ? List<dynamic>.from(tempImagesJson)
+            .map((e) => ContainerImage.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final NodeSystemInfo? tempNodeInfo = tempNodeInfoJson != null
         ? NodeSystemInfo.fromJson(tempNodeInfoJson)
         : null;
     final String? tempPhase = tempPhaseJson;
-    final List<AttachedVolume>? tempVolumesAttached = tempVolumesAttachedJson;
-    final List<String>? tempVolumesInUse = tempVolumesInUseJson;
+
+    final List<AttachedVolume>? tempVolumesAttached = tempVolumesAttachedJson !=
+            null
+        ? List<dynamic>.from(tempVolumesAttachedJson)
+            .map((e) => AttachedVolume.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
+    final List<String>? tempVolumesInUse = tempVolumesInUseJson != null
+        ? List<String>.from(tempVolumesInUseJson)
+        : null;
 
     return NodeStatus(
       addresses: tempAddresses,
@@ -74,10 +105,10 @@ class NodeStatus {
   final List<NodeAddress>? addresses;
 
   /// Allocatable represents the resources of a node that are available for scheduling. Defaults to Capacity.
-  final Map<String, Object> allocatable;
+  final Map<String, String>? allocatable;
 
   /// Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity.
-  final Map<String, Object> capacity;
+  final Map<String, String>? capacity;
 
   /// Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition.
   final List<NodeCondition>? conditions;
@@ -123,9 +154,13 @@ class NodeStatus {
       jsonData['addresses'] = tempAddresses;
     }
 
-    jsonData['allocatable'] = tempAllocatable;
+    if (tempAllocatable != null) {
+      jsonData['allocatable'] = tempAllocatable;
+    }
 
-    jsonData['capacity'] = tempCapacity;
+    if (tempCapacity != null) {
+      jsonData['capacity'] = tempCapacity;
+    }
 
     if (tempConditions != null) {
       jsonData['conditions'] = tempConditions;

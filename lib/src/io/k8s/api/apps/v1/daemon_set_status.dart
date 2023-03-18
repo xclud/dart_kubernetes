@@ -35,7 +35,14 @@ class DaemonSetStatus {
     final tempUpdatedNumberScheduledJson = json['updatedNumberScheduled'];
 
     final int? tempCollisionCount = tempCollisionCountJson;
-    final List<DaemonSetCondition>? tempConditions = tempConditionsJson;
+
+    final List<DaemonSetCondition>? tempConditions = tempConditionsJson != null
+        ? List<dynamic>.from(tempConditionsJson)
+            .map((e) =>
+                DaemonSetCondition.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final int tempCurrentNumberScheduled = tempCurrentNumberScheduledJson;
     final int tempDesiredNumberScheduled = tempDesiredNumberScheduledJson;
     final int? tempNumberAvailable = tempNumberAvailableJson;

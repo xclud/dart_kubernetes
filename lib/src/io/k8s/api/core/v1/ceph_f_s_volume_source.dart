@@ -26,7 +26,7 @@ class CephFSVolumeSource {
     final tempSecretRefJson = json['secretRef'];
     final tempUserJson = json['user'];
 
-    final List<String> tempMonitors = tempMonitorsJson;
+    final List<String> tempMonitors = List<String>.from(tempMonitorsJson);
     final String? tempPath = tempPathJson;
     final bool? tempReadOnly = tempReadOnlyJson;
     final String? tempSecretFile = tempSecretFileJson;

@@ -29,7 +29,12 @@ class RoleBinding {
     final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
     final RoleRef tempRoleRef = RoleRef.fromJson(tempRoleRefJson);
-    final List<Subject>? tempSubjects = tempSubjectsJson;
+
+    final List<Subject>? tempSubjects = tempSubjectsJson != null
+        ? List<dynamic>.from(tempSubjectsJson)
+            .map((e) => Subject.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
 
     return RoleBinding(
       apiVersion: tempApiVersion,

@@ -33,7 +33,7 @@ class RBDPersistentVolumeSource {
     final String? tempFsType = tempFsTypeJson;
     final String tempImage = tempImageJson;
     final String? tempKeyring = tempKeyringJson;
-    final List<String> tempMonitors = tempMonitorsJson;
+    final List<String> tempMonitors = List<String>.from(tempMonitorsJson);
     final String? tempPool = tempPoolJson;
     final bool? tempReadOnly = tempReadOnlyJson;
     final SecretReference? tempSecretRef = tempSecretRefJson != null

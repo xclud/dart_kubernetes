@@ -11,7 +11,7 @@ class ObjectMetaWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var annotations = metadata.annotations.entries
+    var annotations = metadata.annotations?.entries
         .map(
           (e) => Chip(
             label: Text('${e.key}:${e.value}'),
@@ -42,7 +42,7 @@ class ObjectMetaWidget extends StatelessWidget {
           title: Text(metadata.creationTimestamp?.toLocal().toString() ?? ''),
           subtitle: const Text('Creation Timestamp'),
         ),
-        if (annotations.isNotEmpty)
+        if (annotations != null)
           Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),

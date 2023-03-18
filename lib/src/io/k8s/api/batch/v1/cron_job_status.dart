@@ -20,7 +20,12 @@ class CronJobStatus {
     final tempLastScheduleTimeJson = json['lastScheduleTime'];
     final tempLastSuccessfulTimeJson = json['lastSuccessfulTime'];
 
-    final List<ObjectReference>? tempActive = tempActiveJson;
+    final List<ObjectReference>? tempActive = tempActiveJson != null
+        ? List<dynamic>.from(tempActiveJson)
+            .map((e) => ObjectReference.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final DateTime? tempLastScheduleTime = tempLastScheduleTimeJson != null
         ? DateTime.tryParse(tempLastScheduleTimeJson)
         : null;

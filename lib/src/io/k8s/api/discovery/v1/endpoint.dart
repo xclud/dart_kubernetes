@@ -11,7 +11,7 @@ class Endpoint {
   const Endpoint({
     required this.addresses,
     this.conditions,
-    this.deprecatedTopology = const {},
+    this.deprecatedTopology,
     this.hints,
     this.hostname,
     this.nodeName,
@@ -30,12 +30,16 @@ class Endpoint {
     final tempTargetRefJson = json['targetRef'];
     final tempZoneJson = json['zone'];
 
-    final List<String> tempAddresses = tempAddressesJson;
+    final List<String> tempAddresses = List<String>.from(tempAddressesJson);
     final EndpointConditions? tempConditions = tempConditionsJson != null
         ? EndpointConditions.fromJson(tempConditionsJson)
         : null;
-    final Map<String, String> tempDeprecatedTopology =
-        tempDeprecatedTopologyJson;
+
+    final Map<String, String>? tempDeprecatedTopology =
+        tempDeprecatedTopologyJson != null
+            ? Map<String, String>.from(tempDeprecatedTopologyJson)
+            : null;
+
     final EndpointHints? tempHints =
         tempHintsJson != null ? EndpointHints.fromJson(tempHintsJson) : null;
     final String? tempHostname = tempHostnameJson;
@@ -64,7 +68,7 @@ class Endpoint {
   final EndpointConditions? conditions;
 
   /// deprecatedTopology contains topology information part of the v1beta1 API. This field is deprecated, and will be removed when the v1beta1 API is removed (no sooner than kubernetes v1.24).  While this field can hold values, it is not writable through the v1 API, and any attempts to write to it will be silently ignored. Topology information can be found in the zone and nodeName fields instead.
-  final Map<String, String> deprecatedTopology;
+  final Map<String, String>? deprecatedTopology;
 
   /// hints contains information associated with how an endpoint should be consumed.
   final EndpointHints? hints;
@@ -100,7 +104,9 @@ class Endpoint {
       jsonData['conditions'] = tempConditions.toJson();
     }
 
-    jsonData['deprecatedTopology'] = tempDeprecatedTopology;
+    if (tempDeprecatedTopology != null) {
+      jsonData['deprecatedTopology'] = tempDeprecatedTopology;
+    }
 
     if (tempHints != null) {
       jsonData['hints'] = tempHints.toJson();

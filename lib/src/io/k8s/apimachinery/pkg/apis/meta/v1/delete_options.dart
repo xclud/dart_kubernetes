@@ -29,7 +29,8 @@ class DeleteOptions {
     final tempPropagationPolicyJson = json['propagationPolicy'];
 
     final String? tempApiVersion = tempApiVersionJson;
-    final List<String>? tempDryRun = tempDryRunJson;
+    final List<String>? tempDryRun =
+        tempDryRunJson != null ? List<String>.from(tempDryRunJson) : null;
     final int? tempGracePeriodSeconds = tempGracePeriodSecondsJson;
     final String? tempKind = tempKindJson;
     final bool? tempOrphanDependents = tempOrphanDependentsJson;

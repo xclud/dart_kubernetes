@@ -9,14 +9,16 @@ part of io.k8s.api.node.v1;
 class Overhead {
   /// Default constructor.
   const Overhead({
-    this.podFixed = const {},
+    this.podFixed,
   });
 
   /// Creates a [Overhead] from JSON data.
   factory Overhead.fromJson(Map<String, dynamic> json) {
     final tempPodFixedJson = json['podFixed'];
 
-    final Map<String, Object> tempPodFixed = tempPodFixedJson;
+    final Map<String, String>? tempPodFixed = tempPodFixedJson != null
+        ? Map<String, String>.from(tempPodFixedJson)
+        : null;
 
     return Overhead(
       podFixed: tempPodFixed,
@@ -24,7 +26,7 @@ class Overhead {
   }
 
   /// podFixed represents the fixed resource overhead associated with running a pod.
-  final Map<String, Object> podFixed;
+  final Map<String, String>? podFixed;
 
   /// Converts a [Overhead] instance to JSON data.
   Map<String, Object> toJson() {
@@ -32,7 +34,9 @@ class Overhead {
 
     final tempPodFixed = podFixed;
 
-    jsonData['podFixed'] = tempPodFixed;
+    if (tempPodFixed != null) {
+      jsonData['podFixed'] = tempPodFixed;
+    }
 
     return jsonData;
   }

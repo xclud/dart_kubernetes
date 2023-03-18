@@ -18,7 +18,8 @@ class IngressTLS {
     final tempHostsJson = json['hosts'];
     final tempSecretNameJson = json['secretName'];
 
-    final List<String>? tempHosts = tempHostsJson;
+    final List<String>? tempHosts =
+        tempHostsJson != null ? List<String>.from(tempHostsJson) : null;
     final String? tempSecretName = tempSecretNameJson;
 
     return IngressTLS(

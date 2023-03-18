@@ -25,7 +25,13 @@ class SecretVolumeSource {
     final tempSecretNameJson = json['secretName'];
 
     final int? tempDefaultMode = tempDefaultModeJson;
-    final List<KeyToPath>? tempItems = tempItemsJson;
+
+    final List<KeyToPath>? tempItems = tempItemsJson != null
+        ? List<dynamic>.from(tempItemsJson)
+            .map((e) => KeyToPath.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final bool? tempOptional = tempOptionalJson;
     final String? tempSecretName = tempSecretNameJson;
 

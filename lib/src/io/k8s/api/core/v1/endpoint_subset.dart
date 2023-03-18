@@ -30,10 +30,25 @@ class EndpointSubset {
     final tempNotReadyAddressesJson = json['notReadyAddresses'];
     final tempPortsJson = json['ports'];
 
-    final List<EndpointAddress>? tempAddresses = tempAddressesJson;
+    final List<EndpointAddress>? tempAddresses = tempAddressesJson != null
+        ? List<dynamic>.from(tempAddressesJson)
+            .map((e) => EndpointAddress.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final List<EndpointAddress>? tempNotReadyAddresses =
-        tempNotReadyAddressesJson;
-    final List<EndpointPort>? tempPorts = tempPortsJson;
+        tempNotReadyAddressesJson != null
+            ? List<dynamic>.from(tempNotReadyAddressesJson)
+                .map((e) =>
+                    EndpointAddress.fromJson(Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
+
+    final List<EndpointPort>? tempPorts = tempPortsJson != null
+        ? List<dynamic>.from(tempPortsJson)
+            .map((e) => EndpointPort.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
 
     return EndpointSubset(
       addresses: tempAddresses,

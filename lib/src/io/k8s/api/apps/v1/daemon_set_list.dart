@@ -23,7 +23,11 @@ class DaemonSetList {
     final tempMetadataJson = json['metadata'];
 
     final String? tempApiVersion = tempApiVersionJson;
-    final List<DaemonSet> tempItems = tempItemsJson;
+
+    final List<DaemonSet> tempItems = List<dynamic>.from(tempItemsJson)
+        .map((e) => DaemonSet.fromJson(Map<String, dynamic>.from(e)))
+        .toList();
+
     final String? tempKind = tempKindJson;
     final ListMeta? tempMetadata =
         tempMetadataJson != null ? ListMeta.fromJson(tempMetadataJson) : null;

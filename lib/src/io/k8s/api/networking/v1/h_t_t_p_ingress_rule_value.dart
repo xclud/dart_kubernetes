@@ -16,7 +16,9 @@ class HTTPIngressRuleValue {
   factory HTTPIngressRuleValue.fromJson(Map<String, dynamic> json) {
     final tempPathsJson = json['paths'];
 
-    final List<HTTPIngressPath> tempPaths = tempPathsJson;
+    final List<HTTPIngressPath> tempPaths = List<dynamic>.from(tempPathsJson)
+        .map((e) => HTTPIngressPath.fromJson(Map<String, dynamic>.from(e)))
+        .toList();
 
     return HTTPIngressRuleValue(
       paths: tempPaths,

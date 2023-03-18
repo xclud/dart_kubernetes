@@ -34,7 +34,12 @@ class CustomResourceDefinitionSpec {
         CustomResourceDefinitionNames.fromJson(tempNamesJson);
     final bool? tempPreserveUnknownFields = tempPreserveUnknownFieldsJson;
     final String tempScope = tempScopeJson;
-    final List<CustomResourceDefinitionVersion> tempVersions = tempVersionsJson;
+
+    final List<CustomResourceDefinitionVersion> tempVersions =
+        List<dynamic>.from(tempVersionsJson)
+            .map((e) => CustomResourceDefinitionVersion.fromJson(
+                Map<String, dynamic>.from(e)))
+            .toList();
 
     return CustomResourceDefinitionSpec(
       conversion: tempConversion,

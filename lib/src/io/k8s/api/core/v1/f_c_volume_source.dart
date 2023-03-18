@@ -27,8 +27,11 @@ class FCVolumeSource {
     final String? tempFsType = tempFsTypeJson;
     final int? tempLun = tempLunJson;
     final bool? tempReadOnly = tempReadOnlyJson;
-    final List<String>? tempTargetWWNs = tempTargetWWNsJson;
-    final List<String>? tempWwids = tempWwidsJson;
+    final List<String>? tempTargetWWNs = tempTargetWWNsJson != null
+        ? List<String>.from(tempTargetWWNsJson)
+        : null;
+    final List<String>? tempWwids =
+        tempWwidsJson != null ? List<String>.from(tempWwidsJson) : null;
 
     return FCVolumeSource(
       fsType: tempFsType,

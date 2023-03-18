@@ -18,7 +18,12 @@ class ServiceStatus {
     final tempConditionsJson = json['conditions'];
     final tempLoadBalancerJson = json['loadBalancer'];
 
-    final List<Condition>? tempConditions = tempConditionsJson;
+    final List<Condition>? tempConditions = tempConditionsJson != null
+        ? List<dynamic>.from(tempConditionsJson)
+            .map((e) => Condition.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final LoadBalancerStatus? tempLoadBalancer = tempLoadBalancerJson != null
         ? LoadBalancerStatus.fromJson(tempLoadBalancerJson)
         : null;

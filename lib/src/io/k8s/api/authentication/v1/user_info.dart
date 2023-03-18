@@ -9,7 +9,7 @@ part of io.k8s.api.authentication.v1;
 class UserInfo {
   /// Default constructor.
   const UserInfo({
-    this.extra = const {},
+    this.extra,
     this.groups,
     this.uid,
     this.username,
@@ -22,8 +22,13 @@ class UserInfo {
     final tempUidJson = json['uid'];
     final tempUsernameJson = json['username'];
 
-    final Map<String, List<String>> tempExtra = tempExtraJson;
-    final List<String>? tempGroups = tempGroupsJson;
+    final Map<String, List<String>>? tempExtra = tempExtraJson != null
+        ? Map<String, dynamic>.from(tempExtraJson)
+            .map((key, value) => MapEntry(key, List<String>.from(value)))
+        : null;
+
+    final List<String>? tempGroups =
+        tempGroupsJson != null ? List<String>.from(tempGroupsJson) : null;
     final String? tempUid = tempUidJson;
     final String? tempUsername = tempUsernameJson;
 
@@ -36,7 +41,7 @@ class UserInfo {
   }
 
   /// Any additional information provided by the authenticator.
-  final Map<String, List<String>> extra;
+  final Map<String, List<String>>? extra;
 
   /// The names of groups this user is a part of.
   final List<String>? groups;
@@ -56,7 +61,9 @@ class UserInfo {
     final tempUid = uid;
     final tempUsername = username;
 
-    jsonData['extra'] = tempExtra;
+    if (tempExtra != null) {
+      jsonData['extra'] = tempExtra;
+    }
 
     if (tempGroups != null) {
       jsonData['groups'] = tempGroups;

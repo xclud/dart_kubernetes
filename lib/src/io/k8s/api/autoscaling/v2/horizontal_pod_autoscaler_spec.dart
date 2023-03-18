@@ -29,7 +29,13 @@ class HorizontalPodAutoscalerSpec {
             ? HorizontalPodAutoscalerBehavior.fromJson(tempBehaviorJson)
             : null;
     final int tempMaxReplicas = tempMaxReplicasJson;
-    final List<MetricSpec>? tempMetrics = tempMetricsJson;
+
+    final List<MetricSpec>? tempMetrics = tempMetricsJson != null
+        ? List<dynamic>.from(tempMetricsJson)
+            .map((e) => MetricSpec.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final int? tempMinReplicas = tempMinReplicasJson;
     final CrossVersionObjectReference tempScaleTargetRef =
         CrossVersionObjectReference.fromJson(tempScaleTargetRefJson);

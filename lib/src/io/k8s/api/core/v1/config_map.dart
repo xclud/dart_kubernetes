@@ -10,8 +10,8 @@ class ConfigMap {
   /// Default constructor.
   const ConfigMap({
     this.apiVersion,
-    this.binaryData = const {},
-    this.data = const {},
+    this.binaryData,
+    this.data,
     this.immutable,
     this.kind,
     this.metadata,
@@ -27,8 +27,14 @@ class ConfigMap {
     final tempMetadataJson = json['metadata'];
 
     final String? tempApiVersion = tempApiVersionJson;
-    final Map<String, String> tempBinaryData = tempBinaryDataJson;
-    final Map<String, String> tempData = tempDataJson;
+
+    final Map<String, String>? tempBinaryData = tempBinaryDataJson != null
+        ? Map<String, String>.from(tempBinaryDataJson)
+        : null;
+
+    final Map<String, String>? tempData =
+        tempDataJson != null ? Map<String, String>.from(tempDataJson) : null;
+
     final bool? tempImmutable = tempImmutableJson;
     final String? tempKind = tempKindJson;
     final ObjectMeta? tempMetadata =
@@ -48,10 +54,10 @@ class ConfigMap {
   final String? apiVersion;
 
   /// BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
-  final Map<String, String> binaryData;
+  final Map<String, String>? binaryData;
 
   /// Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
-  final Map<String, String> data;
+  final Map<String, String>? data;
 
   /// Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
   final bool? immutable;
@@ -77,9 +83,13 @@ class ConfigMap {
       jsonData['apiVersion'] = tempApiVersion;
     }
 
-    jsonData['binaryData'] = tempBinaryData;
+    if (tempBinaryData != null) {
+      jsonData['binaryData'] = tempBinaryData;
+    }
 
-    jsonData['data'] = tempData;
+    if (tempData != null) {
+      jsonData['data'] = tempData;
+    }
 
     if (tempImmutable != null) {
       jsonData['immutable'] = tempImmutable;

@@ -25,7 +25,11 @@ class APIResourceList {
     final String? tempApiVersion = tempApiVersionJson;
     final String tempGroupVersion = tempGroupVersionJson;
     final String? tempKind = tempKindJson;
-    final List<APIResource> tempResources = tempResourcesJson;
+
+    final List<APIResource> tempResources =
+        List<dynamic>.from(tempResourcesJson)
+            .map((e) => APIResource.fromJson(Map<String, dynamic>.from(e)))
+            .toList();
 
     return APIResourceList(
       apiVersion: tempApiVersion,

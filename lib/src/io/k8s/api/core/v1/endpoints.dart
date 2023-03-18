@@ -38,7 +38,12 @@ class Endpoints {
     final String? tempKind = tempKindJson;
     final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final List<EndpointSubset>? tempSubsets = tempSubsetsJson;
+
+    final List<EndpointSubset>? tempSubsets = tempSubsetsJson != null
+        ? List<dynamic>.from(tempSubsetsJson)
+            .map((e) => EndpointSubset.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
 
     return Endpoints(
       apiVersion: tempApiVersion,

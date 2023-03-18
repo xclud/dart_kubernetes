@@ -16,7 +16,12 @@ class FlowSchemaStatus {
   factory FlowSchemaStatus.fromJson(Map<String, dynamic> json) {
     final tempConditionsJson = json['conditions'];
 
-    final List<FlowSchemaCondition>? tempConditions = tempConditionsJson;
+    final List<FlowSchemaCondition>? tempConditions = tempConditionsJson != null
+        ? List<dynamic>.from(tempConditionsJson)
+            .map((e) =>
+                FlowSchemaCondition.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
 
     return FlowSchemaStatus(
       conditions: tempConditions,

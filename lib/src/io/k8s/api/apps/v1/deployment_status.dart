@@ -32,7 +32,14 @@ class DeploymentStatus {
 
     final int? tempAvailableReplicas = tempAvailableReplicasJson;
     final int? tempCollisionCount = tempCollisionCountJson;
-    final List<DeploymentCondition>? tempConditions = tempConditionsJson;
+
+    final List<DeploymentCondition>? tempConditions = tempConditionsJson != null
+        ? List<dynamic>.from(tempConditionsJson)
+            .map((e) =>
+                DeploymentCondition.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final int? tempObservedGeneration = tempObservedGenerationJson;
     final int? tempReadyReplicas = tempReadyReplicasJson;
     final int? tempReplicas = tempReplicasJson;

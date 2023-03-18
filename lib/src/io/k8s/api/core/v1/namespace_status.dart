@@ -18,7 +18,13 @@ class NamespaceStatus {
     final tempConditionsJson = json['conditions'];
     final tempPhaseJson = json['phase'];
 
-    final List<NamespaceCondition>? tempConditions = tempConditionsJson;
+    final List<NamespaceCondition>? tempConditions = tempConditionsJson != null
+        ? List<dynamic>.from(tempConditionsJson)
+            .map((e) =>
+                NamespaceCondition.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final String? tempPhase = tempPhaseJson;
 
     return NamespaceStatus(

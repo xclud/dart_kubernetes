@@ -26,9 +26,9 @@ class PodSpec {
     this.imagePullSecrets,
     this.initContainers,
     this.nodeName,
-    this.nodeSelector = const {},
+    this.nodeSelector,
     this.os,
-    this.overhead = const {},
+    this.overhead,
     this.preemptionPolicy,
     this.priority,
     this.priorityClassName,
@@ -99,38 +99,95 @@ class PodSpec {
         tempAffinityJson != null ? Affinity.fromJson(tempAffinityJson) : null;
     final bool? tempAutomountServiceAccountToken =
         tempAutomountServiceAccountTokenJson;
-    final List<Container> tempContainers = tempContainersJson;
+
+    final List<Container> tempContainers =
+        List<dynamic>.from(tempContainersJson)
+            .map((e) => Container.fromJson(Map<String, dynamic>.from(e)))
+            .toList();
+
     final PodDNSConfig? tempDnsConfig = tempDnsConfigJson != null
         ? PodDNSConfig.fromJson(tempDnsConfigJson)
         : null;
     final String? tempDnsPolicy = tempDnsPolicyJson;
     final bool? tempEnableServiceLinks = tempEnableServiceLinksJson;
+
     final List<EphemeralContainer>? tempEphemeralContainers =
-        tempEphemeralContainersJson;
-    final List<HostAlias>? tempHostAliases = tempHostAliasesJson;
+        tempEphemeralContainersJson != null
+            ? List<dynamic>.from(tempEphemeralContainersJson)
+                .map((e) =>
+                    EphemeralContainer.fromJson(Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
+
+    final List<HostAlias>? tempHostAliases = tempHostAliasesJson != null
+        ? List<dynamic>.from(tempHostAliasesJson)
+            .map((e) => HostAlias.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final bool? tempHostIPC = tempHostIPCJson;
     final bool? tempHostNetwork = tempHostNetworkJson;
     final bool? tempHostPID = tempHostPIDJson;
     final bool? tempHostUsers = tempHostUsersJson;
     final String? tempHostname = tempHostnameJson;
+
     final List<LocalObjectReference>? tempImagePullSecrets =
-        tempImagePullSecretsJson;
-    final List<Container>? tempInitContainers = tempInitContainersJson;
+        tempImagePullSecretsJson != null
+            ? List<dynamic>.from(tempImagePullSecretsJson)
+                .map((e) =>
+                    LocalObjectReference.fromJson(Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
+
+    final List<Container>? tempInitContainers = tempInitContainersJson != null
+        ? List<dynamic>.from(tempInitContainersJson)
+            .map((e) => Container.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final String? tempNodeName = tempNodeNameJson;
-    final Map<String, String> tempNodeSelector = tempNodeSelectorJson;
+
+    final Map<String, String>? tempNodeSelector = tempNodeSelectorJson != null
+        ? Map<String, String>.from(tempNodeSelectorJson)
+        : null;
+
     final PodOS? tempOs =
         tempOsJson != null ? PodOS.fromJson(tempOsJson) : null;
-    final Map<String, Object> tempOverhead = tempOverheadJson;
+
+    final Map<String, String>? tempOverhead = tempOverheadJson != null
+        ? Map<String, String>.from(tempOverheadJson)
+        : null;
+
     final String? tempPreemptionPolicy = tempPreemptionPolicyJson;
     final int? tempPriority = tempPriorityJson;
     final String? tempPriorityClassName = tempPriorityClassNameJson;
-    final List<PodReadinessGate>? tempReadinessGates = tempReadinessGatesJson;
-    final List<PodResourceClaim>? tempResourceClaims = tempResourceClaimsJson;
+
+    final List<PodReadinessGate>? tempReadinessGates = tempReadinessGatesJson !=
+            null
+        ? List<dynamic>.from(tempReadinessGatesJson)
+            .map((e) => PodReadinessGate.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
+    final List<PodResourceClaim>? tempResourceClaims = tempResourceClaimsJson !=
+            null
+        ? List<dynamic>.from(tempResourceClaimsJson)
+            .map((e) => PodResourceClaim.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final String? tempRestartPolicy = tempRestartPolicyJson;
     final String? tempRuntimeClassName = tempRuntimeClassNameJson;
     final String? tempSchedulerName = tempSchedulerNameJson;
+
     final List<PodSchedulingGate>? tempSchedulingGates =
-        tempSchedulingGatesJson;
+        tempSchedulingGatesJson != null
+            ? List<dynamic>.from(tempSchedulingGatesJson)
+                .map((e) =>
+                    PodSchedulingGate.fromJson(Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
+
     final PodSecurityContext? tempSecurityContext =
         tempSecurityContextJson != null
             ? PodSecurityContext.fromJson(tempSecurityContextJson)
@@ -142,10 +199,26 @@ class PodSpec {
     final String? tempSubdomain = tempSubdomainJson;
     final int? tempTerminationGracePeriodSeconds =
         tempTerminationGracePeriodSecondsJson;
-    final List<Toleration>? tempTolerations = tempTolerationsJson;
+
+    final List<Toleration>? tempTolerations = tempTolerationsJson != null
+        ? List<dynamic>.from(tempTolerationsJson)
+            .map((e) => Toleration.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final List<TopologySpreadConstraint>? tempTopologySpreadConstraints =
-        tempTopologySpreadConstraintsJson;
-    final List<Volume>? tempVolumes = tempVolumesJson;
+        tempTopologySpreadConstraintsJson != null
+            ? List<dynamic>.from(tempTopologySpreadConstraintsJson)
+                .map((e) => TopologySpreadConstraint.fromJson(
+                    Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
+
+    final List<Volume>? tempVolumes = tempVolumesJson != null
+        ? List<dynamic>.from(tempVolumesJson)
+            .map((e) => Volume.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
 
     return PodSpec(
       activeDeadlineSeconds: tempActiveDeadlineSeconds,
@@ -242,7 +315,7 @@ class PodSpec {
   final String? nodeName;
 
   /// NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node's labels for the pod to be scheduled on that node. More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/.
-  final Map<String, String> nodeSelector;
+  final Map<String, String>? nodeSelector;
 
   /// Specifies the OS of the containers in the pod. Some pod and container fields are restricted if this is set.
   ///
@@ -252,7 +325,7 @@ class PodSpec {
   final PodOS? os;
 
   /// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md.
-  final Map<String, Object> overhead;
+  final Map<String, String>? overhead;
 
   /// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
   final String? preemptionPolicy;
@@ -430,13 +503,17 @@ class PodSpec {
       jsonData['nodeName'] = tempNodeName;
     }
 
-    jsonData['nodeSelector'] = tempNodeSelector;
+    if (tempNodeSelector != null) {
+      jsonData['nodeSelector'] = tempNodeSelector;
+    }
 
     if (tempOs != null) {
       jsonData['os'] = tempOs.toJson();
     }
 
-    jsonData['overhead'] = tempOverhead;
+    if (tempOverhead != null) {
+      jsonData['overhead'] = tempOverhead;
+    }
 
     if (tempPreemptionPolicy != null) {
       jsonData['preemptionPolicy'] = tempPreemptionPolicy;

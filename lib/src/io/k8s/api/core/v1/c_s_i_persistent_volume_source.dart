@@ -17,7 +17,7 @@ class CSIPersistentVolumeSource {
     this.nodePublishSecretRef,
     this.nodeStageSecretRef,
     this.readOnly,
-    this.volumeAttributes = const {},
+    this.volumeAttributes,
     required this.volumeHandle,
   });
 
@@ -58,7 +58,12 @@ class CSIPersistentVolumeSource {
             ? SecretReference.fromJson(tempNodeStageSecretRefJson)
             : null;
     final bool? tempReadOnly = tempReadOnlyJson;
-    final Map<String, String> tempVolumeAttributes = tempVolumeAttributesJson;
+
+    final Map<String, String>? tempVolumeAttributes =
+        tempVolumeAttributesJson != null
+            ? Map<String, String>.from(tempVolumeAttributesJson)
+            : null;
+
     final String tempVolumeHandle = tempVolumeHandleJson;
 
     return CSIPersistentVolumeSource(
@@ -100,7 +105,7 @@ class CSIPersistentVolumeSource {
   final bool? readOnly;
 
   /// volumeAttributes of the volume to publish.
-  final Map<String, String> volumeAttributes;
+  final Map<String, String>? volumeAttributes;
 
   /// volumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
   final String volumeHandle;
@@ -152,7 +157,9 @@ class CSIPersistentVolumeSource {
       jsonData['readOnly'] = tempReadOnly;
     }
 
-    jsonData['volumeAttributes'] = tempVolumeAttributes;
+    if (tempVolumeAttributes != null) {
+      jsonData['volumeAttributes'] = tempVolumeAttributes;
+    }
 
     jsonData['volumeHandle'] = tempVolumeHandle;
 

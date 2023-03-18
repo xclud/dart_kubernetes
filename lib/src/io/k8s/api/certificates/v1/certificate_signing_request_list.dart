@@ -23,7 +23,13 @@ class CertificateSigningRequestList {
     final tempMetadataJson = json['metadata'];
 
     final String? tempApiVersion = tempApiVersionJson;
-    final List<CertificateSigningRequest> tempItems = tempItemsJson;
+
+    final List<CertificateSigningRequest> tempItems = List<dynamic>.from(
+            tempItemsJson)
+        .map((e) =>
+            CertificateSigningRequest.fromJson(Map<String, dynamic>.from(e)))
+        .toList();
+
     final String? tempKind = tempKindJson;
     final ListMeta? tempMetadata =
         tempMetadataJson != null ? ListMeta.fromJson(tempMetadataJson) : null;

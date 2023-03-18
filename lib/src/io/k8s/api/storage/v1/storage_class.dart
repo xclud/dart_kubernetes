@@ -17,7 +17,7 @@ class StorageClass {
     this.kind,
     this.metadata,
     this.mountOptions,
-    this.parameters = const {},
+    this.parameters,
     required this.provisioner,
     this.reclaimPolicy,
     this.volumeBindingMode,
@@ -37,14 +37,27 @@ class StorageClass {
     final tempVolumeBindingModeJson = json['volumeBindingMode'];
 
     final bool? tempAllowVolumeExpansion = tempAllowVolumeExpansionJson;
+
     final List<TopologySelectorTerm>? tempAllowedTopologies =
-        tempAllowedTopologiesJson;
+        tempAllowedTopologiesJson != null
+            ? List<dynamic>.from(tempAllowedTopologiesJson)
+                .map((e) =>
+                    TopologySelectorTerm.fromJson(Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
+
     final String? tempApiVersion = tempApiVersionJson;
     final String? tempKind = tempKindJson;
     final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final List<String>? tempMountOptions = tempMountOptionsJson;
-    final Map<String, String> tempParameters = tempParametersJson;
+    final List<String>? tempMountOptions = tempMountOptionsJson != null
+        ? List<String>.from(tempMountOptionsJson)
+        : null;
+
+    final Map<String, String>? tempParameters = tempParametersJson != null
+        ? Map<String, String>.from(tempParametersJson)
+        : null;
+
     final String tempProvisioner = tempProvisionerJson;
     final String? tempReclaimPolicy = tempReclaimPolicyJson;
     final String? tempVolumeBindingMode = tempVolumeBindingModeJson;
@@ -82,7 +95,7 @@ class StorageClass {
   final List<String>? mountOptions;
 
   /// parameters holds the parameters for the provisioner that should create volumes of this storage class.
-  final Map<String, String> parameters;
+  final Map<String, String>? parameters;
 
   /// provisioner indicates the type of the provisioner.
   final String provisioner;
@@ -132,7 +145,9 @@ class StorageClass {
       jsonData['mountOptions'] = tempMountOptions;
     }
 
-    jsonData['parameters'] = tempParameters;
+    if (tempParameters != null) {
+      jsonData['parameters'] = tempParameters;
+    }
 
     jsonData['provisioner'] = tempProvisioner;
 

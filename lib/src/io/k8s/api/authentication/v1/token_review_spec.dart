@@ -18,7 +18,8 @@ class TokenReviewSpec {
     final tempAudiencesJson = json['audiences'];
     final tempTokenJson = json['token'];
 
-    final List<String>? tempAudiences = tempAudiencesJson;
+    final List<String>? tempAudiences =
+        tempAudiencesJson != null ? List<String>.from(tempAudiencesJson) : null;
     final String? tempToken = tempTokenJson;
 
     return TokenReviewSpec(

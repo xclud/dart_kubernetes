@@ -13,7 +13,7 @@ class CSIVolumeSource {
     this.fsType,
     this.nodePublishSecretRef,
     this.readOnly,
-    this.volumeAttributes = const {},
+    this.volumeAttributes,
   });
 
   /// Creates a [CSIVolumeSource] from JSON data.
@@ -31,7 +31,11 @@ class CSIVolumeSource {
             ? LocalObjectReference.fromJson(tempNodePublishSecretRefJson)
             : null;
     final bool? tempReadOnly = tempReadOnlyJson;
-    final Map<String, String> tempVolumeAttributes = tempVolumeAttributesJson;
+
+    final Map<String, String>? tempVolumeAttributes =
+        tempVolumeAttributesJson != null
+            ? Map<String, String>.from(tempVolumeAttributesJson)
+            : null;
 
     return CSIVolumeSource(
       driver: tempDriver,
@@ -55,7 +59,7 @@ class CSIVolumeSource {
   final bool? readOnly;
 
   /// volumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
-  final Map<String, String> volumeAttributes;
+  final Map<String, String>? volumeAttributes;
 
   /// Converts a [CSIVolumeSource] instance to JSON data.
   Map<String, Object> toJson() {
@@ -81,7 +85,9 @@ class CSIVolumeSource {
       jsonData['readOnly'] = tempReadOnly;
     }
 
-    jsonData['volumeAttributes'] = tempVolumeAttributes;
+    if (tempVolumeAttributes != null) {
+      jsonData['volumeAttributes'] = tempVolumeAttributes;
+    }
 
     return jsonData;
   }

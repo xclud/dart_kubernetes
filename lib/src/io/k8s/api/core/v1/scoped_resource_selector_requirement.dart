@@ -23,7 +23,8 @@ class ScopedResourceSelectorRequirement {
 
     final String tempOperator = tempOperatorJson;
     final String tempScopeName = tempScopeNameJson;
-    final List<String>? tempValues = tempValuesJson;
+    final List<String>? tempValues =
+        tempValuesJson != null ? List<String>.from(tempValuesJson) : null;
 
     return ScopedResourceSelectorRequirement(
       operator: tempOperator,

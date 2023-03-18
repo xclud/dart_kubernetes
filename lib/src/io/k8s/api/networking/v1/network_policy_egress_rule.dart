@@ -18,8 +18,19 @@ class NetworkPolicyEgressRule {
     final tempPortsJson = json['ports'];
     final tempToJson = json['to'];
 
-    final List<NetworkPolicyPort>? tempPorts = tempPortsJson;
-    final List<NetworkPolicyPeer>? tempTo = tempToJson;
+    final List<NetworkPolicyPort>? tempPorts = tempPortsJson != null
+        ? List<dynamic>.from(tempPortsJson)
+            .map(
+                (e) => NetworkPolicyPort.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
+    final List<NetworkPolicyPeer>? tempTo = tempToJson != null
+        ? List<dynamic>.from(tempToJson)
+            .map(
+                (e) => NetworkPolicyPeer.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
 
     return NetworkPolicyEgressRule(
       ports: tempPorts,

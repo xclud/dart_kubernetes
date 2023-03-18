@@ -27,7 +27,9 @@ class CSINodeDriver {
         : null;
     final String tempName = tempNameJson;
     final String tempNodeID = tempNodeIDJson;
-    final List<String>? tempTopologyKeys = tempTopologyKeysJson;
+    final List<String>? tempTopologyKeys = tempTopologyKeysJson != null
+        ? List<String>.from(tempTopologyKeysJson)
+        : null;
 
     return CSINodeDriver(
       allocatable: tempAllocatable,

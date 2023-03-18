@@ -22,11 +22,25 @@ class NetworkPolicySpec {
     final tempPodSelectorJson = json['podSelector'];
     final tempPolicyTypesJson = json['policyTypes'];
 
-    final List<NetworkPolicyEgressRule>? tempEgress = tempEgressJson;
-    final List<NetworkPolicyIngressRule>? tempIngress = tempIngressJson;
+    final List<NetworkPolicyEgressRule>? tempEgress = tempEgressJson != null
+        ? List<dynamic>.from(tempEgressJson)
+            .map((e) =>
+                NetworkPolicyEgressRule.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
+    final List<NetworkPolicyIngressRule>? tempIngress = tempIngressJson != null
+        ? List<dynamic>.from(tempIngressJson)
+            .map((e) =>
+                NetworkPolicyIngressRule.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final LabelSelector tempPodSelector =
         LabelSelector.fromJson(tempPodSelectorJson);
-    final List<String>? tempPolicyTypes = tempPolicyTypesJson;
+    final List<String>? tempPolicyTypes = tempPolicyTypesJson != null
+        ? List<String>.from(tempPolicyTypesJson)
+        : null;
 
     return NetworkPolicySpec(
       egress: tempEgress,

@@ -26,7 +26,12 @@ class StatusDetails {
     final tempRetryAfterSecondsJson = json['retryAfterSeconds'];
     final tempUidJson = json['uid'];
 
-    final List<StatusCause>? tempCauses = tempCausesJson;
+    final List<StatusCause>? tempCauses = tempCausesJson != null
+        ? List<dynamic>.from(tempCausesJson)
+            .map((e) => StatusCause.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final String? tempGroup = tempGroupJson;
     final String? tempKind = tempKindJson;
     final String? tempName = tempNameJson;

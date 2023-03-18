@@ -31,7 +31,13 @@ class FlowSchemaSpec {
     final PriorityLevelConfigurationReference tempPriorityLevelConfiguration =
         PriorityLevelConfigurationReference.fromJson(
             tempPriorityLevelConfigurationJson);
-    final List<PolicyRulesWithSubjects>? tempRules = tempRulesJson;
+
+    final List<PolicyRulesWithSubjects>? tempRules = tempRulesJson != null
+        ? List<dynamic>.from(tempRulesJson)
+            .map((e) =>
+                PolicyRulesWithSubjects.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
 
     return FlowSchemaSpec(
       distinguisherMethod: tempDistinguisherMethod,

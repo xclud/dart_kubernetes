@@ -26,8 +26,18 @@ class IngressSpec {
         ? IngressBackend.fromJson(tempDefaultBackendJson)
         : null;
     final String? tempIngressClassName = tempIngressClassNameJson;
-    final List<IngressRule>? tempRules = tempRulesJson;
-    final List<IngressTLS>? tempTls = tempTlsJson;
+
+    final List<IngressRule>? tempRules = tempRulesJson != null
+        ? List<dynamic>.from(tempRulesJson)
+            .map((e) => IngressRule.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
+    final List<IngressTLS>? tempTls = tempTlsJson != null
+        ? List<dynamic>.from(tempTlsJson)
+            .map((e) => IngressTLS.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
 
     return IngressSpec(
       defaultBackend: tempDefaultBackend,

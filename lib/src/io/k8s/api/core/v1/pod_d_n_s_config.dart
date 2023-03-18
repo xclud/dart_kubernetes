@@ -20,9 +20,19 @@ class PodDNSConfig {
     final tempOptionsJson = json['options'];
     final tempSearchesJson = json['searches'];
 
-    final List<String>? tempNameservers = tempNameserversJson;
-    final List<PodDNSConfigOption>? tempOptions = tempOptionsJson;
-    final List<String>? tempSearches = tempSearchesJson;
+    final List<String>? tempNameservers = tempNameserversJson != null
+        ? List<String>.from(tempNameserversJson)
+        : null;
+
+    final List<PodDNSConfigOption>? tempOptions = tempOptionsJson != null
+        ? List<dynamic>.from(tempOptionsJson)
+            .map((e) =>
+                PodDNSConfigOption.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
+    final List<String>? tempSearches =
+        tempSearchesJson != null ? List<String>.from(tempSearchesJson) : null;
 
     return PodDNSConfig(
       nameservers: tempNameservers,

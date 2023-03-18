@@ -21,7 +21,12 @@ class HPAScalingRules {
     final tempStabilizationWindowSecondsJson =
         json['stabilizationWindowSeconds'];
 
-    final List<HPAScalingPolicy>? tempPolicies = tempPoliciesJson;
+    final List<HPAScalingPolicy>? tempPolicies = tempPoliciesJson != null
+        ? List<dynamic>.from(tempPoliciesJson)
+            .map((e) => HPAScalingPolicy.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final String? tempSelectPolicy = tempSelectPolicyJson;
     final int? tempStabilizationWindowSeconds =
         tempStabilizationWindowSecondsJson;

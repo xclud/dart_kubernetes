@@ -19,7 +19,8 @@ class IPBlock {
     final tempExceptJson = json['except'];
 
     final String tempCidr = tempCidrJson;
-    final List<String>? tempExcept = tempExceptJson;
+    final List<String>? tempExcept =
+        tempExceptJson != null ? List<String>.from(tempExceptJson) : null;
 
     return IPBlock(
       cidr: tempCidr,

@@ -22,7 +22,14 @@ class NodeAffinity {
 
     final List<PreferredSchedulingTerm>?
         tempPreferredDuringSchedulingIgnoredDuringExecution =
-        tempPreferredDuringSchedulingIgnoredDuringExecutionJson;
+        tempPreferredDuringSchedulingIgnoredDuringExecutionJson != null
+            ? List<dynamic>.from(
+                    tempPreferredDuringSchedulingIgnoredDuringExecutionJson)
+                .map((e) => PreferredSchedulingTerm.fromJson(
+                    Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
+
     final NodeSelector? tempRequiredDuringSchedulingIgnoredDuringExecution =
         tempRequiredDuringSchedulingIgnoredDuringExecutionJson != null
             ? NodeSelector.fromJson(

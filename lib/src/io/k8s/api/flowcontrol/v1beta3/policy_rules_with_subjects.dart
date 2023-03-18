@@ -21,9 +21,24 @@ class PolicyRulesWithSubjects {
     final tempSubjectsJson = json['subjects'];
 
     final List<NonResourcePolicyRule>? tempNonResourceRules =
-        tempNonResourceRulesJson;
-    final List<ResourcePolicyRule>? tempResourceRules = tempResourceRulesJson;
-    final List<Subject> tempSubjects = tempSubjectsJson;
+        tempNonResourceRulesJson != null
+            ? List<dynamic>.from(tempNonResourceRulesJson)
+                .map((e) => NonResourcePolicyRule.fromJson(
+                    Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
+
+    final List<ResourcePolicyRule>? tempResourceRules =
+        tempResourceRulesJson != null
+            ? List<dynamic>.from(tempResourceRulesJson)
+                .map((e) =>
+                    ResourcePolicyRule.fromJson(Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
+
+    final List<Subject> tempSubjects = List<dynamic>.from(tempSubjectsJson)
+        .map((e) => Subject.fromJson(Map<String, dynamic>.from(e)))
+        .toList();
 
     return PolicyRulesWithSubjects(
       nonResourceRules: tempNonResourceRules,

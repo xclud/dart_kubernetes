@@ -24,7 +24,7 @@ class ServiceSpec {
     this.loadBalancerSourceRanges,
     this.ports,
     this.publishNotReadyAddresses,
-    this.selector = const {},
+    this.selector,
     this.sessionAffinity,
     this.sessionAffinityConfig,
     this.type,
@@ -56,21 +56,39 @@ class ServiceSpec {
     final bool? tempAllocateLoadBalancerNodePorts =
         tempAllocateLoadBalancerNodePortsJson;
     final String? tempClusterIP = tempClusterIPJson;
-    final List<String>? tempClusterIPs = tempClusterIPsJson;
-    final List<String>? tempExternalIPs = tempExternalIPsJson;
+    final List<String>? tempClusterIPs = tempClusterIPsJson != null
+        ? List<String>.from(tempClusterIPsJson)
+        : null;
+    final List<String>? tempExternalIPs = tempExternalIPsJson != null
+        ? List<String>.from(tempExternalIPsJson)
+        : null;
     final String? tempExternalName = tempExternalNameJson;
     final String? tempExternalTrafficPolicy = tempExternalTrafficPolicyJson;
     final int? tempHealthCheckNodePort = tempHealthCheckNodePortJson;
     final String? tempInternalTrafficPolicy = tempInternalTrafficPolicyJson;
-    final List<String>? tempIpFamilies = tempIpFamiliesJson;
+    final List<String>? tempIpFamilies = tempIpFamiliesJson != null
+        ? List<String>.from(tempIpFamiliesJson)
+        : null;
     final String? tempIpFamilyPolicy = tempIpFamilyPolicyJson;
     final String? tempLoadBalancerClass = tempLoadBalancerClassJson;
     final String? tempLoadBalancerIP = tempLoadBalancerIPJson;
     final List<String>? tempLoadBalancerSourceRanges =
-        tempLoadBalancerSourceRangesJson;
-    final List<ServicePort>? tempPorts = tempPortsJson;
+        tempLoadBalancerSourceRangesJson != null
+            ? List<String>.from(tempLoadBalancerSourceRangesJson)
+            : null;
+
+    final List<ServicePort>? tempPorts = tempPortsJson != null
+        ? List<dynamic>.from(tempPortsJson)
+            .map((e) => ServicePort.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final bool? tempPublishNotReadyAddresses = tempPublishNotReadyAddressesJson;
-    final Map<String, String> tempSelector = tempSelectorJson;
+
+    final Map<String, String>? tempSelector = tempSelectorJson != null
+        ? Map<String, String>.from(tempSelectorJson)
+        : null;
+
     final String? tempSessionAffinity = tempSessionAffinityJson;
     final SessionAffinityConfig? tempSessionAffinityConfig =
         tempSessionAffinityConfigJson != null
@@ -151,7 +169,7 @@ class ServiceSpec {
   final bool? publishNotReadyAddresses;
 
   /// Route service traffic to pods with label keys and values matching this selector. If empty or not present, the service is assumed to have an external process managing its endpoints, which Kubernetes will not modify. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/.
-  final Map<String, String> selector;
+  final Map<String, String>? selector;
 
   /// Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies.
   final String? sessionAffinity;
@@ -247,7 +265,9 @@ class ServiceSpec {
       jsonData['publishNotReadyAddresses'] = tempPublishNotReadyAddresses;
     }
 
-    jsonData['selector'] = tempSelector;
+    if (tempSelector != null) {
+      jsonData['selector'] = tempSelector;
+    }
 
     if (tempSessionAffinity != null) {
       jsonData['sessionAffinity'] = tempSessionAffinity;

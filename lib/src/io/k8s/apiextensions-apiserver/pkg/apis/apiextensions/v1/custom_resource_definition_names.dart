@@ -26,11 +26,15 @@ class CustomResourceDefinitionNames {
     final tempShortNamesJson = json['shortNames'];
     final tempSingularJson = json['singular'];
 
-    final List<String>? tempCategories = tempCategoriesJson;
+    final List<String>? tempCategories = tempCategoriesJson != null
+        ? List<String>.from(tempCategoriesJson)
+        : null;
     final String tempKind = tempKindJson;
     final String? tempListKind = tempListKindJson;
     final String tempPlural = tempPluralJson;
-    final List<String>? tempShortNames = tempShortNamesJson;
+    final List<String>? tempShortNames = tempShortNamesJson != null
+        ? List<String>.from(tempShortNamesJson)
+        : null;
     final String? tempSingular = tempSingularJson;
 
     return CustomResourceDefinitionNames(

@@ -11,7 +11,7 @@ class ReplicationControllerSpec {
   const ReplicationControllerSpec({
     this.minReadySeconds,
     this.replicas,
-    this.selector = const {},
+    this.selector,
     this.template,
   });
 
@@ -24,7 +24,11 @@ class ReplicationControllerSpec {
 
     final int? tempMinReadySeconds = tempMinReadySecondsJson;
     final int? tempReplicas = tempReplicasJson;
-    final Map<String, String> tempSelector = tempSelectorJson;
+
+    final Map<String, String>? tempSelector = tempSelectorJson != null
+        ? Map<String, String>.from(tempSelectorJson)
+        : null;
+
     final PodTemplateSpec? tempTemplate = tempTemplateJson != null
         ? PodTemplateSpec.fromJson(tempTemplateJson)
         : null;
@@ -44,7 +48,7 @@ class ReplicationControllerSpec {
   final int? replicas;
 
   /// Selector is a label query over pods that should match the Replicas count. If Selector is empty, it is defaulted to the labels present on the Pod template. Label keys and values that must match in order to be controlled by this replication controller, if empty defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors.
-  final Map<String, String> selector;
+  final Map<String, String>? selector;
 
   /// Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template.
   final PodTemplateSpec? template;
@@ -66,7 +70,9 @@ class ReplicationControllerSpec {
       jsonData['replicas'] = tempReplicas;
     }
 
-    jsonData['selector'] = tempSelector;
+    if (tempSelector != null) {
+      jsonData['selector'] = tempSelector;
+    }
 
     if (tempTemplate != null) {
       jsonData['template'] = tempTemplate.toJson();

@@ -18,7 +18,8 @@ class ContainerImage {
     final tempNamesJson = json['names'];
     final tempSizeBytesJson = json['sizeBytes'];
 
-    final List<String>? tempNames = tempNamesJson;
+    final List<String>? tempNames =
+        tempNamesJson != null ? List<String>.from(tempNamesJson) : null;
     final int? tempSizeBytes = tempSizeBytesJson;
 
     return ContainerImage(

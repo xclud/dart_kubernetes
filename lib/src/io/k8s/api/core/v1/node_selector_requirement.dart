@@ -22,7 +22,8 @@ class NodeSelectorRequirement {
 
     final String tempKey = tempKeyJson;
     final String tempOperator = tempOperatorJson;
-    final List<String>? tempValues = tempValuesJson;
+    final List<String>? tempValues =
+        tempValuesJson != null ? List<String>.from(tempValuesJson) : null;
 
     return NodeSelectorRequirement(
       key: tempKey,

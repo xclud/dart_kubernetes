@@ -37,7 +37,7 @@ class MutatingWebhook {
     final tempTimeoutSecondsJson = json['timeoutSeconds'];
 
     final List<String> tempAdmissionReviewVersions =
-        tempAdmissionReviewVersionsJson;
+        List<String>.from(tempAdmissionReviewVersionsJson);
     final WebhookClientConfig tempClientConfig =
         WebhookClientConfig.fromJson(tempClientConfigJson);
     final String? tempFailurePolicy = tempFailurePolicyJson;
@@ -51,7 +51,14 @@ class MutatingWebhook {
         ? LabelSelector.fromJson(tempObjectSelectorJson)
         : null;
     final String? tempReinvocationPolicy = tempReinvocationPolicyJson;
-    final List<RuleWithOperations>? tempRules = tempRulesJson;
+
+    final List<RuleWithOperations>? tempRules = tempRulesJson != null
+        ? List<dynamic>.from(tempRulesJson)
+            .map((e) =>
+                RuleWithOperations.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final String tempSideEffects = tempSideEffectsJson;
     final int? tempTimeoutSeconds = tempTimeoutSecondsJson;
 

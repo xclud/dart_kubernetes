@@ -26,7 +26,13 @@ class ValidatingWebhookConfiguration {
     final String? tempKind = tempKindJson;
     final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final List<ValidatingWebhook>? tempWebhooks = tempWebhooksJson;
+
+    final List<ValidatingWebhook>? tempWebhooks = tempWebhooksJson != null
+        ? List<dynamic>.from(tempWebhooksJson)
+            .map(
+                (e) => ValidatingWebhook.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
 
     return ValidatingWebhookConfiguration(
       apiVersion: tempApiVersion,

@@ -10,7 +10,7 @@ class LabelSelector {
   /// Default constructor.
   const LabelSelector({
     this.matchExpressions,
-    this.matchLabels = const {},
+    this.matchLabels,
   });
 
   /// Creates a [LabelSelector] from JSON data.
@@ -19,8 +19,16 @@ class LabelSelector {
     final tempMatchLabelsJson = json['matchLabels'];
 
     final List<LabelSelectorRequirement>? tempMatchExpressions =
-        tempMatchExpressionsJson;
-    final Map<String, String> tempMatchLabels = tempMatchLabelsJson;
+        tempMatchExpressionsJson != null
+            ? List<dynamic>.from(tempMatchExpressionsJson)
+                .map((e) => LabelSelectorRequirement.fromJson(
+                    Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
+
+    final Map<String, String>? tempMatchLabels = tempMatchLabelsJson != null
+        ? Map<String, String>.from(tempMatchLabelsJson)
+        : null;
 
     return LabelSelector(
       matchExpressions: tempMatchExpressions,
@@ -32,7 +40,7 @@ class LabelSelector {
   final List<LabelSelectorRequirement>? matchExpressions;
 
   /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-  final Map<String, String> matchLabels;
+  final Map<String, String>? matchLabels;
 
   /// Converts a [LabelSelector] instance to JSON data.
   Map<String, Object> toJson() {
@@ -45,7 +53,9 @@ class LabelSelector {
       jsonData['matchExpressions'] = tempMatchExpressions;
     }
 
-    jsonData['matchLabels'] = tempMatchLabels;
+    if (tempMatchLabels != null) {
+      jsonData['matchLabels'] = tempMatchLabels;
+    }
 
     return jsonData;
   }

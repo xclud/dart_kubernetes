@@ -31,7 +31,13 @@ class CustomResourceDefinitionVersion {
     final tempSubresourcesJson = json['subresources'];
 
     final List<CustomResourceColumnDefinition>? tempAdditionalPrinterColumns =
-        tempAdditionalPrinterColumnsJson;
+        tempAdditionalPrinterColumnsJson != null
+            ? List<dynamic>.from(tempAdditionalPrinterColumnsJson)
+                .map((e) => CustomResourceColumnDefinition.fromJson(
+                    Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
+
     final bool? tempDeprecated = tempDeprecatedJson;
     final String? tempDeprecationWarning = tempDeprecationWarningJson;
     final String tempName = tempNameJson;

@@ -12,7 +12,7 @@ class PodDisruptionBudgetStatus {
     this.conditions,
     required this.currentHealthy,
     required this.desiredHealthy,
-    this.disruptedPods = const {},
+    this.disruptedPods,
     required this.disruptionsAllowed,
     required this.expectedPods,
     this.observedGeneration,
@@ -28,10 +28,19 @@ class PodDisruptionBudgetStatus {
     final tempExpectedPodsJson = json['expectedPods'];
     final tempObservedGenerationJson = json['observedGeneration'];
 
-    final List<Condition>? tempConditions = tempConditionsJson;
+    final List<Condition>? tempConditions = tempConditionsJson != null
+        ? List<dynamic>.from(tempConditionsJson)
+            .map((e) => Condition.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final int tempCurrentHealthy = tempCurrentHealthyJson;
     final int tempDesiredHealthy = tempDesiredHealthyJson;
-    final Map<String, Object> tempDisruptedPods = tempDisruptedPodsJson;
+
+    final Map<String, String>? tempDisruptedPods = tempDisruptedPodsJson != null
+        ? Map<String, String>.from(tempDisruptedPodsJson)
+        : null;
+
     final int tempDisruptionsAllowed = tempDisruptionsAllowedJson;
     final int tempExpectedPods = tempExpectedPodsJson;
     final int? tempObservedGeneration = tempObservedGenerationJson;
@@ -65,7 +74,7 @@ class PodDisruptionBudgetStatus {
   final int desiredHealthy;
 
   /// DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller. A pod will be in this map from the time when the API server processed the eviction request to the time when the pod is seen by PDB controller as having been marked for deletion (or after a timeout). The key in the map is the name of the pod and the value is the time when the API server processed the eviction request. If the deletion didn't occur and a pod is still there it will be removed from the list automatically by PodDisruptionBudget controller after some time. If everything goes smooth this map should be empty for the most of the time. Large number of entries in the map may indicate problems with pod deletions.
-  final Map<String, Object> disruptedPods;
+  final Map<String, String>? disruptedPods;
 
   /// Number of pod disruptions that are currently allowed.
   final int disruptionsAllowed;
@@ -96,7 +105,9 @@ class PodDisruptionBudgetStatus {
 
     jsonData['desiredHealthy'] = tempDesiredHealthy;
 
-    jsonData['disruptedPods'] = tempDisruptedPods;
+    if (tempDisruptedPods != null) {
+      jsonData['disruptedPods'] = tempDisruptedPods;
+    }
 
     jsonData['disruptionsAllowed'] = tempDisruptionsAllowed;
 

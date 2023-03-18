@@ -23,7 +23,11 @@ class CSINodeList {
     final tempMetadataJson = json['metadata'];
 
     final String? tempApiVersion = tempApiVersionJson;
-    final List<CSINode> tempItems = tempItemsJson;
+
+    final List<CSINode> tempItems = List<dynamic>.from(tempItemsJson)
+        .map((e) => CSINode.fromJson(Map<String, dynamic>.from(e)))
+        .toList();
+
     final String? tempKind = tempKindJson;
     final ListMeta? tempMetadata =
         tempMetadataJson != null ? ListMeta.fromJson(tempMetadataJson) : null;

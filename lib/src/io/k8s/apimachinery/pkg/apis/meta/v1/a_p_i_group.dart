@@ -34,9 +34,20 @@ class APIGroup {
         tempPreferredVersionJson != null
             ? GroupVersionForDiscovery.fromJson(tempPreferredVersionJson)
             : null;
+
     final List<ServerAddressByClientCIDR>? tempServerAddressByClientCIDRs =
-        tempServerAddressByClientCIDRsJson;
-    final List<GroupVersionForDiscovery> tempVersions = tempVersionsJson;
+        tempServerAddressByClientCIDRsJson != null
+            ? List<dynamic>.from(tempServerAddressByClientCIDRsJson)
+                .map((e) => ServerAddressByClientCIDR.fromJson(
+                    Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
+
+    final List<GroupVersionForDiscovery> tempVersions =
+        List<dynamic>.from(tempVersionsJson)
+            .map((e) =>
+                GroupVersionForDiscovery.fromJson(Map<String, dynamic>.from(e)))
+            .toList();
 
     return APIGroup(
       apiVersion: tempApiVersion,

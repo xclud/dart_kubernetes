@@ -9,7 +9,7 @@ part of io.k8s.api.authorization.v1;
 class SubjectAccessReviewSpec {
   /// Default constructor.
   const SubjectAccessReviewSpec({
-    this.extra = const {},
+    this.extra,
     this.groups,
     this.nonResourceAttributes,
     this.resourceAttributes,
@@ -26,8 +26,13 @@ class SubjectAccessReviewSpec {
     final tempUidJson = json['uid'];
     final tempUserJson = json['user'];
 
-    final Map<String, List<String>> tempExtra = tempExtraJson;
-    final List<String>? tempGroups = tempGroupsJson;
+    final Map<String, List<String>>? tempExtra = tempExtraJson != null
+        ? Map<String, dynamic>.from(tempExtraJson)
+            .map((key, value) => MapEntry(key, List<String>.from(value)))
+        : null;
+
+    final List<String>? tempGroups =
+        tempGroupsJson != null ? List<String>.from(tempGroupsJson) : null;
     final NonResourceAttributes? tempNonResourceAttributes =
         tempNonResourceAttributesJson != null
             ? NonResourceAttributes.fromJson(tempNonResourceAttributesJson)
@@ -50,7 +55,7 @@ class SubjectAccessReviewSpec {
   }
 
   /// Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
-  final Map<String, List<String>> extra;
+  final Map<String, List<String>>? extra;
 
   /// Groups is the groups you're testing for.
   final List<String>? groups;
@@ -78,7 +83,9 @@ class SubjectAccessReviewSpec {
     final tempUid = uid;
     final tempUser = user;
 
-    jsonData['extra'] = tempExtra;
+    if (tempExtra != null) {
+      jsonData['extra'] = tempExtra;
+    }
 
     if (tempGroups != null) {
       jsonData['groups'] = tempGroups;

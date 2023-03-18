@@ -54,12 +54,12 @@ class _ConfigMapViewPageState extends State<ConfigMapViewPage> {
               child: ObjectMetaWidget(metadata: widget.configmap.metadata!),
             ),
           ),
-          if (widget.configmap.data.isNotEmpty)
+          if (widget.configmap.data != null)
             Padding(
               padding: const EdgeInsets.all(4.0),
               child: Card(
                 child: Column(
-                  children: widget.configmap.data.entries
+                  children: widget.configmap.data!.entries
                       .map(
                         (e) => ListTile(
                           title: Text(e.key),

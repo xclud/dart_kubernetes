@@ -21,9 +21,22 @@ class StorageVersionStatus {
     final tempStorageVersionsJson = json['storageVersions'];
 
     final String? tempCommonEncodingVersion = tempCommonEncodingVersionJson;
-    final List<StorageVersionCondition>? tempConditions = tempConditionsJson;
+
+    final List<StorageVersionCondition>? tempConditions = tempConditionsJson !=
+            null
+        ? List<dynamic>.from(tempConditionsJson)
+            .map((e) =>
+                StorageVersionCondition.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final List<ServerStorageVersion>? tempStorageVersions =
-        tempStorageVersionsJson;
+        tempStorageVersionsJson != null
+            ? List<dynamic>.from(tempStorageVersionsJson)
+                .map((e) =>
+                    ServerStorageVersion.fromJson(Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
 
     return StorageVersionStatus(
       commonEncodingVersion: tempCommonEncodingVersion,

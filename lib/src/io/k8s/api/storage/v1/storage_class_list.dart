@@ -23,7 +23,11 @@ class StorageClassList {
     final tempMetadataJson = json['metadata'];
 
     final String? tempApiVersion = tempApiVersionJson;
-    final List<StorageClass> tempItems = tempItemsJson;
+
+    final List<StorageClass> tempItems = List<dynamic>.from(tempItemsJson)
+        .map((e) => StorageClass.fromJson(Map<String, dynamic>.from(e)))
+        .toList();
+
     final String? tempKind = tempKindJson;
     final ListMeta? tempMetadata =
         tempMetadataJson != null ? ListMeta.fromJson(tempMetadataJson) : null;

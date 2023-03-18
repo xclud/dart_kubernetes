@@ -21,7 +21,10 @@ class ServerStorageVersion {
     final tempEncodingVersionJson = json['encodingVersion'];
 
     final String? tempApiServerID = tempApiServerIDJson;
-    final List<String>? tempDecodableVersions = tempDecodableVersionsJson;
+    final List<String>? tempDecodableVersions =
+        tempDecodableVersionsJson != null
+            ? List<String>.from(tempDecodableVersionsJson)
+            : null;
     final String? tempEncodingVersion = tempEncodingVersionJson;
 
     return ServerStorageVersion(

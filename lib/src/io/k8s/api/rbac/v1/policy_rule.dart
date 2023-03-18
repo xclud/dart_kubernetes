@@ -24,11 +24,17 @@ class PolicyRule {
     final tempResourcesJson = json['resources'];
     final tempVerbsJson = json['verbs'];
 
-    final List<String>? tempApiGroups = tempApiGroupsJson;
-    final List<String>? tempNonResourceURLs = tempNonResourceURLsJson;
-    final List<String>? tempResourceNames = tempResourceNamesJson;
-    final List<String>? tempResources = tempResourcesJson;
-    final List<String> tempVerbs = tempVerbsJson;
+    final List<String>? tempApiGroups =
+        tempApiGroupsJson != null ? List<String>.from(tempApiGroupsJson) : null;
+    final List<String>? tempNonResourceURLs = tempNonResourceURLsJson != null
+        ? List<String>.from(tempNonResourceURLsJson)
+        : null;
+    final List<String>? tempResourceNames = tempResourceNamesJson != null
+        ? List<String>.from(tempResourceNamesJson)
+        : null;
+    final List<String>? tempResources =
+        tempResourcesJson != null ? List<String>.from(tempResourcesJson) : null;
+    final List<String> tempVerbs = List<String>.from(tempVerbsJson);
 
     return PolicyRule(
       apiGroups: tempApiGroups,

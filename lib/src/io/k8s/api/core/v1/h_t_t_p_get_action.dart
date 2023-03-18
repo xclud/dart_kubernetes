@@ -25,7 +25,13 @@ class HTTPGetAction {
     final tempSchemeJson = json['scheme'];
 
     final String? tempHost = tempHostJson;
-    final List<HTTPHeader>? tempHttpHeaders = tempHttpHeadersJson;
+
+    final List<HTTPHeader>? tempHttpHeaders = tempHttpHeadersJson != null
+        ? List<dynamic>.from(tempHttpHeadersJson)
+            .map((e) => HTTPHeader.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final String? tempPath = tempPathJson;
     final String tempPort = tempPortJson;
     final String? tempScheme = tempSchemeJson;

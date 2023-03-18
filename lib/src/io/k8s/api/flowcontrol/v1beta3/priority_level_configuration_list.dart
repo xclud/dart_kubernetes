@@ -23,7 +23,13 @@ class PriorityLevelConfigurationList {
     final tempMetadataJson = json['metadata'];
 
     final String? tempApiVersion = tempApiVersionJson;
-    final List<PriorityLevelConfiguration> tempItems = tempItemsJson;
+
+    final List<PriorityLevelConfiguration> tempItems = List<dynamic>.from(
+            tempItemsJson)
+        .map((e) =>
+            PriorityLevelConfiguration.fromJson(Map<String, dynamic>.from(e)))
+        .toList();
+
     final String? tempKind = tempKindJson;
     final ListMeta? tempMetadata =
         tempMetadataJson != null ? ListMeta.fromJson(tempMetadataJson) : null;

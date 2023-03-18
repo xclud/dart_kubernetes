@@ -10,11 +10,11 @@ class Secret {
   /// Default constructor.
   const Secret({
     this.apiVersion,
-    this.data = const {},
+    this.data,
     this.immutable,
     this.kind,
     this.metadata,
-    this.stringData = const {},
+    this.stringData,
     this.type,
   });
 
@@ -29,12 +29,19 @@ class Secret {
     final tempTypeJson = json['type'];
 
     final String? tempApiVersion = tempApiVersionJson;
-    final Map<String, String> tempData = tempDataJson;
+
+    final Map<String, String>? tempData =
+        tempDataJson != null ? Map<String, String>.from(tempDataJson) : null;
+
     final bool? tempImmutable = tempImmutableJson;
     final String? tempKind = tempKindJson;
     final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final Map<String, String> tempStringData = tempStringDataJson;
+
+    final Map<String, String>? tempStringData = tempStringDataJson != null
+        ? Map<String, String>.from(tempStringDataJson)
+        : null;
+
     final String? tempType = tempTypeJson;
 
     return Secret(
@@ -52,7 +59,7 @@ class Secret {
   final String? apiVersion;
 
   /// Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_' or '.'. The serialized form of the secret data is a base64 encoded string, representing the arbitrary (possibly non-string) data value here. Described in https://tools.ietf.org/html/rfc4648#section-4.
-  final Map<String, String> data;
+  final Map<String, String>? data;
 
   /// Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
   final bool? immutable;
@@ -64,7 +71,7 @@ class Secret {
   final ObjectMeta? metadata;
 
   /// stringData allows specifying non-binary secret data in string form. It is provided as a write-only input field for convenience. All keys and values are merged into the data field on write, overwriting any existing values. The stringData field is never output when reading from the API.
-  final Map<String, String> stringData;
+  final Map<String, String>? stringData;
 
   /// Used to facilitate programmatic handling of secret data. More info: https://kubernetes.io/docs/concepts/configuration/secret/#secret-types.
   final String? type;
@@ -85,7 +92,9 @@ class Secret {
       jsonData['apiVersion'] = tempApiVersion;
     }
 
-    jsonData['data'] = tempData;
+    if (tempData != null) {
+      jsonData['data'] = tempData;
+    }
 
     if (tempImmutable != null) {
       jsonData['immutable'] = tempImmutable;
@@ -99,7 +108,9 @@ class Secret {
       jsonData['metadata'] = tempMetadata.toJson();
     }
 
-    jsonData['stringData'] = tempStringData;
+    if (tempStringData != null) {
+      jsonData['stringData'] = tempStringData;
+    }
 
     if (tempType != null) {
       jsonData['type'] = tempType;

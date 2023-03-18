@@ -30,7 +30,11 @@ class ValidatingAdmissionPolicySpec {
     final ParamKind? tempParamKind = tempParamKindJson != null
         ? ParamKind.fromJson(tempParamKindJson)
         : null;
-    final List<Validation> tempValidations = tempValidationsJson;
+
+    final List<Validation> tempValidations =
+        List<dynamic>.from(tempValidationsJson)
+            .map((e) => Validation.fromJson(Map<String, dynamic>.from(e)))
+            .toList();
 
     return ValidatingAdmissionPolicySpec(
       failurePolicy: tempFailurePolicy,

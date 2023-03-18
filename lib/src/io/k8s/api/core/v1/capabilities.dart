@@ -18,8 +18,10 @@ class Capabilities {
     final tempAddJson = json['add'];
     final tempDropJson = json['drop'];
 
-    final List<String>? tempAdd = tempAddJson;
-    final List<String>? tempDrop = tempDropJson;
+    final List<String>? tempAdd =
+        tempAddJson != null ? List<String>.from(tempAddJson) : null;
+    final List<String>? tempDrop =
+        tempDropJson != null ? List<String>.from(tempDropJson) : null;
 
     return Capabilities(
       add: tempAdd,

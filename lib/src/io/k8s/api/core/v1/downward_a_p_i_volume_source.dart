@@ -19,7 +19,13 @@ class DownwardAPIVolumeSource {
     final tempItemsJson = json['items'];
 
     final int? tempDefaultMode = tempDefaultModeJson;
-    final List<DownwardAPIVolumeFile>? tempItems = tempItemsJson;
+
+    final List<DownwardAPIVolumeFile>? tempItems = tempItemsJson != null
+        ? List<dynamic>.from(tempItemsJson)
+            .map((e) =>
+                DownwardAPIVolumeFile.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
 
     return DownwardAPIVolumeSource(
       defaultMode: tempDefaultMode,

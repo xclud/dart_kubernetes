@@ -43,7 +43,8 @@ class ISCSIPersistentVolumeSource {
     final String tempIqn = tempIqnJson;
     final String? tempIscsiInterface = tempIscsiInterfaceJson;
     final int tempLun = tempLunJson;
-    final List<String>? tempPortals = tempPortalsJson;
+    final List<String>? tempPortals =
+        tempPortalsJson != null ? List<String>.from(tempPortalsJson) : null;
     final bool? tempReadOnly = tempReadOnlyJson;
     final SecretReference? tempSecretRef = tempSecretRefJson != null
         ? SecretReference.fromJson(tempSecretRefJson)

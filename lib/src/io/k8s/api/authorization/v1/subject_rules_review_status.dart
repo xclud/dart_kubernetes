@@ -24,8 +24,16 @@ class SubjectRulesReviewStatus {
 
     final String? tempEvaluationError = tempEvaluationErrorJson;
     final bool tempIncomplete = tempIncompleteJson;
-    final List<NonResourceRule> tempNonResourceRules = tempNonResourceRulesJson;
-    final List<ResourceRule> tempResourceRules = tempResourceRulesJson;
+
+    final List<NonResourceRule> tempNonResourceRules =
+        List<dynamic>.from(tempNonResourceRulesJson)
+            .map((e) => NonResourceRule.fromJson(Map<String, dynamic>.from(e)))
+            .toList();
+
+    final List<ResourceRule> tempResourceRules =
+        List<dynamic>.from(tempResourceRulesJson)
+            .map((e) => ResourceRule.fromJson(Map<String, dynamic>.from(e)))
+            .toList();
 
     return SubjectRulesReviewStatus(
       evaluationError: tempEvaluationError,

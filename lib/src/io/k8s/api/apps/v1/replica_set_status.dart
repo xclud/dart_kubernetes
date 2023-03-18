@@ -27,7 +27,14 @@ class ReplicaSetStatus {
     final tempReplicasJson = json['replicas'];
 
     final int? tempAvailableReplicas = tempAvailableReplicasJson;
-    final List<ReplicaSetCondition>? tempConditions = tempConditionsJson;
+
+    final List<ReplicaSetCondition>? tempConditions = tempConditionsJson != null
+        ? List<dynamic>.from(tempConditionsJson)
+            .map((e) =>
+                ReplicaSetCondition.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final int? tempFullyLabeledReplicas = tempFullyLabeledReplicasJson;
     final int? tempObservedGeneration = tempObservedGenerationJson;
     final int? tempReadyReplicas = tempReadyReplicasJson;

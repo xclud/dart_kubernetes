@@ -22,7 +22,7 @@ class WebhookConversion {
         ? WebhookClientConfig.fromJson(tempClientConfigJson)
         : null;
     final List<String> tempConversionReviewVersions =
-        tempConversionReviewVersionsJson;
+        List<String>.from(tempConversionReviewVersionsJson);
 
     return WebhookConversion(
       clientConfig: tempClientConfig,

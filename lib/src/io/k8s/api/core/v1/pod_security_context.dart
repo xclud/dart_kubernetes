@@ -45,8 +45,16 @@ class PodSecurityContext {
     final SeccompProfile? tempSeccompProfile = tempSeccompProfileJson != null
         ? SeccompProfile.fromJson(tempSeccompProfileJson)
         : null;
-    final List<int>? tempSupplementalGroups = tempSupplementalGroupsJson;
-    final List<Sysctl>? tempSysctls = tempSysctlsJson;
+    final List<int>? tempSupplementalGroups = tempSupplementalGroupsJson != null
+        ? List<int>.from(tempSupplementalGroupsJson)
+        : null;
+
+    final List<Sysctl>? tempSysctls = tempSysctlsJson != null
+        ? List<dynamic>.from(tempSysctlsJson)
+            .map((e) => Sysctl.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final WindowsSecurityContextOptions? tempWindowsOptions =
         tempWindowsOptionsJson != null
             ? WindowsSecurityContextOptions.fromJson(tempWindowsOptionsJson)

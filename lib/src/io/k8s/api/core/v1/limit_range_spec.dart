@@ -16,7 +16,9 @@ class LimitRangeSpec {
   factory LimitRangeSpec.fromJson(Map<String, dynamic> json) {
     final tempLimitsJson = json['limits'];
 
-    final List<LimitRangeItem> tempLimits = tempLimitsJson;
+    final List<LimitRangeItem> tempLimits = List<dynamic>.from(tempLimitsJson)
+        .map((e) => LimitRangeItem.fromJson(Map<String, dynamic>.from(e)))
+        .toList();
 
     return LimitRangeSpec(
       limits: tempLimits,

@@ -22,10 +22,23 @@ class PodAffinity {
 
     final List<WeightedPodAffinityTerm>?
         tempPreferredDuringSchedulingIgnoredDuringExecution =
-        tempPreferredDuringSchedulingIgnoredDuringExecutionJson;
+        tempPreferredDuringSchedulingIgnoredDuringExecutionJson != null
+            ? List<dynamic>.from(
+                    tempPreferredDuringSchedulingIgnoredDuringExecutionJson)
+                .map((e) => WeightedPodAffinityTerm.fromJson(
+                    Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
+
     final List<PodAffinityTerm>?
         tempRequiredDuringSchedulingIgnoredDuringExecution =
-        tempRequiredDuringSchedulingIgnoredDuringExecutionJson;
+        tempRequiredDuringSchedulingIgnoredDuringExecutionJson != null
+            ? List<dynamic>.from(
+                    tempRequiredDuringSchedulingIgnoredDuringExecutionJson)
+                .map((e) =>
+                    PodAffinityTerm.fromJson(Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
 
     return PodAffinity(
       preferredDuringSchedulingIgnoredDuringExecution:

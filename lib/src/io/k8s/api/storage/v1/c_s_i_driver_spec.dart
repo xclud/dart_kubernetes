@@ -36,8 +36,17 @@ class CSIDriverSpec {
     final bool? tempRequiresRepublish = tempRequiresRepublishJson;
     final bool? tempSeLinuxMount = tempSeLinuxMountJson;
     final bool? tempStorageCapacity = tempStorageCapacityJson;
-    final List<TokenRequest>? tempTokenRequests = tempTokenRequestsJson;
-    final List<String>? tempVolumeLifecycleModes = tempVolumeLifecycleModesJson;
+
+    final List<TokenRequest>? tempTokenRequests = tempTokenRequestsJson != null
+        ? List<dynamic>.from(tempTokenRequestsJson)
+            .map((e) => TokenRequest.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
+    final List<String>? tempVolumeLifecycleModes =
+        tempVolumeLifecycleModesJson != null
+            ? List<String>.from(tempVolumeLifecycleModesJson)
+            : null;
 
     return CSIDriverSpec(
       attachRequired: tempAttachRequired,

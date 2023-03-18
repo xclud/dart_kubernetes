@@ -19,7 +19,12 @@ class ProjectedVolumeSource {
     final tempSourcesJson = json['sources'];
 
     final int? tempDefaultMode = tempDefaultModeJson;
-    final List<VolumeProjection>? tempSources = tempSourcesJson;
+
+    final List<VolumeProjection>? tempSources = tempSourcesJson != null
+        ? List<dynamic>.from(tempSourcesJson)
+            .map((e) => VolumeProjection.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
 
     return ProjectedVolumeSource(
       defaultMode: tempDefaultMode,

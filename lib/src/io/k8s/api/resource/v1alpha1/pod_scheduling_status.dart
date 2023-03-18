@@ -17,7 +17,12 @@ class PodSchedulingStatus {
     final tempResourceClaimsJson = json['resourceClaims'];
 
     final List<ResourceClaimSchedulingStatus>? tempResourceClaims =
-        tempResourceClaimsJson;
+        tempResourceClaimsJson != null
+            ? List<dynamic>.from(tempResourceClaimsJson)
+                .map((e) => ResourceClaimSchedulingStatus.fromJson(
+                    Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
 
     return PodSchedulingStatus(
       resourceClaims: tempResourceClaims,

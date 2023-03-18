@@ -23,7 +23,11 @@ class IngressList {
     final tempMetadataJson = json['metadata'];
 
     final String? tempApiVersion = tempApiVersionJson;
-    final List<Ingress> tempItems = tempItemsJson;
+
+    final List<Ingress> tempItems = List<dynamic>.from(tempItemsJson)
+        .map((e) => Ingress.fromJson(Map<String, dynamic>.from(e)))
+        .toList();
+
     final String? tempKind = tempKindJson;
     final ListMeta? tempMetadata =
         tempMetadataJson != null ? ListMeta.fromJson(tempMetadataJson) : null;

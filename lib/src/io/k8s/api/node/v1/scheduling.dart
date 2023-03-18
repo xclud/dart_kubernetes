@@ -9,7 +9,7 @@ part of io.k8s.api.node.v1;
 class Scheduling {
   /// Default constructor.
   const Scheduling({
-    this.nodeSelector = const {},
+    this.nodeSelector,
     this.tolerations,
   });
 
@@ -18,8 +18,15 @@ class Scheduling {
     final tempNodeSelectorJson = json['nodeSelector'];
     final tempTolerationsJson = json['tolerations'];
 
-    final Map<String, String> tempNodeSelector = tempNodeSelectorJson;
-    final List<Toleration>? tempTolerations = tempTolerationsJson;
+    final Map<String, String>? tempNodeSelector = tempNodeSelectorJson != null
+        ? Map<String, String>.from(tempNodeSelectorJson)
+        : null;
+
+    final List<Toleration>? tempTolerations = tempTolerationsJson != null
+        ? List<dynamic>.from(tempTolerationsJson)
+            .map((e) => Toleration.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
 
     return Scheduling(
       nodeSelector: tempNodeSelector,
@@ -28,7 +35,7 @@ class Scheduling {
   }
 
   /// nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
-  final Map<String, String> nodeSelector;
+  final Map<String, String>? nodeSelector;
 
   /// tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
   final List<Toleration>? tolerations;
@@ -40,7 +47,9 @@ class Scheduling {
     final tempNodeSelector = nodeSelector;
     final tempTolerations = tolerations;
 
-    jsonData['nodeSelector'] = tempNodeSelector;
+    if (tempNodeSelector != null) {
+      jsonData['nodeSelector'] = tempNodeSelector;
+    }
 
     if (tempTolerations != null) {
       jsonData['tolerations'] = tempTolerations;

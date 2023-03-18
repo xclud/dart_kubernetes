@@ -22,10 +22,14 @@ class ResourceRule {
     final tempResourcesJson = json['resources'];
     final tempVerbsJson = json['verbs'];
 
-    final List<String>? tempApiGroups = tempApiGroupsJson;
-    final List<String>? tempResourceNames = tempResourceNamesJson;
-    final List<String>? tempResources = tempResourcesJson;
-    final List<String> tempVerbs = tempVerbsJson;
+    final List<String>? tempApiGroups =
+        tempApiGroupsJson != null ? List<String>.from(tempApiGroupsJson) : null;
+    final List<String>? tempResourceNames = tempResourceNamesJson != null
+        ? List<String>.from(tempResourceNamesJson)
+        : null;
+    final List<String>? tempResources =
+        tempResourcesJson != null ? List<String>.from(tempResourcesJson) : null;
+    final List<String> tempVerbs = List<String>.from(tempVerbsJson);
 
     return ResourceRule(
       apiGroups: tempApiGroups,

@@ -25,9 +25,14 @@ class APIVersions {
 
     final String? tempApiVersion = tempApiVersionJson;
     final String? tempKind = tempKindJson;
+
     final List<ServerAddressByClientCIDR> tempServerAddressByClientCIDRs =
-        tempServerAddressByClientCIDRsJson;
-    final List<String> tempVersions = tempVersionsJson;
+        List<dynamic>.from(tempServerAddressByClientCIDRsJson)
+            .map((e) => ServerAddressByClientCIDR.fromJson(
+                Map<String, dynamic>.from(e)))
+            .toList();
+
+    final List<String> tempVersions = List<String>.from(tempVersionsJson);
 
     return APIVersions(
       apiVersion: tempApiVersion,

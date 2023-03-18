@@ -30,7 +30,9 @@ class PersistentVolumeClaimSpec {
     final tempVolumeModeJson = json['volumeMode'];
     final tempVolumeNameJson = json['volumeName'];
 
-    final List<String>? tempAccessModes = tempAccessModesJson;
+    final List<String>? tempAccessModes = tempAccessModesJson != null
+        ? List<String>.from(tempAccessModesJson)
+        : null;
     final TypedLocalObjectReference? tempDataSource = tempDataSourceJson != null
         ? TypedLocalObjectReference.fromJson(tempDataSourceJson)
         : null;

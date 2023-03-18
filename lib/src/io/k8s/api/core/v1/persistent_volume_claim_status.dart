@@ -10,8 +10,8 @@ class PersistentVolumeClaimStatus {
   /// Default constructor.
   const PersistentVolumeClaimStatus({
     this.accessModes,
-    this.allocatedResources = const {},
-    this.capacity = const {},
+    this.allocatedResources,
+    this.capacity,
     this.conditions,
     this.phase,
     this.resizeStatus,
@@ -26,12 +26,27 @@ class PersistentVolumeClaimStatus {
     final tempPhaseJson = json['phase'];
     final tempResizeStatusJson = json['resizeStatus'];
 
-    final List<String>? tempAccessModes = tempAccessModesJson;
-    final Map<String, Object> tempAllocatedResources =
-        tempAllocatedResourcesJson;
-    final Map<String, Object> tempCapacity = tempCapacityJson;
+    final List<String>? tempAccessModes = tempAccessModesJson != null
+        ? List<String>.from(tempAccessModesJson)
+        : null;
+
+    final Map<String, String>? tempAllocatedResources =
+        tempAllocatedResourcesJson != null
+            ? Map<String, String>.from(tempAllocatedResourcesJson)
+            : null;
+
+    final Map<String, String>? tempCapacity = tempCapacityJson != null
+        ? Map<String, String>.from(tempCapacityJson)
+        : null;
+
     final List<PersistentVolumeClaimCondition>? tempConditions =
-        tempConditionsJson;
+        tempConditionsJson != null
+            ? List<dynamic>.from(tempConditionsJson)
+                .map((e) => PersistentVolumeClaimCondition.fromJson(
+                    Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
+
     final String? tempPhase = tempPhaseJson;
     final String? tempResizeStatus = tempResizeStatusJson;
 
@@ -49,10 +64,10 @@ class PersistentVolumeClaimStatus {
   final List<String>? accessModes;
 
   /// allocatedResources is the storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
-  final Map<String, Object> allocatedResources;
+  final Map<String, String>? allocatedResources;
 
   /// capacity represents the actual resources of the underlying volume.
-  final Map<String, Object> capacity;
+  final Map<String, String>? capacity;
 
   /// conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
   final List<PersistentVolumeClaimCondition>? conditions;
@@ -78,9 +93,13 @@ class PersistentVolumeClaimStatus {
       jsonData['accessModes'] = tempAccessModes;
     }
 
-    jsonData['allocatedResources'] = tempAllocatedResources;
+    if (tempAllocatedResources != null) {
+      jsonData['allocatedResources'] = tempAllocatedResources;
+    }
 
-    jsonData['capacity'] = tempCapacity;
+    if (tempCapacity != null) {
+      jsonData['capacity'] = tempCapacity;
+    }
 
     if (tempConditions != null) {
       jsonData['conditions'] = tempConditions;

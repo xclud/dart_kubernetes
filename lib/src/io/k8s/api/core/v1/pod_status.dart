@@ -41,19 +41,49 @@ class PodStatus {
     final tempReasonJson = json['reason'];
     final tempStartTimeJson = json['startTime'];
 
-    final List<PodCondition>? tempConditions = tempConditionsJson;
+    final List<PodCondition>? tempConditions = tempConditionsJson != null
+        ? List<dynamic>.from(tempConditionsJson)
+            .map((e) => PodCondition.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final List<ContainerStatus>? tempContainerStatuses =
-        tempContainerStatusesJson;
+        tempContainerStatusesJson != null
+            ? List<dynamic>.from(tempContainerStatusesJson)
+                .map((e) =>
+                    ContainerStatus.fromJson(Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
+
     final List<ContainerStatus>? tempEphemeralContainerStatuses =
-        tempEphemeralContainerStatusesJson;
+        tempEphemeralContainerStatusesJson != null
+            ? List<dynamic>.from(tempEphemeralContainerStatusesJson)
+                .map((e) =>
+                    ContainerStatus.fromJson(Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
+
     final String? tempHostIP = tempHostIPJson;
+
     final List<ContainerStatus>? tempInitContainerStatuses =
-        tempInitContainerStatusesJson;
+        tempInitContainerStatusesJson != null
+            ? List<dynamic>.from(tempInitContainerStatusesJson)
+                .map((e) =>
+                    ContainerStatus.fromJson(Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
+
     final String? tempMessage = tempMessageJson;
     final String? tempNominatedNodeName = tempNominatedNodeNameJson;
     final String? tempPhase = tempPhaseJson;
     final String? tempPodIP = tempPodIPJson;
-    final List<PodIP>? tempPodIPs = tempPodIPsJson;
+
+    final List<PodIP>? tempPodIPs = tempPodIPsJson != null
+        ? List<dynamic>.from(tempPodIPsJson)
+            .map((e) => PodIP.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final String? tempQosClass = tempQosClassJson;
     final String? tempReason = tempReasonJson;
     final DateTime? tempStartTime =

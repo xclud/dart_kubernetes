@@ -23,7 +23,11 @@ class PodTemplateList {
     final tempMetadataJson = json['metadata'];
 
     final String? tempApiVersion = tempApiVersionJson;
-    final List<PodTemplate> tempItems = tempItemsJson;
+
+    final List<PodTemplate> tempItems = List<dynamic>.from(tempItemsJson)
+        .map((e) => PodTemplate.fromJson(Map<String, dynamic>.from(e)))
+        .toList();
+
     final String? tempKind = tempKindJson;
     final ListMeta? tempMetadata =
         tempMetadataJson != null ? ListMeta.fromJson(tempMetadataJson) : null;

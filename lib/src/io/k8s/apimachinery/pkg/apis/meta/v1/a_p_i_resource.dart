@@ -34,15 +34,19 @@ class APIResource {
     final tempVerbsJson = json['verbs'];
     final tempVersionJson = json['version'];
 
-    final List<String>? tempCategories = tempCategoriesJson;
+    final List<String>? tempCategories = tempCategoriesJson != null
+        ? List<String>.from(tempCategoriesJson)
+        : null;
     final String? tempGroup = tempGroupJson;
     final String tempKind = tempKindJson;
     final String tempName = tempNameJson;
     final bool tempNamespaced = tempNamespacedJson;
-    final List<String>? tempShortNames = tempShortNamesJson;
+    final List<String>? tempShortNames = tempShortNamesJson != null
+        ? List<String>.from(tempShortNamesJson)
+        : null;
     final String tempSingularName = tempSingularNameJson;
     final String? tempStorageVersionHash = tempStorageVersionHashJson;
-    final List<String> tempVerbs = tempVerbsJson;
+    final List<String> tempVerbs = List<String>.from(tempVerbsJson);
     final String? tempVersion = tempVersionJson;
 
     return APIResource(

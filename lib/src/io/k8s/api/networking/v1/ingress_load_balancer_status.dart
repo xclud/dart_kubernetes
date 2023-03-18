@@ -16,7 +16,13 @@ class IngressLoadBalancerStatus {
   factory IngressLoadBalancerStatus.fromJson(Map<String, dynamic> json) {
     final tempIngressJson = json['ingress'];
 
-    final List<IngressLoadBalancerIngress>? tempIngress = tempIngressJson;
+    final List<IngressLoadBalancerIngress>? tempIngress =
+        tempIngressJson != null
+            ? List<dynamic>.from(tempIngressJson)
+                .map((e) => IngressLoadBalancerIngress.fromJson(
+                    Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
 
     return IngressLoadBalancerStatus(
       ingress: tempIngress,

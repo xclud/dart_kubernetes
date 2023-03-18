@@ -10,8 +10,8 @@ class ResourceRequirements {
   /// Default constructor.
   const ResourceRequirements({
     this.claims,
-    this.limits = const {},
-    this.requests = const {},
+    this.limits,
+    this.requests,
   });
 
   /// Creates a [ResourceRequirements] from JSON data.
@@ -20,9 +20,19 @@ class ResourceRequirements {
     final tempLimitsJson = json['limits'];
     final tempRequestsJson = json['requests'];
 
-    final List<ResourceClaim>? tempClaims = tempClaimsJson;
-    final Map<String, Object> tempLimits = tempLimitsJson;
-    final Map<String, Object> tempRequests = tempRequestsJson;
+    final List<ResourceClaim>? tempClaims = tempClaimsJson != null
+        ? List<dynamic>.from(tempClaimsJson)
+            .map((e) => ResourceClaim.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
+    final Map<String, String>? tempLimits = tempLimitsJson != null
+        ? Map<String, String>.from(tempLimitsJson)
+        : null;
+
+    final Map<String, String>? tempRequests = tempRequestsJson != null
+        ? Map<String, String>.from(tempRequestsJson)
+        : null;
 
     return ResourceRequirements(
       claims: tempClaims,
@@ -39,10 +49,10 @@ class ResourceRequirements {
   final List<ResourceClaim>? claims;
 
   /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/.
-  final Map<String, Object> limits;
+  final Map<String, String>? limits;
 
   /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/.
-  final Map<String, Object> requests;
+  final Map<String, String>? requests;
 
   /// Converts a [ResourceRequirements] instance to JSON data.
   Map<String, Object> toJson() {
@@ -56,9 +66,13 @@ class ResourceRequirements {
       jsonData['claims'] = tempClaims;
     }
 
-    jsonData['limits'] = tempLimits;
+    if (tempLimits != null) {
+      jsonData['limits'] = tempLimits;
+    }
 
-    jsonData['requests'] = tempRequests;
+    if (tempRequests != null) {
+      jsonData['requests'] = tempRequests;
+    }
 
     return jsonData;
   }

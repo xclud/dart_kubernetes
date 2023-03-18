@@ -62,10 +62,23 @@ class EphemeralContainer {
     final tempVolumeMountsJson = json['volumeMounts'];
     final tempWorkingDirJson = json['workingDir'];
 
-    final List<String>? tempArgs = tempArgsJson;
-    final List<String>? tempCommand = tempCommandJson;
-    final List<EnvVar>? tempEnv = tempEnvJson;
-    final List<EnvFromSource>? tempEnvFrom = tempEnvFromJson;
+    final List<String>? tempArgs =
+        tempArgsJson != null ? List<String>.from(tempArgsJson) : null;
+    final List<String>? tempCommand =
+        tempCommandJson != null ? List<String>.from(tempCommandJson) : null;
+
+    final List<EnvVar>? tempEnv = tempEnvJson != null
+        ? List<dynamic>.from(tempEnvJson)
+            .map((e) => EnvVar.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
+    final List<EnvFromSource>? tempEnvFrom = tempEnvFromJson != null
+        ? List<dynamic>.from(tempEnvFromJson)
+            .map((e) => EnvFromSource.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final String? tempImage = tempImageJson;
     final String? tempImagePullPolicy = tempImagePullPolicyJson;
     final Lifecycle? tempLifecycle = tempLifecycleJson != null
@@ -75,7 +88,13 @@ class EphemeralContainer {
         ? Probe.fromJson(tempLivenessProbeJson)
         : null;
     final String tempName = tempNameJson;
-    final List<ContainerPort>? tempPorts = tempPortsJson;
+
+    final List<ContainerPort>? tempPorts = tempPortsJson != null
+        ? List<dynamic>.from(tempPortsJson)
+            .map((e) => ContainerPort.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final Probe? tempReadinessProbe = tempReadinessProbeJson != null
         ? Probe.fromJson(tempReadinessProbeJson)
         : null;
@@ -95,8 +114,19 @@ class EphemeralContainer {
     final String? tempTerminationMessagePolicy =
         tempTerminationMessagePolicyJson;
     final bool? tempTty = tempTtyJson;
-    final List<VolumeDevice>? tempVolumeDevices = tempVolumeDevicesJson;
-    final List<VolumeMount>? tempVolumeMounts = tempVolumeMountsJson;
+
+    final List<VolumeDevice>? tempVolumeDevices = tempVolumeDevicesJson != null
+        ? List<dynamic>.from(tempVolumeDevicesJson)
+            .map((e) => VolumeDevice.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
+    final List<VolumeMount>? tempVolumeMounts = tempVolumeMountsJson != null
+        ? List<dynamic>.from(tempVolumeMountsJson)
+            .map((e) => VolumeMount.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final String? tempWorkingDir = tempWorkingDirJson;
 
     return EphemeralContainer(

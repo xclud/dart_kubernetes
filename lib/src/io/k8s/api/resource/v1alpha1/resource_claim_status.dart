@@ -27,8 +27,14 @@ class ResourceClaimStatus {
         : null;
     final bool? tempDeallocationRequested = tempDeallocationRequestedJson;
     final String? tempDriverName = tempDriverNameJson;
+
     final List<ResourceClaimConsumerReference>? tempReservedFor =
-        tempReservedForJson;
+        tempReservedForJson != null
+            ? List<dynamic>.from(tempReservedForJson)
+                .map((e) => ResourceClaimConsumerReference.fromJson(
+                    Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
 
     return ResourceClaimStatus(
       allocation: tempAllocation,

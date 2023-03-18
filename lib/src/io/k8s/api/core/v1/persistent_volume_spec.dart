@@ -13,7 +13,7 @@ class PersistentVolumeSpec {
     this.awsElasticBlockStore,
     this.azureDisk,
     this.azureFile,
-    this.capacity = const {},
+    this.capacity,
     this.cephfs,
     this.cinder,
     this.claimRef,
@@ -75,7 +75,9 @@ class PersistentVolumeSpec {
     final tempVolumeModeJson = json['volumeMode'];
     final tempVsphereVolumeJson = json['vsphereVolume'];
 
-    final List<String>? tempAccessModes = tempAccessModesJson;
+    final List<String>? tempAccessModes = tempAccessModesJson != null
+        ? List<String>.from(tempAccessModesJson)
+        : null;
     final AWSElasticBlockStoreVolumeSource? tempAwsElasticBlockStore =
         tempAwsElasticBlockStoreJson != null
             ? AWSElasticBlockStoreVolumeSource.fromJson(
@@ -88,7 +90,11 @@ class PersistentVolumeSpec {
         tempAzureFileJson != null
             ? AzureFilePersistentVolumeSource.fromJson(tempAzureFileJson)
             : null;
-    final Map<String, Object> tempCapacity = tempCapacityJson;
+
+    final Map<String, String>? tempCapacity = tempCapacityJson != null
+        ? Map<String, String>.from(tempCapacityJson)
+        : null;
+
     final CephFSPersistentVolumeSource? tempCephfs = tempCephfsJson != null
         ? CephFSPersistentVolumeSource.fromJson(tempCephfsJson)
         : null;
@@ -127,7 +133,9 @@ class PersistentVolumeSpec {
     final LocalVolumeSource? tempLocal = tempLocalJson != null
         ? LocalVolumeSource.fromJson(tempLocalJson)
         : null;
-    final List<String>? tempMountOptions = tempMountOptionsJson;
+    final List<String>? tempMountOptions = tempMountOptionsJson != null
+        ? List<String>.from(tempMountOptionsJson)
+        : null;
     final NFSVolumeSource? tempNfs =
         tempNfsJson != null ? NFSVolumeSource.fromJson(tempNfsJson) : null;
     final VolumeNodeAffinity? tempNodeAffinity = tempNodeAffinityJson != null
@@ -211,7 +219,7 @@ class PersistentVolumeSpec {
   final AzureFilePersistentVolumeSource? azureFile;
 
   /// capacity is the description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity.
-  final Map<String, Object> capacity;
+  final Map<String, String>? capacity;
 
   /// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime.
   final CephFSPersistentVolumeSource? cephfs;
@@ -339,7 +347,9 @@ class PersistentVolumeSpec {
       jsonData['azureFile'] = tempAzureFile.toJson();
     }
 
-    jsonData['capacity'] = tempCapacity;
+    if (tempCapacity != null) {
+      jsonData['capacity'] = tempCapacity;
+    }
 
     if (tempCephfs != null) {
       jsonData['cephfs'] = tempCephfs.toJson();

@@ -16,7 +16,12 @@ class APIServiceStatus {
   factory APIServiceStatus.fromJson(Map<String, dynamic> json) {
     final tempConditionsJson = json['conditions'];
 
-    final List<APIServiceCondition>? tempConditions = tempConditionsJson;
+    final List<APIServiceCondition>? tempConditions = tempConditionsJson != null
+        ? List<dynamic>.from(tempConditionsJson)
+            .map((e) =>
+                APIServiceCondition.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
 
     return APIServiceStatus(
       conditions: tempConditions,

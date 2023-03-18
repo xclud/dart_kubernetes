@@ -9,8 +9,8 @@ part of io.k8s.api.core.v1;
 class ResourceQuotaStatus {
   /// Default constructor.
   const ResourceQuotaStatus({
-    this.hard = const {},
-    this.used = const {},
+    this.hard,
+    this.used,
   });
 
   /// Creates a [ResourceQuotaStatus] from JSON data.
@@ -18,8 +18,11 @@ class ResourceQuotaStatus {
     final tempHardJson = json['hard'];
     final tempUsedJson = json['used'];
 
-    final Map<String, Object> tempHard = tempHardJson;
-    final Map<String, Object> tempUsed = tempUsedJson;
+    final Map<String, String>? tempHard =
+        tempHardJson != null ? Map<String, String>.from(tempHardJson) : null;
+
+    final Map<String, String>? tempUsed =
+        tempUsedJson != null ? Map<String, String>.from(tempUsedJson) : null;
 
     return ResourceQuotaStatus(
       hard: tempHard,
@@ -28,10 +31,10 @@ class ResourceQuotaStatus {
   }
 
   /// Hard is the set of enforced hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/.
-  final Map<String, Object> hard;
+  final Map<String, String>? hard;
 
   /// Used is the current observed total usage of the resource in the namespace.
-  final Map<String, Object> used;
+  final Map<String, String>? used;
 
   /// Converts a [ResourceQuotaStatus] instance to JSON data.
   Map<String, Object> toJson() {
@@ -40,9 +43,13 @@ class ResourceQuotaStatus {
     final tempHard = hard;
     final tempUsed = used;
 
-    jsonData['hard'] = tempHard;
+    if (tempHard != null) {
+      jsonData['hard'] = tempHard;
+    }
 
-    jsonData['used'] = tempUsed;
+    if (tempUsed != null) {
+      jsonData['used'] = tempUsed;
+    }
 
     return jsonData;
   }

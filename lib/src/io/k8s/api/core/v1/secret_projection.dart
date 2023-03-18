@@ -22,7 +22,12 @@ class SecretProjection {
     final tempNameJson = json['name'];
     final tempOptionalJson = json['optional'];
 
-    final List<KeyToPath>? tempItems = tempItemsJson;
+    final List<KeyToPath>? tempItems = tempItemsJson != null
+        ? List<dynamic>.from(tempItemsJson)
+            .map((e) => KeyToPath.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final String? tempName = tempNameJson;
     final bool? tempOptional = tempOptionalJson;
 

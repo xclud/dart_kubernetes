@@ -24,11 +24,13 @@ class ResourcePolicyRule {
     final tempResourcesJson = json['resources'];
     final tempVerbsJson = json['verbs'];
 
-    final List<String> tempApiGroups = tempApiGroupsJson;
+    final List<String> tempApiGroups = List<String>.from(tempApiGroupsJson);
     final bool? tempClusterScope = tempClusterScopeJson;
-    final List<String>? tempNamespaces = tempNamespacesJson;
-    final List<String> tempResources = tempResourcesJson;
-    final List<String> tempVerbs = tempVerbsJson;
+    final List<String>? tempNamespaces = tempNamespacesJson != null
+        ? List<String>.from(tempNamespacesJson)
+        : null;
+    final List<String> tempResources = List<String>.from(tempResourcesJson);
+    final List<String> tempVerbs = List<String>.from(tempVerbsJson);
 
     return ResourcePolicyRule(
       apiGroups: tempApiGroups,

@@ -37,7 +37,13 @@ class JobStatus {
     final DateTime? tempCompletionTime = tempCompletionTimeJson != null
         ? DateTime.tryParse(tempCompletionTimeJson)
         : null;
-    final List<JobCondition>? tempConditions = tempConditionsJson;
+
+    final List<JobCondition>? tempConditions = tempConditionsJson != null
+        ? List<dynamic>.from(tempConditionsJson)
+            .map((e) => JobCondition.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final int? tempFailed = tempFailedJson;
     final int? tempReady = tempReadyJson;
     final DateTime? tempStartTime =

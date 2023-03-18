@@ -33,7 +33,9 @@ class TopologySpreadConstraint {
     final LabelSelector? tempLabelSelector = tempLabelSelectorJson != null
         ? LabelSelector.fromJson(tempLabelSelectorJson)
         : null;
-    final List<String>? tempMatchLabelKeys = tempMatchLabelKeysJson;
+    final List<String>? tempMatchLabelKeys = tempMatchLabelKeysJson != null
+        ? List<String>.from(tempMatchLabelKeysJson)
+        : null;
     final int tempMaxSkew = tempMaxSkewJson;
     final int? tempMinDomains = tempMinDomainsJson;
     final String? tempNodeAffinityPolicy = tempNodeAffinityPolicyJson;

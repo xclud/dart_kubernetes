@@ -11,7 +11,7 @@ class VolumeAttachmentStatus {
   const VolumeAttachmentStatus({
     this.attachError,
     required this.attached,
-    this.attachmentMetadata = const {},
+    this.attachmentMetadata,
     this.detachError,
   });
 
@@ -26,8 +26,12 @@ class VolumeAttachmentStatus {
         ? VolumeError.fromJson(tempAttachErrorJson)
         : null;
     final bool tempAttached = tempAttachedJson;
-    final Map<String, String> tempAttachmentMetadata =
-        tempAttachmentMetadataJson;
+
+    final Map<String, String>? tempAttachmentMetadata =
+        tempAttachmentMetadataJson != null
+            ? Map<String, String>.from(tempAttachmentMetadataJson)
+            : null;
+
     final VolumeError? tempDetachError = tempDetachErrorJson != null
         ? VolumeError.fromJson(tempDetachErrorJson)
         : null;
@@ -47,7 +51,7 @@ class VolumeAttachmentStatus {
   final bool attached;
 
   /// attachmentMetadata is populated with any information returned by the attach operation, upon successful attach, that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
-  final Map<String, String> attachmentMetadata;
+  final Map<String, String>? attachmentMetadata;
 
   /// detachError represents the last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
   final VolumeError? detachError;
@@ -67,7 +71,9 @@ class VolumeAttachmentStatus {
 
     jsonData['attached'] = tempAttached;
 
-    jsonData['attachmentMetadata'] = tempAttachmentMetadata;
+    if (tempAttachmentMetadata != null) {
+      jsonData['attachmentMetadata'] = tempAttachmentMetadata;
+    }
 
     if (tempDetachError != null) {
       jsonData['detachError'] = tempDetachError.toJson();

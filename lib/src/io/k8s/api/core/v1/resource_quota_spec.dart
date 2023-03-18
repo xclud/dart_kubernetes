@@ -9,7 +9,7 @@ part of io.k8s.api.core.v1;
 class ResourceQuotaSpec {
   /// Default constructor.
   const ResourceQuotaSpec({
-    this.hard = const {},
+    this.hard,
     this.scopeSelector,
     this.scopes,
   });
@@ -20,11 +20,14 @@ class ResourceQuotaSpec {
     final tempScopeSelectorJson = json['scopeSelector'];
     final tempScopesJson = json['scopes'];
 
-    final Map<String, Object> tempHard = tempHardJson;
+    final Map<String, String>? tempHard =
+        tempHardJson != null ? Map<String, String>.from(tempHardJson) : null;
+
     final ScopeSelector? tempScopeSelector = tempScopeSelectorJson != null
         ? ScopeSelector.fromJson(tempScopeSelectorJson)
         : null;
-    final List<String>? tempScopes = tempScopesJson;
+    final List<String>? tempScopes =
+        tempScopesJson != null ? List<String>.from(tempScopesJson) : null;
 
     return ResourceQuotaSpec(
       hard: tempHard,
@@ -34,7 +37,7 @@ class ResourceQuotaSpec {
   }
 
   /// hard is the set of desired hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/.
-  final Map<String, Object> hard;
+  final Map<String, String>? hard;
 
   /// scopeSelector is also a collection of filters like scopes that must match each object tracked by a quota but expressed using ScopeSelectorOperator in combination with possible values. For a resource to match, both scopes AND scopeSelector (if specified in spec), must be matched.
   final ScopeSelector? scopeSelector;
@@ -50,7 +53,9 @@ class ResourceQuotaSpec {
     final tempScopeSelector = scopeSelector;
     final tempScopes = scopes;
 
-    jsonData['hard'] = tempHard;
+    if (tempHard != null) {
+      jsonData['hard'] = tempHard;
+    }
 
     if (tempScopeSelector != null) {
       jsonData['scopeSelector'] = tempScopeSelector.toJson();

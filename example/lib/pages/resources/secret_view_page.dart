@@ -30,12 +30,12 @@ class _SecretViewPageState extends State<SecretViewPage> {
               child: ObjectMetaWidget(metadata: widget.secret.metadata!),
             ),
           ),
-          if (widget.secret.data.isNotEmpty)
+          if (widget.secret.data != null)
             Padding(
               padding: const EdgeInsets.all(4.0),
               child: Card(
                 child: Column(
-                  children: widget.secret.data.entries
+                  children: widget.secret.data!.entries
                       .map(
                         (e) => ListTile(
                           title: Text(e.key),

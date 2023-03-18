@@ -36,7 +36,15 @@ class StatefulSetStatus {
 
     final int? tempAvailableReplicas = tempAvailableReplicasJson;
     final int? tempCollisionCount = tempCollisionCountJson;
-    final List<StatefulSetCondition>? tempConditions = tempConditionsJson;
+
+    final List<StatefulSetCondition>? tempConditions =
+        tempConditionsJson != null
+            ? List<dynamic>.from(tempConditionsJson)
+                .map((e) =>
+                    StatefulSetCondition.fromJson(Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
+
     final int? tempCurrentReplicas = tempCurrentReplicasJson;
     final String? tempCurrentRevision = tempCurrentRevisionJson;
     final int? tempObservedGeneration = tempObservedGenerationJson;

@@ -58,8 +58,14 @@ class StatefulSetSpec {
         tempUpdateStrategyJson != null
             ? StatefulSetUpdateStrategy.fromJson(tempUpdateStrategyJson)
             : null;
+
     final List<PersistentVolumeClaim>? tempVolumeClaimTemplates =
-        tempVolumeClaimTemplatesJson;
+        tempVolumeClaimTemplatesJson != null
+            ? List<dynamic>.from(tempVolumeClaimTemplatesJson)
+                .map((e) => PersistentVolumeClaim.fromJson(
+                    Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
 
     return StatefulSetSpec(
       minReadySeconds: tempMinReadySeconds,

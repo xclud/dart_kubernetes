@@ -9,11 +9,11 @@ part of io.k8s.api.core.v1;
 class LimitRangeItem {
   /// Default constructor.
   const LimitRangeItem({
-    this.$default = const {},
-    this.defaultRequest = const {},
-    this.max = const {},
-    this.maxLimitRequestRatio = const {},
-    this.min = const {},
+    this.$default,
+    this.defaultRequest,
+    this.max,
+    this.maxLimitRequestRatio,
+    this.min,
     required this.type,
   });
 
@@ -26,12 +26,26 @@ class LimitRangeItem {
     final tempMinJson = json['min'];
     final tempTypeJson = json['type'];
 
-    final Map<String, Object> tempDefault = tempDefaultJson;
-    final Map<String, Object> tempDefaultRequest = tempDefaultRequestJson;
-    final Map<String, Object> tempMax = tempMaxJson;
-    final Map<String, Object> tempMaxLimitRequestRatio =
-        tempMaxLimitRequestRatioJson;
-    final Map<String, Object> tempMin = tempMinJson;
+    final Map<String, String>? tempDefault = tempDefaultJson != null
+        ? Map<String, String>.from(tempDefaultJson)
+        : null;
+
+    final Map<String, String>? tempDefaultRequest =
+        tempDefaultRequestJson != null
+            ? Map<String, String>.from(tempDefaultRequestJson)
+            : null;
+
+    final Map<String, String>? tempMax =
+        tempMaxJson != null ? Map<String, String>.from(tempMaxJson) : null;
+
+    final Map<String, String>? tempMaxLimitRequestRatio =
+        tempMaxLimitRequestRatioJson != null
+            ? Map<String, String>.from(tempMaxLimitRequestRatioJson)
+            : null;
+
+    final Map<String, String>? tempMin =
+        tempMinJson != null ? Map<String, String>.from(tempMinJson) : null;
+
     final String tempType = tempTypeJson;
 
     return LimitRangeItem(
@@ -45,19 +59,19 @@ class LimitRangeItem {
   }
 
   /// Default resource requirement limit value by resource name if resource limit is omitted.
-  final Map<String, Object> $default;
+  final Map<String, String>? $default;
 
   /// DefaultRequest is the default resource requirement request value by resource name if resource request is omitted.
-  final Map<String, Object> defaultRequest;
+  final Map<String, String>? defaultRequest;
 
   /// Max usage constraints on this kind by resource name.
-  final Map<String, Object> max;
+  final Map<String, String>? max;
 
   /// MaxLimitRequestRatio if specified, the named resource must have a request and limit that are both non-zero where limit divided by request is less than or equal to the enumerated value; this represents the max burst for the named resource.
-  final Map<String, Object> maxLimitRequestRatio;
+  final Map<String, String>? maxLimitRequestRatio;
 
   /// Min usage constraints on this kind by resource name.
-  final Map<String, Object> min;
+  final Map<String, String>? min;
 
   /// Type of resource that this limit applies to.
   final String type;
@@ -73,15 +87,25 @@ class LimitRangeItem {
     final tempMin = min;
     final tempType = type;
 
-    jsonData['default'] = temp$default;
+    if (temp$default != null) {
+      jsonData['default'] = temp$default;
+    }
 
-    jsonData['defaultRequest'] = tempDefaultRequest;
+    if (tempDefaultRequest != null) {
+      jsonData['defaultRequest'] = tempDefaultRequest;
+    }
 
-    jsonData['max'] = tempMax;
+    if (tempMax != null) {
+      jsonData['max'] = tempMax;
+    }
 
-    jsonData['maxLimitRequestRatio'] = tempMaxLimitRequestRatio;
+    if (tempMaxLimitRequestRatio != null) {
+      jsonData['maxLimitRequestRatio'] = tempMaxLimitRequestRatio;
+    }
 
-    jsonData['min'] = tempMin;
+    if (tempMin != null) {
+      jsonData['min'] = tempMin;
+    }
 
     jsonData['type'] = tempType;
 

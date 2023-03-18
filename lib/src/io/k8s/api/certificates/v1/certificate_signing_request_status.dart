@@ -19,8 +19,14 @@ class CertificateSigningRequestStatus {
     final tempConditionsJson = json['conditions'];
 
     final String? tempCertificate = tempCertificateJson;
+
     final List<CertificateSigningRequestCondition>? tempConditions =
-        tempConditionsJson;
+        tempConditionsJson != null
+            ? List<dynamic>.from(tempConditionsJson)
+                .map((e) => CertificateSigningRequestCondition.fromJson(
+                    Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
 
     return CertificateSigningRequestStatus(
       certificate: tempCertificate,

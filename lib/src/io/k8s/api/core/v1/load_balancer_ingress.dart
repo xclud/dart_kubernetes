@@ -22,7 +22,12 @@ class LoadBalancerIngress {
 
     final String? tempHostname = tempHostnameJson;
     final String? tempIp = tempIpJson;
-    final List<PortStatus>? tempPorts = tempPortsJson;
+
+    final List<PortStatus>? tempPorts = tempPortsJson != null
+        ? List<dynamic>.from(tempPortsJson)
+            .map((e) => PortStatus.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
 
     return LoadBalancerIngress(
       hostname: tempHostname,

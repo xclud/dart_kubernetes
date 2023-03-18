@@ -9,14 +9,14 @@ part of io.k8s.apimachinery.pkg.apis.meta.v1;
 class ObjectMeta {
   /// Default constructor.
   const ObjectMeta({
-    this.annotations = const {},
+    this.annotations,
     this.creationTimestamp,
     this.deletionGracePeriodSeconds,
     this.deletionTimestamp,
     this.finalizers,
     this.generateName,
     this.generation,
-    this.labels = const {},
+    this.labels,
     this.managedFields,
     this.name,
     this.namespace,
@@ -45,7 +45,10 @@ class ObjectMeta {
     final tempSelfLinkJson = json['selfLink'];
     final tempUidJson = json['uid'];
 
-    final Map<String, String> tempAnnotations = tempAnnotationsJson;
+    final Map<String, String>? tempAnnotations = tempAnnotationsJson != null
+        ? Map<String, String>.from(tempAnnotationsJson)
+        : null;
+
     final DateTime? tempCreationTimestamp = tempCreationTimestampJson != null
         ? DateTime.tryParse(tempCreationTimestampJson)
         : null;
@@ -54,14 +57,34 @@ class ObjectMeta {
     final DateTime? tempDeletionTimestamp = tempDeletionTimestampJson != null
         ? DateTime.tryParse(tempDeletionTimestampJson)
         : null;
-    final List<String>? tempFinalizers = tempFinalizersJson;
+    final List<String>? tempFinalizers = tempFinalizersJson != null
+        ? List<String>.from(tempFinalizersJson)
+        : null;
     final String? tempGenerateName = tempGenerateNameJson;
     final int? tempGeneration = tempGenerationJson;
-    final Map<String, String> tempLabels = tempLabelsJson;
-    final List<ManagedFieldsEntry>? tempManagedFields = tempManagedFieldsJson;
+
+    final Map<String, String>? tempLabels = tempLabelsJson != null
+        ? Map<String, String>.from(tempLabelsJson)
+        : null;
+
+    final List<ManagedFieldsEntry>? tempManagedFields =
+        tempManagedFieldsJson != null
+            ? List<dynamic>.from(tempManagedFieldsJson)
+                .map((e) =>
+                    ManagedFieldsEntry.fromJson(Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
+
     final String? tempName = tempNameJson;
     final String? tempNamespace = tempNamespaceJson;
-    final List<OwnerReference>? tempOwnerReferences = tempOwnerReferencesJson;
+
+    final List<OwnerReference>? tempOwnerReferences = tempOwnerReferencesJson !=
+            null
+        ? List<dynamic>.from(tempOwnerReferencesJson)
+            .map((e) => OwnerReference.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
+
     final String? tempResourceVersion = tempResourceVersionJson;
     final String? tempSelfLink = tempSelfLinkJson;
     final String? tempUid = tempUidJson;
@@ -86,7 +109,7 @@ class ObjectMeta {
   }
 
   /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations.
-  final Map<String, String> annotations;
+  final Map<String, String>? annotations;
 
   /// CreationTimestamp is a timestamp representing the server time when this object was created. It is not guaranteed to be set in happens-before order across separate operations. Clients may not set this value. It is represented in RFC3339 form and is in UTC.
   ///
@@ -115,7 +138,7 @@ class ObjectMeta {
   final int? generation;
 
   /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels.
-  final Map<String, String> labels;
+  final Map<String, String>? labels;
 
   /// ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like "ci-cd". The set of fields is always in the version that the workflow used when modifying the object.
   final List<ManagedFieldsEntry>? managedFields;
@@ -164,7 +187,9 @@ class ObjectMeta {
     final tempSelfLink = selfLink;
     final tempUid = uid;
 
-    jsonData['annotations'] = tempAnnotations;
+    if (tempAnnotations != null) {
+      jsonData['annotations'] = tempAnnotations;
+    }
 
     if (tempCreationTimestamp != null) {
       jsonData['creationTimestamp'] = tempCreationTimestamp;
@@ -190,7 +215,9 @@ class ObjectMeta {
       jsonData['generation'] = tempGeneration;
     }
 
-    jsonData['labels'] = tempLabels;
+    if (tempLabels != null) {
+      jsonData['labels'] = tempLabels;
+    }
 
     if (tempManagedFields != null) {
       jsonData['managedFields'] = tempManagedFields;

@@ -10,7 +10,7 @@ class CertificateSigningRequestSpec {
   /// Default constructor.
   const CertificateSigningRequestSpec({
     this.expirationSeconds,
-    this.extra = const {},
+    this.extra,
     this.groups,
     required this.request,
     required this.signerName,
@@ -31,12 +31,19 @@ class CertificateSigningRequestSpec {
     final tempUsernameJson = json['username'];
 
     final int? tempExpirationSeconds = tempExpirationSecondsJson;
-    final Map<String, List<String>> tempExtra = tempExtraJson;
-    final List<String>? tempGroups = tempGroupsJson;
+
+    final Map<String, List<String>>? tempExtra = tempExtraJson != null
+        ? Map<String, dynamic>.from(tempExtraJson)
+            .map((key, value) => MapEntry(key, List<String>.from(value)))
+        : null;
+
+    final List<String>? tempGroups =
+        tempGroupsJson != null ? List<String>.from(tempGroupsJson) : null;
     final String tempRequest = tempRequestJson;
     final String tempSignerName = tempSignerNameJson;
     final String? tempUid = tempUidJson;
-    final List<String>? tempUsages = tempUsagesJson;
+    final List<String>? tempUsages =
+        tempUsagesJson != null ? List<String>.from(tempUsagesJson) : null;
     final String? tempUsername = tempUsernameJson;
 
     return CertificateSigningRequestSpec(
@@ -66,7 +73,7 @@ class CertificateSigningRequestSpec {
   final int? expirationSeconds;
 
   /// extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
-  final Map<String, List<String>> extra;
+  final Map<String, List<String>>? extra;
 
   /// groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
   final List<String>? groups;
@@ -136,7 +143,9 @@ class CertificateSigningRequestSpec {
       jsonData['expirationSeconds'] = tempExpirationSeconds;
     }
 
-    jsonData['extra'] = tempExtra;
+    if (tempExtra != null) {
+      jsonData['extra'] = tempExtra;
+    }
 
     if (tempGroups != null) {
       jsonData['groups'] = tempGroups;

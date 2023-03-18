@@ -23,7 +23,11 @@ class DeploymentList {
     final tempMetadataJson = json['metadata'];
 
     final String? tempApiVersion = tempApiVersionJson;
-    final List<Deployment> tempItems = tempItemsJson;
+
+    final List<Deployment> tempItems = List<dynamic>.from(tempItemsJson)
+        .map((e) => Deployment.fromJson(Map<String, dynamic>.from(e)))
+        .toList();
+
     final String? tempKind = tempKindJson;
     final ListMeta? tempMetadata =
         tempMetadataJson != null ? ListMeta.fromJson(tempMetadataJson) : null;

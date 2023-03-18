@@ -24,7 +24,15 @@ class ValidatingAdmissionPolicyBindingList {
     final tempMetadataJson = json['metadata'];
 
     final String? tempApiVersion = tempApiVersionJson;
-    final List<ValidatingAdmissionPolicyBinding>? tempItems = tempItemsJson;
+
+    final List<ValidatingAdmissionPolicyBinding>? tempItems =
+        tempItemsJson != null
+            ? List<dynamic>.from(tempItemsJson)
+                .map((e) => ValidatingAdmissionPolicyBinding.fromJson(
+                    Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
+
     final String? tempKind = tempKindJson;
     final ListMeta? tempMetadata =
         tempMetadataJson != null ? ListMeta.fromJson(tempMetadataJson) : null;

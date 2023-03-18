@@ -23,7 +23,11 @@ class ResourceClaimList {
     final tempMetadataJson = json['metadata'];
 
     final String? tempApiVersion = tempApiVersionJson;
-    final List<ResourceClaim> tempItems = tempItemsJson;
+
+    final List<ResourceClaim> tempItems = List<dynamic>.from(tempItemsJson)
+        .map((e) => ResourceClaim.fromJson(Map<String, dynamic>.from(e)))
+        .toList();
+
     final String? tempKind = tempKindJson;
     final ListMeta? tempMetadata =
         tempMetadataJson != null ? ListMeta.fromJson(tempMetadataJson) : null;

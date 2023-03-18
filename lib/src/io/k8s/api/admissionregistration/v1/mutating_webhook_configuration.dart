@@ -26,7 +26,12 @@ class MutatingWebhookConfiguration {
     final String? tempKind = tempKindJson;
     final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final List<MutatingWebhook>? tempWebhooks = tempWebhooksJson;
+
+    final List<MutatingWebhook>? tempWebhooks = tempWebhooksJson != null
+        ? List<dynamic>.from(tempWebhooksJson)
+            .map((e) => MutatingWebhook.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
 
     return MutatingWebhookConfiguration(
       apiVersion: tempApiVersion,

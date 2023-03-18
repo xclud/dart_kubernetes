@@ -27,8 +27,15 @@ class ReplicationControllerStatus {
     final tempReplicasJson = json['replicas'];
 
     final int? tempAvailableReplicas = tempAvailableReplicasJson;
+
     final List<ReplicationControllerCondition>? tempConditions =
-        tempConditionsJson;
+        tempConditionsJson != null
+            ? List<dynamic>.from(tempConditionsJson)
+                .map((e) => ReplicationControllerCondition.fromJson(
+                    Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
+
     final int? tempFullyLabeledReplicas = tempFullyLabeledReplicasJson;
     final int? tempObservedGeneration = tempObservedGenerationJson;
     final int? tempReadyReplicas = tempReadyReplicasJson;

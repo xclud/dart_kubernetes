@@ -26,8 +26,12 @@ class PodFailurePolicyRule {
             ? PodFailurePolicyOnExitCodesRequirement.fromJson(
                 tempOnExitCodesJson)
             : null;
+
     final List<PodFailurePolicyOnPodConditionsPattern> tempOnPodConditions =
-        tempOnPodConditionsJson;
+        List<dynamic>.from(tempOnPodConditionsJson)
+            .map((e) => PodFailurePolicyOnPodConditionsPattern.fromJson(
+                Map<String, dynamic>.from(e)))
+            .toList();
 
     return PodFailurePolicyRule(
       action: tempAction,

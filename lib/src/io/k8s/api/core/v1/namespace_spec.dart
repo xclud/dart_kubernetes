@@ -16,7 +16,9 @@ class NamespaceSpec {
   factory NamespaceSpec.fromJson(Map<String, dynamic> json) {
     final tempFinalizersJson = json['finalizers'];
 
-    final List<String>? tempFinalizers = tempFinalizersJson;
+    final List<String>? tempFinalizers = tempFinalizersJson != null
+        ? List<String>.from(tempFinalizersJson)
+        : null;
 
     return NamespaceSpec(
       finalizers: tempFinalizers,

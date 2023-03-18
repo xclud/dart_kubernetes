@@ -17,7 +17,12 @@ class AggregationRule {
     final tempClusterRoleSelectorsJson = json['clusterRoleSelectors'];
 
     final List<LabelSelector>? tempClusterRoleSelectors =
-        tempClusterRoleSelectorsJson;
+        tempClusterRoleSelectorsJson != null
+            ? List<dynamic>.from(tempClusterRoleSelectorsJson)
+                .map(
+                    (e) => LabelSelector.fromJson(Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
 
     return AggregationRule(
       clusterRoleSelectors: tempClusterRoleSelectors,

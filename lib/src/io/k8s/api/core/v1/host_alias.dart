@@ -18,7 +18,8 @@ class HostAlias {
     final tempHostnamesJson = json['hostnames'];
     final tempIpJson = json['ip'];
 
-    final List<String>? tempHostnames = tempHostnamesJson;
+    final List<String>? tempHostnames =
+        tempHostnamesJson != null ? List<String>.from(tempHostnamesJson) : null;
     final String? tempIp = tempIpJson;
 
     return HostAlias(

@@ -17,7 +17,9 @@ class NodeSelector {
     final tempNodeSelectorTermsJson = json['nodeSelectorTerms'];
 
     final List<NodeSelectorTerm> tempNodeSelectorTerms =
-        tempNodeSelectorTermsJson;
+        List<dynamic>.from(tempNodeSelectorTermsJson)
+            .map((e) => NodeSelectorTerm.fromJson(Map<String, dynamic>.from(e)))
+            .toList();
 
     return NodeSelector(
       nodeSelectorTerms: tempNodeSelectorTerms,

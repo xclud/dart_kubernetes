@@ -18,8 +18,9 @@ class NonResourcePolicyRule {
     final tempNonResourceURLsJson = json['nonResourceURLs'];
     final tempVerbsJson = json['verbs'];
 
-    final List<String> tempNonResourceURLs = tempNonResourceURLsJson;
-    final List<String> tempVerbs = tempVerbsJson;
+    final List<String> tempNonResourceURLs =
+        List<String>.from(tempNonResourceURLsJson);
+    final List<String> tempVerbs = List<String>.from(tempVerbsJson);
 
     return NonResourcePolicyRule(
       nonResourceURLs: tempNonResourceURLs,

@@ -30,12 +30,24 @@ class ServiceAccount {
     final String? tempApiVersion = tempApiVersionJson;
     final bool? tempAutomountServiceAccountToken =
         tempAutomountServiceAccountTokenJson;
+
     final List<LocalObjectReference>? tempImagePullSecrets =
-        tempImagePullSecretsJson;
+        tempImagePullSecretsJson != null
+            ? List<dynamic>.from(tempImagePullSecretsJson)
+                .map((e) =>
+                    LocalObjectReference.fromJson(Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
+
     final String? tempKind = tempKindJson;
     final ObjectMeta? tempMetadata =
         tempMetadataJson != null ? ObjectMeta.fromJson(tempMetadataJson) : null;
-    final List<ObjectReference>? tempSecrets = tempSecretsJson;
+
+    final List<ObjectReference>? tempSecrets = tempSecretsJson != null
+        ? List<dynamic>.from(tempSecretsJson)
+            .map((e) => ObjectReference.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : null;
 
     return ServiceAccount(
       apiVersion: tempApiVersion,
