@@ -16,4 +16,10 @@ void main() {
 
     expect(podList.items.length, 1);
   });
+
+  test('Service', () {
+    final service = Service.fromJson(c.service);
+
+    expect(service.spec!.ports![0].targetPort!.value, 7090);
+  });
 }
