@@ -33,7 +33,7 @@ class HTTPGetAction {
         : null;
 
     final String? tempPath = tempPathJson;
-    final String tempPort = tempPortJson;
+    final IntOrString tempPort = IntOrString(tempPortJson);
     final String? tempScheme = tempSchemeJson;
 
     return HTTPGetAction(
@@ -55,7 +55,7 @@ class HTTPGetAction {
   final String? path;
 
   /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
-  final String port;
+  final IntOrString port;
 
   /// Scheme to use for connecting to the host. Defaults to HTTP.
   final String? scheme;

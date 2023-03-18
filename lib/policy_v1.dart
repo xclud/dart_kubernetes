@@ -9,6 +9,7 @@ library io.k8s.api.policy.v1;
 // Imports
 import 'io_k8s_apimachinery_pkg_apis_meta_v1.dart'
     show DeleteOptions, ObjectMeta, ListMeta, LabelSelector, Condition;
+import 'kubernetes.dart' show IntOrString;
 
 // Parts
 part 'src/io/k8s/api/policy/v1/eviction.dart';

@@ -38,3 +38,4 @@ import 'istio_v1beta1.dart' as istio_v1beta1;
 
 part 'src/client.dart';
 part 'src/config.dart';
+part 'src/int_or_string.dart';

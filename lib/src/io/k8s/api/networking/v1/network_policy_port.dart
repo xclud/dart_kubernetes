@@ -21,7 +21,8 @@ class NetworkPolicyPort {
     final tempProtocolJson = json['protocol'];
 
     final int? tempEndPort = tempEndPortJson;
-    final String? tempPort = tempPortJson;
+    final IntOrString? tempPort =
+        tempPortJson != null ? IntOrString(tempPortJson) : null;
     final String? tempProtocol = tempProtocolJson;
 
     return NetworkPolicyPort(
@@ -35,7 +36,7 @@ class NetworkPolicyPort {
   final int? endPort;
 
   /// port represents the port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
-  final String? port;
+  final IntOrString? port;
 
   /// protocol represents the protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
   final String? protocol;

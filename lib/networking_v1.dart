@@ -10,6 +10,7 @@ library io.k8s.api.networking.v1;
 import 'io_k8s_apimachinery_pkg_apis_meta_v1.dart'
     show ObjectMeta, ListMeta, LabelSelector, Condition;
 import 'core_v1.dart' show TypedLocalObjectReference;
+import 'kubernetes.dart' show IntOrString;
 
 // Parts
 part 'src/io/k8s/api/networking/v1/h_t_t_p_ingress_path.dart';

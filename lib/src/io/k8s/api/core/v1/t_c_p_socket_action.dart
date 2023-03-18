@@ -19,7 +19,7 @@ class TCPSocketAction {
     final tempPortJson = json['port'];
 
     final String? tempHost = tempHostJson;
-    final String tempPort = tempPortJson;
+    final IntOrString tempPort = IntOrString(tempPortJson);
 
     return TCPSocketAction(
       host: tempHost,
@@ -31,7 +31,7 @@ class TCPSocketAction {
   final String? host;
 
   /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
-  final String port;
+  final IntOrString port;
 
   /// Converts a [TCPSocketAction] instance to JSON data.
   Map<String, Object> toJson() {

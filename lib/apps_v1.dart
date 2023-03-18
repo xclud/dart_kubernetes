@@ -11,6 +11,7 @@ import 'io_k8s_apimachinery_pkg_runtime.dart' show RawExtension;
 import 'io_k8s_apimachinery_pkg_apis_meta_v1.dart'
     show ObjectMeta, ListMeta, LabelSelector;
 import 'core_v1.dart' show PodTemplateSpec, PersistentVolumeClaim;
+import 'kubernetes.dart' show IntOrString;
 
 // Parts
 part 'src/io/k8s/api/apps/v1/controller_revision.dart';
