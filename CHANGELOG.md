@@ -1,6 +1,6 @@
-## 1.26.0+1
+## 1.26.0+2
 
-* Refactor.
+* Refactor and restructure the project. Thanks to Rohit Ranjan <91.rohit@gmail.com> for testing and reporting issues.
 
 ## 1.26.0
 
