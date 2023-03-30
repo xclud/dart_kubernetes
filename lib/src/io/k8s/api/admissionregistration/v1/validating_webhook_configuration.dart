@@ -79,7 +79,8 @@ class ValidatingWebhookConfiguration {
     }
 
     if (tempWebhooks != null) {
-      jsonData['webhooks'] = tempWebhooks;
+      jsonData['webhooks'] =
+          tempWebhooks.map((e) => e.toJson()).toList(growable: false);
     }
 
     return jsonData;

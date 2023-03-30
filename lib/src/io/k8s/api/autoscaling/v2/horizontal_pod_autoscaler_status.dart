@@ -95,11 +95,13 @@ class HorizontalPodAutoscalerStatus {
     final tempObservedGeneration = observedGeneration;
 
     if (tempConditions != null) {
-      jsonData['conditions'] = tempConditions;
+      jsonData['conditions'] =
+          tempConditions.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempCurrentMetrics != null) {
-      jsonData['currentMetrics'] = tempCurrentMetrics;
+      jsonData['currentMetrics'] =
+          tempCurrentMetrics.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempCurrentReplicas != null) {

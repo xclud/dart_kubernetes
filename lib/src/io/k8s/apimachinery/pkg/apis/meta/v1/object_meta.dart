@@ -227,7 +227,8 @@ class ObjectMeta {
     }
 
     if (tempManagedFields != null) {
-      jsonData['managedFields'] = tempManagedFields;
+      jsonData['managedFields'] =
+          tempManagedFields.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempName != null) {
@@ -239,7 +240,8 @@ class ObjectMeta {
     }
 
     if (tempOwnerReferences != null) {
-      jsonData['ownerReferences'] = tempOwnerReferences;
+      jsonData['ownerReferences'] =
+          tempOwnerReferences.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempResourceVersion != null) {

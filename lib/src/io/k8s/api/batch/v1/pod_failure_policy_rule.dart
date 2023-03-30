@@ -74,7 +74,8 @@ class PodFailurePolicyRule {
       jsonData['onExitCodes'] = tempOnExitCodes.toJson();
     }
 
-    jsonData['onPodConditions'] = tempOnPodConditions;
+    jsonData['onPodConditions'] =
+        tempOnPodConditions.map((e) => e.toJson()).toList(growable: false);
 
     return jsonData;
   }

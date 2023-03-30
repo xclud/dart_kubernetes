@@ -54,7 +54,8 @@ class ProjectedVolumeSource {
     }
 
     if (tempSources != null) {
-      jsonData['sources'] = tempSources;
+      jsonData['sources'] =
+          tempSources.map((e) => e.toJson()).toList(growable: false);
     }
 
     return jsonData;

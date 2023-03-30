@@ -303,11 +303,12 @@ class EphemeralContainer {
     }
 
     if (tempEnv != null) {
-      jsonData['env'] = tempEnv;
+      jsonData['env'] = tempEnv.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempEnvFrom != null) {
-      jsonData['envFrom'] = tempEnvFrom;
+      jsonData['envFrom'] =
+          tempEnvFrom.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempImage != null) {
@@ -329,7 +330,8 @@ class EphemeralContainer {
     jsonData['name'] = tempName;
 
     if (tempPorts != null) {
-      jsonData['ports'] = tempPorts;
+      jsonData['ports'] =
+          tempPorts.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempReadinessProbe != null) {
@@ -337,7 +339,8 @@ class EphemeralContainer {
     }
 
     if (tempResizePolicy != null) {
-      jsonData['resizePolicy'] = tempResizePolicy;
+      jsonData['resizePolicy'] =
+          tempResizePolicy.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempResources != null) {
@@ -377,11 +380,13 @@ class EphemeralContainer {
     }
 
     if (tempVolumeDevices != null) {
-      jsonData['volumeDevices'] = tempVolumeDevices;
+      jsonData['volumeDevices'] =
+          tempVolumeDevices.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempVolumeMounts != null) {
-      jsonData['volumeMounts'] = tempVolumeMounts;
+      jsonData['volumeMounts'] =
+          tempVolumeMounts.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempWorkingDir != null) {

@@ -87,7 +87,8 @@ class ReplicaSetStatus {
     }
 
     if (tempConditions != null) {
-      jsonData['conditions'] = tempConditions;
+      jsonData['conditions'] =
+          tempConditions.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempFullyLabeledReplicas != null) {

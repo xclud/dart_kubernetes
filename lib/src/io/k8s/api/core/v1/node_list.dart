@@ -69,7 +69,8 @@ class NodeList {
       jsonData['apiVersion'] = tempApiVersion;
     }
 
-    jsonData['items'] = tempItems;
+    jsonData['items'] =
+        tempItems.map((e) => e.toJson()).toList(growable: false);
 
     if (tempKind != null) {
       jsonData['kind'] = tempKind;

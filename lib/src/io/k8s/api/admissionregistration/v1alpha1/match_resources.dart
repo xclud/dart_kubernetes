@@ -126,7 +126,9 @@ class MatchResources {
     final tempResourceRules = resourceRules;
 
     if (tempExcludeResourceRules != null) {
-      jsonData['excludeResourceRules'] = tempExcludeResourceRules;
+      jsonData['excludeResourceRules'] = tempExcludeResourceRules
+          .map((e) => e.toJson())
+          .toList(growable: false);
     }
 
     if (tempMatchPolicy != null) {
@@ -142,7 +144,8 @@ class MatchResources {
     }
 
     if (tempResourceRules != null) {
-      jsonData['resourceRules'] = tempResourceRules;
+      jsonData['resourceRules'] =
+          tempResourceRules.map((e) => e.toJson()).toList(growable: false);
     }
 
     return jsonData;

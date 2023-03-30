@@ -39,7 +39,8 @@ class NodeSelector {
 
     final tempNodeSelectorTerms = nodeSelectorTerms;
 
-    jsonData['nodeSelectorTerms'] = tempNodeSelectorTerms;
+    jsonData['nodeSelectorTerms'] =
+        tempNodeSelectorTerms.map((e) => e.toJson()).toList(growable: false);
 
     return jsonData;
   }

@@ -104,7 +104,9 @@ class CustomResourceDefinitionVersion {
     final tempSubresources = subresources;
 
     if (tempAdditionalPrinterColumns != null) {
-      jsonData['additionalPrinterColumns'] = tempAdditionalPrinterColumns;
+      jsonData['additionalPrinterColumns'] = tempAdditionalPrinterColumns
+          .map((e) => e.toJson())
+          .toList(growable: false);
     }
 
     if (tempDeprecated != null) {

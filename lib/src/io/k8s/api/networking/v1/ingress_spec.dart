@@ -85,11 +85,12 @@ class IngressSpec {
     }
 
     if (tempRules != null) {
-      jsonData['rules'] = tempRules;
+      jsonData['rules'] =
+          tempRules.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempTls != null) {
-      jsonData['tls'] = tempTls;
+      jsonData['tls'] = tempTls.map((e) => e.toJson()).toList(growable: false);
     }
 
     return jsonData;

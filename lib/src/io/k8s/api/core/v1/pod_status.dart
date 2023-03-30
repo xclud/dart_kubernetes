@@ -193,15 +193,19 @@ class PodStatus {
     final tempStartTime = startTime;
 
     if (tempConditions != null) {
-      jsonData['conditions'] = tempConditions;
+      jsonData['conditions'] =
+          tempConditions.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempContainerStatuses != null) {
-      jsonData['containerStatuses'] = tempContainerStatuses;
+      jsonData['containerStatuses'] =
+          tempContainerStatuses.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempEphemeralContainerStatuses != null) {
-      jsonData['ephemeralContainerStatuses'] = tempEphemeralContainerStatuses;
+      jsonData['ephemeralContainerStatuses'] = tempEphemeralContainerStatuses
+          .map((e) => e.toJson())
+          .toList(growable: false);
     }
 
     if (tempHostIP != null) {
@@ -209,7 +213,9 @@ class PodStatus {
     }
 
     if (tempInitContainerStatuses != null) {
-      jsonData['initContainerStatuses'] = tempInitContainerStatuses;
+      jsonData['initContainerStatuses'] = tempInitContainerStatuses
+          .map((e) => e.toJson())
+          .toList(growable: false);
     }
 
     if (tempMessage != null) {
@@ -229,7 +235,8 @@ class PodStatus {
     }
 
     if (tempPodIPs != null) {
-      jsonData['podIPs'] = tempPodIPs;
+      jsonData['podIPs'] =
+          tempPodIPs.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempQosClass != null) {

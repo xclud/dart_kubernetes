@@ -42,7 +42,8 @@ class ScopeSelector {
     final tempMatchExpressions = matchExpressions;
 
     if (tempMatchExpressions != null) {
-      jsonData['matchExpressions'] = tempMatchExpressions;
+      jsonData['matchExpressions'] =
+          tempMatchExpressions.map((e) => e.toJson()).toList(growable: false);
     }
 
     return jsonData;

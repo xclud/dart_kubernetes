@@ -173,7 +173,9 @@ class StatefulSetSpec {
     }
 
     if (tempVolumeClaimTemplates != null) {
-      jsonData['volumeClaimTemplates'] = tempVolumeClaimTemplates;
+      jsonData['volumeClaimTemplates'] = tempVolumeClaimTemplates
+          .map((e) => e.toJson())
+          .toList(growable: false);
     }
 
     return jsonData;

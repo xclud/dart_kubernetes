@@ -67,7 +67,8 @@ class ResourceRequirements {
     final tempRequests = requests;
 
     if (tempClaims != null) {
-      jsonData['claims'] = tempClaims;
+      jsonData['claims'] =
+          tempClaims.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempLimits != null) {

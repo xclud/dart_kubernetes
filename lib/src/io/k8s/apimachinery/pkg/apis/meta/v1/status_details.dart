@@ -82,7 +82,8 @@ class StatusDetails {
     final tempUid = uid;
 
     if (tempCauses != null) {
-      jsonData['causes'] = tempCauses;
+      jsonData['causes'] =
+          tempCauses.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempGroup != null) {

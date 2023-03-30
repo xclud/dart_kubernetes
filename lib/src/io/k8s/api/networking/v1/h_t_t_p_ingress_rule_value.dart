@@ -38,7 +38,8 @@ class HTTPIngressRuleValue {
 
     final tempPaths = paths;
 
-    jsonData['paths'] = tempPaths;
+    jsonData['paths'] =
+        tempPaths.map((e) => e.toJson()).toList(growable: false);
 
     return jsonData;
   }

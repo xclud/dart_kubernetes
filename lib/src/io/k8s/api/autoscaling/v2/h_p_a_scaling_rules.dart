@@ -60,7 +60,8 @@ class HPAScalingRules {
     final tempStabilizationWindowSeconds = stabilizationWindowSeconds;
 
     if (tempPolicies != null) {
-      jsonData['policies'] = tempPolicies;
+      jsonData['policies'] =
+          tempPolicies.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempSelectPolicy != null) {

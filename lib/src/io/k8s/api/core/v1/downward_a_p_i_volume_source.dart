@@ -54,7 +54,8 @@ class DownwardAPIVolumeSource {
     }
 
     if (tempItems != null) {
-      jsonData['items'] = tempItems;
+      jsonData['items'] =
+          tempItems.map((e) => e.toJson()).toList(growable: false);
     }
 
     return jsonData;

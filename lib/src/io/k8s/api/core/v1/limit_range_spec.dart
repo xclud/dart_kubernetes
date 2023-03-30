@@ -38,7 +38,8 @@ class LimitRangeSpec {
 
     final tempLimits = limits;
 
-    jsonData['limits'] = tempLimits;
+    jsonData['limits'] =
+        tempLimits.map((e) => e.toJson()).toList(growable: false);
 
     return jsonData;
   }

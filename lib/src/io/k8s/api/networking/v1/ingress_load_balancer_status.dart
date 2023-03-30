@@ -42,7 +42,8 @@ class IngressLoadBalancerStatus {
     final tempIngress = ingress;
 
     if (tempIngress != null) {
-      jsonData['ingress'] = tempIngress;
+      jsonData['ingress'] =
+          tempIngress.map((e) => e.toJson()).toList(growable: false);
     }
 
     return jsonData;

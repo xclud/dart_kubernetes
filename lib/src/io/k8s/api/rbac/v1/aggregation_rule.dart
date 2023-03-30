@@ -42,7 +42,9 @@ class AggregationRule {
     final tempClusterRoleSelectors = clusterRoleSelectors;
 
     if (tempClusterRoleSelectors != null) {
-      jsonData['clusterRoleSelectors'] = tempClusterRoleSelectors;
+      jsonData['clusterRoleSelectors'] = tempClusterRoleSelectors
+          .map((e) => e.toJson())
+          .toList(growable: false);
     }
 
     return jsonData;

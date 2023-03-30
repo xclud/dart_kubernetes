@@ -50,7 +50,8 @@ class NamespaceStatus {
     final tempPhase = phase;
 
     if (tempConditions != null) {
-      jsonData['conditions'] = tempConditions;
+      jsonData['conditions'] =
+          tempConditions.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempPhase != null) {

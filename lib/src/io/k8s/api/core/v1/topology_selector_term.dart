@@ -42,7 +42,9 @@ class TopologySelectorTerm {
     final tempMatchLabelExpressions = matchLabelExpressions;
 
     if (tempMatchLabelExpressions != null) {
-      jsonData['matchLabelExpressions'] = tempMatchLabelExpressions;
+      jsonData['matchLabelExpressions'] = tempMatchLabelExpressions
+          .map((e) => e.toJson())
+          .toList(growable: false);
     }
 
     return jsonData;

@@ -74,7 +74,9 @@ class APIVersions {
       jsonData['kind'] = tempKind;
     }
 
-    jsonData['serverAddressByClientCIDRs'] = tempServerAddressByClientCIDRs;
+    jsonData['serverAddressByClientCIDRs'] = tempServerAddressByClientCIDRs
+        .map((e) => e.toJson())
+        .toList(growable: false);
 
     jsonData['versions'] = tempVersions;
 

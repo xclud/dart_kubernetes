@@ -65,7 +65,9 @@ class NodeAffinity {
 
     if (tempPreferredDuringSchedulingIgnoredDuringExecution != null) {
       jsonData['preferredDuringSchedulingIgnoredDuringExecution'] =
-          tempPreferredDuringSchedulingIgnoredDuringExecution;
+          tempPreferredDuringSchedulingIgnoredDuringExecution
+              .map((e) => e.toJson())
+              .toList(growable: false);
     }
 
     if (tempRequiredDuringSchedulingIgnoredDuringExecution != null) {

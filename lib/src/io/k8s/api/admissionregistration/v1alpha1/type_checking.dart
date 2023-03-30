@@ -42,7 +42,8 @@ class TypeChecking {
     final tempExpressionWarnings = expressionWarnings;
 
     if (tempExpressionWarnings != null) {
-      jsonData['expressionWarnings'] = tempExpressionWarnings;
+      jsonData['expressionWarnings'] =
+          tempExpressionWarnings.map((e) => e.toJson()).toList(growable: false);
     }
 
     return jsonData;

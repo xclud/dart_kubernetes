@@ -129,7 +129,8 @@ class StorageClass {
     }
 
     if (tempAllowedTopologies != null) {
-      jsonData['allowedTopologies'] = tempAllowedTopologies;
+      jsonData['allowedTopologies'] =
+          tempAllowedTopologies.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempApiVersion != null) {

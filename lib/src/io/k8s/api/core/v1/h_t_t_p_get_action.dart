@@ -79,7 +79,8 @@ class HTTPGetAction {
     }
 
     if (tempHttpHeaders != null) {
-      jsonData['httpHeaders'] = tempHttpHeaders;
+      jsonData['httpHeaders'] =
+          tempHttpHeaders.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempPath != null) {

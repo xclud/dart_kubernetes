@@ -79,7 +79,8 @@ class Role {
     }
 
     if (tempRules != null) {
-      jsonData['rules'] = tempRules;
+      jsonData['rules'] =
+          tempRules.map((e) => e.toJson()).toList(growable: false);
     }
 
     return jsonData;

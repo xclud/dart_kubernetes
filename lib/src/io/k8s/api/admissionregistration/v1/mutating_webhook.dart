@@ -208,7 +208,8 @@ class MutatingWebhook {
     }
 
     if (tempMatchConditions != null) {
-      jsonData['matchConditions'] = tempMatchConditions;
+      jsonData['matchConditions'] =
+          tempMatchConditions.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempMatchPolicy != null) {
@@ -230,7 +231,8 @@ class MutatingWebhook {
     }
 
     if (tempRules != null) {
-      jsonData['rules'] = tempRules;
+      jsonData['rules'] =
+          tempRules.map((e) => e.toJson()).toList(growable: false);
     }
 
     jsonData['sideEffects'] = tempSideEffects;

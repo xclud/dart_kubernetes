@@ -167,7 +167,8 @@ class NodeStatus {
     final tempVolumesInUse = volumesInUse;
 
     if (tempAddresses != null) {
-      jsonData['addresses'] = tempAddresses;
+      jsonData['addresses'] =
+          tempAddresses.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempAllocatable != null) {
@@ -179,7 +180,8 @@ class NodeStatus {
     }
 
     if (tempConditions != null) {
-      jsonData['conditions'] = tempConditions;
+      jsonData['conditions'] =
+          tempConditions.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempConfig != null) {
@@ -191,7 +193,8 @@ class NodeStatus {
     }
 
     if (tempImages != null) {
-      jsonData['images'] = tempImages;
+      jsonData['images'] =
+          tempImages.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempNodeInfo != null) {
@@ -203,7 +206,8 @@ class NodeStatus {
     }
 
     if (tempVolumesAttached != null) {
-      jsonData['volumesAttached'] = tempVolumesAttached;
+      jsonData['volumesAttached'] =
+          tempVolumesAttached.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempVolumesInUse != null) {

@@ -114,7 +114,8 @@ class NodeSpec {
     }
 
     if (tempTaints != null) {
-      jsonData['taints'] = tempTaints;
+      jsonData['taints'] =
+          tempTaints.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempUnschedulable != null) {

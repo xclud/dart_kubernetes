@@ -66,7 +66,8 @@ class PodDNSConfig {
     }
 
     if (tempOptions != null) {
-      jsonData['options'] = tempOptions;
+      jsonData['options'] =
+          tempOptions.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempSearches != null) {

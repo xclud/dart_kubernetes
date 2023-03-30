@@ -105,7 +105,8 @@ class ServiceAccount {
     }
 
     if (tempImagePullSecrets != null) {
-      jsonData['imagePullSecrets'] = tempImagePullSecrets;
+      jsonData['imagePullSecrets'] =
+          tempImagePullSecrets.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempKind != null) {
@@ -117,7 +118,8 @@ class ServiceAccount {
     }
 
     if (tempSecrets != null) {
-      jsonData['secrets'] = tempSecrets;
+      jsonData['secrets'] =
+          tempSecrets.map((e) => e.toJson()).toList(growable: false);
     }
 
     return jsonData;

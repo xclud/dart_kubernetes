@@ -85,7 +85,8 @@ class HorizontalPodAutoscalerSpec {
     jsonData['maxReplicas'] = tempMaxReplicas;
 
     if (tempMetrics != null) {
-      jsonData['metrics'] = tempMetrics;
+      jsonData['metrics'] =
+          tempMetrics.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempMinReplicas != null) {

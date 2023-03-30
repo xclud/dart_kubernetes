@@ -78,11 +78,13 @@ class NetworkPolicySpec {
     final tempPolicyTypes = policyTypes;
 
     if (tempEgress != null) {
-      jsonData['egress'] = tempEgress;
+      jsonData['egress'] =
+          tempEgress.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempIngress != null) {
-      jsonData['ingress'] = tempIngress;
+      jsonData['ingress'] =
+          tempIngress.map((e) => e.toJson()).toList(growable: false);
     }
 
     jsonData['podSelector'] = tempPodSelector.toJson();

@@ -42,7 +42,8 @@ class PodSchedulingContextStatus {
     final tempResourceClaims = resourceClaims;
 
     if (tempResourceClaims != null) {
-      jsonData['resourceClaims'] = tempResourceClaims;
+      jsonData['resourceClaims'] =
+          tempResourceClaims.map((e) => e.toJson()).toList(growable: false);
     }
 
     return jsonData;

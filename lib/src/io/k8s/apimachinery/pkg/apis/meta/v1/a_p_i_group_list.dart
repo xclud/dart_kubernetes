@@ -60,7 +60,8 @@ class APIGroupList {
       jsonData['apiVersion'] = tempApiVersion;
     }
 
-    jsonData['groups'] = tempGroups;
+    jsonData['groups'] =
+        tempGroups.map((e) => e.toJson()).toList(growable: false);
 
     if (tempKind != null) {
       jsonData['kind'] = tempKind;

@@ -125,7 +125,8 @@ class ValidatingAdmissionPolicySpec {
     final tempValidations = validations;
 
     if (tempAuditAnnotations != null) {
-      jsonData['auditAnnotations'] = tempAuditAnnotations;
+      jsonData['auditAnnotations'] =
+          tempAuditAnnotations.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempFailurePolicy != null) {
@@ -133,7 +134,8 @@ class ValidatingAdmissionPolicySpec {
     }
 
     if (tempMatchConditions != null) {
-      jsonData['matchConditions'] = tempMatchConditions;
+      jsonData['matchConditions'] =
+          tempMatchConditions.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempMatchConstraints != null) {
@@ -145,7 +147,8 @@ class ValidatingAdmissionPolicySpec {
     }
 
     if (tempValidations != null) {
-      jsonData['validations'] = tempValidations;
+      jsonData['validations'] =
+          tempValidations.map((e) => e.toJson()).toList(growable: false);
     }
 
     return jsonData;

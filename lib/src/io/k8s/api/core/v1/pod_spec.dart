@@ -489,7 +489,8 @@ class PodSpec {
           tempAutomountServiceAccountToken;
     }
 
-    jsonData['containers'] = tempContainers;
+    jsonData['containers'] =
+        tempContainers.map((e) => e.toJson()).toList(growable: false);
 
     if (tempDnsConfig != null) {
       jsonData['dnsConfig'] = tempDnsConfig.toJson();
@@ -504,11 +505,14 @@ class PodSpec {
     }
 
     if (tempEphemeralContainers != null) {
-      jsonData['ephemeralContainers'] = tempEphemeralContainers;
+      jsonData['ephemeralContainers'] = tempEphemeralContainers
+          .map((e) => e.toJson())
+          .toList(growable: false);
     }
 
     if (tempHostAliases != null) {
-      jsonData['hostAliases'] = tempHostAliases;
+      jsonData['hostAliases'] =
+          tempHostAliases.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempHostIPC != null) {
@@ -532,11 +536,13 @@ class PodSpec {
     }
 
     if (tempImagePullSecrets != null) {
-      jsonData['imagePullSecrets'] = tempImagePullSecrets;
+      jsonData['imagePullSecrets'] =
+          tempImagePullSecrets.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempInitContainers != null) {
-      jsonData['initContainers'] = tempInitContainers;
+      jsonData['initContainers'] =
+          tempInitContainers.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempNodeName != null) {
@@ -568,11 +574,13 @@ class PodSpec {
     }
 
     if (tempReadinessGates != null) {
-      jsonData['readinessGates'] = tempReadinessGates;
+      jsonData['readinessGates'] =
+          tempReadinessGates.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempResourceClaims != null) {
-      jsonData['resourceClaims'] = tempResourceClaims;
+      jsonData['resourceClaims'] =
+          tempResourceClaims.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempRestartPolicy != null) {
@@ -588,7 +596,8 @@ class PodSpec {
     }
 
     if (tempSchedulingGates != null) {
-      jsonData['schedulingGates'] = tempSchedulingGates;
+      jsonData['schedulingGates'] =
+          tempSchedulingGates.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempSecurityContext != null) {
@@ -621,15 +630,19 @@ class PodSpec {
     }
 
     if (tempTolerations != null) {
-      jsonData['tolerations'] = tempTolerations;
+      jsonData['tolerations'] =
+          tempTolerations.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempTopologySpreadConstraints != null) {
-      jsonData['topologySpreadConstraints'] = tempTopologySpreadConstraints;
+      jsonData['topologySpreadConstraints'] = tempTopologySpreadConstraints
+          .map((e) => e.toJson())
+          .toList(growable: false);
     }
 
     if (tempVolumes != null) {
-      jsonData['volumes'] = tempVolumes;
+      jsonData['volumes'] =
+          tempVolumes.map((e) => e.toJson()).toList(growable: false);
     }
 
     return jsonData;

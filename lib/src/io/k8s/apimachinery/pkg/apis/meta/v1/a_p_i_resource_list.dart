@@ -74,7 +74,8 @@ class APIResourceList {
       jsonData['kind'] = tempKind;
     }
 
-    jsonData['resources'] = tempResources;
+    jsonData['resources'] =
+        tempResources.map((e) => e.toJson()).toList(growable: false);
 
     return jsonData;
   }

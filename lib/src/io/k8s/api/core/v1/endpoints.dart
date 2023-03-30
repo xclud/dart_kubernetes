@@ -91,7 +91,8 @@ class Endpoints {
     }
 
     if (tempSubsets != null) {
-      jsonData['subsets'] = tempSubsets;
+      jsonData['subsets'] =
+          tempSubsets.map((e) => e.toJson()).toList(growable: false);
     }
 
     return jsonData;

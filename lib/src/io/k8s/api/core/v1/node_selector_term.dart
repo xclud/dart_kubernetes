@@ -60,11 +60,13 @@ class NodeSelectorTerm {
     final tempMatchFields = matchFields;
 
     if (tempMatchExpressions != null) {
-      jsonData['matchExpressions'] = tempMatchExpressions;
+      jsonData['matchExpressions'] =
+          tempMatchExpressions.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempMatchFields != null) {
-      jsonData['matchFields'] = tempMatchFields;
+      jsonData['matchFields'] =
+          tempMatchFields.map((e) => e.toJson()).toList(growable: false);
     }
 
     return jsonData;

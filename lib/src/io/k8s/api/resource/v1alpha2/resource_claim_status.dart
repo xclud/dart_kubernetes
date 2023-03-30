@@ -87,7 +87,8 @@ class ResourceClaimStatus {
     }
 
     if (tempReservedFor != null) {
-      jsonData['reservedFor'] = tempReservedFor;
+      jsonData['reservedFor'] =
+          tempReservedFor.map((e) => e.toJson()).toList(growable: false);
     }
 
     return jsonData;

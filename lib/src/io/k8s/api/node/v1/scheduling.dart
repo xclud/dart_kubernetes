@@ -56,7 +56,8 @@ class Scheduling {
     }
 
     if (tempTolerations != null) {
-      jsonData['tolerations'] = tempTolerations;
+      jsonData['tolerations'] =
+          tempTolerations.map((e) => e.toJson()).toList(growable: false);
     }
 
     return jsonData;

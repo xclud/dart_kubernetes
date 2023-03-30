@@ -73,11 +73,13 @@ class StorageVersionStatus {
     }
 
     if (tempConditions != null) {
-      jsonData['conditions'] = tempConditions;
+      jsonData['conditions'] =
+          tempConditions.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempStorageVersions != null) {
-      jsonData['storageVersions'] = tempStorageVersions;
+      jsonData['storageVersions'] =
+          tempStorageVersions.map((e) => e.toJson()).toList(growable: false);
     }
 
     return jsonData;

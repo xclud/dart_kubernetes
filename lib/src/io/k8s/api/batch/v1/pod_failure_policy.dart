@@ -39,7 +39,8 @@ class PodFailurePolicy {
 
     final tempRules = rules;
 
-    jsonData['rules'] = tempRules;
+    jsonData['rules'] =
+        tempRules.map((e) => e.toJson()).toList(growable: false);
 
     return jsonData;
   }

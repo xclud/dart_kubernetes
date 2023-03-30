@@ -41,7 +41,8 @@ class EndpointHints {
     final tempForZones = forZones;
 
     if (tempForZones != null) {
-      jsonData['forZones'] = tempForZones;
+      jsonData['forZones'] =
+          tempForZones.map((e) => e.toJson()).toList(growable: false);
     }
 
     return jsonData;

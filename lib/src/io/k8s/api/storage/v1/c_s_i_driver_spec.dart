@@ -169,7 +169,8 @@ class CSIDriverSpec {
     }
 
     if (tempTokenRequests != null) {
-      jsonData['tokenRequests'] = tempTokenRequests;
+      jsonData['tokenRequests'] =
+          tempTokenRequests.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempVolumeLifecycleModes != null) {

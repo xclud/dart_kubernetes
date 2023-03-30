@@ -75,14 +75,17 @@ class PolicyRulesWithSubjects {
     final tempSubjects = subjects;
 
     if (tempNonResourceRules != null) {
-      jsonData['nonResourceRules'] = tempNonResourceRules;
+      jsonData['nonResourceRules'] =
+          tempNonResourceRules.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempResourceRules != null) {
-      jsonData['resourceRules'] = tempResourceRules;
+      jsonData['resourceRules'] =
+          tempResourceRules.map((e) => e.toJson()).toList(growable: false);
     }
 
-    jsonData['subjects'] = tempSubjects;
+    jsonData['subjects'] =
+        tempSubjects.map((e) => e.toJson()).toList(growable: false);
 
     return jsonData;
   }

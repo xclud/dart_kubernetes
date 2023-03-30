@@ -73,7 +73,8 @@ class ConfigMapVolumeSource {
     }
 
     if (tempItems != null) {
-      jsonData['items'] = tempItems;
+      jsonData['items'] =
+          tempItems.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempName != null) {

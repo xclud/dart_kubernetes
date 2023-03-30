@@ -96,7 +96,8 @@ class EndpointSlice {
       jsonData['apiVersion'] = tempApiVersion;
     }
 
-    jsonData['endpoints'] = tempEndpoints;
+    jsonData['endpoints'] =
+        tempEndpoints.map((e) => e.toJson()).toList(growable: false);
 
     if (tempKind != null) {
       jsonData['kind'] = tempKind;
@@ -107,7 +108,8 @@ class EndpointSlice {
     }
 
     if (tempPorts != null) {
-      jsonData['ports'] = tempPorts;
+      jsonData['ports'] =
+          tempPorts.map((e) => e.toJson()).toList(growable: false);
     }
 
     return jsonData;

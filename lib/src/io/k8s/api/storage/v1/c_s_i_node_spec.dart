@@ -38,7 +38,8 @@ class CSINodeSpec {
 
     final tempDrivers = drivers;
 
-    jsonData['drivers'] = tempDrivers;
+    jsonData['drivers'] =
+        tempDrivers.map((e) => e.toJson()).toList(growable: false);
 
     return jsonData;
   }

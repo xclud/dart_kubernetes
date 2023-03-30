@@ -58,11 +58,12 @@ class NetworkPolicyEgressRule {
     final tempTo = to;
 
     if (tempPorts != null) {
-      jsonData['ports'] = tempPorts;
+      jsonData['ports'] =
+          tempPorts.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempTo != null) {
-      jsonData['to'] = tempTo;
+      jsonData['to'] = tempTo.map((e) => e.toJson()).toList(growable: false);
     }
 
     return jsonData;

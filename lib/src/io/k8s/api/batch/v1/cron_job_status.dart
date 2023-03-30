@@ -62,7 +62,8 @@ class CronJobStatus {
     final tempLastSuccessfulTime = lastSuccessfulTime;
 
     if (tempActive != null) {
-      jsonData['active'] = tempActive;
+      jsonData['active'] =
+          tempActive.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempLastScheduleTime != null) {

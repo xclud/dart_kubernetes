@@ -102,7 +102,8 @@ class PodDisruptionBudgetStatus {
     final tempObservedGeneration = observedGeneration;
 
     if (tempConditions != null) {
-      jsonData['conditions'] = tempConditions;
+      jsonData['conditions'] =
+          tempConditions.map((e) => e.toJson()).toList(growable: false);
     }
 
     jsonData['currentHealthy'] = tempCurrentHealthy;

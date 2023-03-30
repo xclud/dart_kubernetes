@@ -70,7 +70,8 @@ class AllocationResult {
     }
 
     if (tempResourceHandles != null) {
-      jsonData['resourceHandles'] = tempResourceHandles;
+      jsonData['resourceHandles'] =
+          tempResourceHandles.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempShareable != null) {

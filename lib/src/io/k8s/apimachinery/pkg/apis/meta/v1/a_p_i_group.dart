@@ -109,10 +109,13 @@ class APIGroup {
     }
 
     if (tempServerAddressByClientCIDRs != null) {
-      jsonData['serverAddressByClientCIDRs'] = tempServerAddressByClientCIDRs;
+      jsonData['serverAddressByClientCIDRs'] = tempServerAddressByClientCIDRs
+          .map((e) => e.toJson())
+          .toList(growable: false);
     }
 
-    jsonData['versions'] = tempVersions;
+    jsonData['versions'] =
+        tempVersions.map((e) => e.toJson()).toList(growable: false);
 
     return jsonData;
   }

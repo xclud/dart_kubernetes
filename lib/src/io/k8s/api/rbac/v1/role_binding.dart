@@ -89,7 +89,8 @@ class RoleBinding {
     jsonData['roleRef'] = tempRoleRef.toJson();
 
     if (tempSubjects != null) {
-      jsonData['subjects'] = tempSubjects;
+      jsonData['subjects'] =
+          tempSubjects.map((e) => e.toJson()).toList(growable: false);
     }
 
     return jsonData;

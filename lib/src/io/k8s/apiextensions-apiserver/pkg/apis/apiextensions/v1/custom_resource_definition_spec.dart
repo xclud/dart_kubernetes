@@ -97,7 +97,8 @@ class CustomResourceDefinitionSpec {
 
     jsonData['scope'] = tempScope;
 
-    jsonData['versions'] = tempVersions;
+    jsonData['versions'] =
+        tempVersions.map((e) => e.toJson()).toList(growable: false);
 
     return jsonData;
   }

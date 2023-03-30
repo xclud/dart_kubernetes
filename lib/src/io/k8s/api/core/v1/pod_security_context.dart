@@ -160,7 +160,8 @@ class PodSecurityContext {
     }
 
     if (tempSysctls != null) {
-      jsonData['sysctls'] = tempSysctls;
+      jsonData['sysctls'] =
+          tempSysctls.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempWindowsOptions != null) {

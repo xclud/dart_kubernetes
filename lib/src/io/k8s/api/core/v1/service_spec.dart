@@ -262,7 +262,8 @@ class ServiceSpec {
     }
 
     if (tempPorts != null) {
-      jsonData['ports'] = tempPorts;
+      jsonData['ports'] =
+          tempPorts.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempPublishNotReadyAddresses != null) {

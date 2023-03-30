@@ -78,9 +78,11 @@ class SubjectRulesReviewStatus {
 
     jsonData['incomplete'] = tempIncomplete;
 
-    jsonData['nonResourceRules'] = tempNonResourceRules;
+    jsonData['nonResourceRules'] =
+        tempNonResourceRules.map((e) => e.toJson()).toList(growable: false);
 
-    jsonData['resourceRules'] = tempResourceRules;
+    jsonData['resourceRules'] =
+        tempResourceRules.map((e) => e.toJson()).toList(growable: false);
 
     return jsonData;
   }

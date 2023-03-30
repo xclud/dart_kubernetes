@@ -53,7 +53,8 @@ class LabelSelector {
     final tempMatchLabels = matchLabels;
 
     if (tempMatchExpressions != null) {
-      jsonData['matchExpressions'] = tempMatchExpressions;
+      jsonData['matchExpressions'] =
+          tempMatchExpressions.map((e) => e.toJson()).toList(growable: false);
     }
 
     if (tempMatchLabels != null) {
