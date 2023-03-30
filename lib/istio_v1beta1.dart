@@ -1,3 +1,5 @@
+library io.istio.v1beta1;
+
 export 'src/istio/_todo.dart';
 export 'src/istio/abort.dart';
 export 'src/istio/authorization_policy.dart';
