@@ -1,3 +1,7 @@
+## 1.26.0+3
+
+* Update the dependency on http package.
+
 ## 1.26.0+2
 
 * Refactor and restructure the project. Thanks to Rohit Ranjan <91.rohit@gmail.com> for testing and reporting issues.
