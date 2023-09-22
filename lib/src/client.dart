@@ -10129,7 +10129,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<
           apiextensions__apiserver_pkg_apis_apiextensions_v1
-              .CustomResourceDefinitionList>
+          .CustomResourceDefinitionList>
       listApiextensionsV1CustomResourceDefinition({
     bool? pretty,
   }) async {
@@ -10171,11 +10171,10 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<
-          apiextensions__apiserver_pkg_apis_apiextensions_v1
-              .CustomResourceDefinition>
-      createApiextensionsV1CustomResourceDefinition({
+      apiextensions__apiserver_pkg_apis_apiextensions_v1
+      .CustomResourceDefinition> createApiextensionsV1CustomResourceDefinition({
     required apiextensions__apiserver_pkg_apis_apiextensions_v1
-            .CustomResourceDefinition
+        .CustomResourceDefinition
         body,
     bool? pretty,
   }) async {
@@ -10201,9 +10200,8 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<
-          apiextensions__apiserver_pkg_apis_apiextensions_v1
-              .CustomResourceDefinition>
-      readApiextensionsV1CustomResourceDefinition({
+      apiextensions__apiserver_pkg_apis_apiextensions_v1
+      .CustomResourceDefinition> readApiextensionsV1CustomResourceDefinition({
     required String name,
     bool? pretty,
   }) async {
@@ -10251,10 +10249,10 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<
           apiextensions__apiserver_pkg_apis_apiextensions_v1
-              .CustomResourceDefinition>
+          .CustomResourceDefinition>
       replaceApiextensionsV1CustomResourceDefinition({
     required apiextensions__apiserver_pkg_apis_apiextensions_v1
-            .CustomResourceDefinition
+        .CustomResourceDefinition
         body,
     required String name,
     bool? pretty,
@@ -10281,11 +10279,10 @@ class KubernetesClient {
   ///
   /// [pretty] If true, then the output is pretty printed.
   Future<
-          apiextensions__apiserver_pkg_apis_apiextensions_v1
-              .CustomResourceDefinition>
-      patchApiextensionsV1CustomResourceDefinition({
+      apiextensions__apiserver_pkg_apis_apiextensions_v1
+      .CustomResourceDefinition> patchApiextensionsV1CustomResourceDefinition({
     required apiextensions__apiserver_pkg_apis_apiextensions_v1
-            .CustomResourceDefinition
+        .CustomResourceDefinition
         body,
     required String name,
     bool? pretty,
@@ -10315,7 +10312,7 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<
           apiextensions__apiserver_pkg_apis_apiextensions_v1
-              .CustomResourceDefinition>
+          .CustomResourceDefinition>
       readApiextensionsV1CustomResourceDefinitionStatus({
     required String name,
     bool? pretty,
@@ -10341,10 +10338,10 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<
           apiextensions__apiserver_pkg_apis_apiextensions_v1
-              .CustomResourceDefinition>
+          .CustomResourceDefinition>
       replaceApiextensionsV1CustomResourceDefinitionStatus({
     required apiextensions__apiserver_pkg_apis_apiextensions_v1
-            .CustomResourceDefinition
+        .CustomResourceDefinition
         body,
     required String name,
     bool? pretty,
@@ -10372,10 +10369,10 @@ class KubernetesClient {
   /// [pretty] If true, then the output is pretty printed.
   Future<
           apiextensions__apiserver_pkg_apis_apiextensions_v1
-              .CustomResourceDefinition>
+          .CustomResourceDefinition>
       patchApiextensionsV1CustomResourceDefinitionStatus({
     required apiextensions__apiserver_pkg_apis_apiextensions_v1
-            .CustomResourceDefinition
+        .CustomResourceDefinition
         body,
     required String name,
     bool? pretty,
