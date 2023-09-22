@@ -1,3 +1,8 @@
+## 1.26.0+4
+
+* Dart 3.0 Ready.
+* 100% documented.
+
 ## 1.26.0+3
 
 * Update the dependency on http package.
