@@ -1,3 +1,4 @@
+/// A feature-rich and fully-fledged Kubernetes client for Dart/Flutter.
 library kubernetes;
 
 import 'dart:convert';

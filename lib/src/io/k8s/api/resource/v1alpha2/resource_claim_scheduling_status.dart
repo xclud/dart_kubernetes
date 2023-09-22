@@ -29,7 +29,7 @@ class ResourceClaimSchedulingStatus {
     );
   }
 
-  /// Name matches the pod.spec.resourceClaims[*].Name field.
+  /// Name matches the pod.spec.resourceClaims\[*\].Name field.
   final String? name;
 
   /// UnsuitableNodes lists nodes that the ResourceClaim cannot be allocated for.

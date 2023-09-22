@@ -1,3 +1,4 @@
+/// Istio Beta1.
 library io.istio.v1beta1;
 
 import 'package:kubernetes/io_k8s_apimachinery_pkg_apis_meta_v1.dart';

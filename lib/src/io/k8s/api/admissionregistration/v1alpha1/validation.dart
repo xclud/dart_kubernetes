@@ -44,7 +44,7 @@ class Validation {
   ///
   /// The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
   ///
-  /// Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:
+  /// Only property names of the form `\[a-zA-Z_.-/\]\[a-zA-Z0-9_.-/\]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:
   /// 	  "true", "false", "null", "in", "as", "break", "const", "continue", "else", "for", "function", "if",
   /// 	  "import", "let", "loop", "package", "namespace", "return".
   /// Examples:
@@ -52,7 +52,7 @@ class Validation {
   ///   - Expression accessing a property named "x-prop": {"Expression": "object.x__dash__prop > 0"}
   ///   - Expression accessing a property named "redact__d": {"Expression": "object.redact__underscores__d > 0"}
   ///
-  /// Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
+  /// Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. \[1, 2\] == \[2, 1\]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
   ///   - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
   ///     non-intersecting elements in `Y` are appended, retaining their partial order.
   ///   - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
