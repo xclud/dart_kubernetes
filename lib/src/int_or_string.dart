@@ -16,4 +16,6 @@ class IntOrString {
   String toString() {
     return value.toString();
   }
+  
+  Object toJson() => value;
 }
