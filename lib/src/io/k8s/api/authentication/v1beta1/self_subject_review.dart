@@ -1,6 +1,6 @@
 // ***************************************************************
 // * Auto-generated. Please do not modify.                       *
-// * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
+// * Copyright (c) 2020-2024 Mahdi K. Fard.                      *
 // ***************************************************************
 
 part of '../../../../../../authentication_v1beta1.dart';

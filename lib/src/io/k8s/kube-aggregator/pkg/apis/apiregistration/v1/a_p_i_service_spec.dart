@@ -1,6 +1,6 @@
 // ***************************************************************
 // * Auto-generated. Please do not modify.                       *
-// * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
+// * Copyright (c) 2020-2024 Mahdi K. Fard.                      *
 // ***************************************************************
 
 part of '../../../../../../../../io_k8s_kube__aggregator_pkg_apis_apiregistration_v1.dart';
