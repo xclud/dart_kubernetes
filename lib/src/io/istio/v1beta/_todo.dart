@@ -45,7 +45,7 @@ class EnvoyFilterStatus {
   EnvoyFilterStatus.fromJson(Map<String, dynamic> json) : this();
 }
 
-///
+/// PeerAuthenticationSpec
 class PeerAuthenticationSpec {
   /// The main constructor.
   const PeerAuthenticationSpec();
@@ -54,7 +54,7 @@ class PeerAuthenticationSpec {
   PeerAuthenticationSpec.fromJson(Map<String, dynamic> json) : this();
 }
 
-///
+/// PeerAuthenticationStatus
 class PeerAuthenticationStatus {
   /// The main constructor.
   const PeerAuthenticationStatus();
