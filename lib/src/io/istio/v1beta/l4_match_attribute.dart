@@ -1,4 +1,4 @@
-part of io.istio.v1beta1;
+part of '../../../../istio_v1beta1.dart';
 
 /// L4 connection match attributes. Note that L4 connection matching support is incomplete.
 class L4MatchAttributes {

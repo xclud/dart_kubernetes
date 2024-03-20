@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.storage.v1;
+part of '../../../../../../storage_v1.dart';
 
 /// CSIStorageCapacity stores the result of one CSI GetCapacity call. For a given StorageClass, this describes the available capacity in a particular topology segment.  This can be used when considering where to instantiate new PersistentVolumes.
 ///

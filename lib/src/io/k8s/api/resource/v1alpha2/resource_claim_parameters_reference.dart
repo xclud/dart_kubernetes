@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.resource.v1alpha2;
+part of '../../../../../../resource_v1alpha2.dart';
 
 /// ResourceClaimParametersReference contains enough information to let you locate the parameters for a ResourceClaim. The object must be in the same namespace as the ResourceClaim.
 class ResourceClaimParametersReference {

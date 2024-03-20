@@ -1,4 +1,4 @@
-part of io.istio.v1beta1;
+part of '../../../../istio_v1beta1.dart';
 
 /// HTTPFaultInjection can be used to specify one or more faults to inject while forwarding HTTP requests to the destination specified in a route.
 /// Fault specification is part of a VirtualService rule. Faults include aborting the Http request from downstream service,

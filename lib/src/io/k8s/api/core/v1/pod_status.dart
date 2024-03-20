@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.core.v1;
+part of '../../../../../../core_v1.dart';
 
 /// PodStatus represents information about the status of a pod. Status may trail the actual state of a system, especially if the node that hosts the pod cannot contact the control plane.
 class PodStatus {

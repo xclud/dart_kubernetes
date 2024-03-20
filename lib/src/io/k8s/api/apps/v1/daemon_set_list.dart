@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.apps.v1;
+part of '../../../../../../apps_v1.dart';
 
 /// DaemonSetList is a collection of daemon sets.
 class DaemonSetList {

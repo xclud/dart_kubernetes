@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.flowcontrol.v1beta2;
+part of '../../../../../../flowcontrol_v1beta2.dart';
 
 /// FlowDistinguisherMethod specifies the method of a flow distinguisher.
 class FlowDistinguisherMethod {

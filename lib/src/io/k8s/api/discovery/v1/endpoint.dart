@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.discovery.v1;
+part of '../../../../../../discovery_v1.dart';
 
 /// Endpoint represents a single logical "backend" implementing a service.
 class Endpoint {

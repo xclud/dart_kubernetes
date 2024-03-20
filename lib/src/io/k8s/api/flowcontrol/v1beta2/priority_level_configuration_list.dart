@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.flowcontrol.v1beta2;
+part of '../../../../../../flowcontrol_v1beta2.dart';
 
 /// PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.
 class PriorityLevelConfigurationList {

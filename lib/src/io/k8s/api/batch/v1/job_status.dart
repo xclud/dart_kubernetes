@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.batch.v1;
+part of '../../../../../../batch_v1.dart';
 
 /// JobStatus represents the current state of a Job.
 class JobStatus {

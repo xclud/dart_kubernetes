@@ -1,4 +1,4 @@
-part of kubernetes;
+part of '../kubernetes.dart';
 
 String _getHeader(Object body) {
   return 'application/json; charset=utf-8';

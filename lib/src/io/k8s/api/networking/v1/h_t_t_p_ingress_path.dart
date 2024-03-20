@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.networking.v1;
+part of '../../../../../../networking_v1.dart';
 
 /// HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
 class HTTPIngressPath {

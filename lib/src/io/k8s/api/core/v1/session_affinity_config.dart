@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.core.v1;
+part of '../../../../../../core_v1.dart';
 
 /// SessionAffinityConfig represents the configurations of session affinity.
 class SessionAffinityConfig {

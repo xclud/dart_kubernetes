@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.apimachinery.pkg.apis.meta.v1;
+part of '../../../../../../../../io_k8s_apimachinery_pkg_apis_meta_v1.dart';
 
 /// APIResourceList is a list of APIResource, it is used to expose the name of the resources supported in a specific group and version, and if the resource is namespaced.
 class APIResourceList {

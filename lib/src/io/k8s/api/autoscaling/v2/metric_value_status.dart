@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.autoscaling.v2;
+part of '../../../../../../autoscaling_v2.dart';
 
 /// MetricValueStatus holds the current value for a metric.
 class MetricValueStatus {

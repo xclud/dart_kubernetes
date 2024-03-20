@@ -1,4 +1,4 @@
-part of io.istio.v1beta1;
+part of '../../../../istio_v1beta1.dart';
 
 /// Delay specification is used to inject latency into the request forwarding path.
 /// The following example will introduce a 5 second delay in 1 out of every 1000 requests

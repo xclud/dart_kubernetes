@@ -1,4 +1,4 @@
-part of io.istio.v1beta1;
+part of '../../../../istio_v1beta1.dart';
 
 /// TLS modes enforced by the proxy.
 enum TlsMode {

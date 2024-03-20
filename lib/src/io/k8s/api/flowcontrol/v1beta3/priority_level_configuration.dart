@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.flowcontrol.v1beta3;
+part of '../../../../../../flowcontrol_v1beta3.dart';
 
 /// PriorityLevelConfiguration represents the configuration of a priority level.
 class PriorityLevelConfiguration {

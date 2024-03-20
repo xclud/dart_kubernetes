@@ -1,4 +1,4 @@
-part of io.istio.v1beta1;
+part of '../../../../istio_v1beta1.dart';
 
 /// Message headers can be manipulated when Envoy forwards requests to, or responses from, a destination service.
 /// Header manipulation rules can be specified for a specific route destination or for all destinations.

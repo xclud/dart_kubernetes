@@ -1,4 +1,4 @@
-part of io.istio.v1beta1;
+part of '../../../../istio_v1beta1.dart';
 
 /// Describes match conditions and actions for routing TCP traffic.
 /// The following routing rule forwards traffic arriving at port

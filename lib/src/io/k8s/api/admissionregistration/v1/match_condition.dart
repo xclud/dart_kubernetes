@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.admissionregistration.v1;
+part of '../../../../../../admissionregistration_v1.dart';
 
 /// MatchCondition represents a condition which must by fulfilled for a request to be sent to a webhook.
 class MatchCondition {

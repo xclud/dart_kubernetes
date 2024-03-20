@@ -1,4 +1,4 @@
-part of kubernetes;
+part of '../kubernetes.dart';
 
 /// Int or String.
 class IntOrString {

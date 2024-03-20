@@ -1,4 +1,4 @@
-part of io.istio.v1beta1;
+part of '../../../../istio_v1beta1.dart';
 
 /// Configuration affecting edge load balancer. See more details at: https://istio.io/docs/reference/config/networking/gateway.html
 class GatewaySpec {

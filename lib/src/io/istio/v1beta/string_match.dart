@@ -1,4 +1,4 @@
-part of io.istio.v1beta1;
+part of '../../../../istio_v1beta1.dart';
 
 /// Describes how to match a given string in HTTP headers. Match is case-sensitive.
 class StringMatch {

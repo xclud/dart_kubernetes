@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.autoscaling.v1;
+part of '../../../../../../autoscaling_v1.dart';
 
 /// Scale represents a scaling request for a resource.
 class Scale {

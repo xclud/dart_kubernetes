@@ -1,4 +1,4 @@
-part of io.istio.v1beta1;
+part of '../../../../istio_v1beta1.dart';
 
 /// Percent specifies a percentage in the range of \[0.0, 100.0\].
 class Percent {

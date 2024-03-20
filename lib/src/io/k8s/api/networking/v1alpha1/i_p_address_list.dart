@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.networking.v1alpha1;
+part of '../../../../../../networking_v1alpha1.dart';
 
 /// IPAddressList contains a list of IPAddress.
 class IPAddressList {

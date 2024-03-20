@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.rbac.v1;
+part of '../../../../../../rbac_v1.dart';
 
 /// ClusterRoleList is a collection of ClusterRoles.
 class ClusterRoleList {

@@ -1,4 +1,4 @@
-part of io.istio.v1beta1;
+part of '../../../../istio_v1beta1.dart';
 
 /// Istio Authorization Policy enables access control on workloads in the mesh.
 

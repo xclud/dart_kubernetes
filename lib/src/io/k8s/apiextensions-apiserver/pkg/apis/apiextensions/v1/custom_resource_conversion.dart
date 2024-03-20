@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.apiextensions__apiserver.pkg.apis.apiextensions.v1;
+part of '../../../../../../../../io_k8s_apiextensions__apiserver_pkg_apis_apiextensions_v1.dart';
 
 /// CustomResourceConversion describes how to convert different versions of a CR.
 class CustomResourceConversion {

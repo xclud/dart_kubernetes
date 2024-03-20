@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.kube__aggregator.pkg.apis.apiregistration.v1;
+part of '../../../../../../../../io_k8s_kube__aggregator_pkg_apis_apiregistration_v1.dart';
 
 /// APIServiceSpec contains information for locating and communicating with a server. Only https is supported, though you are able to disable certificate verification.
 class APIServiceSpec {

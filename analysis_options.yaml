@@ -33,6 +33,7 @@ analyzer:
     sort_unnamed_constructors_first: error
     use_function_type_syntax_for_parameters: error
     use_key_in_widget_constructors: error
+    use_string_in_part_of_directives: error
     unnecessary_import: error
     unnecessary_string_interpolations: error
     unnecessary_this: error
@@ -45,3 +46,4 @@ linter:
     public_member_api_docs: true
     sort_constructors_first: true
     sort_unnamed_constructors_first: true
+    use_string_in_part_of_directives: true

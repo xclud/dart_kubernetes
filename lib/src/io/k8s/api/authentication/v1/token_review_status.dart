@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.authentication.v1;
+part of '../../../../../../authentication_v1.dart';
 
 /// TokenReviewStatus is the result of the token authentication request.
 class TokenReviewStatus {

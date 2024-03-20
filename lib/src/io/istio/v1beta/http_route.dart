@@ -1,4 +1,4 @@
-part of io.istio.v1beta1;
+part of '../../../../istio_v1beta1.dart';
 
 /// Describes match conditions and actions for routing HTTP/1.1, HTTP2, and gRPC traffic. See [VirtualService] for usage examples.
 class HTTPRoute {

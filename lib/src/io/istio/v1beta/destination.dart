@@ -1,4 +1,4 @@
-part of io.istio.v1beta1;
+part of '../../../../istio_v1beta1.dart';
 
 /// Destination indicates the network addressable service to which the request/connection will be sent after
 /// processing a routing rule. The destination.host should unambiguously refer to a service in the service

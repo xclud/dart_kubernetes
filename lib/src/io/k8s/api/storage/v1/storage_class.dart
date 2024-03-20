@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.storage.v1;
+part of '../../../../../../storage_v1.dart';
 
 /// StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
 ///

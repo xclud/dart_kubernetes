@@ -1,4 +1,4 @@
-part of io.istio.v1beta1;
+part of '../../../../istio_v1beta1.dart';
 
 /// Each routing rule is associated with one or more service versions (see glossary in beginning of document).
 /// Weights associated with the version determine the proportion of traffic it receives.

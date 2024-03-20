@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.admissionregistration.v1alpha1;
+part of '../../../../../../admissionregistration_v1alpha1.dart';
 
 /// MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded).
 class MatchResources {

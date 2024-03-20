@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.certificates.v1;
+part of '../../../../../../certificates_v1.dart';
 
 /// CertificateSigningRequestSpec contains the certificate request.
 class CertificateSigningRequestSpec {

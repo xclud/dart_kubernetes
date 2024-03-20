@@ -1,4 +1,4 @@
-part of io.istio.v1beta1;
+part of '../../../../istio_v1beta1.dart';
 
 /// HTTPRedirect can be used to send a 301 redirect response to the caller,
 /// where the Authority/Host and the URI in the response can be swapped with the specified values.

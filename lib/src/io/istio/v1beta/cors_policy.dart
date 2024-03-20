@@ -1,4 +1,4 @@
-part of io.istio.v1beta1;
+part of '../../../../istio_v1beta1.dart';
 
 /// Describes the Cross-Origin Resource Sharing (CORS) policy,
 /// for a given service. Refer to CORS for further details about cross origin resource sharing.

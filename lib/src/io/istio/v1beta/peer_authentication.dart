@@ -1,4 +1,4 @@
-part of io.istio.v1beta1;
+part of '../../../../istio_v1beta1.dart';
 
 /// Peer authentication policies specify the mutual TLS mode Istio enforces on target workloads. The following modes are supported:
 ///

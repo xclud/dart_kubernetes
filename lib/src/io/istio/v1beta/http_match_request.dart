@@ -1,4 +1,4 @@
-part of io.istio.v1beta1;
+part of '../../../../istio_v1beta1.dart';
 
 /// HttpMatchRequest specifies a set of criterion to be met in order for the rule to be applied to the HTTP request.
 /// For example, the following restricts the rule to match only requests where the URL path starts with /ratings/v2/

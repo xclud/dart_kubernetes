@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.networking.v1;
+part of '../../../../../../networking_v1.dart';
 
 /// IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.
 class IngressClassParametersReference {

@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.scheduling.v1;
+part of '../../../../../../scheduling_v1.dart';
 
 /// PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
 class PriorityClass {

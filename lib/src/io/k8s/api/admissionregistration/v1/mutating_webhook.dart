@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.admissionregistration.v1;
+part of '../../../../../../admissionregistration_v1.dart';
 
 /// MutatingWebhook describes an admission webhook and the resources and operations it applies to.
 class MutatingWebhook {

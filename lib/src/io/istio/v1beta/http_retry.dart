@@ -1,4 +1,4 @@
-part of io.istio.v1beta1;
+part of '../../../../istio_v1beta1.dart';
 
 /// Describes the retry policy to use when a HTTP request fails.
 class HTTPRetry {

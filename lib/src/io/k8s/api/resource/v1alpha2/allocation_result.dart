@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.resource.v1alpha2;
+part of '../../../../../../resource_v1alpha2.dart';
 
 /// AllocationResult contains attributes of an allocated resource.
 class AllocationResult {

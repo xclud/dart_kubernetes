@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.certificates.v1alpha1;
+part of '../../../../../../certificates_v1alpha1.dart';
 
 /// ClusterTrustBundle is a cluster-scoped container for X.509 trust anchors (root certificates).
 ///

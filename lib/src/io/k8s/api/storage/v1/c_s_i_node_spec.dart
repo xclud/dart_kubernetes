@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.storage.v1;
+part of '../../../../../../storage_v1.dart';
 
 /// CSINodeSpec holds information about the specification of all CSI drivers installed on a node.
 class CSINodeSpec {

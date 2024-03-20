@@ -1,4 +1,4 @@
-part of io.istio.v1beta1;
+part of '../../../../istio_v1beta1.dart';
 
 /// Abort specification is used to prematurely abort a request with a pre-specified error code.
 /// The following example will return an HTTP 400 error code for 1 out of every 1000 requests to the “ratings” service “v1”.

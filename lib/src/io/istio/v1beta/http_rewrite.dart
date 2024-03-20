@@ -1,4 +1,4 @@
-part of io.istio.v1beta1;
+part of '../../../../istio_v1beta1.dart';
 
 /// HTTPRewrite can be used to rewrite specific parts of a HTTP request before forwarding the
 /// request to the destination. Rewrite primitive can be used only with [HTTPRouteDestination].

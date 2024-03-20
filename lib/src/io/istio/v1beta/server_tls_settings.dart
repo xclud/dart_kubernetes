@@ -1,4 +1,4 @@
-part of io.istio.v1beta1;
+part of '../../../../istio_v1beta1.dart';
 
 /// Set of TLS related options that govern the server's behavior.
 class ServerTLSSettings {

@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.apps.v1;
+part of '../../../../../../apps_v1.dart';
 
 /// StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.
 class StatefulSetPersistentVolumeClaimRetentionPolicy {

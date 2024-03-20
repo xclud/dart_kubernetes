@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.authentication.v1;
+part of '../../../../../../authentication_v1.dart';
 
 /// TokenRequest requests a token for a given service account.
 class TokenRequest {

@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.batch.v1;
+part of '../../../../../../batch_v1.dart';
 
 /// UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.
 class UncountedTerminatedPods {

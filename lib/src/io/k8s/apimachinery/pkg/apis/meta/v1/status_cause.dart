@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.apimachinery.pkg.apis.meta.v1;
+part of '../../../../../../../../io_k8s_apimachinery_pkg_apis_meta_v1.dart';
 
 /// StatusCause provides more information about an api.Status failure, including cases when multiple errors are encountered.
 class StatusCause {

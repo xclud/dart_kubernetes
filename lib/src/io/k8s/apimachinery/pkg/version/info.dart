@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.apimachinery.pkg.version;
+part of '../../../../../../io_k8s_apimachinery_pkg_version.dart';
 
 /// Info contains versioning information. how we'll want to distribute that information.
 class Info {

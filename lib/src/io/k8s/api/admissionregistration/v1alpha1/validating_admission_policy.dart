@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.admissionregistration.v1alpha1;
+part of '../../../../../../admissionregistration_v1alpha1.dart';
 
 /// ValidatingAdmissionPolicy describes the definition of an admission validation policy that accepts or rejects an object without changing it.
 class ValidatingAdmissionPolicy {

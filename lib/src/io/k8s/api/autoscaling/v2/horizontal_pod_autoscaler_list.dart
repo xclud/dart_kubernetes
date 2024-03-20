@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.autoscaling.v2;
+part of '../../../../../../autoscaling_v2.dart';
 
 /// HorizontalPodAutoscalerList is a list of horizontal pod autoscaler objects.
 class HorizontalPodAutoscalerList {

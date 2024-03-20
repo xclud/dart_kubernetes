@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.storage.v1;
+part of '../../../../../../storage_v1.dart';
 
 /// CSIDriverList is a collection of CSIDriver objects.
 class CSIDriverList {

@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.kube__aggregator.pkg.apis.apiregistration.v1;
+part of '../../../../../../../../io_k8s_kube__aggregator_pkg_apis_apiregistration_v1.dart';
 
 /// ServiceReference holds a reference to Service.legacy.k8s.io.
 class ServiceReference {

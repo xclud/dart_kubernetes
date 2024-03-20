@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.core.v1;
+part of '../../../../../../core_v1.dart';
 
 /// Represents an empty directory for a pod. Empty directory volumes support ownership management and SELinux relabeling.
 class EmptyDirVolumeSource {

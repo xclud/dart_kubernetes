@@ -1,4 +1,4 @@
-part of io.istio.v1beta1;
+part of '../../../../istio_v1beta1.dart';
 
 /// Sidecar describes the configuration of the sidecar proxy that mediates inbound and outbound communication to the
 /// workload instance it is attached to. By default, Istio will program all sidecar proxies in the mesh with the necessary

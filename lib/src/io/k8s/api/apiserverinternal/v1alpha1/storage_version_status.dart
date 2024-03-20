@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.apiserverinternal.v1alpha1;
+part of '../../../../../../apiserverinternal_v1alpha1.dart';
 
 /// API server instances report the versions they can decode and the version they encode objects to when persisting objects in the backend.
 class StorageVersionStatus {

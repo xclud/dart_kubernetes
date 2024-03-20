@@ -1,4 +1,4 @@
-part of kubernetes;
+part of '../kubernetes.dart';
 
 /// Kubernetes Configuration.
 class K8SConfiguration {

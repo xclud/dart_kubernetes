@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.policy.v1;
+part of '../../../../../../policy_v1.dart';
 
 /// PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods.
 class PodDisruptionBudget {

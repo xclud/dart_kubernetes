@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.node.v1;
+part of '../../../../../../node_v1.dart';
 
 /// Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
 class Scheduling {

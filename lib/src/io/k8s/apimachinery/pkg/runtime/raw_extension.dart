@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.apimachinery.pkg.runtime;
+part of '../../../../../../io_k8s_apimachinery_pkg_runtime.dart';
 
 /// RawExtension is used to hold extensions in external versions.
 ///

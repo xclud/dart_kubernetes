@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.core.v1;
+part of '../../../../../../core_v1.dart';
 
 /// A scoped-resource selector requirement is a selector that contains values, a scope name, and an operator that relates the scope name and values.
 class ScopedResourceSelectorRequirement {

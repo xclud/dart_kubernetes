@@ -3,7 +3,7 @@
 // * Copyright (c) 2020-2023 Mahdi K. Fard.                      *
 // ***************************************************************
 
-part of io.k8s.api.coordination.v1;
+part of '../../../../../../coordination_v1.dart';
 
 /// LeaseSpec is a specification of a Lease.
 class LeaseSpec {
